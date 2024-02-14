@@ -1,0 +1,113 @@
+.components {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; 
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1vh 3vw;
+    background-color: #F04E25;
+    color: white;
+  }
+
+  .componentList {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); 
+    gap: 1.7vw;
+    padding: 1vh 3vw;
+    grid-template-rows: auto;
+
+    .fieldBox {
+      display: flex;
+      justify-content: space-between;
+      & > div { margin-right: 1vmax; }
+      & > div:last-child { margin-right: 0; }
+    }
+  }
+}
+
+
+.contractors {
+  width: 75vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: columns;
+
+  .list {
+    height: 79vh;
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+
+    div {
+      background-color: white;
+      transition: background-color .3s;
+      padding: 3px;
+      margin-bottom: 8px;
+      &:hover {
+        background-color: rgb(152, 226, 251);
+      }
+    }
+  }
+}
+
+.servers {
+  width: 90vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1vw;
+
+  .columns {
+    display: flex;
+    font-weight: 700;
+    font-size: 1vw;
+    color: #424242;
+    width: 86vw;
+    margin-bottom: 8px;
+
+    div {
+      height: 7vh;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-wrap: wrap;
+      padding: 5px;
+      outline: 1px solid green;   
+    }
+  }
+  .list {
+    height: 70vh;
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    
+    .row {
+      display: flex;
+      width: 86vw;
+      background-color: white;
+      transition: background-color .3s;
+      &:hover {
+        background-color: rgb(152, 226, 251);
+      }
+      border-bottom: 1px solid grey;
+      padding: 3px;
+      div {
+        padding: px;
+        flex-shrink: 0;
+        margin-bottom: 4px;
+        display: flex;
+        align-content: center;
+        flex-wrap: wrap;
+      }
+    }
+  }
+}

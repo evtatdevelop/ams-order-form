@@ -1,0 +1,250 @@
+.windowInput {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+
+  .htmInput {
+    border: 1px solid lightblue;
+    width: 100%;
+    padding: 8px 40px 8px 12px;
+    font: inherit;
+    letter-spacing: .6px;
+    font-size: inherit;
+    outline: 1px solid gray;
+    border-radius: 3px;
+    
+    &:focus {
+      outline: 1px solid lightblue;
+    }
+  }
+
+  .clearBtn {
+    position: absolute;
+    right: 0;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    width: 38px;
+    height: 38px;
+    color: gray;
+    transition: color .3s;
+    font-size: 24px;
+    font-weight: 100;
+    opacity: 0;
+    transition: opacity .3s;
+    border-radius: 3px;
+
+    &.showClnBtn {
+      opacity: 1;
+    }
+
+    &:focus,
+    &:hover {
+      color: red;
+    } 
+  }
+
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    width: 38px;
+    height: 38px;
+    opacity: 0;
+    transition: opacity .3s;
+    border-radius: 3px;
+
+    &.showLoading {
+      opacity: 1;
+    }
+  }
+
+  .modalWrapper {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.223);
+    opacity: 0;
+    transition: opacity .3s;
+    z-index: 998;    
+  
+    .window {
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      border: 1px solid gray;
+      border-radius: 3px;
+      max-width: 98vw;
+      max-height: 90vh;
+
+
+      .windowHead {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 12px;
+        border-bottom: 1px solid rgba(128, 128, 128, .3);
+        background-color: rgb(205, 232, 242);
+
+        .windowName {
+          font: inherit;
+          font-weight: 700;
+          letter-spacing: 1.1px;
+          color: #424242;
+        }
+
+        .windowCloser {
+          border: none;
+          padding: 0;
+          margin: 0;
+          background-color: transparent;
+          width: 38px;
+          height: 38px;
+          color: gray;
+          transition: color .3s;
+          font-size: 24px;
+          font-weight: 100;
+          border-radius: 3px;
+      
+          &.showClnBtn {
+            opacity: 1;
+          }
+      
+          &:focus,
+          &:hover {
+            color: red;
+          }       
+        }
+      }
+    
+      .search {
+        position: relative;
+        // padding: 10px;
+        // height: 40px;
+
+        input[type=text] {
+          // border: 1px solid lightblue;
+          width: 100%;
+          padding: 8px 40px 8px 12px;
+          font: inherit;
+          letter-spacing: .6px;
+          font-size: inherit;
+          outline: 1px solid gray;
+          // border-radius: 3px;
+
+          // outline: 1px solid green;
+        }
+
+        .styleClnSearchBtn {
+          position: absolute;
+          right: 0;
+          border: none;
+          padding: 0;
+          margin: 0;
+          background-color: transparent;
+          width: 38px;
+          height: 38px;
+          color: gray;
+          transition: color .3s;
+          font-size: 24px;
+          font-weight: 100;
+          opacity: 0;
+          transition: opacity .3s;
+          // border-radius: 3px;
+          // outline: 1px solid blue;
+      
+          &.showClnBtn {
+            opacity: 1;
+          }
+      
+          &:focus,
+          &:hover {
+            color: red;
+          } 
+        }
+
+        // outline: 1px solid red;
+      }
+
+      .winMain {
+        flex-grow: 1;
+        // padding: 10px;
+        display: flex;
+        // flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+      }
+    }
+
+    &.showWindow {
+      animation: open .3s ease-in-out forwards;
+      overflow: auto;
+    }
+
+    &.hideWindow {
+      animation: close .3s ease-in-out forwards;
+      overflow: hidden;
+    }  
+  }
+
+
+}
+
+@keyframes open {
+  0% {
+    opacity: 0;
+    width: 1px; 
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    clip: rect(0 0 0 0);
+  }  
+  1% {
+    opacity: 0;
+    width: auto; 
+    height: auto;
+    margin: auto;
+    border: 1px solid gray;
+    clip: auto;
+  }
+  100% {
+    opacity: .95;
+
+  }
+}
+@keyframes close {
+  0% {
+    opacity: .95;
+    width: auto; 
+    height: auto;
+    margin: auto;
+    border: 1px solid gray;
+    clip: auto;
+  }
+  99% {
+    opacity: 0;
+    width: auto; 
+    height: auto;
+  }
+  100% {  
+    width: 1px; 
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    clip: rect(0 0 0 0);
+  }
+}

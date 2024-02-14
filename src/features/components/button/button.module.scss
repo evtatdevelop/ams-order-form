@@ -1,0 +1,52 @@
+.button {
+  &.blue {
+    --hue: 195;
+    --sat: 53;
+    --light: 79;
+  }
+  &.red {
+    --hue: 16;
+    --sat: 100;
+    --light: 66;
+  }
+  &.green {
+    --hue: 120;
+    --sat: 73;
+    --light: 75;
+  }
+  &.grey {
+    --hue: 0;
+    --sat: 0;
+    --light: 75;
+  }
+
+  --border-threshold: 10;
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    font: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: .5em 2em;
+    font-weight: 500;
+    letter-spacing: .8px;
+    color: hsla(var(--hue), 100%, 20%, 1);
+    border-radius: 3px;
+    background-color: hsla(var(--hue), calc(var(--sat) * 1%), calc(var(--light) * 1%), 1);
+    border: 2px solid hsla(var(--hue), calc(var(--sat) * 1%), calc(var(--light) * 1%), 1);
+    transition: border .3s;
+    &:hover,
+    &:focus,
+    &:active {
+      --border-light: calc(var(--light) * 0.7%);
+      --border-alpha: calc((var(--light) - var(--border-threshold)) * 10);
+      border: 2px solid hsla(var(--hue), calc(var(--sat) * 1%), var(--border-light), var(--border-alpha));
+    }
+  }  
+}

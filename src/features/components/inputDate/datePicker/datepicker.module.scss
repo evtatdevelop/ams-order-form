@@ -1,0 +1,126 @@
+.picker {
+  display: flex;
+  flex-direction: column;
+  max-width: 310px;
+  border: 1px solid gray;
+  border-radius: 3px;
+  background-color: white;
+  // top: 44px;
+  // position: absolute;
+
+  .navigation {
+    display: flex;
+    justify-content: space-around;
+    padding: 2px;
+    width: 100%;
+
+    &>div {
+      flex-shrink: 0;
+
+      button {
+        background-color: transparent;
+        font: inherit;
+        color:#424242;
+        outline: 1px solid white;
+        transition: outline .3s;
+
+        .faCaret {
+          color:rgb(128, 128, 128);
+        }  
+
+        &.rest {
+          padding: 0;
+          width: 90px;
+        }
+        &:hover:has(.faCaret) {
+          outline: 1px solid rgb(128, 128, 128);
+        }
+      }      
+    }
+  }
+
+  .dayNames {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    gap: 2px;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: auto;
+    padding: 2px;
+    color: #424242;
+
+    .weekDayName {
+      font-weight: 700;
+      font-size: smaller;
+      &.weekend {
+        color: red;
+      }
+    }
+
+  }
+
+  .dates {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    gap: 2px;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: auto;
+    padding: 2px;
+
+    .dateCell {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      border-radius: 3px;
+      border: 1px solid rgba(128, 128, 128, 0.19);
+      transition: border .3s, background-color .3s;
+
+      &.today {
+        outline: 1px solid blue;
+      }
+      &.weekend {
+        color: red;
+      }
+      &.selected {
+        background-color: aquamarine;
+      }
+
+      &:hover {
+        border: 1px solid rgb(128, 128, 128);
+      }
+    }
+  }
+
+  // .timePicker {
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   width: 100px;
+  //   height: 300px;
+  //   outline: 1px solid grey;
+
+  //   button {
+  //     width: 100%;
+  //   }
+    
+  //   .times {
+  //     flex-grow: 1;
+  //     width: 100%;
+  //     overflow: hidden;
+  //     position: relative;
+
+  //     .hours {
+  //       display: flex;
+  //       flex-direction: column;
+  //       position: absolute;
+  //       top: -50px;
+  //     }
+
+  //     outline: 1px solid grey;
+  //   }
+  // }
+}

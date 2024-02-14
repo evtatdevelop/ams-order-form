@@ -1,0 +1,132 @@
+.select {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+
+  .input {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+  
+    .htmInput {
+      border: 1px solid lightblue;
+      width: 100%;
+      padding: 8px 40px 8px 12px;
+      font: inherit;
+      letter-spacing: .6px;
+      font-size: inherit;
+      outline: 1px solid gray;
+      border-radius: 3px;
+      
+      &:focus {
+        outline: 1px solid lightblue;
+      }
+    }
+  
+    .clearBtn {
+      position: absolute;
+      right: 0;
+      border: none;
+      padding: 0;
+      margin: 0;
+      background-color: transparent;
+      width: 38px;
+      height: 38px;
+      color: gray;
+      transition: color .3s;
+      font-size: 24px;
+      font-weight: 100;
+      opacity: 0;
+      transition: opacity .3s;
+      border-radius: 3px;
+
+      &.showClnBtn {
+        opacity: 1;
+      }
+  
+      &:focus,
+      &:hover {
+        color: red;
+      } 
+    }
+  }
+
+  .selectList {
+    position: absolute;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 40px;
+    // outline:  1px solid rgb(152, 226, 251);
+    outline:  1px solid white;
+    transition: opacity .3s, max-height .5s;
+    background-color: white;
+   
+    &.hideSelectList {
+      max-height: 0px;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    &.showSelectList {
+      max-height: 200px;
+      overflow: auto;
+      opacity: 1;
+    }
+
+    .itemLi {
+      width: 100%;
+      margin-top: 1px;
+
+      label {
+        display: block;
+        width: 100%;
+        height: 100%;  
+        background-color: rgb(205, 232, 242);
+        padding: .8vmax 1vmax .8vmax 1vmax;
+        transition: background-color .3s;
+        border-radius: 3px;
+      }
+
+      input[type=radio] {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        border: 0;
+        padding: 0;
+        clip: rect(0 0 0 0);
+        overflow: hidden;
+  
+        // &:checked, &:focus {
+        //   &+label {
+        //     color: red;
+        //   }
+        // }
+
+        &:hover {
+          &+label {
+            background-color: rgb(152, 226, 251);
+          }
+        }
+      }
+    
+    }
+
+    overflow-y: scroll;
+    scrollbar-width: 3px;
+    scrollbar-color: rgb(152, 226, 251) rgb(40, 197, 250);
+    &::-webkit-scrollbar { width: 3px; }
+    &::-webkit-scrollbar-track { background: rgb(152, 226, 251); }
+    &::-webkit-scrollbar-thumb { background-color: rgb(40, 197, 250); }
+  }
+}

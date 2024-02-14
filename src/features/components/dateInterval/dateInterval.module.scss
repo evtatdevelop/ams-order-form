@@ -1,0 +1,115 @@
+.dateInterval {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+
+  
+  .date {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+  
+    .htmInput {
+      border: 1px solid lightblue;
+      width: 100%;
+      padding: 8px 40px 8px 12px;
+      font: inherit;
+      letter-spacing: .6px;
+      font-size: inherit;
+      outline: 1px solid gray;
+      border-radius: 3px;
+      
+      &:focus {
+        outline: 1px solid lightblue;
+      }
+    }
+  
+    .clearBtn {
+      position: absolute;
+      right: 0;
+      border: none;
+      padding: 0;
+      margin: 0;
+      background-color: transparent;
+      width: 38px;
+      height: 38px;
+      color: gray;
+      transition: color .3s;
+      font-size: 24px;
+      font-weight: 100;
+      opacity: 0;
+      transition: opacity .3s;
+      border-radius: 3px;
+  
+      &.showClnBtn {
+        opacity: 1;
+      }
+  
+      &:focus,
+      &:hover {
+        color: red;
+      } 
+    }
+  }
+
+  .datePickerWrapper {
+    // display: flex;
+    // width: 600px;
+    justify-content: space-between;
+    top: 44px;
+    position: absolute;
+    z-index: 99;
+    transition: opacity .3s, max-height .5s;
+    // overflow: hidden;
+    
+    &.hidePicker {
+      max-height: 0px;
+      opacity: 0;
+      z-index: -1;
+    }
+
+    &.showPicker {
+      max-height: 350px;
+      opacity: 1;
+    }
+    
+    .pickerControl {
+      position: absolute;
+      right: -20px;
+      top: 00px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .pickerCloser {
+        border: none;
+        padding: 0;
+        margin: 0;
+        background-color: white;
+        color: gray;
+        font-size: 24px;
+        font-weight: 100;
+        transition: opacity 1s;
+        &:focus,
+        &:hover {
+          color: red;
+        }
+        &.hidePickerCloser {
+          opacity: 0;
+        }
+    
+        &.showPickerCloser {
+          opacity: 1;
+        }
+      }
+
+    }
+
+
+  }
+
+  // outline: 1px solid grey;
+}

@@ -1,0 +1,93 @@
+.table {
+  &.blue {
+    --hue: 195;
+    --sat: 53;
+    --light: 79;
+  }
+  &.red {
+    --hue: 16;
+    --sat: 100;
+    --light: 66;
+  }
+  &.green {
+    --hue: 120;
+    --sat: 73;
+    --light: 75;
+  }
+  &.grey {
+    --hue: 0;
+    --sat: 0;
+    --light: 75;
+  }
+
+  --border-threshold: 10;
+  --border-light: calc(var(--light) * 0.7%);
+  --border-alpha: calc((var(--light) - var(--border-threshold)) * 10);
+
+  border: 1px solid hsla(var(--hue), calc(var(--sat) * 1%), var(--border-light), var(--border-alpha));
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  
+  .listHeader {
+    display: flex;
+    // width: calc(100% - 16px);
+    width: 100%;
+    background-color: hsla(var(--hue), calc(var(--sat) * 1%), calc(var(--light) * 1%), 1);
+
+    li {
+      width: 20%;
+      overflow-x: hidden;
+      border-left: 1px solid hsla(var(--hue), calc(var(--sat) * 1%), var(--border-light), var(--border-alpha));
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: hsla(var(--hue), 100%, 20%, 1);
+
+      &.email {
+        width: 40%;
+        border-right: 1px solid hsla(var(--hue), calc(var(--sat) * 1%), calc(var(--light) * 1%), 1);
+      }
+      &:last-child {
+        width: 4px;
+        padding: 0;
+        border-left: 1px solid hsla(var(--hue), calc(var(--sat) * 1%), calc(var(--light) * 1%), 1);
+      }
+    }
+  }
+
+  .staffList {
+    overflow-y: auto;
+
+    scrollbar-width: 4px;
+    scrollbar-color: hsla(var(--hue), 100%, 20%, 1) transparent;
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb { background-color: hsla(var(--hue), 100%, 20%, 1); }
+    
+    & > :nth-last-child(-n+2) {
+      border-bottom: 1px solid hsla(var(--hue), calc(var(--sat) * 1%), calc(var(--light) * 1%), 1);
+    }
+  }
+
+  .btn {
+    width: 100%;
+    margin: none;
+    padding: none;
+    padding: 10px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    cursor: pointer;
+    border: 2px solid white;
+
+    &:hover {
+      color: hsla(var(--hue), 100%, 20%, 1);
+      background-color: hsla(var(--hue), calc(var(--sat) * 1%), calc(var(--light) * 1%), 1);
+    }
+  }  
+}

@@ -1,0 +1,23 @@
+.infoField {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+
+  .field {
+    border: 1px solid lightblue;
+    width: 100%;
+    padding: 8px 40px 8px 12px;
+    font: inherit;
+    letter-spacing: .6px;
+    font-size: inherit;
+    outline: 1px solid gray;
+    border-radius: 3px;
+
+    &.readonly {
+      background-color: #f3eeee;
+    }
+
+  }
+
+}

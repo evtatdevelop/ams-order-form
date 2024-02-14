@@ -1,0 +1,25 @@
+.langButton {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .langSwitcher {
+    padding: .4vmax;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    font-size: 16px; 
+    color: rgb(8, 87, 161);
+    border-radius: .2vmax;
+    transition: border .3s;
+    border: .1vw solid transparent;
+
+    &.active,
+    &:focus,
+    &:active,
+    &:hover {
+      border: .1vw solid rgb(8, 87, 161);
+    }
+  }
+}
