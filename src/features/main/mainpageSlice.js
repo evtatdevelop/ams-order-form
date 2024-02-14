@@ -4,11 +4,11 @@ import { uplodeData, getStaffbookData } from "./mainpageSliceAPI";
 
 const initialState = {
   loading: false,
-  staffbook: [],
-  row_from: 1,
-  row_num: 100,
-  counter: 1,
-  data: [],
+  // staffbook: [],
+  // row_from: 1,
+  // row_num: 100,
+  // counter: 1,
+  // data: [],
 }
 
 export const getStaffbook = createAsyncThunk( 'mainpage/getStaffbook', async ( data ) => await getStaffbookData(data) )
