@@ -5,7 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   // loading: false,
-  // data: [],
+  data: [],
 }
 
 // export const getStaffbook = createAsyncThunk( 'sap/getStaffbook', async ( data ) => await getStaffbookData(data) )
