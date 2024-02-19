@@ -6,6 +6,7 @@ import { loading, langLoading, getRemote } from './features/user/userSlice';
 import { Routes, Route } from 'react-router-dom';
 import { Loader } from './features/loader/loader';
 import { testMode, root } from './config';
+import { Sap } from './features/sap/sap';
 
 function App() {
   const load = useSelector(loading);
@@ -19,6 +20,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path={`${_pathBase}/`} exact element={<MainPage/>}/> 
+        <Route path={`${_pathBase}/sap`} exact element={<Sap/>}/>
       </Routes>
       { load || langLoad ? <Loader/> : null }
     </div>
