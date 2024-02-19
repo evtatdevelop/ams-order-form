@@ -7,8 +7,8 @@
     "EN": "Continue work",
     "RU": "Продолжить работу"    
   },
-  "select_file": {
-    "EN": "Select a file",
-    "RU": "Выбрать файл"    
+  "ams_order_form": {
+    "EN": "AMS Order Form",
+    "RU": "Форма заявки АСУЗ"    
   }
 }

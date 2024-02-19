@@ -1,11 +1,13 @@
-.langButton {
+.themeButton {
   display: flex;
   justify-content: center;
   align-items: center; 
   height: 3vmax;
   width: 3vmax;
 
-  .langSwitcher {
+  .themeSwitcher {
+    height: 100%;
+    width: 100%;
     padding: .4vmax;
     display: flex;
     justify-content: center;
