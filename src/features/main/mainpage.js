@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { user } from '../user/userSlice';
 import ExpirationScreen from "../expirationScreen";
 import { darkTheme } from "./mainpageSlice";
-import { TorBar } from "../topBar/topBar";
+import { TopBar } from "../topBar/topBar";
 
 export const MainPage = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ export const MainPage = () => {
 
   return (
     <section className={mainpageStyle} >
-      <TorBar/>
+      <TopBar/>
       { expired ? <ExpirationScreen/> : null }
     </section>
   )

@@ -8,14 +8,23 @@ export const LangButton = () => {
   const dispatch = useDispatch();
   const lang = userData['lang'];
 
+  // const active = lang
+  console.log(lang);
+
   return (
     <div className={styles.langButton}>
       <button type='button'
         className={styles.langSwitcher}
         onClick={() => {
-          dispatch(setLang( {'app12_id': userData['id'], 'lang': lang === 'RU' ? 'EN' : 'RU', 'api_key': userData.api_key} ))
+          dispatch(setLang( {'app12_id': userData['id'], 'lang': 'EN', 'api_key': userData.api_key} ))
         }}
-      >{lang === 'RU' ? 'En' : 'Ru'}</button>
+      >En</button>
+      <button type='button'
+        className={styles.langSwitcher}
+        onClick={() => {
+          dispatch(setLang( {'app12_id': userData['id'], 'lang': 'RU', 'api_key': userData.api_key} ))
+        }}
+      >Ru</button>
       
     </div>
 

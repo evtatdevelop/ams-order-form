@@ -5,25 +5,40 @@
   height: 3vmax;
   width: 3vmax;
 
-  .langSwitcher {
+  button {
     height: 100%;
     width: 100%;
+    font-size: 1vmax;
     padding: .4vmax;
     display: flex;
     justify-content: center;
     align-items: center;
     background: transparent;
-    font-size: 16px; 
     color: rgb(8, 87, 161);
     border-radius: .2vmax;
     transition: border .3s;
     border: .1vw solid transparent;
-
-    &.active,
-    &:focus,
-    &:active,
-    &:hover {
-      border: .1vw solid rgb(8, 87, 161);
-    }
   }
+
+  // .langSwitcher {
+  //   height: 100%;
+  //   width: 100%;
+  //   padding: .4vmax;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   background: transparent;
+  //   font-size: 16px; 
+  //   color: rgb(8, 87, 161);
+  //   border-radius: .2vmax;
+  //   transition: border .3s;
+  //   border: .1vw solid transparent;
+
+  //   &.active,
+  //   &:focus,
+  //   &:active,
+  //   &:hover {
+  //     border: .1vw solid rgb(8, 87, 161);
+  //   }
+  // }
 }

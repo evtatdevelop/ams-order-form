@@ -1,29 +1,49 @@
+$height: 1.2vmax;
+$width: calc(#{$height} * 2);
+$padding: calc(#{$height} / 6);
+
 .themeButton {
   display: flex;
   justify-content: center;
-  align-items: center; 
-  height: 3vmax;
-  width: 3vmax;
+  align-items: center;
 
-  .themeSwitcher {
-    height: 100%;
-    width: 100%;
-    padding: .4vmax;
+  .switcher {
+    position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
-    background: transparent;
-    font-size: 16px; 
-    color: rgb(8, 87, 161);
-    border-radius: .2vmax;
-    transition: border .3s;
-    border: .1vw solid transparent;
+    width: calc(#{$width} + #{$padding} + #{$padding} );
+    height: calc(#{$height} + #{$padding} + #{$padding} );
+    border-radius: calc(#{$height} + #{$padding});
+    border: .01vmax solid rgba(25, 23, 41, 0.526);;
+    cursor: pointer;
 
-    &.active,
-    &:focus,
-    &:active,
-    &:hover {
-      border: .1vw solid rgb(8, 87, 161);
+    .slider {
+      position: absolute;
+      width: $height;
+      height: $height;
+      border-radius: 50%;
+      background: rgb(25, 23, 41);
+      transition: margin-left .3s;
+      margin-left: $padding;
     }
+
+    &.on {
+      border: .01vmax solid rgba(245, 222, 179, 0.518);
+      .slider {
+        margin-left: $height;
+        background: wheat;
+      }  
+    }
+  }     
+  
+  input[type=checkbox] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    clip: rect(0 0 0 0);
+    overflow: hidden;
   }
 }

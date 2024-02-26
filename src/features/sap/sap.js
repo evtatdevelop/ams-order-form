@@ -6,7 +6,7 @@ import { user } from '../user/userSlice';
 import ExpirationScreen from "../expirationScreen";
 import dictionary from '../../dictionary.json';
 import { darkTheme } from "../main/mainpageSlice";
-import { TorBar } from "../topBar/topBar";
+import { TopBar } from "../topBar/topBar";
 
 export const Sap = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export const Sap = () => {
 
   return (
     <section className={mainpageStyle} >
-      <TorBar/>
+      <TopBar/>
       SAP
       { expired ? <ExpirationScreen/> : null }
     </section>

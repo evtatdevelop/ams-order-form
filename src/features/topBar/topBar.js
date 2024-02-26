@@ -6,7 +6,7 @@ import { LangButton } from "../components/langButton/langButton";
 import dictionary from '../../dictionary.json';
 import { ThemeButton } from "../components/themeButton/themeButton";
 
-export const TorBar = () => {
+export const TopBar = () => {
   const userData = useSelector(user);
   const load = useSelector(loading);
 
@@ -15,8 +15,11 @@ export const TorBar = () => {
     { !load
       ? <>
           <h1>{ dictionary.ams_order_form[userData['lang']] }</h1>
-          <ThemeButton/>
-          <LangButton/>
+          <div className={styles.preferences}>
+           <div><ThemeButton/></div>
+            <LangButton/>            
+          </div>
+
         </>
       : null
     }   
