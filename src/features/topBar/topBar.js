@@ -16,8 +16,8 @@ export const TopBar = () => {
       ? <>
           <h1>{ dictionary.ams_order_form[userData['lang']] }</h1>
           <div className={styles.preferences}>
-           <div><ThemeButton/></div>
-            <LangButton/>            
+            <div><LangButton/></div>
+            <div><ThemeButton/></div>
           </div>
 
         </>

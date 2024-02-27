@@ -4,46 +4,112 @@ $padding: calc(#{$height} / 6);
 
 .themeButton {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  width: 100%;
 
-  .switcher {
-    position: relative;
+  .iconBtn {
     display: flex;
     align-items: center;
-    width: calc(#{$width} + #{$padding} + #{$padding} );
-    height: calc(#{$height} + #{$padding} + #{$padding} );
-    border-radius: calc(#{$height} + #{$padding});
-    border: .01vmax solid rgba(25, 23, 41, 0.526);;
+    justify-content: center;
     cursor: pointer;
 
-    .slider {
-      position: absolute;
-      width: $height;
+    .icon {
       height: $height;
-      border-radius: 50%;
-      background: rgb(25, 23, 41);
-      transition: margin-left .3s;
-      margin-left: $padding;
+      color: rgb(25, 23, 41);
     }
 
     &.on {
-      border: .01vmax solid rgba(245, 222, 179, 0.518);
-      .slider {
-        margin-left: $height;
-        background: wheat;
-      }  
-    }
-  }     
-  
-  input[type=checkbox] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    border: 0;
-    padding: 0;
-    clip: rect(0 0 0 0);
-    overflow: hidden;
+      .icon {
+        color: wheat;
+      }
+    }  
   }
+
+
+
+  .lightIconBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    .icon {
+      height: $height;
+      color: gray;
+    }
+
+    &.on {
+      .icon {
+        color: wheat;
+      }
+    }  
+  }
+  .darkIconBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    .icon {
+      height: $height;
+      color: rgb(25, 23, 41);
+    }
+
+    &.on {
+      .icon {
+        color: gray;
+      }
+    }  
+  }
+
+
+
+
+  .switchWrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .switcher {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: calc(#{$width} + #{$padding} + #{$padding} );
+      height: calc(#{$height} + #{$padding} + #{$padding} );
+      border-radius: calc(#{$height} + #{$padding});
+      border: .01vmax solid rgba(25, 23, 41, 0.526);;
+      cursor: pointer;
+
+      .slider {
+        position: absolute;
+        width: $height;
+        height: $height;
+        border-radius: 50%;
+        background: rgb(25, 23, 41);
+        transition: margin-left .3s;
+        margin-left: $padding;
+      }
+
+      &.on {
+        border: .01vmax solid rgba(245, 222, 179, 0.518);
+        .slider {
+          margin-left: $height;
+          background: wheat;
+        }  
+      }
+    }     
+    
+    input[type=checkbox] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      border: 0;
+      padding: 0;
+      clip: rect(0 0 0 0);
+      overflow: hidden;
+    }    
+  }
+
 }

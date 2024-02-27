@@ -2,8 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center; 
-  height: 3vmax;
-  width: 3vmax;
+  width: 100%;
+  overflow: hidden;
+
+  // outline: 1px solid red;
 
   button {
     height: 100%;
@@ -17,7 +19,18 @@
     color: rgb(8, 87, 161);
     border-radius: .2vmax;
     transition: border .3s;
-    border: .1vw solid transparent;
+    border: .1vmax solid transparent;
+    cursor: pointer;
+  }
+
+  .flag {
+    width: 100%;
+    outline: .1vmax solid rgba(128, 128, 128, 0.421);
+
+    &.on {
+      filter: grayscale(50%);
+      cursor: auto;
+    }
   }
 
   // .langSwitcher {

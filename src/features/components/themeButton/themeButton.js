@@ -4,6 +4,8 @@ import darkStiles from './darkThemeButton.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 // import { user } from "../../user/userSlice";
 import { darkTheme, changeTheme } from "../../main/mainpageSlice";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
 
 export const ThemeButton = () => {
   // const userData = useSelector(user);
@@ -19,18 +21,35 @@ export const ThemeButton = () => {
     ? `${styles.switcher} ${styles.on}`
     : `${styles.switcher}`
 
+  // const iconBtnStyle = dark 
+  //   ? `${styles.iconBtn} ${styles.on}`
+  //   : `${styles.iconBtn}`
+
+  const lightIconBtnStyle = dark 
+    ? `${styles.lightIconBtn} ${styles.on}`
+    : `${styles.lightIconBtn}`
+
+  const darkIconBtnStyle = dark 
+    ? `${styles.darkIconBtn} ${styles.on}`
+    : `${styles.darkIconBtn}`
 
   return (
     <div className={themeButtonStyle}>
-      
-      <input type="checkbox" id='themeButton'
-        onChange={ () => dispatch( changeTheme() ) }
-        checked = {dark}
-      />
 
-      <label className={switcherStyle} htmlFor="themeButton">
-        <div className={styles.slider}></div>
-      </label>
+      <label htmlFor="themeButton" className={lightIconBtnStyle}><FontAwesomeIcon icon={ faSun } className={styles.icon} /></label>
+      
+      <div className={styles.switchWrap}>
+        <input type="checkbox" id='themeButton'
+          onChange={ () => dispatch( changeTheme() ) }
+          checked = {dark}
+        />
+
+        <label className={switcherStyle} htmlFor="themeButton">
+          <div className={styles.slider}></div>
+        </label>        
+      </div>
+
+      <label htmlFor="themeButton" className={darkIconBtnStyle}><FontAwesomeIcon icon={ faMoon }  className={styles.icon} /></label>
 
     </div>
 
