@@ -1,32 +1,25 @@
 .langButton {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center; 
   width: 100%;
   overflow: hidden;
 
-  // outline: 1px solid red;
-
   button {
     height: 100%;
     width: 100%;
-    font-size: 1vmax;
-    padding: .4vmax;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: transparent;
-    color: rgb(8, 87, 161);
-    border-radius: .2vmax;
-    transition: border .3s;
-    border: .1vmax solid transparent;
+    border-radius: 2vmax;
+    background-color: transparent;
     cursor: pointer;
   }
 
   .flag {
     width: 100%;
     outline: .1vmax solid rgba(128, 128, 128, 0.421);
-
+    border-radius: .2vmax;
     &.on {
       filter: grayscale(50%);
       cursor: auto;

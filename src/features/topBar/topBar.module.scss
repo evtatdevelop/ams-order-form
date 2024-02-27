@@ -17,12 +17,36 @@
         padding: 1vmax;
         padding-bottom: 0;
 
-        outline: 1px solid green;
+        border: 1px solid gray;
+        border-radius: .3vmax;
 
         &>div {
             width: 100%;
             margin-bottom: 1vmax;
-            // outline: 1px solid red;
+        }
+    }
+
+    .btnPreferences {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: .5vmax;
+        background-color: transparent;
+        border: none;
+        border-radius: .3vmax;
+        cursor: pointer;
+
+        .btnPreferencesIcon {
+            width: 1.5vmax;
+            height: 1.5vmax;
+        }
+
+        &.active,
+        &:focus,
+        &:active,
+        &:hover {
+            border: .1vw solid rgb(8, 87, 161);
         }
     }
 }
