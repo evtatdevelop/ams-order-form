@@ -36,6 +36,8 @@
         border: none;
         border-radius: .3vmax;
         cursor: pointer;
+        border: .1vw solid transparent;
+        transition: border .3s;
 
         .btnPreferencesIcon {
             width: 1.5vmax;
