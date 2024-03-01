@@ -3,22 +3,24 @@ import { createSlice } from "@reduxjs/toolkit";
 // import { uplodeData, getStaffbookData } from "./sapSliceAPI";
 
 
+
 const initialState = {
   // loading: false,
   data: [],
+  system: null,
 }
 
-// export const getStaffbook = createAsyncThunk( 'sap/getStaffbook', async ( data ) => await getStaffbookData(data) )
+// export const getStaffbook = createAsyncThunk( 'corpsystem/getStaffbook', async ( data ) => await getStaffbookData(data) )
 
 // export const upData  = createAsyncThunk( 'user/uplodeData', async ( data ) => await uplodeData(data) )
 
-export const sapSlice = createSlice({
-  name: 'sap',
+export const corpsystemSlice = createSlice({
+  name: 'corpsystems',
   initialState,
   reducers: {
-    // changeTheme: (state) => {
-    //   state.darkTheme = !state.darkTheme;
-    // },
+    setSystem: (state, action) => {
+      state.system = action.payload;
+    },
 
   },
 
@@ -39,8 +41,8 @@ export const sapSlice = createSlice({
   // }
 });
 
-// export const { changeTheme } = sapSlice.actions;
+export const { setSystem } = corpsystemSlice.actions;
 
-// export const loading  = ( state ) => state.sap.loading;
+export const corpSyst  = ( state ) => state.corpsystems.system;
 
-export default sapSlice.reducer;
+export default corpsystemSlice.reducer;
