@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from './corpsystems.module.scss';
-import darkStiles from './darkCorpsystems.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 // import { user } from '../user/userSlice';
 import ExpirationScreen from "../expirationScreen";
@@ -23,14 +22,19 @@ export const Corpsystems = () => {
   }, [dispatch, system]);
   const [expired, onExpired] = useState(false);
 
-  const mainpageStyle = dark 
-    ? `${styles.sap} ${darkStiles.dark}`
-    : `${styles.sap}`
+  const corpsystemsStyle = dark 
+    ? `${styles.corpsystems} ${styles.dark}`
+    : `${styles.corpsystems}`
 
   return (
-    <section className={mainpageStyle} >
-      <TopBar/>
-      <h3>corpsystems: {cs}</h3>
+    <section className={corpsystemsStyle} >
+      <div className={styles.wrapperCS} >
+        <TopBar/>
+        <section className={styles.form}>
+          <h3>corpsystems: {cs}</h3>
+        </section>
+      </div>
+
       { expired ? <ExpirationScreen/> : null }
     </section>
   )

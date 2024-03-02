@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from './mainpage.module.scss';
-import darkStiles from './darkMaainpage.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { user } from '../user/userSlice';
 import ExpirationScreen from "../expirationScreen";
@@ -20,7 +19,7 @@ export const MainPage = () => {
   const [expired, onExpired] = useState(false);
 
   const mainpageStyle = dark 
-    ? `${styles.mainpage} ${darkStiles.dark}`
+    ? `${styles.mainpage} ${styles.dark}`
     : `${styles.mainpage}`
 
   return (

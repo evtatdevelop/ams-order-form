@@ -1,55 +1,98 @@
 .header {
-    position: relative;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .5vmax;
+  font-size: 2.5vmax;
+  font-weight: 500;
+  padding: .5vmax;
+
+  .preferences {
+    position: absolute;
+    right: .5vmax;
+    top: 1vmax;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 4vmax;
-    font-size: 3vmax;
+    width: 10vmax;
+    padding: 1vmax;
+    padding-bottom: 0;
+    background-color: #EBEBEB;
+    border: .15vmax solid gray;
+    border-radius: .3vmax;
 
+    & > div {
+      width: 100%;
+      margin-bottom: 1vmax;
+    }
+
+    .btnClosePreferences {
+      position: absolute;
+      left: -2vmax;
+      top: .1vmax;
+      width: 1.5vmax;
+      height: 1.5vmax;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+      margin: 0;
+      padding: 0;
+      border: .1vmax solid gray;
+      border-radius: 50%;
+      cursor: pointer;
+
+      .closePreferencesIcon {
+        color: gray;
+        width: 1vmax;
+        height: 1vmax;
+      }
+
+      &:active,
+      &:focus,
+      &:active,
+      &:hover {
+        border: .1vmax solid coral;
+
+        .closePreferencesIcon {
+          color: coral;
+        }
+      }
+    }
+  }
+
+  .btnPreferences {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: .5vmax;
+    background-color: transparent;
+    color: gray;
+    border: none;
+    border-radius: .3vmax;
+    cursor: pointer;
+    border: .1vw solid transparent;
+    transition: border .3s;
+
+    .btnPreferencesIcon {
+      width: 1.5vmax;
+      height: 1.5vmax;
+    }
+
+    &:active,
+    &:focus,
+    &:active,
+    &:hover {
+      border: .1vw solid grey;
+    }
+  }
+
+  &.dark {
     .preferences {
-        position: absolute;
-        right: 1vmax;
-        top: 1vmax;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 10vmax;
-        padding: 1vmax;
-        padding-bottom: 0;
-
-        border: 1px solid gray;
-        border-radius: .3vmax;
-
-        &>div {
-            width: 100%;
-            margin-bottom: 1vmax;
-        }
+      background-color: #161619;
     }
-
-    .btnPreferences {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0;
-        padding: .5vmax;
-        background-color: transparent;
-        border: none;
-        border-radius: .3vmax;
-        cursor: pointer;
-        border: .1vw solid transparent;
-        transition: border .3s;
-
-        .btnPreferencesIcon {
-            width: 1.5vmax;
-            height: 1.5vmax;
-        }
-
-        &.active,
-        &:focus,
-        &:active,
-        &:hover {
-            border: .1vw solid rgb(8, 87, 161);
-        }
-    }
+  
+  }
 }
-

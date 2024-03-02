@@ -6,18 +6,21 @@
   overflow: hidden;
 
   button {
-    // height: 45%;
-    width: 45%;
+    width: 3vmax;
+    height: 2vmax;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 2vmax;
+    padding: 0;
+    margin: 0;
+    border: none;
     background-color: transparent;
     cursor: pointer;
   }
 
   .flag {
     width: 100%;
+    height: 100%;
     outline: .1vmax solid rgba(128, 128, 128, 0.421);
     border-radius: .2vmax;
     &.on {
@@ -25,26 +28,4 @@
       cursor: auto;
     }
   }
-
-  // .langSwitcher {
-  //   height: 100%;
-  //   width: 100%;
-  //   padding: .4vmax;
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   background: transparent;
-  //   font-size: 16px; 
-  //   color: rgb(8, 87, 161);
-  //   border-radius: .2vmax;
-  //   transition: border .3s;
-  //   border: .1vw solid transparent;
-
-  //   &.active,
-  //   &:focus,
-  //   &:active,
-  //   &:hover {
-  //     border: .1vw solid rgb(8, 87, 161);
-  //   }
-  // }
 }
