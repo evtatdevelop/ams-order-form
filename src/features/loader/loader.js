@@ -12,56 +12,27 @@ export const Loader = () => {
   return (
     <div className={styles.loader}>
     
-    <svg className={styles.spinner} xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="100px" height="100px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-    <g transform="rotate(0 50 50)">
-      <rect x="46.5" y="26.5" rx="3.5" ry="3.5" width="7" height="7" fill="#61aac2">
-        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.9166666666666666s" repeatCount="indefinite"></animate>
-      </rect>
-    </g><g transform="rotate(30 50 50)">
-      <rect x="46.5" y="26.5" rx="3.5" ry="3.5" width="7" height="7" fill="#61aac2">
-        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.8333333333333334s" repeatCount="indefinite"></animate>
-      </rect>
-    </g><g transform="rotate(60 50 50)">
-      <rect x="46.5" y="26.5" rx="3.5" ry="3.5" width="7" height="7" fill="#61aac2">
-        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.75s" repeatCount="indefinite"></animate>
-      </rect>
-    </g><g transform="rotate(90 50 50)">
-      <rect x="46.5" y="26.5" rx="3.5" ry="3.5" width="7" height="7" fill="#61aac2">
-        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.6666666666666666s" repeatCount="indefinite"></animate>
-      </rect>
-    </g><g transform="rotate(120 50 50)">
-      <rect x="46.5" y="26.5" rx="3.5" ry="3.5" width="7" height="7" fill="#61aac2">
-        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.5833333333333334s" repeatCount="indefinite"></animate>
-      </rect>
-    </g><g transform="rotate(150 50 50)">
-      <rect x="46.5" y="26.5" rx="3.5" ry="3.5" width="7" height="7" fill="#61aac2">
-        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.5s" repeatCount="indefinite"></animate>
-      </rect>
-    </g><g transform="rotate(180 50 50)">
-      <rect x="46.5" y="26.5" rx="3.5" ry="3.5" width="7" height="7" fill="#61aac2">
-        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.4166666666666667s" repeatCount="indefinite"></animate>
-      </rect>
-    </g><g transform="rotate(210 50 50)">
-      <rect x="46.5" y="26.5" rx="3.5" ry="3.5" width="7" height="7" fill="#61aac2">
-        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.3333333333333333s" repeatCount="indefinite"></animate>
-      </rect>
-    </g><g transform="rotate(240 50 50)">
-      <rect x="46.5" y="26.5" rx="3.5" ry="3.5" width="7" height="7" fill="#61aac2">
-        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.25s" repeatCount="indefinite"></animate>
-      </rect>
-    </g><g transform="rotate(270 50 50)">
-      <rect x="46.5" y="26.5" rx="3.5" ry="3.5" width="7" height="7" fill="#61aac2">
-        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.16666666666666666s" repeatCount="indefinite"></animate>
-      </rect>
-    </g><g transform="rotate(300 50 50)">
-      <rect x="46.5" y="26.5" rx="3.5" ry="3.5" width="7" height="7" fill="#61aac2">
-        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.08333333333333333s" repeatCount="indefinite"></animate>
-      </rect>
-    </g><g transform="rotate(330 50 50)">
-      <rect x="46.5" y="26.5" rx="3.5" ry="3.5" width="7" height="7" fill="#61aac2">
-        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animate>
-      </rect>
-    </g>
+    <svg className={styles.spinner} xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+      <g transform="translate(26.666666666666668,26.666666666666668)">
+        <rect x="-20" y="-20" width="40" height="40" fill="#456caa">
+          <animateTransform attributeName="transform" type="scale" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="1.1500000000000001;1" begin="-0.3s"></animateTransform>
+        </rect>
+      </g>
+      <g transform="translate(73.33333333333333,26.666666666666668)">
+        <rect x="-20" y="-20" width="40" height="40" fill="#88a2ce">
+          <animateTransform attributeName="transform" type="scale" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="1.1500000000000001;1" begin="-0.2s"></animateTransform>
+        </rect>
+      </g>
+      <g transform="translate(26.666666666666668,73.33333333333333)">
+        <rect x="-20" y="-20" width="40" height="40" fill="#c2d2ee">
+          <animateTransform attributeName="transform" type="scale" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="1.1500000000000001;1" begin="0s"></animateTransform>
+        </rect>
+      </g>
+      <g transform="translate(73.33333333333333,73.33333333333333)">
+        <rect x="-20" y="-20" width="40" height="40" fill="#456caa">
+          <animateTransform attributeName="transform" type="scale" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="1.1500000000000001;1" begin="-0.1s"></animateTransform>
+        </rect>
+      </g>
     </svg>
     
     </div>

@@ -16,8 +16,12 @@ export const mainpageSlice = createSlice({
   name: 'mainpage',
   initialState,
   reducers: {
-    changeTheme: (state) => {
-      state.darkTheme = !state.darkTheme;
+    changeTheme: (state, action) => {
+      // state.darkTheme = !state.darkTheme;
+      state.darkTheme = action.payload;
+      // console.log('! ', JSON.parse(localStorage.getItem('darkTheme')));
+      localStorage.setItem(`darkTheme`, JSON.stringify(state.darkTheme));
+      // console.log('!! ', JSON.parse(localStorage.getItem('darkTheme')));
     },
 
   },

@@ -40,7 +40,7 @@ export const ThemeButton = () => {
       
       <div className={styles.switchWrap}>
         <input type="checkbox" id='themeButton'
-          onChange={ () => dispatch( changeTheme() ) }
+          onChange={ () => dispatch( changeTheme(!dark) ) }
           checked = {dark}
         />
 

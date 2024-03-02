@@ -8,6 +8,7 @@ import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
 import { setSystem, corpSyst } from "./corpsystemsSlice";
+import { changeTheme } from "../main/mainpageSlice";
 
 export const Corpsystems = () => {
   const { system } = useParams();
@@ -18,6 +19,9 @@ export const Corpsystems = () => {
 
   useEffect(() => {
     dispatch(setSystem(system));
+    
+    dispatch(changeTheme( false || JSON.parse(localStorage.getItem('darkTheme')) ));
+
     setTimeout(() => { onExpired(true); document.body.style.overflow = "hidden"}, 12*60*60*1000)
   }, [dispatch, system]);
   const [expired, onExpired] = useState(false);
