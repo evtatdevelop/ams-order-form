@@ -4,20 +4,25 @@
   color: #424242;
   display: flex;
   justify-content: center;
-  font-size: 2vmax;
+  font-size: 1.2vmax;
 
   .wrapperCS {
     width: 90%;
     max-width: 1900px;
     display: flex;
     flex-direction: column;
-    font-size: 2vmax;
   }
   
   .form {
     overflow-y: auto;
     padding: .5vmax;
+    color: #424242;
+    font-size: 1.2vmax;
+    font-weight: 400;
 
+
+    
+    // outline: 1px solid blue;
   }
 
   
@@ -26,6 +31,11 @@
   //
   &.dark {
     background-color: #161619;
+
+    .form {
+      color: rgb(241, 241, 241);
+     
+    }
   }
 }
 

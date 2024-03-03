@@ -1,12 +1,22 @@
 .header {
   position: relative;
+  min-height: 3vmax;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: .5vmax;
-  font-size: 2.5vmax;
-  font-weight: 500;
+  font-size: 1.7vmax;
   padding: .5vmax;
+
+  & > div {
+    h1 {
+      font-weight: 500;
+    }
+    .nameForm {
+      font-size: 1.1vmax;
+      color: #424242;
+      text-transform: uppercase;
+    }
+  }
 
   .preferences {
     position: absolute;
@@ -28,36 +38,23 @@
     }
 
     .btnClosePreferences {
-      position: absolute;
-      left: -2vmax;
-      top: .1vmax;
-      width: 1.5vmax;
-      height: 1.5vmax;
       display: flex;
       justify-content: center;
       align-items: center;
       background-color: transparent;
       margin: 0;
       padding: 0;
-      border: .1vmax solid gray;
-      border-radius: 50%;
+      border: .1vmax solid transparent;
       cursor: pointer;
-
-      .closePreferencesIcon {
-        color: gray;
-        width: 1vmax;
-        height: 1vmax;
-      }
+      color: gray;
+      font-size: 1vmax;
+      margin-bottom: .5vmax;
 
       &:active,
       &:focus,
       &:active,
       &:hover {
-        border: .1vmax solid coral;
-
-        .closePreferencesIcon {
-          color: coral;
-        }
+        color: red;
       }
     }
   }
@@ -90,8 +87,25 @@
   }
 
   &.dark {
+    color: wheat;
+
+    & > div {
+      .nameForm {
+        color: wheat;
+      }
+    }
+
     .preferences {
       background-color: #161619;
+
+      .btnClosePreferences {
+        &:active,
+        &:focus,
+        &:active,
+        &:hover {
+          color: coral;
+        }
+      }
     }
   
   }

@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
 import styles from './corpsystems.module.scss';
 import { useSelector, useDispatch } from "react-redux";
-// import { user } from '../user/userSlice';
+import { user, loading } from '../user/userSlice';
 import ExpirationScreen from "../expirationScreen";
-// import dictionary from '../../dictionary.json';
+import dictionary from '../../dictionary.json';
 import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
-import { setSystem, corpSyst } from "./corpsystemsSlice";
+import { setSystem } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
+import { Row } from "../components/row/row";
 
 export const Corpsystems = () => {
   const { system } = useParams();
   const dispatch = useDispatch();
-  // const userData = useSelector(user);
+  const userData = useSelector(user);
   const dark = useSelector(darkTheme);
-  const cs = useSelector(corpSyst);
+  const load = useSelector(loading);
+
+  const lang = userData.lang;
+
+  console.log(userData);
 
   useEffect(() => {
     dispatch(setSystem(system));
@@ -34,9 +39,16 @@ export const Corpsystems = () => {
     <section className={corpsystemsStyle} >
       <div className={styles.wrapperCS} >
         <TopBar/>
-        <section className={styles.form}>
-          <h3>corpsystems: {cs}</h3>
-        </section>
+        { !load
+          ? <form className={styles.form}>
+              <Row>
+                <label>{`${dictionary.applicant[lang]}:`}</label>
+                {`${userData.given_name}`}
+              </Row>
+
+            </form>
+          : null
+        }
       </div>
 
       { expired ? <ExpirationScreen/> : null }

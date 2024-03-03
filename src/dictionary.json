@@ -8,7 +8,15 @@
     "RU": "Продолжить работу"
   },
   "ams_order_form": {
-    "EN": "AMS Order Form",
-    "RU": "Форма заявки АСУЗ"
+    "EN": "Application Management System",
+    "RU": "Автоматизированная система управления заявками (АСУЗ)"
+  },
+  "application_for_access_to": {
+    "EN": "access and permissions for",
+    "RU": "доступ и разрешения для"
+  },
+  "applicant": {
+    "EN": "Applicant",
+    "RU": "Заявитель"
   }
 }

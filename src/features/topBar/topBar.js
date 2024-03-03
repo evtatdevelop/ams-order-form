@@ -6,13 +6,17 @@ import { LangButton } from "../components/langButton/langButton";
 import dictionary from '../../dictionary.json';
 import { ThemeButton } from "../components/themeButton/themeButton";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { darkTheme } from "../main/mainpageSlice";
+import { corpSyst } from "../corpsystems/corpsystemsSlice";
 
 export const TopBar = () => {
   const userData = useSelector(user);
   const load = useSelector(loading);
   const dark = useSelector(darkTheme);
+  const cs = useSelector(corpSyst);
+
+  const lang = userData.lang;
 
   const [show, setShow] = useState(false);
 
@@ -24,7 +28,10 @@ export const TopBar = () => {
     <header className={headerStyle}>
     { !load
       ? <>
-          <h1>{ dictionary.ams_order_form[userData['lang']] }</h1>
+          <div>
+            <h1>{ dictionary.ams_order_form[lang] }</h1>
+            <h3 className={styles.nameForm}>{`${dictionary.application_for_access_to[lang]} ${cs ? cs.toUpperCase() : null}`}</h3>            
+          </div>
 
           { show
             ? <div className={styles.preferences}>
@@ -35,7 +42,8 @@ export const TopBar = () => {
                   className={styles.btnClosePreferences}
                   onClick={() => setShow(false)}
                 >
-                  <FontAwesomeIcon icon={ faXmark } className={styles.closePreferencesIcon} />
+                  {/* <FontAwesomeIcon icon={ faXmark } className={styles.closePreferencesIcon} /> */}
+                  Close
                 </button>
               </div>
 
