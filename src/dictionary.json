@@ -1,4 +1,12 @@
 {
+  "application": {
+    "EN": "application",
+    "RU": "автоматизированная система"
+  },
+  "management_system": {
+    "EN": "management system",
+    "RU": "управления заявками"
+  },
   "page_timeout_exceeded": {
     "EN": "Page idle timeout exceeded",
     "RU": "Превышено время бездействия на странице"

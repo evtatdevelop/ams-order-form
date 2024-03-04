@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from './corpsystems.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { user, loading } from '../user/userSlice';
-import ExpirationScreen from "../expirationScreen";
 import dictionary from '../../dictionary.json';
 import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
@@ -20,16 +19,10 @@ export const Corpsystems = () => {
 
   const lang = userData.lang;
 
-  console.log(userData);
-
   useEffect(() => {
     dispatch(setSystem(system));
-    
     dispatch(changeTheme( false || JSON.parse(localStorage.getItem('darkTheme')) ));
-
-    setTimeout(() => { onExpired(true); document.body.style.overflow = "hidden"}, 12*60*60*1000)
   }, [dispatch, system]);
-  const [expired, onExpired] = useState(false);
 
   const corpsystemsStyle = dark 
     ? `${styles.corpsystems} ${styles.dark}`
@@ -50,8 +43,6 @@ export const Corpsystems = () => {
           : null
         }
       </div>
-
-      { expired ? <ExpirationScreen/> : null }
     </section>
   )
 }

@@ -30,7 +30,10 @@ export const TopBar = () => {
       ? <>
           <div>
             <h1>{ dictionary.ams_order_form[lang] }</h1>
-            <h3 className={styles.nameForm}>{`${dictionary.application_for_access_to[lang]} ${cs ? cs.toUpperCase() : null}`}</h3>            
+            { cs 
+              ? <h3 className={styles.nameForm}>{`${dictionary.application_for_access_to[lang]} ${cs.toUpperCase()}`}</h3>
+              : null
+            }
           </div>
 
           { show

@@ -1,7 +1,14 @@
 import React from "react";
 import styles from './loadPage.module.scss';
+import { useSelector } from "react-redux";
+import { user, loading } from "../user/userSlice";
+import dictionary from '../../dictionary.json';
 
 export const LoadPage = () => {
+  
+  const userData = useSelector(user);
+  const load = useSelector(loading);
+
   return (
     <div className={styles.loadPage}>
       <div>
@@ -31,8 +38,8 @@ export const LoadPage = () => {
       </div>
 
       <header>
-        <div>application</div>
-        <div>management system</div>
+        <div>{ load ? dictionary.application['RU'] : dictionary.application[userData['lang']] }</div>
+        <div>{ load ? dictionary.management_system['RU'] : dictionary.application[userData['lang']]}</div>
       </header>
     </div>
   )
