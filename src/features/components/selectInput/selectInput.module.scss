@@ -13,36 +13,42 @@
     width: 100%;
   
     .htmInput {
-      border: 1px solid lightblue;
       width: 100%;
-      padding: 8px 40px 8px 12px;
+      padding: .7vmax 3vmax .7vmax 1vmax;
       font: inherit;
-      letter-spacing: .6px;
+      letter-spacing: .01vmax;
       font-size: inherit;
-      outline: 1px solid gray;
-      border-radius: 3px;
+      color: #424242;
+      border-bottom: .1vmax solid #424242;
+      border-radius: .1vmax;
+      background-color: transparent;
+      transition: background-color 1s;
       
       &:focus {
-        outline: 1px solid lightblue;
+        color: navy;
+        background-color: rgba(0, 0, 128, 0.036);
       }
     }
   
     .clearBtn {
       position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       right: 0;
       border: none;
       padding: 0;
       margin: 0;
       background-color: transparent;
-      width: 38px;
-      height: 38px;
+      width: 2vmax;
+      height: 2vmax;
       color: gray;
       transition: color .3s;
-      font-size: 24px;
+      font-size: 1.7vmax;
       font-weight: 100;
       opacity: 0;
       transition: opacity .3s;
-      border-radius: 3px;
+      border-radius: .1vmax;
 
       &.showClnBtn {
         opacity: 1;
@@ -64,11 +70,11 @@
       padding: 0;
       margin: 0;
       background-color: transparent;
-      width: 38px;
-      height: 38px;
+      width: 2vmax;
+      height: 2vmax;
       opacity: 0;
       transition: opacity .3s;
-      border-radius: 3px;
+      border-radius: .1vmax;
 
       &.showLoading {
         opacity: 1;
@@ -86,10 +92,10 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    margin-top: 41px;
-    outline:  1px solid white;
+    margin-top: 3.1vmax;
+    outline: 1px solid #424242;
     transition: opacity .3s, max-height .5s;
-    background-color: white;
+    background-color: rgba(0, 0, 128, 0.036);
    
     &.hideSelectList {
       max-height: 0px;
@@ -98,23 +104,25 @@
     }
 
     &.showSelectList {
-      max-height: 200px;
+      max-height: 15vmax;
       overflow: auto;
       opacity: 1;
     }
 
     .itemLi {
       width: 100%;
-      margin-top: 1px;
+      margin-top: .1vmax;
 
       label {
+        font-weight: 400;
         display: block;
         width: 100%;
         height: 100%;  
-        background-color: rgb(205, 232, 242);
+        background-color: rgba(128, 128, 128, 0.121);
         padding: .8vmax 1vmax .8vmax 1vmax;
         transition: background-color .3s;
         border-radius: 3px;
+        color: #424242;
       }
 
       input[type=radio] {
@@ -126,16 +134,10 @@
         padding: 0;
         clip: rect(0 0 0 0);
         overflow: hidden;
-  
-        // &:checked, &:focus {
-        //   &+label {
-        //     color: red;
-        //   }
-        // }
 
         &:hover {
           &+label {
-            background-color: rgb(152, 226, 251);
+            background-color: rgba(0, 0, 128, 0.13);
           }
         }
       }
@@ -144,9 +146,68 @@
 
     overflow-y: scroll;
     scrollbar-width: 3px;
-    scrollbar-color: rgb(152, 226, 251) rgb(40, 197, 250);
+    scrollbar-color: #1616191e #00008027;
     &::-webkit-scrollbar { width: 3px; }
-    &::-webkit-scrollbar-track { background: rgb(152, 226, 251); }
-    &::-webkit-scrollbar-thumb { background-color: rgb(40, 197, 250); }
+    &::-webkit-scrollbar-track { background: #1616191e; }
+    &::-webkit-scrollbar-thumb { background-color: #00008027; }
+  }
+
+
+  //
+  // Dark styles
+  //
+  &.dark {
+    .input {
+    
+      .htmInput {
+        color: gray;
+        
+        &:focus {
+          color: rgb(207, 207, 229);
+          background-color: rgba(0, 0, 128, 0.036);
+        }
+      }
+    
+      .clearBtn {
+   
+        &:focus,
+        &:hover {
+          color: coral;
+        } 
+      }
+  
+      // .loading {
+      //   color: coral;
+      // }
+    }
+
+    .selectList {
+      outline: 1px solid wheat;
+      background-color: #161619;
+  
+      .itemLi {
+  
+        label { 
+          background-color: #36363d;
+          color: rgb(241, 235, 235);
+        }
+  
+        input[type=radio] {
+
+          &:hover {
+            &+label {
+              background-color: #60606d;
+            }
+          }
+        }
+      
+      }
+
+      scrollbar-color: #161619 #60606d;
+      &::-webkit-scrollbar-track { background: #161619; }
+      &::-webkit-scrollbar-thumb { background-color: #60606d; }
+    }
+
+
   }
 }

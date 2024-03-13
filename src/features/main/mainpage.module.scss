@@ -5,6 +5,7 @@
   padding: 1vmax;
   display: flex;
   flex-direction: column;
+  animation: appearance 500ms ease-in-out forwards;
   
   .header {
     display: flex;
@@ -33,6 +34,17 @@
 
   &.dark {
     background-color: #161619;
+  }
+
+  @keyframes appearance {
+    0% {
+      opacity: .3;
+    }
+    80% {
+    }
+    100% {
+      opacity: .9;
+    }
   }
 }
 

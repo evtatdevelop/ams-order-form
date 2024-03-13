@@ -1,18 +1,13 @@
-// import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createSlice } from "@reduxjs/toolkit";
-// import { uplodeData, getStaffbookData } from "./sapSliceAPI";
-
-
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { sessionKey } from "./corpsystemsSliceAPI";
 
 const initialState = {
-  // loading: false,
-  data: [],
+  loading: false,
   system: null,
+  sessionKey: null,
 }
 
-// export const getStaffbook = createAsyncThunk( 'corpsystem/getStaffbook', async ( data ) => await getStaffbookData(data) )
-
-// export const upData  = createAsyncThunk( 'user/uplodeData', async ( data ) => await uplodeData(data) )
+export const getSessionKey = createAsyncThunk( 'corpsystem/getSessionKey', async ( data ) => await sessionKey(data) )
 
 export const corpsystemSlice = createSlice({
   name: 'corpsystems',
@@ -24,21 +19,14 @@ export const corpsystemSlice = createSlice({
 
   },
 
-  // extraReducers: (builder) => { builder
-    
-  //   .addCase(getStaffbook.pending, ( state ) => { state.loading = true })
-  //   .addCase(getStaffbook.fulfilled, ( state, action ) => {
-  //     if ( state.staffbook.length < state.counter * state.row_num ) state.staffbook = [...state.staffbook, ...action.payload];
-  //     state.row_from = state.staffbook.length + 1
-  //     state.loading = false;
-  //   })
+  extraReducers: (builder) => { builder
+    .addCase(getSessionKey.pending, ( state ) => { state.loading = true })
+    .addCase(getSessionKey.fulfilled, ( state, action ) => {
+      state.sessionKey = action.payload;
+      state.loading = false;
+    })
 
-  //   .addCase(upData.pending, ( state ) => { state.loading = true })
-  //   .addCase(upData.fulfilled, ( state, action ) => {
-  //     state.loading = false;
-  //     state.data = [];
-  //   })
-  // }
+  }
 });
 
 export const { setSystem } = corpsystemSlice.actions;

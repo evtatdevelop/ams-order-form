@@ -1,21 +1,22 @@
 .header {
   position: relative;
-  min-height: 3vmax;
+  min-height: 4vmax;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 1.7vmax;
   padding: .5vmax;
+  margin-bottom: 1vmax;
 
   & > div {
     h1 {
       font-weight: 500;
     }
-    .nameForm {
-      font-size: 1.1vmax;
-      color: #424242;
-      text-transform: uppercase;
-    }
+    // .nameForm {
+    //   font-size: 1.1vmax;
+    //   color: #424242;
+    //   text-transform: uppercase;
+    // }
   }
 
   .preferences {
@@ -31,6 +32,7 @@
     background-color: #EBEBEB;
     border: .15vmax solid gray;
     border-radius: .3vmax;
+    z-index: 900;
 
     & > div {
       width: 100%;

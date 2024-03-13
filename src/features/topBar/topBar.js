@@ -8,13 +8,13 @@ import { ThemeButton } from "../components/themeButton/themeButton";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { darkTheme } from "../main/mainpageSlice";
-import { corpSyst } from "../corpsystems/corpsystemsSlice";
+// import { corpSyst } from "../corpsystems/corpsystemsSlice";
 
 export const TopBar = () => {
   const userData = useSelector(user);
   const load = useSelector(loading);
   const dark = useSelector(darkTheme);
-  const cs = useSelector(corpSyst);
+  // const cs = useSelector(corpSyst);
 
   const lang = userData.lang;
 
@@ -30,10 +30,10 @@ export const TopBar = () => {
       ? <>
           <div>
             <h1>{ dictionary.ams_order_form[lang] }</h1>
-            { cs 
+            {/* { cs 
               ? <h3 className={styles.nameForm}>{`${dictionary.application_for_access_to[lang]} ${cs.toUpperCase()}`}</h3>
               : null
-            }
+            } */}
           </div>
 
           { show

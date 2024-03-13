@@ -26,5 +26,13 @@
   "applicant": {
     "EN": "Applicant",
     "RU": "Заявитель"
+  },
+  "userName": {
+    "EN": "User",
+    "RU": "Пользователь"
+  },
+  "userNameOlaceholder": {
+    "EN": "Full name",
+    "RU": "Ф.И.О."
   }
 }

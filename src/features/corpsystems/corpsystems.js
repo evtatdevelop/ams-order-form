@@ -6,27 +6,33 @@ import dictionary from '../../dictionary.json';
 import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
-import { setSystem } from "./corpsystemsSlice";
+import { corpSyst, setSystem, getSessionKey } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { Row } from "../components/row/row";
+import { SelectInput } from "../components/selectInput/selectInput";
 
 export const Corpsystems = () => {
   const { system } = useParams();
   const dispatch = useDispatch();
-  const userData = useSelector(user);
+  const {lang, api_key, given_name} = useSelector(user);
   const dark = useSelector(darkTheme);
   const load = useSelector(loading);
-
-  const lang = userData.lang;
+  const cs = useSelector(corpSyst);
 
   useEffect(() => {
+    dispatch(getSessionKey( {'api_key': api_key} ))
     dispatch(setSystem(system));
     dispatch(changeTheme( false || JSON.parse(localStorage.getItem('darkTheme')) ));
-  }, [dispatch, system]);
+  }, [api_key, dispatch, system]);
 
   const corpsystemsStyle = dark 
     ? `${styles.corpsystems} ${styles.dark}`
     : `${styles.corpsystems}`
+
+    const onWork = val => {
+      // if ( typeof(val) === 'object') 
+      console.log(`${val}`)
+    }
 
   return (
     <section className={corpsystemsStyle} >
@@ -34,10 +40,29 @@ export const Corpsystems = () => {
         <TopBar/>
         { !load
           ? <form className={styles.form}>
-              <Row>
+
+            { cs 
+              ? <h3 className={styles.nameForm}>{`${dictionary.application_for_access_to[lang]} ${cs.toUpperCase()}`}</h3>
+              : null
+            }
+
+              <div className={styles.aplicantRow}>
                 <label>{`${dictionary.applicant[lang]}:`}</label>
-                {`${userData.given_name}`}
+                <div className={styles.wrapField}>{`${given_name}`}</div>
+              </div>
+
+              <Row>
+                <label>{`${dictionary.userName[lang]}:`}</label>
+                <div className={styles.wrapField}>
+                  <SelectInput
+                    selectHandler = { val => onWork(val) }
+                    placeholder = {`${dictionary.userNameOlaceholder[lang]}`}
+                    val = ''
+                    name='userName'
+                  />                  
+                </div>
               </Row>
+
 
             </form>
           : null

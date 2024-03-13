@@ -1,11 +1,16 @@
 import React, { useState, useRef  } from "react";
 import styles from './selectInput.module.scss';
+import { useSelector } from "react-redux";
 import { searchUsers } from "../../user/userSliceAPI";
 import { TestLoader } from "./testLoader";
+import { darkTheme } from "../../main/mainpageSlice";
+import { user } from "../../user/userSlice";
 
 export const SelectInput = props => {
   const ref = useRef(null)
   const {selectHandler, placeholder, val, name} = props
+  const { api_key } = useSelector(user);
+  const dark = useSelector(darkTheme);
 
   const [value, setValue] = useState(val ? val : "")
   const [show, setShow] = useState(false)
@@ -14,7 +19,7 @@ export const SelectInput = props => {
   const [loading, setloading] = useState(false)
     
   const onSearchUsers  = (string) => {
-    if ( string ) searchUsers({'string': string, 'api_key': 'TatarenkoEG'}).then(value => {
+    if ( string ) searchUsers({'string': string, 'api_key': api_key}).then(value => {
       setSelectList(value)
       setShow(true)
       setloading(false)
@@ -57,10 +62,12 @@ export const SelectInput = props => {
   const styleLoading = loading ? `${styles.loading} ${styles.showLoading}` : `${styles.loading}`
   const styleSelectList = show ? `${styles.selectList} ${styles.showSelectList}` : `${styles.selectList} ${styles.hideSelectList}`
 
-  // console.log(selectList);
+  const selectInputStyle = dark 
+  ? `${styles.selectInput} ${styles.dark}`
+  : `${styles.selectInput}`
 
   return (
-    <div className={styles.selectInput}>
+    <div className={selectInputStyle}>
       <div className={styles.input}>
         <input type="text" className={styles.htmInput}
           value={value}
