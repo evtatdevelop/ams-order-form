@@ -10,6 +10,7 @@ import { corpSyst, setSystem, getSessionKey } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { Row } from "../components/row/row";
 import { SelectInput } from "../components/selectInput/selectInput";
+import { getUserId } from "./corpsystemsSlice";
 
 export const Corpsystems = () => {
   const { system } = useParams();
@@ -29,10 +30,7 @@ export const Corpsystems = () => {
     ? `${styles.corpsystems} ${styles.dark}`
     : `${styles.corpsystems}`
 
-    const onWork = val => {
-      // if ( typeof(val) === 'object') 
-      console.log(`${val}`)
-    }
+  const setUser = val => dispatch(getUserId({ 'api_key': api_key, 'app12_id': val }));
 
   return (
     <section className={corpsystemsStyle} >
@@ -55,7 +53,7 @@ export const Corpsystems = () => {
                 <label>{`${dictionary.userName[lang]}:`}</label>
                 <div className={styles.wrapField}>
                   <SelectInput
-                    selectHandler = { val => onWork(val) }
+                    selectHandler = { val => setUser(val) }
                     placeholder = {`${dictionary.userNameOlaceholder[lang]}`}
                     val = ''
                     name='userName'

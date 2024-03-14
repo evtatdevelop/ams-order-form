@@ -85,5 +85,13 @@
       opacity: .9;
     }
   }
+
+  
+  @media screen and (max-width: 1000px) {
+    .wrapperCS {
+      width: 95%;
+    }
+  }
+  
 }
 

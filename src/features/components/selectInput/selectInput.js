@@ -55,7 +55,8 @@ export const SelectInput = props => {
     clearTimeout(timerId);
     setValue('')
     setSelectList([])
-    setTimeout(()=>ref.current.focus(), 100)
+    setTimeout(()=>ref.current.focus(), 100);
+    selectHandler(null)
   }
 
   const styleClnBtn = value && !loading ? `${styles.clearBtn} ${styles.showClnBtn}` : `${styles.clearBtn}`
