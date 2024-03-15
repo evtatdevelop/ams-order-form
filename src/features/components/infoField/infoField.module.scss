@@ -5,14 +5,17 @@
   width: 100%;
 
   .field {
-    border: 1px solid lightblue;
+    display: flex;
+    align-items: center;
     width: 100%;
-    padding: 8px 40px 8px 12px;
+    padding: .7vmax 3vmax .7vmax 1vmax;
     font: inherit;
-    letter-spacing: .6px;
-    font-size: inherit;
-    outline: 1px solid gray;
-    border-radius: 3px;
+    font-weight: 400;
+    font-size: 1vmax;
+    letter-spacing: .01vmax;
+    color: #424242;
+    border-bottom: .1vmax solid #424242;
+    border-radius: .1vmax;
 
     &.readonly {
       background-color: #f3eeee;
@@ -20,4 +23,13 @@
 
   }
 
+  &.dark {
+    .field {
+      color: rgb(170, 169, 169);
+
+      &.readonly {
+        background-color: grey;
+      }
+    }    
+  }  
 }

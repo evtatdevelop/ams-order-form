@@ -34,5 +34,39 @@
   "userNameOlaceholder": {
     "EN": "Full name",
     "RU": "Ф.И.О."
+  },
+  "email": {
+    "EN": "Email",
+    "RU": "Эл. почта"
+  }, 
+  "ad_account": {
+    "EN": "AD account",
+    "RU": "Учетная запись в AD"
+  },
+  "company": {
+    "EN": "Company",
+    "RU": "Компания"
+  },
+  "branch": {
+    "EN": "Branch",
+    "RU": "Филиал / ПЕ"
+  },
+  "department": {
+    "EN": "Department",
+    "RU": "Подразделение"
+  },
+  "position": {
+    "EN": "Position",
+    "RU": "Должность"
+  },
+  "location": {
+    "EN": "Location",
+    "RU": "Местонахождение"
+  },
+  "sap_branch": {
+    "EN": "SAP Branch",
+    "RU": "Филиал SAP"
   }
+  
+
 }

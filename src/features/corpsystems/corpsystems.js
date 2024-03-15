@@ -6,11 +6,12 @@ import dictionary from '../../dictionary.json';
 import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
-import { corpSyst, setSystem, getSessionKey } from "./corpsystemsSlice";
+import { corpSyst, setSystem, getSessionKey, getUserId, userDataLoading, userData } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { Row } from "../components/row/row";
 import { SelectInput } from "../components/selectInput/selectInput";
-import { getUserId } from "./corpsystemsSlice";
+import { UserDataLoader } from "./userDataLoader";
+import { InfoField } from "../components/infoField/infoField";
 
 export const Corpsystems = () => {
   const { system } = useParams();
@@ -19,6 +20,8 @@ export const Corpsystems = () => {
   const dark = useSelector(darkTheme);
   const load = useSelector(loading);
   const cs = useSelector(corpSyst);
+  const userDataLoad = useSelector(userDataLoading);
+  const userDataList = useSelector(userData);
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
@@ -38,11 +41,10 @@ export const Corpsystems = () => {
         <TopBar/>
         { !load
           ? <form className={styles.form}>
-
-            { cs 
-              ? <h3 className={styles.nameForm}>{`${dictionary.application_for_access_to[lang]} ${cs.toUpperCase()}`}</h3>
-              : null
-            }
+              { cs 
+                ? <h3 className={styles.nameForm}>{`${dictionary.application_for_access_to[lang]} ${cs.toUpperCase()}`}</h3>
+                : null
+              }
 
               <div className={styles.aplicantRow}>
                 <label>{`${dictionary.applicant[lang]}:`}</label>
@@ -61,8 +63,81 @@ export const Corpsystems = () => {
                 </div>
               </Row>
 
+              
+              <div className={styles.userData}>
+                { userDataLoad
+                  ? <div className={styles.userDataLoader}>
+                      <UserDataLoader/>
+                    </div>
+                  : null
+                }  
+                  
+                { userDataList.id 
+                  ? <div className={styles.userDataList}>
+                      <Row>
+                        <label>{`${dictionary.email[lang]}:`}</label>
+                        <div className={styles.wrapField}>
+                          <InfoField val = {userDataList.email} />                          
+                        </div>
+                      </Row>
+
+                      <Row>
+                        <label>{`${dictionary.ad_account[lang]}:`}</label>
+                        <div className={styles.wrapField}>
+                          <InfoField val = {userDataList.ad_user} />                          
+                        </div>
+                      </Row>
+
+                      <Row>
+                        <label>{`${dictionary.company[lang]}:`}</label>
+                        <div className={styles.wrapField}>
+                          <InfoField val = {userDataList.main_subdivision_name} />                          
+                        </div>
+                      </Row>
+
+                      <Row>
+                        <label>{`${dictionary.branch[lang]}:`}</label>
+                        <div className={styles.wrapField}>
+                          <InfoField val = {userDataList.region} />                          
+                        </div>
+                      </Row>
+
+                      <Row>
+                        <label>{`${dictionary.department[lang]}:`}</label>
+                        <div className={styles.wrapField}>
+                          <InfoField val = {userDataList.div_name} />                          
+                        </div>
+                      </Row>
+
+                      <Row>
+                        <label>{`${dictionary.position[lang]}:`}</label>
+                        <div className={styles.wrapField}>
+                          <InfoField val = {userDataList.position_name} />                          
+                        </div>
+                      </Row>
+
+                      <Row>
+                        <label>{`${dictionary.location[lang]}:`}</label>
+                        <div className={styles.wrapField}>
+                          <InfoField val = {userDataList.location } />                          
+                        </div>
+                      </Row>
+
+                      <Row>
+                        <label>{`${dictionary.sap_branch[lang]}:`}</label>
+                        <div className={styles.wrapField}>
+                          <InfoField val = '&nbsp;' />                          
+                        </div>
+                      </Row>
+
+                    </div>
+                  : null  
+                }
+              </div>
+              
 
             </form>
+
           : null
         }
       </div>

@@ -7,6 +7,8 @@ const initialState = {
   system: null,
   sessionKey: null,
   user: {},
+  userDataLoading: false,
+
 }
 
 export const getSessionKey = createAsyncThunk( 'corpsystem/getSessionKey', async ( data ) => await sessionKey(data) )
@@ -29,9 +31,10 @@ export const corpsystemSlice = createSlice({
       state.loading = false;
     })
 
-    .addCase(getUserId.pending, ( state ) => {})
+    .addCase(getUserId.pending, ( state ) => { state.userDataLoading = true })
     .addCase(getUserId.fulfilled, ( state, action ) => {
-      state.user = {...action.payload};
+      state.user = { ...action.payload };
+      state.userDataLoading = false;
     })
   }
 });
@@ -39,5 +42,7 @@ export const corpsystemSlice = createSlice({
 export const { setSystem } = corpsystemSlice.actions;
 
 export const corpSyst  = ( state ) => state.corpsystems.system;
+export const userDataLoading  = ( state ) => state.corpsystems.userDataLoading;
+export const userData  = ( state ) => state.corpsystems.user;
 
 export default corpsystemSlice.reducer;
