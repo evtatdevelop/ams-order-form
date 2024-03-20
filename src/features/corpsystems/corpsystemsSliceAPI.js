@@ -10,6 +10,7 @@ const _apiBase = testMode
 export const sessionKey = ( data ) => service.getResource(`${_apiBase}/?q=sessionKey`, data.api_key);
 
 export const companies = ( data ) => service.getResource(`${_apiBase}/?q=companies&company_group=${data.company_group}`, data.api_key);
+export const branches = ( data ) => service.getResource(`${_apiBase}/?q=branches&hrs01_id=${data.hrs01_id}`, data.api_key);
 
 // export const uploadFile = ( data ) => service.uploadFile(`${_apiBase}/?q=uploadfile`, data);
 // export const uplodeData = ( data ) => service.postResource(`${_apiBase}/?q=staffdata`, data);

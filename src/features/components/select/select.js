@@ -8,7 +8,7 @@ const Select = (props, ref) => {
   const [show, setShow] = useState(false)
   const onChange = item => {
     setValue(item.name);
-    selectHandler(item.id)
+    selectHandler(item)
     setShow(false)
   }
   const onBlur = () => setTimeout(()=>setShow(false), 100)

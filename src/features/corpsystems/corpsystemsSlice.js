@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { sessionKey, companies } from "./corpsystemsSliceAPI";
+import { sessionKey, companies, branches } from "./corpsystemsSliceAPI";
 import { getUserData } from "../user/userSliceAPI";
 
 const initialState = {
@@ -14,9 +14,10 @@ const initialState = {
 
 }
 
-export const getSessionKey = createAsyncThunk( 'corpsystem/getSessionKey', async ( data ) => await sessionKey(data) )
-export const getUserId = createAsyncThunk( 'mainpage/getUserId', async ( data ) => await getUserData(data) )
-export const getCompanies = createAsyncThunk( 'corpsystem/getCompanies', async ( data ) => await companies(data) )
+export const getSessionKey  = createAsyncThunk( 'corpsystem/getSessionKey', async ( data ) => await sessionKey(data) )
+export const getUserId      = createAsyncThunk( 'mainpage/getUserId', async ( data ) => await getUserData(data) )
+export const getCompanies   = createAsyncThunk( 'corpsystem/getCompanies', async ( data ) => await companies(data) )
+export const getBranches    = createAsyncThunk( 'corpsystem/getBranches', async ( data ) => await branches(data) )
 
 export const corpsystemSlice = createSlice({
   name: 'corpsystems',
@@ -24,6 +25,9 @@ export const corpsystemSlice = createSlice({
   reducers: {
     setSystem: (state, action) => {
       state.system = action.payload;
+    },
+    setCompany: (state, action) => {
+      state.user.company = {...action.payload};
     },
 
   },
@@ -46,16 +50,22 @@ export const corpsystemSlice = createSlice({
       state.companyList = [ ...action.payload ];
       state.userDataLoading = false;
     })
+
+    .addCase(getBranches.pending, ( state ) => { state.userDataLoading = true })
+    .addCase(getBranches.fulfilled, ( state, action ) => {
+      state.branchList = [ ...action.payload ];
+      state.userDataLoading = false;
+    })
   }
 });
 
-export const { setSystem } = corpsystemSlice.actions;
+export const { setSystem, setCompany } = corpsystemSlice.actions;
 
-export const corpSyst  = ( state ) => state.corpsystems.system;
-export const userDataLoading  = ( state ) => state.corpsystems.userDataLoading;
-export const userData  = ( state ) => state.corpsystems.user;
-export const companyListData  = ( state ) => state.corpsystems.companyList;
-export const branchListData  = ( state ) => state.corpsystems.branchList;
+export const corpSyst             = ( state ) => state.corpsystems.system;
+export const userDataLoading      = ( state ) => state.corpsystems.userDataLoading;
+export const userData             = ( state ) => state.corpsystems.user;
+export const companyListData      = ( state ) => state.corpsystems.companyList;
+export const branchListData       = ( state ) => state.corpsystems.branchList;
 export const departmentLiistData  = ( state ) => state.corpsystems.departmentLiist;
 
 export default corpsystemSlice.reducer;

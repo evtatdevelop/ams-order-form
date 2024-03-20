@@ -7,7 +7,7 @@ import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
 import { corpSyst, setSystem, getSessionKey, getUserId, userDataLoading, userData, 
-  getCompanies, companyListData } from "./corpsystemsSlice";
+  getCompanies, companyListData, setCompany, getBranches, branchListData } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { Row } from "../components/row/row";
 import { SelectInput } from "../components/selectInput/selectInput";
@@ -25,6 +25,7 @@ export const Corpsystems = () => {
   const userDataLoad = useSelector(userDataLoading);
   const userDataList = useSelector(userData);
   const companyList = useSelector(companyListData);
+  const branchList = useSelector(branchListData);
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
@@ -39,12 +40,21 @@ export const Corpsystems = () => {
   useEffect(() => {
     dispatch(getCompanies( {'api_key': api_key, 'company_group': userDataList.company_group} ))
   }, [api_key, dispatch, userDataList.company_group])
+
+  useEffect(() => {
+    if ( userDataList.company && Object.keys(userDataList.company).length )
+      dispatch(getBranches( {'api_key': api_key, 'hrs01_id': userDataList.company.id} ))
+  }, [api_key, dispatch, userDataList.company])
     
   const setUser = val => {
     dispatch(getUserId({ 'api_key': api_key, 'app12_id': val }));
   }
 
   const onWork = val => console.log(val);
+
+  const onSetCompany = val => {
+    dispatch(setCompany(val))
+  };
 
   return (
     <section className={corpsystemsStyle} >
@@ -105,7 +115,7 @@ export const Corpsystems = () => {
                           { userDataList.company.name
                             ? <InfoField val = {userDataList.company.name} />
                             : <Select
-                                selectHandler = { val => onWork(val) }
+                                selectHandler = { val => onSetCompany(val) }
                                 selectClear  = { () => onWork(null) }
                                 placeholder = 'Select'
                                 selectList = {companyList}
@@ -125,7 +135,7 @@ export const Corpsystems = () => {
                                 selectHandler = { val => onWork(val) }
                                 selectClear  = { () => onWork(null) }
                                 placeholder = 'Select'
-                                selectList = {[{'id':1, 'name': 'one'}, {'id':2, 'name': 'two'}, {'id':3, 'name': 'three'}, {'id':4, 'name': 'four'}, {'id':5, 'name': 'five'}, {'id':6, 'name': 'six'}, {'id':7, 'name': 'seven'}, {'id':8, 'name': 'eight'}, ]}
+                                selectList = {branchList}
                                 val = ''
                                 name='branchSelect'
                               />
