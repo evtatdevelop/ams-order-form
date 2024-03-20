@@ -13,17 +13,22 @@
     width: 100%;
   
     .htmInput {
-      border: 1px solid lightblue;
       width: 100%;
-      padding: 8px 40px 8px 12px;
+      padding: .7vmax 3vmax .7vmax 1vmax;
       font: inherit;
-      letter-spacing: .6px;
+      letter-spacing: .01vmax;
       font-size: inherit;
-      outline: 1px solid gray;
-      border-radius: 3px;
+      font-weight: 400;
+      font-size: 1vmax;
+      color: #424242;
+      border-bottom: .1vmax solid #424242;
+      border-radius: .1vmax;
+      background-color: transparent;
+      transition: background-color 1s;
       
       &:focus {
-        outline: 1px solid lightblue;
+        color: navy;
+        background-color: rgba(0, 0, 128, 0.036);
       }
     }
   
@@ -66,7 +71,6 @@
     padding: 0;
     margin: 0;
     margin-top: 40px;
-    // outline:  1px solid rgb(152, 226, 251);
     outline:  1px solid white;
     transition: opacity .3s, max-height .5s;
     background-color: white;
@@ -95,6 +99,8 @@
         padding: .8vmax 1vmax .8vmax 1vmax;
         transition: background-color .3s;
         border-radius: 3px;
+        font-weight: 400;
+        font-size: 1vmax;
       }
 
       input[type=radio] {
@@ -106,12 +112,6 @@
         padding: 0;
         clip: rect(0 0 0 0);
         overflow: hidden;
-  
-        // &:checked, &:focus {
-        //   &+label {
-        //     color: red;
-        //   }
-        // }
 
         &:hover {
           &+label {

@@ -6,22 +6,25 @@ import dictionary from '../../dictionary.json';
 import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
-import { corpSyst, setSystem, getSessionKey, getUserId, userDataLoading, userData } from "./corpsystemsSlice";
+import { corpSyst, setSystem, getSessionKey, getUserId, userDataLoading, userData, 
+  getCompanies, companyListData } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { Row } from "../components/row/row";
 import { SelectInput } from "../components/selectInput/selectInput";
 import { UserDataLoader } from "./userDataLoader";
 import { InfoField } from "../components/infoField/infoField";
+import Select from "../components/select/select";
 
 export const Corpsystems = () => {
   const { system } = useParams();
   const dispatch = useDispatch();
-  const {lang, api_key, given_name} = useSelector(user);
+  const {lang, api_key, last_name, first_name, middle_name } = useSelector(user);
   const dark = useSelector(darkTheme);
   const load = useSelector(loading);
   const cs = useSelector(corpSyst);
   const userDataLoad = useSelector(userDataLoading);
   const userDataList = useSelector(userData);
+  const companyList = useSelector(companyListData);
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
@@ -33,7 +36,15 @@ export const Corpsystems = () => {
     ? `${styles.corpsystems} ${styles.dark}`
     : `${styles.corpsystems}`
 
-  const setUser = val => dispatch(getUserId({ 'api_key': api_key, 'app12_id': val }));
+  useEffect(() => {
+    dispatch(getCompanies( {'api_key': api_key, 'company_group': userDataList.company_group} ))
+  }, [api_key, dispatch, userDataList.company_group])
+    
+  const setUser = val => {
+    dispatch(getUserId({ 'api_key': api_key, 'app12_id': val }));
+  }
+
+  const onWork = val => console.log(val);
 
   return (
     <section className={corpsystemsStyle} >
@@ -48,7 +59,7 @@ export const Corpsystems = () => {
 
               <div className={styles.aplicantRow}>
                 <label>{`${dictionary.applicant[lang]}:`}</label>
-                <div className={styles.wrapField}>{`${given_name}`}</div>
+                <div className={styles.wrapField}>{`${last_name} ${first_name} ${middle_name} `}</div>
               </div>
 
               <Row>
@@ -91,21 +102,51 @@ export const Corpsystems = () => {
                       <Row>
                         <label>{`${dictionary.company[lang]}:`}</label>
                         <div className={styles.wrapField}>
-                          <InfoField val = {userDataList.main_subdivision_name} />                          
+                          { userDataList.company.name
+                            ? <InfoField val = {userDataList.company.name} />
+                            : <Select
+                                selectHandler = { val => onWork(val) }
+                                selectClear  = { () => onWork(null) }
+                                placeholder = 'Select'
+                                selectList = {companyList}
+                                val = ''
+                                name='companySelect'
+                              />
+                          }                       
                         </div>
                       </Row>
 
                       <Row>
                         <label>{`${dictionary.branch[lang]}:`}</label>
                         <div className={styles.wrapField}>
-                          <InfoField val = {userDataList.region} />                          
+                          { userDataList.branch.name
+                            ? <InfoField val = {userDataList.branch.name} />
+                            : <Select
+                                selectHandler = { val => onWork(val) }
+                                selectClear  = { () => onWork(null) }
+                                placeholder = 'Select'
+                                selectList = {[{'id':1, 'name': 'one'}, {'id':2, 'name': 'two'}, {'id':3, 'name': 'three'}, {'id':4, 'name': 'four'}, {'id':5, 'name': 'five'}, {'id':6, 'name': 'six'}, {'id':7, 'name': 'seven'}, {'id':8, 'name': 'eight'}, ]}
+                                val = ''
+                                name='branchSelect'
+                              />
+                          }      
                         </div>
                       </Row>
 
                       <Row>
                         <label>{`${dictionary.department[lang]}:`}</label>
                         <div className={styles.wrapField}>
-                          <InfoField val = {userDataList.div_name} />                          
+                          { userDataList.department.name
+                            ? <InfoField val = {userDataList.department.name} />
+                            : <Select
+                                selectHandler = { val => onWork(val) }
+                                selectClear  = { () => onWork(null) }
+                                placeholder = 'Select'
+                                selectList = {[{'id':1, 'name': 'one'}, {'id':2, 'name': 'two'}, {'id':3, 'name': 'three'}, {'id':4, 'name': 'four'}, {'id':5, 'name': 'five'}, {'id':6, 'name': 'six'}, {'id':7, 'name': 'seven'}, {'id':8, 'name': 'eight'}, ]}
+                                val = ''
+                                name='departmenthSelect'
+                              />  
+                          }
                         </div>
                       </Row>
 
@@ -126,7 +167,7 @@ export const Corpsystems = () => {
                       <Row>
                         <label>{`${dictionary.sap_branch[lang]}:`}</label>
                         <div className={styles.wrapField}>
-                          <InfoField val = '&nbsp;' />                          
+                          <InfoField val = {userDataList.sap_branch.name } />                          
                         </div>
                       </Row>
 

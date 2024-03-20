@@ -9,8 +9,7 @@ const _apiBase = testMode
 
 export const sessionKey = ( data ) => service.getResource(`${_apiBase}/?q=sessionKey`, data.api_key);
 
-
-// export const getStaffbookData = ( data ) => service.getResource(`${_apiBase}/?q=staffdata&row_from=${data.row_from}&row_num=${data.row_num}`, data.api_key);
+export const companies = ( data ) => service.getResource(`${_apiBase}/?q=companies&company_group=${data.company_group}`, data.api_key);
 
 // export const uploadFile = ( data ) => service.uploadFile(`${_apiBase}/?q=uploadfile`, data);
 // export const uplodeData = ( data ) => service.postResource(`${_apiBase}/?q=staffdata`, data);
