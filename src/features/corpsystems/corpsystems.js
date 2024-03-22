@@ -7,7 +7,8 @@ import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
 import { corpSyst, setSystem, getSessionKey, getUserId, userDataLoading, userData, 
-  getCompanies, companyListData, setCompany, getBranches, branchListData } from "./corpsystemsSlice";
+  getCompanies, companyListData, setCompany, getBranches, branchListData, 
+  getDepartments, departmentLiistData, setBranch, setDepartment, getSapBranch } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { Row } from "../components/row/row";
 import { SelectInput } from "../components/selectInput/selectInput";
@@ -26,6 +27,7 @@ export const Corpsystems = () => {
   const userDataList = useSelector(userData);
   const companyList = useSelector(companyListData);
   const branchList = useSelector(branchListData);
+  const departmentLiist = useSelector(departmentLiistData);
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
@@ -38,13 +40,27 @@ export const Corpsystems = () => {
     : `${styles.corpsystems}`
 
   useEffect(() => {
-    dispatch(getCompanies( {'api_key': api_key, 'company_group': userDataList.company_group} ))
-  }, [api_key, dispatch, userDataList.company_group])
+    if ( userDataList.company && !Object.keys(userDataList.company).length ) 
+      dispatch(getCompanies( {'api_key': api_key, 'company_group': userDataList.company_group} ))
+  }, [api_key, dispatch, userDataList.company, userDataList.company_group])
 
   useEffect(() => {
-    if ( userDataList.company && Object.keys(userDataList.company).length )
-      dispatch(getBranches( {'api_key': api_key, 'hrs01_id': userDataList.company.id} ))
+    if ( userDataList.company && Object.keys(userDataList.company).length ) {
+      dispatch(getBranches( {'api_key': api_key, 'hrs01_id': userDataList.company.id} ));     
+    }
   }, [api_key, dispatch, userDataList.company])
+
+  useEffect(() => {
+    if ( userDataList.branch && Object.keys(userDataList.branch).length ) {
+      dispatch(getDepartments( {'api_key': api_key, 'hrs05_id': userDataList.branch.id} ));      
+    }
+  }, [api_key, dispatch, userDataList.branch])
+
+  useEffect(() => {
+    if ( userDataList.department && Object.keys(userDataList.department).length ) {
+      dispatch(getSapBranch( {'api_key': api_key, 'app22_id': userDataList.department.id} ));      
+    }
+  }, [api_key, dispatch, userDataList.department])
     
   const setUser = val => {
     dispatch(getUserId({ 'api_key': api_key, 'app12_id': val }));
@@ -54,6 +70,14 @@ export const Corpsystems = () => {
 
   const onSetCompany = val => {
     dispatch(setCompany(val))
+  };
+
+  const onSetBranch = val => {
+    dispatch(setBranch(val))
+  };
+
+  const onSetDepartment = val => {
+    dispatch(setDepartment(val))
   };
 
   return (
@@ -132,7 +156,7 @@ export const Corpsystems = () => {
                           { userDataList.branch.name
                             ? <InfoField val = {userDataList.branch.name} />
                             : <Select
-                                selectHandler = { val => onWork(val) }
+                                selectHandler = { val => onSetBranch(val) }
                                 selectClear  = { () => onWork(null) }
                                 placeholder = 'Select'
                                 selectList = {branchList}
@@ -149,10 +173,10 @@ export const Corpsystems = () => {
                           { userDataList.department.name
                             ? <InfoField val = {userDataList.department.name} />
                             : <Select
-                                selectHandler = { val => onWork(val) }
+                                selectHandler = { val => onSetDepartment(val) }
                                 selectClear  = { () => onWork(null) }
                                 placeholder = 'Select'
-                                selectList = {[{'id':1, 'name': 'one'}, {'id':2, 'name': 'two'}, {'id':3, 'name': 'three'}, {'id':4, 'name': 'four'}, {'id':5, 'name': 'five'}, {'id':6, 'name': 'six'}, {'id':7, 'name': 'seven'}, {'id':8, 'name': 'eight'}, ]}
+                                selectList = {departmentLiist}
                                 val = ''
                                 name='departmenthSelect'
                               />  

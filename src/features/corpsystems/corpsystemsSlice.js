@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { sessionKey, companies, branches } from "./corpsystemsSliceAPI";
+import { sessionKey, companies, branches, departments, sapBranch } from "./corpsystemsSliceAPI";
 import { getUserData } from "../user/userSliceAPI";
 
 const initialState = {
@@ -14,10 +14,12 @@ const initialState = {
 
 }
 
-export const getSessionKey  = createAsyncThunk( 'corpsystem/getSessionKey', async ( data ) => await sessionKey(data) )
-export const getUserId      = createAsyncThunk( 'mainpage/getUserId', async ( data ) => await getUserData(data) )
-export const getCompanies   = createAsyncThunk( 'corpsystem/getCompanies', async ( data ) => await companies(data) )
+export const getSessionKey  = createAsyncThunk( 'corpsystem/getSessionKey', async ( data ) => await sessionKey(data) );
+export const getUserId      = createAsyncThunk( 'mainpage/getUserId', async ( data ) => await getUserData(data) );
+export const getCompanies   = createAsyncThunk( 'corpsystem/getCompanies', async ( data ) => await companies(data) );
 export const getBranches    = createAsyncThunk( 'corpsystem/getBranches', async ( data ) => await branches(data) )
+export const getDepartments = createAsyncThunk( 'corpsystem/getDepartments', async ( data ) => await departments(data) );
+export const getSapBranch   = createAsyncThunk( 'corpsystem/getSapBranch', async ( data ) => await sapBranch(data) );
 
 export const corpsystemSlice = createSlice({
   name: 'corpsystems',
@@ -28,6 +30,12 @@ export const corpsystemSlice = createSlice({
     },
     setCompany: (state, action) => {
       state.user.company = {...action.payload};
+    },
+    setBranch: (state, action) => {
+      state.user.branch = {...action.payload};
+    },
+    setDepartment: (state, action) => {
+      state.user.department = {...action.payload};
     },
 
   },
@@ -56,10 +64,25 @@ export const corpsystemSlice = createSlice({
       state.branchList = [ ...action.payload ];
       state.userDataLoading = false;
     })
+
+    .addCase(getDepartments.pending, ( state ) => { state.userDataLoading = true })
+    .addCase(getDepartments.fulfilled, ( state, action ) => {
+      state.departmentLiist = [ ...action.payload ];
+      state.userDataLoading = false;
+    })
+
+    .addCase(getSapBranch.pending, ( state ) => { 
+      state.userDataLoading = true 
+      console.log('>>>');
+    })
+    .addCase(getSapBranch.fulfilled, ( state, action ) => {
+      state.user.sap_branch = { ...action.payload };
+      state.userDataLoading = false;
+    })
   }
 });
 
-export const { setSystem, setCompany } = corpsystemSlice.actions;
+export const { setSystem, setCompany, setBranch, setDepartment } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;
 export const userDataLoading      = ( state ) => state.corpsystems.userDataLoading;
