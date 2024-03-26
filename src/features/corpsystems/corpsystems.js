@@ -8,7 +8,8 @@ import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
 import { corpSyst, setSystem, getSessionKey, getUserId, userDataLoading, userData, 
   getCompanies, companyListData, setCompany, getBranches, branchListData, 
-  getDepartments, departmentLiistData, setBranch, setDepartment, getSapBranch } from "./corpsystemsSlice";
+  getDepartments, departmentLiistData, setBranch, setDepartment, getSapBranch,
+  unSetSapBranch, unsetDepartmentList, unsetBrancList } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { Row } from "../components/row/row";
 import { SelectInput } from "../components/selectInput/selectInput";
@@ -66,8 +67,6 @@ export const Corpsystems = () => {
     dispatch(getUserId({ 'api_key': api_key, 'app12_id': val }));
   }
 
-  const onWork = val => console.log(val);
-
   const onSetCompany = val => {
     dispatch(setCompany(val))
   };
@@ -78,6 +77,27 @@ export const Corpsystems = () => {
 
   const onSetDepartment = val => {
     dispatch(setDepartment(val))
+  };
+  
+  const onUnsetDepartment = () => {
+    dispatch(setDepartment([]));
+    dispatch(unSetSapBranch());
+  };
+
+  const onUnsetBranch = () => {
+    dispatch(setBranch([]));
+    dispatch(setDepartment([]));
+    dispatch(unSetSapBranch());
+    dispatch(unsetDepartmentList());
+  };
+
+  const onUnsetCompany = () => {
+    dispatch(setCompany([]))
+    dispatch(setBranch([]));
+    dispatch(setDepartment([]));
+    dispatch(unSetSapBranch());
+    dispatch(unsetBrancList());
+    dispatch(unsetDepartmentList());
   };
 
   return (
@@ -136,53 +156,60 @@ export const Corpsystems = () => {
                       <Row>
                         <label>{`${dictionary.company[lang]}:`}</label>
                         <div className={styles.wrapField}>
-                          { userDataList.company.name
+                          { userDataList.company.name && !companyList.length
                             ? <InfoField val = {userDataList.company.name} />
                             : <Select
                                 selectHandler = { val => onSetCompany(val) }
-                                selectClear  = { () => onWork(null) }
+                                selectClear  = { () => onUnsetCompany() }
                                 placeholder = 'Select'
                                 selectList = {companyList}
                                 val = ''
                                 name='companySelect'
                               />
-                          }                       
-                        </div>
-                      </Row>
-
-                      <Row>
-                        <label>{`${dictionary.branch[lang]}:`}</label>
-                        <div className={styles.wrapField}>
-                          { userDataList.branch.name
-                            ? <InfoField val = {userDataList.branch.name} />
-                            : <Select
-                                selectHandler = { val => onSetBranch(val) }
-                                selectClear  = { () => onWork(null) }
-                                placeholder = 'Select'
-                                selectList = {branchList}
-                                val = ''
-                                name='branchSelect'
-                              />
-                          }      
-                        </div>
-                      </Row>
-
-                      <Row>
-                        <label>{`${dictionary.department[lang]}:`}</label>
-                        <div className={styles.wrapField}>
-                          { userDataList.department.name
-                            ? <InfoField val = {userDataList.department.name} />
-                            : <Select
-                                selectHandler = { val => onSetDepartment(val) }
-                                selectClear  = { () => onWork(null) }
-                                placeholder = 'Select'
-                                selectList = {departmentLiist}
-                                val = ''
-                                name='departmenthSelect'
-                              />  
                           }
                         </div>
                       </Row>
+                      
+                      { Object.keys(userDataList.branch).length || branchList.length
+                        ? <Row>
+                            <label>{`${dictionary.branch[lang]}:`}</label>
+                            <div className={styles.wrapField}>
+                              { !branchList.length
+                                ? <InfoField val = {userDataList.branch.name} />
+                                : <Select
+                                    selectHandler = { val => onSetBranch(val) }
+                                    selectClear  = { () => onUnsetBranch() }
+                                    placeholder = 'Select'
+                                    selectList = {branchList}
+                                    val = ''
+                                    name='branchSelect'
+                                  />
+                              }
+                            </div>
+                          </Row>
+                        : null
+                      }
+
+                      { Object.keys(userDataList.department).length || departmentLiist.length
+                        ? <Row>
+                            <label>{`${dictionary.department[lang]}:`}</label>
+                            <div className={styles.wrapField}>
+                              { !departmentLiist.length
+                                ? <InfoField val = {userDataList.department.name} />
+                                : <Select
+                                    selectHandler = { val => onSetDepartment(val) }
+                                    selectClear  = { () => onUnsetDepartment() }
+                                    placeholder = 'Select'
+                                    selectList = {departmentLiist}
+                                    val = ''
+                                    name='departmenthSelect'
+                                  />  
+                              }
+                            </div>
+                          </Row>
+                        : null
+                      }
+
 
                       <Row>
                         <label>{`${dictionary.position[lang]}:`}</label>
@@ -198,12 +225,16 @@ export const Corpsystems = () => {
                         </div>
                       </Row>
 
-                      <Row>
-                        <label>{`${dictionary.sap_branch[lang]}:`}</label>
-                        <div className={styles.wrapField}>
-                          <InfoField val = {userDataList.sap_branch.name } />                          
-                        </div>
-                      </Row>
+                      { Object.keys(userDataList.sap_branch).length
+                        ? <Row>
+                            <label>{`${dictionary.sap_branch[lang]}:`}</label>
+                            <div className={styles.wrapField}>
+                              <InfoField val = {userDataList.sap_branch.name } />                          
+                            </div>
+                          </Row>
+                        : null
+                      }
+                        
 
                     </div>
                   : null  

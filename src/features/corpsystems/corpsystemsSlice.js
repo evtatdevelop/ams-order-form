@@ -37,6 +37,15 @@ export const corpsystemSlice = createSlice({
     setDepartment: (state, action) => {
       state.user.department = {...action.payload};
     },
+    unSetSapBranch: (state) => {
+      state.user.sap_branch = {};
+    },
+    unsetDepartmentList: (state) => {
+      state.departmentLiist = [];
+    },
+    unsetBrancList: (state) => {
+      state.branchList = [];
+    },
 
   },
 
@@ -61,20 +70,22 @@ export const corpsystemSlice = createSlice({
 
     .addCase(getBranches.pending, ( state ) => { state.userDataLoading = true })
     .addCase(getBranches.fulfilled, ( state, action ) => {
-      state.branchList = [ ...action.payload ];
+      const branchList = [ ...action.payload ];
+      if ( branchList.length === 1 ) state.user.branch = {...branchList[0]}
+      else state.branchList = branchList;
       state.userDataLoading = false;
     })
 
     .addCase(getDepartments.pending, ( state ) => { state.userDataLoading = true })
     .addCase(getDepartments.fulfilled, ( state, action ) => {
-      state.departmentLiist = [ ...action.payload ];
+      const departmentLiist = [ ...action.payload ];
+      if ( departmentLiist.length === 1 ) state.user.department = {...departmentLiist[0]}
+      else state.departmentLiist = departmentLiist;
+      // state.departmentLiist = [ ...action.payload ];
       state.userDataLoading = false;
     })
 
-    .addCase(getSapBranch.pending, ( state ) => { 
-      state.userDataLoading = true 
-      console.log('>>>');
-    })
+    .addCase(getSapBranch.pending, ( state ) => { state.userDataLoading = true })
     .addCase(getSapBranch.fulfilled, ( state, action ) => {
       state.user.sap_branch = { ...action.payload };
       state.userDataLoading = false;
@@ -82,7 +93,7 @@ export const corpsystemSlice = createSlice({
   }
 });
 
-export const { setSystem, setCompany, setBranch, setDepartment } = corpsystemSlice.actions;
+export const { setSystem, setCompany, setBranch, setDepartment, unSetSapBranch, unsetDepartmentList, unsetBrancList } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;
 export const userDataLoading      = ( state ) => state.corpsystems.userDataLoading;
