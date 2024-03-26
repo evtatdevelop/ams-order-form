@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { corpSyst, setSystem, getSessionKey, getUserId, userDataLoading, userData, 
   getCompanies, companyListData, setCompany, getBranches, branchListData, 
   getDepartments, departmentLiistData, setBranch, setDepartment, getSapBranch,
-  unSetSapBranch, unsetDepartmentList, unsetBrancList } from "./corpsystemsSlice";
+  unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { Row } from "../components/row/row";
 import { SelectInput } from "../components/selectInput/selectInput";
@@ -64,6 +64,11 @@ export const Corpsystems = () => {
   }, [api_key, dispatch, userDataList.department])
     
   const setUser = val => {
+    if ( !val ) {
+      dispatch(unsetBrancList());
+      dispatch(unsetDepartmentList());     
+      dispatch(unsetCompanyList());     
+    }
     dispatch(getUserId({ 'api_key': api_key, 'app12_id': val }));
   }
 

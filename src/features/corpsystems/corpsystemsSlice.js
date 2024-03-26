@@ -46,6 +46,9 @@ export const corpsystemSlice = createSlice({
     unsetBrancList: (state) => {
       state.branchList = [];
     },
+    unsetCompanyList: (state) => {
+      state.companyList = [];
+    },
 
   },
 
@@ -64,7 +67,9 @@ export const corpsystemSlice = createSlice({
 
     .addCase(getCompanies.pending, ( state ) => { state.userDataLoading = true })
     .addCase(getCompanies.fulfilled, ( state, action ) => {
-      state.companyList = [ ...action.payload ];
+      const companyList = [ ...action.payload ];
+      if ( companyList.length === 1 ) state.user.company = {...companyList[0]};
+      else state.companyList = companyList;
       state.userDataLoading = false;
     })
 
@@ -81,7 +86,6 @@ export const corpsystemSlice = createSlice({
       const departmentLiist = [ ...action.payload ];
       if ( departmentLiist.length === 1 ) state.user.department = {...departmentLiist[0]}
       else state.departmentLiist = departmentLiist;
-      // state.departmentLiist = [ ...action.payload ];
       state.userDataLoading = false;
     })
 
@@ -93,7 +97,8 @@ export const corpsystemSlice = createSlice({
   }
 });
 
-export const { setSystem, setCompany, setBranch, setDepartment, unSetSapBranch, unsetDepartmentList, unsetBrancList } = corpsystemSlice.actions;
+export const { setSystem, setCompany, setBranch, setDepartment, 
+  unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;
 export const userDataLoading      = ( state ) => state.corpsystems.userDataLoading;
