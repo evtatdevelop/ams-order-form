@@ -32,13 +32,22 @@ export const corpsystemSlice = createSlice({
       state.system = action.payload;
     },
     setCompany: (state, action) => {
-      state.user.company = {...action.payload};
+      // state.user.company = {...action.payload};
+      if ( action.payload.id && action.payload.name )
+        state.user.company = {'hrs01_id': action.payload.id, 'name': action.payload.name};
+      else state.user.company = []
     },
     setBranch: (state, action) => {
-      state.user.branch = {...action.payload};
+      // state.user.branch = {...action.payload};
+      if ( action.payload.id && action.payload.name )
+        state.user.branch = {'hrs05_id': action.payload.id, 'name': action.payload.name};
+      else state.user.branch = []
     },
     setDepartment: (state, action) => {
-      state.user.department = {...action.payload};
+      // state.user.department = {...action.payload};
+      if ( action.payload.id && action.payload.name )
+        state.user.department = {'app22_id': action.payload.id, 'name': action.payload.name};
+      else state.user.department = []
     },
     setLocation: (state, action) => {
       state.user.location = action.payload.name;
@@ -46,6 +55,10 @@ export const corpsystemSlice = createSlice({
     setPosition: (state, action) => {
       state.user.position_name = action.payload;
       state.positionInput = true;
+    },
+    unSetPosition: (state) => {
+      state.user.position_name = null;
+      state.positionInput = false;
     },
     unSetSapBranch: (state) => {
       state.user.sap_branch = {};
@@ -85,7 +98,8 @@ export const corpsystemSlice = createSlice({
     .addCase(getCompanies.pending, ( state ) => { state.userDataLoading = true })
     .addCase(getCompanies.fulfilled, ( state, action ) => {
       const companyList = [ ...action.payload ];
-      if ( companyList.length === 1 ) state.user.company = {...companyList[0]};
+      // if ( companyList.length === 1 ) state.user.company = {...companyList[0]};
+      if ( companyList.length === 1 ) state.user.company = {'hrs01_id': companyList[0].id, 'name': companyList[0].name}
       else state.companyList = companyList;
       state.userDataLoading = false;
     })
@@ -93,7 +107,8 @@ export const corpsystemSlice = createSlice({
     .addCase(getBranches.pending, ( state ) => { state.userDataLoading = true })
     .addCase(getBranches.fulfilled, ( state, action ) => {
       const branchList = [ ...action.payload ];
-      if ( branchList.length === 1 ) state.user.branch = {...branchList[0]}
+      // if ( branchList.length === 1 ) state.user.branch = {...branchList[0]}
+      if ( branchList.length === 1 ) state.user.branch = {'hrs05_id': branchList[0].id, 'name': branchList[0].name}
       else state.branchList = branchList;
       state.userDataLoading = false;
     })
@@ -101,13 +116,13 @@ export const corpsystemSlice = createSlice({
     .addCase(getDepartments.pending, ( state ) => { state.userDataLoading = true })
     .addCase(getDepartments.fulfilled, ( state, action ) => {
       const departmentLiist = [ ...action.payload ];
-      if ( departmentLiist.length === 1 ) state.user.department = {...departmentLiist[0]}
+      // if ( departmentLiist.length === 1 ) state.user.department = {...departmentLiist[0]}
+      if ( departmentLiist.length === 1 ) state.user.department = {'app22_id': departmentLiist[0].id, 'name': departmentLiist[0].name}
       else state.departmentLiist = departmentLiist;
       state.userDataLoading = false;
     })
 
     .addCase(getLocations.pending, ( state ) => { state.userDataLoading = true;
-      // console.log('LOCATIONS>>>')
     })
     .addCase(getLocations.fulfilled, ( state, action ) => {
       const locationLiist = action.payload;
@@ -124,7 +139,7 @@ export const corpsystemSlice = createSlice({
   }
 });
 
-export const { setSystem, setCompany, setBranch, setDepartment, setLocation, setPosition,
+export const { setSystem, setCompany, setBranch, setDepartment, setLocation, setPosition, unSetPosition,
   unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;
