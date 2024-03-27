@@ -18,6 +18,8 @@
       font: inherit;
       letter-spacing: .01vmax;
       font-size: inherit;
+      font-weight: 400;
+      font-size: 1vmax;
       color: #424242;
       border-bottom: .1vmax solid #424242;
       border-radius: .1vmax;
@@ -26,7 +28,7 @@
       
       &:focus {
         color: navy;
-        background-color: rgba(0, 0, 128, 0.036);
+        background-color: rgba(255, 217, 0, 0.111);
       }
     }
   
@@ -92,7 +94,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    margin-top: 3.1vmax;
+    margin-top: 2.8vmax;
     outline: 1px solid #424242;
     transition: opacity .3s, max-height .5s;
     background-color: rgb(238, 238, 249);
@@ -118,7 +120,7 @@
         display: block;
         width: 100%;
         height: 100%;  
-        background-color: rgba(128, 128, 128, 0.121);
+        background-color: rgb(205, 232, 242);
         padding: .8vmax 1vmax .8vmax 1vmax;
         transition: background-color .3s;
         border-radius: 3px;
@@ -137,7 +139,7 @@
 
         &:hover {
           &+label {
-            background-color: rgba(0, 0, 128, 0.13);
+            background-color: rgb(152, 226, 251);
           }
         }
       }
@@ -146,10 +148,10 @@
 
     overflow-y: scroll;
     scrollbar-width: 3px;
-    scrollbar-color: #1616191e #00008027;
+    scrollbar-color: rgb(152, 226, 251) rgb(40, 197, 250);
     &::-webkit-scrollbar { width: 3px; }
-    &::-webkit-scrollbar-track { background: #1616191e; }
-    &::-webkit-scrollbar-thumb { background-color: #00008027; }
+    &::-webkit-scrollbar-track { background: rgb(152, 226, 251); }
+    &::-webkit-scrollbar-thumb { background-color: rgb(40, 197, 250); }
   }
 
 

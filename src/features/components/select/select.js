@@ -1,11 +1,15 @@
 import React, { useState, forwardRef, useImperativeHandle } from "react";
 import styles from './select.module.scss';
+import { useSelector } from "react-redux";
+import { darkTheme } from "../../main/mainpageSlice";
 
 // export const Select = props => {
 const Select = (props, ref) => {
   const {selectHandler, selectClear, placeholder, selectList, val, name} = props
   const [value, setValue] = useState(val ? val : "")
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
+  const dark = useSelector(darkTheme);
+  
   const onChange = item => {
     setValue(item.name);
     selectHandler(item)
@@ -22,8 +26,12 @@ const Select = (props, ref) => {
   const styleClnBtn = value ? `${styles.clearBtn} ${styles.showClnBtn}` : `${styles.clearBtn}`
   const styleSelectList = show ? `${styles.selectList} ${styles.showSelectList}` : `${styles.selectList} ${styles.hideSelectList}`
 
+  const selectInputStyle = dark 
+  ? `${styles.select} ${styles.dark}`
+  : `${styles.select}`
+
   return (
-    <div className={styles.select}>
+    <div className={selectInputStyle}>
       <div className={styles.input}>
         <input type="text" className={styles.htmInput}
           value={value}
