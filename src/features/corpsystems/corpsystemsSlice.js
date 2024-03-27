@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { sessionKey, companies, branches, departments, sapBranch } from "./corpsystemsSliceAPI";
+import { sessionKey, companies, branches, departments, sapBranch, locations } from "./corpsystemsSliceAPI";
 import { getUserData } from "../user/userSliceAPI";
 
 const initialState = {
@@ -11,6 +11,7 @@ const initialState = {
   companyList: [],
   branchList: [],
   departmentLiist: [],
+  locationLiist: [],
 
 }
 
@@ -20,6 +21,7 @@ export const getCompanies   = createAsyncThunk( 'corpsystem/getCompanies', async
 export const getBranches    = createAsyncThunk( 'corpsystem/getBranches', async ( data ) => await branches(data) )
 export const getDepartments = createAsyncThunk( 'corpsystem/getDepartments', async ( data ) => await departments(data) );
 export const getSapBranch   = createAsyncThunk( 'corpsystem/getSapBranch', async ( data ) => await sapBranch(data) );
+export const getLocations   = createAsyncThunk( 'corpsystem/getLocations', async ( data ) => await locations(data) );
 
 export const corpsystemSlice = createSlice({
   name: 'corpsystems',
@@ -37,6 +39,9 @@ export const corpsystemSlice = createSlice({
     setDepartment: (state, action) => {
       state.user.department = {...action.payload};
     },
+    setLocation: (state, action) => {
+      state.user.location = action.payload.name;
+    },
     unSetSapBranch: (state) => {
       state.user.sap_branch = {};
     },
@@ -48,6 +53,9 @@ export const corpsystemSlice = createSlice({
     },
     unsetCompanyList: (state) => {
       state.companyList = [];
+    },
+    unsetLocationList: (state) => {
+      state.locationLiist = [];
     },
 
   },
@@ -61,6 +69,10 @@ export const corpsystemSlice = createSlice({
 
     .addCase(getUserId.pending, ( state ) => { state.userDataLoading = true })
     .addCase(getUserId.fulfilled, ( state, action ) => {
+      state.companyList = [];
+      state.branchList = [];
+      state.departmentLiist = [];
+      state.locationLiist = [];
       state.user = { ...action.payload };
       state.userDataLoading = false;
     })
@@ -89,6 +101,16 @@ export const corpsystemSlice = createSlice({
       state.userDataLoading = false;
     })
 
+    .addCase(getLocations.pending, ( state ) => { state.userDataLoading = true;
+      // console.log('LOCATIONS>>>')
+    })
+    .addCase(getLocations.fulfilled, ( state, action ) => {
+      const locationLiist = action.payload;
+      if ( locationLiist.length === 1 ) state.user.location = locationLiist[0].name
+      else state.locationLiist = locationLiist;
+      state.userDataLoading = false;
+    })
+
     .addCase(getSapBranch.pending, ( state ) => { state.userDataLoading = true })
     .addCase(getSapBranch.fulfilled, ( state, action ) => {
       state.user.sap_branch = { ...action.payload };
@@ -97,8 +119,8 @@ export const corpsystemSlice = createSlice({
   }
 });
 
-export const { setSystem, setCompany, setBranch, setDepartment, 
-  unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList } = corpsystemSlice.actions;
+export const { setSystem, setCompany, setBranch, setDepartment, setLocation,
+  unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;
 export const userDataLoading      = ( state ) => state.corpsystems.userDataLoading;
@@ -106,5 +128,6 @@ export const userData             = ( state ) => state.corpsystems.user;
 export const companyListData      = ( state ) => state.corpsystems.companyList;
 export const branchListData       = ( state ) => state.corpsystems.branchList;
 export const departmentLiistData  = ( state ) => state.corpsystems.departmentLiist;
+export const locationLiistData    = ( state ) => state.corpsystems.locationLiist;
 
 export default corpsystemSlice.reducer;

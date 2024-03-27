@@ -7,15 +7,16 @@ import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
 import { corpSyst, setSystem, getSessionKey, getUserId, userDataLoading, userData, 
-  getCompanies, companyListData, setCompany, getBranches, branchListData, 
-  getDepartments, departmentLiistData, setBranch, setDepartment, getSapBranch,
-  unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList } from "./corpsystemsSlice";
+  getCompanies, companyListData, setCompany, getBranches, branchListData, locationLiistData,
+  getDepartments, departmentLiistData, setBranch, setDepartment, getSapBranch, getLocations, setLocation,
+  unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { Row } from "../components/row/row";
 import { SelectInput } from "../components/selectInput/selectInput";
 import { UserDataLoader } from "./userDataLoader";
 import { InfoField } from "../components/infoField/infoField";
 import Select from "../components/select/select";
+import Input from "../components/input/Input";
 
 export const Corpsystems = () => {
   const { system } = useParams();
@@ -29,6 +30,7 @@ export const Corpsystems = () => {
   const companyList = useSelector(companyListData);
   const branchList = useSelector(branchListData);
   const departmentLiist = useSelector(departmentLiistData);
+  const locationLiist = useSelector(locationLiistData);
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
@@ -53,9 +55,13 @@ export const Corpsystems = () => {
 
   useEffect(() => {
     if ( userDataList.branch && Object.keys(userDataList.branch).length ) {
-      dispatch(getDepartments( {'api_key': api_key, 'hrs05_id': userDataList.branch.id} ));      
+      dispatch(getDepartments( {'api_key': api_key, 'hrs05_id': userDataList.branch.id} ));  
+      if ( !userDataList.location ) {
+        console.log('LOCATIONS', userDataList.branch.id);
+        dispatch(getLocations( {'api_key': api_key, 'hrs05_id': userDataList.branch.id} ));      
+      }
     }
-  }, [api_key, dispatch, userDataList.branch])
+  }, [api_key, dispatch, userDataList.branch, userDataList.location])
 
   useEffect(() => {
     if ( userDataList.department && Object.keys(userDataList.department).length ) {
@@ -66,8 +72,9 @@ export const Corpsystems = () => {
   const setUser = val => {
     if ( !val ) {
       dispatch(unsetBrancList());
-      dispatch(unsetDepartmentList());     
-      dispatch(unsetCompanyList());     
+      dispatch(unsetDepartmentList());
+      dispatch(unsetCompanyList());
+      dispatch(unsetLocationList());
     }
     dispatch(getUserId({ 'api_key': api_key, 'app12_id': val }));
   }
@@ -83,6 +90,10 @@ export const Corpsystems = () => {
   const onSetDepartment = val => {
     dispatch(setDepartment(val))
   };
+
+  const onSetLocation = val => {
+    dispatch(setLocation(val))
+  };
   
   const onUnsetDepartment = () => {
     dispatch(setDepartment([]));
@@ -94,6 +105,8 @@ export const Corpsystems = () => {
     dispatch(setDepartment([]));
     dispatch(unSetSapBranch());
     dispatch(unsetDepartmentList());
+    dispatch(setLocation({name: null,}))
+    dispatch(unsetLocationList());
   };
 
   const onUnsetCompany = () => {
@@ -103,7 +116,11 @@ export const Corpsystems = () => {
     dispatch(unSetSapBranch());
     dispatch(unsetBrancList());
     dispatch(unsetDepartmentList());
+    dispatch(unsetLocationList());
+    dispatch(setLocation({name: null,}))
   };
+
+  const onUnsetlocation = () => dispatch(setLocation({name: null,}));
 
   return (
     <section className={corpsystemsStyle} >
@@ -158,22 +175,25 @@ export const Corpsystems = () => {
                         </div>
                       </Row>
 
-                      <Row>
-                        <label>{`${dictionary.company[lang]}:`}</label>
-                        <div className={styles.wrapField}>
-                          { userDataList.company.name && !companyList.length
-                            ? <InfoField val = {userDataList.company.name} />
-                            : <Select
-                                selectHandler = { val => onSetCompany(val) }
-                                selectClear  = { () => onUnsetCompany() }
-                                placeholder = 'Select'
-                                selectList = {companyList}
-                                val = ''
-                                name='companySelect'
-                              />
-                          }
-                        </div>
-                      </Row>
+                      { Object.keys(userDataList.company).length || companyList.length
+                        ? <Row>
+                            <label>{`${dictionary.company[lang]}:`}</label>
+                            <div className={styles.wrapField}>
+                              { userDataList.company.name && !companyList.length
+                                ? <InfoField val = {userDataList.company.name} />
+                                : <Select
+                                    selectHandler = { val => onSetCompany(val) }
+                                    selectClear  = { () => onUnsetCompany() }
+                                    placeholder = 'Select'
+                                    selectList = {companyList}
+                                    val = ''
+                                    name='companySelect'
+                                  />
+                              }
+                            </div>
+                          </Row>
+                        : null
+                      }
                       
                       { Object.keys(userDataList.branch).length || branchList.length
                         ? <Row>
@@ -219,16 +239,39 @@ export const Corpsystems = () => {
                       <Row>
                         <label>{`${dictionary.position[lang]}:`}</label>
                         <div className={styles.wrapField}>
-                          <InfoField val = {userDataList.position_name} />                          
+                          { userDataList.position_name
+                            ? <InfoField val = {userDataList.position_name} />
+                            : <Input 
+                                inputHandler = { val => {} }
+                                inputClear = { () => {} }
+                                placeholder = 'Input'
+                                val = ''
+                              />
+                          }
+                                                    
                         </div>
                       </Row>
 
-                      <Row>
-                        <label>{`${dictionary.location[lang]}:`}</label>
-                        <div className={styles.wrapField}>
-                          <InfoField val = {userDataList.location } />                          
-                        </div>
-                      </Row>
+
+                      { userDataList.location || locationLiist.length
+                        ? <Row>
+                            <label>{`${dictionary.location[lang]}:`}</label>
+                            <div className={styles.wrapField}>
+                              { !locationLiist.length
+                                ? <InfoField val = { userDataList.location } />
+                                : <Select
+                                    selectHandler = { val => onSetLocation(val) }
+                                    selectClear  = { () => onUnsetlocation() }
+                                    placeholder = 'Select'
+                                    selectList = {locationLiist}
+                                    val = ''
+                                    name='locationSelect'
+                                  />  
+                              }
+                            </div>
+                          </Row>
+                        : null
+                      }
 
                       { Object.keys(userDataList.sap_branch).length
                         ? <Row>
