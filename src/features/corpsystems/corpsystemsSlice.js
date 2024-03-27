@@ -12,6 +12,7 @@ const initialState = {
   branchList: [],
   departmentLiist: [],
   locationLiist: [],
+  positionInput: false,
 
 }
 
@@ -41,6 +42,10 @@ export const corpsystemSlice = createSlice({
     },
     setLocation: (state, action) => {
       state.user.location = action.payload.name;
+    },
+    setPosition: (state, action) => {
+      state.user.position_name = action.payload;
+      state.positionInput = true;
     },
     unSetSapBranch: (state) => {
       state.user.sap_branch = {};
@@ -119,7 +124,7 @@ export const corpsystemSlice = createSlice({
   }
 });
 
-export const { setSystem, setCompany, setBranch, setDepartment, setLocation,
+export const { setSystem, setCompany, setBranch, setDepartment, setLocation, setPosition,
   unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;
@@ -129,5 +134,6 @@ export const companyListData      = ( state ) => state.corpsystems.companyList;
 export const branchListData       = ( state ) => state.corpsystems.branchList;
 export const departmentLiistData  = ( state ) => state.corpsystems.departmentLiist;
 export const locationLiistData    = ( state ) => state.corpsystems.locationLiist;
+export const positionInputData    = ( state ) => state.corpsystems.positionInput;
 
 export default corpsystemSlice.reducer;

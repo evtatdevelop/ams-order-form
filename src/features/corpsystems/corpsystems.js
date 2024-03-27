@@ -7,8 +7,8 @@ import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
 import { corpSyst, setSystem, getSessionKey, getUserId, userDataLoading, userData, 
-  getCompanies, companyListData, setCompany, getBranches, branchListData, locationLiistData,
-  getDepartments, departmentLiistData, setBranch, setDepartment, getSapBranch, getLocations, setLocation,
+  getCompanies, companyListData, setCompany, getBranches, branchListData, locationLiistData, positionInputData,
+  getDepartments, departmentLiistData, setBranch, setDepartment, getSapBranch, getLocations, setLocation, setPosition,
   unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { Row } from "../components/row/row";
@@ -31,6 +31,7 @@ export const Corpsystems = () => {
   const branchList = useSelector(branchListData);
   const departmentLiist = useSelector(departmentLiistData);
   const locationLiist = useSelector(locationLiistData);
+  const positionInput = useSelector(positionInputData);
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
@@ -93,6 +94,10 @@ export const Corpsystems = () => {
 
   const onSetLocation = val => {
     dispatch(setLocation(val))
+  };
+
+  const onSetPosition = val => {
+    dispatch(setPosition(val))
   };
   
   const onUnsetDepartment = () => {
@@ -235,23 +240,20 @@ export const Corpsystems = () => {
                         : null
                       }
 
-
                       <Row>
                         <label>{`${dictionary.position[lang]}:`}</label>
                         <div className={styles.wrapField}>
-                          { userDataList.position_name
+                          { userDataList.position_name && !positionInput
                             ? <InfoField val = {userDataList.position_name} />
                             : <Input 
-                                inputHandler = { val => {} }
-                                inputClear = { () => {} }
+                                inputHandler = { val => onSetPosition(val) }
+                                inputClear = { () => onSetPosition(null) }
                                 placeholder = 'Input'
                                 val = ''
                               />
-                          }
-                                                    
+                          }                       
                         </div>
                       </Row>
-
 
                       { userDataList.location || locationLiist.length
                         ? <Row>
