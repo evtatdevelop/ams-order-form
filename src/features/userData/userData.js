@@ -13,6 +13,7 @@ import { UserDataLoader } from "./userDataLoader";
 import { InfoField } from "../components/infoField/infoField";
 import Select from "../components/select/select";
 import Input from "../components/input/Input";
+import SelectTree from "../components/selectTree/selectTree";
 
 export const UserData = () => {
   const dispatch = useDispatch();
@@ -31,13 +32,15 @@ export const UserData = () => {
   }, [api_key, dispatch, userDataList.company, userDataList.company_group])
 
   useEffect(() => {
-    if ( userDataList.company && Object.keys(userDataList.company).length && userDataList.branch && !Object.keys(userDataList.branch).length) {
+    if ( userDataList.company && Object.keys(userDataList.company).length 
+          && userDataList.branch && !Object.keys(userDataList.branch).length) {
       dispatch(getBranches( {'api_key': api_key, 'hrs01_id': userDataList.company.hrs01_id} ));     
     }
   }, [api_key, dispatch, userDataList.branch, userDataList.company])
 
   useEffect(() => {
-    if ( userDataList.branch && Object.keys(userDataList.branch).length && userDataList.department && !Object.keys(userDataList.department).length) {
+    if ( userDataList.branch && Object.keys(userDataList.branch).length 
+          && userDataList.department && !Object.keys(userDataList.department).length) {
       dispatch(getDepartments( {'api_key': api_key, 'hrs05_id': userDataList.branch.hrs05_id} ));  
       if ( !userDataList.location ) {
         dispatch(getLocations( {'api_key': api_key, 'hrs05_id': userDataList.branch.hrs05_id} ));      
@@ -46,7 +49,8 @@ export const UserData = () => {
   }, [api_key, dispatch, userDataList.branch, userDataList.department, userDataList.location])
 
   useEffect(() => {
-    if ( userDataList.department && Object.keys(userDataList.department).length && userDataList.sap_branch && !Object.keys(userDataList.sap_branch).length ) {
+    if ( userDataList.department && Object.keys(userDataList.department).length 
+          && userDataList.sap_branch && !Object.keys(userDataList.sap_branch).length ) {
       dispatch(getSapBranch( {'api_key': api_key, 'app22_id': userDataList.department.app22_id} ));      
     }
   }, [api_key, dispatch, userDataList.department, userDataList.sap_branch])
@@ -190,13 +194,14 @@ export const UserData = () => {
                 : null
               }
 
-              { Object.keys(userDataList.department).length || departmentLiist.length
+              {/* { Object.keys(userDataList.department).length || departmentLiist.length */}
+              { Object.keys(userDataList.department).length || Object.keys(departmentLiist).length
                 ? <Row>
                     <label>{`${dictionary.department[lang]}:`}</label>
                     <div className={styles.wrapField}>
-                      { !departmentLiist.length
+                      { !Object.keys(departmentLiist).length
                         ? <InfoField val = {userDataList.department.name} />
-                        : <Select
+                        : <SelectTree
                             selectHandler = { val => onSetDepartment(val) }
                             selectClear  = { () => onUnsetDepartment() }
                             placeholder = 'Select'
