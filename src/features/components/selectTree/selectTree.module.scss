@@ -73,7 +73,7 @@
     padding: 0;
     margin: 0;
     margin-top: 2.8vmax;
-    outline: 1px solid #424242;
+    outline: .1vmax solid #424242;
     transition: opacity .3s, max-height .5s;
     background-color: rgb(238, 238, 249);
 
@@ -89,7 +89,6 @@
       opacity: 1;
     }
 
-    overflow-y: auto;
     scrollbar-width: 3px;
     scrollbar-color: rgb(152, 226, 251) rgb(40, 197, 250);
     &::-webkit-scrollbar { width: 3px; }
@@ -103,54 +102,119 @@
       .itemLi {
         width: 100%;
         margin-top: .1vmax;
-        background-color: rgb(205, 232, 242);
 
         .itemControl {
           display: flex;
-          .subSwitcherLabel {
+          align-items: center;
+
+          .subSwitcherLabel,
+          .gap {
             width: 2vmax;
-          }
-        }
-
-          label {
-            font-weight: 400;
-            display: block;
-            width: 100%;
-            height: 100%;  
-            background-color: rgb(205, 232, 242);
-            padding: .8vmax 1vmax .8vmax 1vmax;
-            transition: background-color .3s;
-            border-radius: 3px;
-            color: #424242;
+            height: 2vmax;
+            margin-left: .3vmax;
+            margin-right: .3vmax;            
           }
 
-          input[type=checkbox],
-          input[type=radio] {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            margin: -1px;
-            border: 0;
+          .subSwitcherLabel {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 0;
-            clip: rect(0 0 0 0);
-            overflow: hidden;
+            color: navy;
+            background-color: rgba(255, 217, 0, 0.111);
+            outline: .1vmax solid navy;
 
             &:hover {
-              &+label {
-                background-color: rgb(152, 226, 251);
+              background-color: rgba(255, 217, 0, 0.223);
+            }
+
+            &::after {
+              position: absolute;
+              top: 50%;              
+              left: calc(50%+0.3vmax);
+              content: '';
+              width: .6vmax;
+              height: .1vmax;
+              border-bottom: .2vmax solid navy;
+              transition: transform .3s;
+
+            }
+            &::before {
+              position: absolute;
+              top: 50%;              
+              left: calc(50%+0.3vmax);
+              content: '';
+              width: .6vmax;
+              height: .1vmax;
+              border-bottom: .2vmax solid #424219;
+              transform: rotate(90deg);
+              transition: transform .3s;
+            }
+            &.changed {
+              &::after {
+                transform: rotate(-180deg);
+              }
+              &::before {
+
+                transform: rotate(180deg);
               }
             }
           }
+        }
 
+        label {
+          font-weight: 400;
+          display: block;
+          width: 100%;
+          height: 100%;  
+          background-color: rgb(205, 232, 242);
+          padding: .8vmax 1vmax .8vmax 1vmax;
+          transition: background-color .3s;
+          border-radius: .1vmax;
+          color: #424242;
+        }
+
+        input[type=radio] {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          margin: -1px;
+          border: 0;
+          padding: 0;
+          clip: rect(0 0 0 0);
+          overflow: hidden;
+
+          &:hover {
+            &+label {
+              background-color: rgb(152, 226, 251);
+            }
+          }
+        }
+
+        input[type=checkbox] {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          margin: -1px;
+          border: 0;
+          padding: 0;
+          clip: rect(0 0 0 0);
+          overflow: hidden;
+        }
 
         .sub {
+          // margin-top: .1vmax;
           margin-left: 2vmax;
           height: 0;
+          opacity: 0;
           overflow-y: hidden;
+          transition: opacity 1s;
         }
 
         .subSwitcher:checked ~ .sub {
           height: auto;
+          opacity: 1;
         }
 
       }

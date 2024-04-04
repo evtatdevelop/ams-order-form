@@ -15,10 +15,10 @@ const SelectTree = (props, ref) => {
     setShow(false)
   }
   // const onBlur = () => setTimeout(()=>setShow(false), 100)
-  const onBlur = () => {}
   const clearInput = () => {
     setValue('')
     selectClear('')
+    setShow(false)
   }
 
   useImperativeHandle(ref, () => ({ clearInput }));
@@ -32,30 +32,43 @@ const SelectTree = (props, ref) => {
 
   // console.log(Array.from(selectList));
 
+
+
+  const Item = (item, lvl) => {
+    const [show, setShow] = useState(false);
+    const subSwitcherLabelStyle = show ? `${styles.subSwitcherLabel} ${styles.changed}` : `${styles.subSwitcherLabel}`;
+    return(
+      <li key={`${item.id}${name}`} className={styles.itemLi}>
+      <div className={styles.itemControl}>
+        { item.sub.length
+          ? <label htmlFor={`${item.id}name${lvl}`} className={subSwitcherLabelStyle}></label>
+          : <div className={styles.gap}></div>
+        }
+        <input type="radio" value={item.id} id={`${item.id}${name}`} name={`name}`} onClick={()=>onChange(item)} />
+        <label htmlFor={`${item.id}${name}`}>{item.name.split(' / ').at(-1)}</label>            
+      </div>
+
+      { item.sub.length
+        ? <>
+            <input type="checkbox" 
+              name={`name${lvl}`} 
+              className={styles.subSwitcher} 
+              id={`${item.id}name${lvl}`}
+              onChange={()=>setShow(!show)}
+            />
+            <div className={styles.sub}>{ItemList(item.sub, lvl+1)}</div>
+          </>
+        : null  
+      }
+    </li>
+    )
+  }
+
+
   const ItemList = (list, lvl) =>  {
     return(
       <ul className={styles.selectList}>
-      {list.map(item => 
-        <li key={`${item.id}${name}`} className={styles.itemLi}>
-          <div className={styles.itemControl}>
-            { item.sub.length
-              ? <label htmlFor={`${item.id}name${lvl}`} className={styles.subSwitcherLabel}>{`+`}</label>
-              // ? <button type="button" onClick={()=>setShow(!show)}>btn</button>
-              : null  
-            }
-            <input type="radio" value={item.id} id={`${item.id}${name}`} name={`name}`} onClick={()=>onChange(item)} />
-            <label htmlFor={`${item.id}${name}`}>{item.name.split(' / ').at(-1)}</label>            
-          </div>
-
-          { item.sub.length
-            ? <>
-                <input type="checkbox" name={`name${lvl}`} className={styles.subSwitcher} id={`${item.id}name${lvl}`}/>
-                <div className={styles.sub}>{ItemList(item.sub, lvl+1)}</div>
-              </>
-            : null  
-          }
-        </li>
-      )}
+        { list.map(item => Item(item, lvl)) }
     </ul>
     )
   }
@@ -69,7 +82,7 @@ const SelectTree = (props, ref) => {
           readOnly={true}
           onClick={()=>setShow(true)}
           onFocus={()=>setShow(true)}
-          onBlur={()=>onBlur()}
+          // onBlur={()=>onBlur()}
         />
         {<button type="button" className={styleClnBtn}
             onClick={() => clearInput()}

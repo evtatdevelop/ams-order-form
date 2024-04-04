@@ -75,7 +75,7 @@
     padding: 0;
     margin: 0;
     margin-top: 2.8vmax;
-    outline: 1px solid #424242;
+    outline: .1vmax solid #424242;
     transition: opacity .3s, max-height .5s;
     background-color: rgb(238, 238, 249);
    
@@ -103,7 +103,7 @@
         background-color: rgb(205, 232, 242);
         padding: .8vmax 1vmax .8vmax 1vmax;
         transition: background-color .3s;
-        border-radius: 3px;
+        border-radius: .1vmax;
         color: #424242;
       }
 
@@ -164,7 +164,7 @@
     }
 
     .selectList {
-      outline: 1px solid wheat;
+      outline: .1vmax solid wheat;
       background-color: #161619;
   
       .itemLi {
