@@ -225,61 +225,83 @@
 
 
 
-  //
+  
   // Dark styles
-  //
-  // &.dark {
-  //   .input {
+  
+  &.dark {
+    .input {
     
-  //     .htmInput {
-  //       color: gray;
+      .htmInput {
+        color: rgb(170, 169, 169);
         
-  //       &:focus {
-  //         color: rgb(207, 207, 229);
-  //         background-color: rgba(0, 0, 128, 0.036);
-  //       }
-  //     }
+        &:focus {
+          color: rgb(207, 207, 229);
+          background-color: rgba(0, 0, 128, 0.036);
+        }
+      }
     
-  //     .clearBtn {
+      .clearBtn {
    
-  //       &:focus,
-  //       &:hover {
-  //         color: coral;
-  //       } 
-  //     }
+        &:focus,
+        &:hover {
+          color: coral;
+        } 
+      }
   
-  //     // .loading {
-  //     //   color: coral;
-  //     // }
-  //   }
+      // .loading {
+      //   color: coral;
+      // }
+    }
 
-  //   .selectList {
-  //     outline: 1px solid wheat;
-  //     background-color: #161619;
+    .wrapperList {
+      outline: 1px solid wheat;
+      background-color: #161619;
   
-  //     .itemLi {
-  
-  //       label { 
-  //         background-color: #36363d;
-  //         color: rgb(241, 235, 235);
-  //       }
-  
-  //       input[type=radio] {
+      .itemLi {
+ 
+        .itemControl {
 
-  //         &:hover {
-  //           &+label {
-  //             background-color: #60606d;
-  //           }
-  //         }
-  //       }
+          .subSwitcherLabel {
+            color: wheat;
+            background-color: rgba(255, 217, 0, 0.111);
+            outline: .1vmax solid wheat;
+
+            &:hover {
+              background-color: #60606d;
+            }
+
+            &::after {
+              border-bottom: .2vmax solid wheat;
+
+            }
+            &::before {
+              border-bottom: .2vmax solid wheat;
+            }
+          }
+        }
+
+
+        label { 
+          background-color: #36363d;
+          color: rgb(241, 235, 235);
+        }
+  
+        input[type=radio] {
+
+          &:hover {
+            &+label {
+              background-color: #60606d;
+            }
+          }
+        }
       
-  //     }
+      }
 
-  //     scrollbar-color: #161619 #60606d;
-  //     &::-webkit-scrollbar-track { background: #161619; }
-  //     &::-webkit-scrollbar-thumb { background-color: #60606d; }
-  //   }
+      scrollbar-color: #161619 #60606d;
+      &::-webkit-scrollbar-track { background: #161619; }
+      &::-webkit-scrollbar-thumb { background-color: #60606d; }
+    }
 
 
-  // }  
+  }  
 }
