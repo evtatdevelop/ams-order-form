@@ -6,6 +6,37 @@
   justify-content: center;
   font-size: 1.2vmax;
   animation: appearance 500ms ease-in-out forwards;
+  
+  &.test {
+    position: relative;
+    box-shadow: inset 0px 0px 10px green;
+    &::before {
+      position: absolute;
+      top: .1vmax;
+      left: .1vmax;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: .2vmax;
+      color: green;
+      content: 'TEST';
+      outline: .1vmax solid green;
+    }
+    &::after {
+      position: absolute;
+      bottom: .1vmax;
+      right: .1vmax;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: .2vmax;
+      color: green;
+      content: 'TEST';
+      outline: .1vmax solid green;
+    }
+  }
+  
+
 
   .wrapperCS {
     width: 75%;

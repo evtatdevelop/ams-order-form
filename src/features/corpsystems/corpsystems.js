@@ -6,7 +6,7 @@ import dictionary from '../../dictionary.json';
 import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
-import { corpSyst, setSystem, getSessionKey } from "./corpsystemsSlice";
+import { corpSyst, getSessionKey, getCorpsystem } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { UserData } from "../userData/userData";
 
@@ -20,13 +20,17 @@ export const Corpsystems = () => {
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
-    dispatch(setSystem(system));
+    dispatch(getCorpsystem({'url': 'corpsystems', 'path': system, 'api_key': api_key}));
     dispatch(changeTheme( false || JSON.parse(localStorage.getItem('darkTheme')) ));
   }, [api_key, dispatch, system]);
 
-  const corpsystemsStyle = dark 
+  let corpsystemsStyle = dark 
     ? `${styles.corpsystems} ${styles.dark}`
     : `${styles.corpsystems}`
+
+  corpsystemsStyle = cs && cs.instance_type === "TEST" 
+    ? `${corpsystemsStyle} ${styles.test}`
+    : `${corpsystemsStyle}`
 
   return (
     <section className={corpsystemsStyle} >
@@ -35,7 +39,7 @@ export const Corpsystems = () => {
         { !load
           ? <form className={styles.form}>
               { cs 
-                ? <h3 className={styles.nameForm}>{`${dictionary.application_for_access_to[lang]} ${cs.toUpperCase()}`}</h3>
+                ? <h3 className={styles.nameForm}>{`${dictionary.application_for_access_to[lang]} ${cs.name}`}</h3>
                 : null
               }
 

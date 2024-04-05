@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { sessionKey, companies, branches, departments, sapBranch, locations } from "./corpsystemsSliceAPI";
+import { sessionKey, companies, branches, departments, sapBranch, locations, corpsystem } from "./corpsystemsSliceAPI";
 import { getUserData } from "../user/userSliceAPI";
 
 const initialState = {
@@ -23,6 +23,7 @@ export const getBranches    = createAsyncThunk( 'corpsystem/getBranches', async 
 export const getDepartments = createAsyncThunk( 'corpsystem/getDepartments', async ( data ) => await departments(data) );
 export const getSapBranch   = createAsyncThunk( 'corpsystem/getSapBranch', async ( data ) => await sapBranch(data) );
 export const getLocations   = createAsyncThunk( 'corpsystem/getLocations', async ( data ) => await locations(data) );
+export const getCorpsystem  = createAsyncThunk( 'corpsystem/getCorpsystem', async ( data ) => await corpsystem(data) );
 
 export const corpsystemSlice = createSlice({
   name: 'corpsystems',
@@ -134,6 +135,12 @@ export const corpsystemSlice = createSlice({
     .addCase(getSapBranch.pending, ( state ) => { state.userDataLoading = true })
     .addCase(getSapBranch.fulfilled, ( state, action ) => {
       state.user.sap_branch = { ...action.payload };
+      state.userDataLoading = false;
+    })
+
+    .addCase(getCorpsystem.pending, ( state ) => { state.userDataLoading = true })
+    .addCase(getCorpsystem.fulfilled, ( state, action ) => {
+      state.system = {...action.payload}
       state.userDataLoading = false;
     })
   }
