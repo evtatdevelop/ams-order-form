@@ -163,7 +163,7 @@ export const UserData = () => {
                         : <Select
                             selectHandler = { val => onSetCompany(val) }
                             selectClear  = { () => onUnsetCompany() }
-                            placeholder = 'Select'
+                            placeholder = '>'
                             selectList = {companyList}
                             val = ''
                             name='companySelect'
@@ -183,7 +183,7 @@ export const UserData = () => {
                         : <Select
                             selectHandler = { val => onSetBranch(val) }
                             selectClear  = { () => onUnsetBranch() }
-                            placeholder = 'Select'
+                            placeholder = '>'
                             selectList = {branchList}
                             val = ''
                             name='branchSelect'
@@ -204,7 +204,7 @@ export const UserData = () => {
                         : <SelectTree
                             selectHandler = { val => onSetDepartment(val) }
                             selectClear  = { () => onUnsetDepartment() }
-                            placeholder = 'Select'
+                            placeholder = '>'
                             selectList = {departmentLiist}
                             val = ''
                             name='departmenthSelect'
@@ -224,7 +224,7 @@ export const UserData = () => {
                         : <Input 
                             inputHandler = { val => onSetPosition(val) }
                             inputClear = { () => onSetPosition(null) }
-                            placeholder = 'Input'
+                            placeholder = '>'
                             val = ''
                           />
                       }                       
@@ -243,7 +243,7 @@ export const UserData = () => {
                         : <Select
                             selectHandler = { val => onSetLocation(val) }
                             selectClear  = { () => onUnsetlocation() }
-                            placeholder = 'Select'
+                            placeholder = '>'
                             selectList = {locationLiist}
                             val = ''
                             name='locationSelect'

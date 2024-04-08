@@ -6,8 +6,8 @@
   overflow: hidden;
 
   button {
-    width: 3vmax;
-    height: 2vmax;
+    width: 2vmax;
+    height: 1.5vmax;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,7 +15,7 @@
     margin: 0;
     border: none;
     background-color: transparent;
-    cursor: pointer;
+    // cursor: pointer;
   }
 
   .flag {
@@ -23,6 +23,7 @@
     height: 100%;
     outline: .1vmax solid rgba(128, 128, 128, 0.421);
     border-radius: .2vmax;
+    cursor: pointer;
     &.on {
       filter: grayscale(50%);
       cursor: auto;

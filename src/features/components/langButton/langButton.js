@@ -2,7 +2,7 @@ import React from "react";
 import styles from './langButton.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { user, setLang } from "../../user/userSlice";
-import { RU, GB } from 'country-flag-icons/react/3x2'
+import { RU, GB, CN } from 'country-flag-icons/react/3x2'
 
 export const LangButton = () => {
   const userData = useSelector(user);
@@ -14,18 +14,20 @@ export const LangButton = () => {
 
   let ruFlag = styles.flag;
   let enFlag = styles.flag;
-  if ( lang === 'RU' ) ruFlag = `${styles.flag} ${styles.on}`
-  else enFlag = `${styles.flag} ${styles.on}`;
+  let zhFlag = styles.flag;
+
+  switch ( lang ) {
+    case 'RU': ruFlag = `${styles.flag} ${styles.on}`; break;
+    case 'EN': enFlag = `${styles.flag} ${styles.on}`; break;
+    case 'ZH': zhFlag = `${styles.flag} ${styles.on}`; break; 
+    default: ; break;
+  }
+
+  // if ( lang === 'RU' ) ruFlag = `${styles.flag} ${styles.on}`
+  // else enFlag = `${styles.flag} ${styles.on}`;
 
   return (
     <div className={styles.langButton}>
-
-      <button type='button'
-        className={styles.langSwitcher}
-        onClick={() => lang === 'RU' ? dispatch(setLang( {'app12_id': userData['id'], 'lang': 'EN', 'api_key': userData.api_key} )) : {}}
-      >
-        <GB title="English" className={enFlag}/>
-      </button>
 
       <button type='button'
         className={styles.langSwitcher}
@@ -33,7 +35,21 @@ export const LangButton = () => {
       >
         <RU title="Русский" className={ruFlag}/>
       </button>
-      
+
+      <button type='button'
+        className={styles.langSwitcher}
+        onClick={() => lang !== 'ZH' ? dispatch(setLang( {'app12_id': userData['id'], 'lang': 'ZH', 'api_key': userData.api_key} )) : {}}
+      >
+        <CN title="中文" className={zhFlag}/>
+      </button>
+
+      <button type='button'
+        className={styles.langSwitcher}
+        onClick={() => lang !== 'EN' ? dispatch(setLang( {'app12_id': userData['id'], 'lang': 'EN', 'api_key': userData.api_key} )) : {}}
+      >
+        <GB title="English" className={enFlag}/>
+      </button>
+
     </div>
 
   )

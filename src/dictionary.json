@@ -1,71 +1,88 @@
 {
   "application": {
     "EN": "application",
-    "RU": "автоматизированная система"
+    "RU": "автоматизированная система",
+    "ZH": "应用"
   },
   "management_system": {
     "EN": "management system",
-    "RU": "управления заявками"
+    "RU": "управления заявками",
+    "ZH": "管理系统"
   },
   "page_timeout_exceeded": {
     "EN": "Page idle timeout exceeded",
-    "RU": "Превышено время бездействия на странице"
+    "RU": "Превышено время бездействия на странице",
+    "ZH": "页面空闲时间超出"
   },
   "continue_work": {
     "EN": "Continue work",
-    "RU": "Продолжить работу"
+    "RU": "Продолжить работу",
+    "ZH": "继续工作"
   },
   "ams_order_form": {
     "EN": "Application Management System",
-    "RU": "Автоматизированная система управления заявками (АСУЗ)"
+    "RU": "Автоматизированная система управления заявками (АСУЗ)",
+    "ZH": "应用管理系统"
   },
   "application_for_access_to": {
     "EN": "access and permissions for",
-    "RU": "доступ и разрешения для"
+    "RU": "доступ и разрешения для",
+    "ZH": "访问和权限"
   },
   "applicant": {
     "EN": "Applicant",
-    "RU": "Заявитель"
+    "RU": "Инициатор запроса",
+    "ZH": "申请人"
   },
   "userName": {
     "EN": "User",
-    "RU": "Пользователь"
+    "RU": "Пользователь",
+    "ZH": "用户"
   },
   "userNameOlaceholder": {
     "EN": "Full name",
-    "RU": "Ф.И.О."
+    "RU": "Ф.И.О.",
+    "ZH": "全名"
   },
   "email": {
     "EN": "Email",
-    "RU": "Эл. почта"
+    "RU": "Эл. почта",
+    "ZH": "电子邮件"
   }, 
   "ad_account": {
     "EN": "AD account",
-    "RU": "Учетная запись в AD"
+    "RU": "Учетная запись в AD",
+    "ZH": "活动目录账户"
   },
   "company": {
     "EN": "Company",
-    "RU": "Компания"
+    "RU": "Компания",
+    "ZH": "公司"
   },
   "branch": {
     "EN": "Branch",
-    "RU": "Филиал / ПЕ"
+    "RU": "Филиал / ПЕ",
+    "ZH": "公司分公司"
   },
   "department": {
     "EN": "Department",
-    "RU": "Подразделение"
+    "RU": "Подразделение",
+    "ZH": "部门"
   },
   "position": {
     "EN": "Position",
-    "RU": "Должность"
+    "RU": "Должность",
+    "ZH": "员工岗位"
   },
   "location": {
     "EN": "Location",
-    "RU": "Местонахождение"
+    "RU": "Местонахождение",
+    "ZH": "员工所在地"
   },
   "sap_branch": {
     "EN": "SAP Branch",
-    "RU": "Филиал SAP"
+    "RU": "Филиал SAP",
+    "ZH": "SAP分公司"
   }
   
 

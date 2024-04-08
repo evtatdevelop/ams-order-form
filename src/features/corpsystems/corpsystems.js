@@ -39,7 +39,11 @@ export const Corpsystems = () => {
         { !load
           ? <form className={styles.form}>
               { cs 
-                ? <h3 className={styles.nameForm}>{`${dictionary.application_for_access_to[lang]} ${cs.name}`}</h3>
+                ? <h3 className={styles.nameForm}>{
+                    lang === 'ZH' 
+                    ? `${cs.name} ${dictionary.application_for_access_to[lang]}`
+                    : `${dictionary.application_for_access_to[lang]} ${cs.name}`
+                  }</h3>
                 : null
               }
 
