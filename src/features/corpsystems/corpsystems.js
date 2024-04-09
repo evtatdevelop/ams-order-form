@@ -6,23 +6,43 @@ import dictionary from '../../dictionary.json';
 import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
-import { corpSyst, getSessionKey, getCorpsystem } from "./corpsystemsSlice";
+import { corpSyst, getSessionKey, getCorpsystem, userData, 
+  setBoss, clearForm, bossData, getSystemList, systemListData, setSapSystem, getSubSystemList } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { UserData } from "../userData/userData";
+
+import { Row } from "../components/row/row";
+import { SelectInput } from "../components/selectInput/selectInput";
+import Select from "../components/select/select";
 
 export const Corpsystems = () => {
   const { system } = useParams();
   const dispatch = useDispatch();
-  const {lang, api_key, last_name, first_name, middle_name } = useSelector(user);
-  const dark = useSelector(darkTheme);
-  const load = useSelector(loading);
-  const cs = useSelector(corpSyst);
+  const {
+    lang, api_key, last_name, first_name, middle_name
+  }                 = useSelector(user);
+  const dark        = useSelector(darkTheme);
+  const load        = useSelector(loading);
+  const cs          = useSelector(corpSyst);
+  const mainUser    = useSelector(userData);
+  const boss        = useSelector(bossData);
+  const systemList  = useSelector(systemListData);
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
     dispatch(getCorpsystem({'url': 'corpsystems', 'path': system, 'api_key': api_key}));
     dispatch(changeTheme( false || JSON.parse(localStorage.getItem('darkTheme')) ));
   }, [api_key, dispatch, system]);
+
+  useEffect(() => {
+    if ( cs && cs.asz22_id && cs.instance_type ) 
+      dispatch(getSystemList( {'api_key': api_key, 'asz22_id': cs.asz22_id, 'instance_type': cs.instance_type} ))
+  }, [api_key, cs, dispatch]);
+
+  useEffect(() => {
+    if ( cs && cs.sapSystem && Object.keys(cs.sapSystem).length && cs.sapSystem.sub)
+      dispatch(getSubSystemList( {'api_key': api_key, 'asz00_id': cs.sapSystem.asz00_id} ))
+  }, [api_key, cs, dispatch]);
 
   let corpsystemsStyle = dark 
     ? `${styles.corpsystems} ${styles.dark}`
@@ -31,6 +51,14 @@ export const Corpsystems = () => {
   corpsystemsStyle = cs && cs.instance_type === "TEST" 
     ? `${corpsystemsStyle} ${styles.test}`
     : `${corpsystemsStyle}`
+
+
+  const onSetBoss = val => {
+    if ( !val ) {
+      dispatch(clearForm());
+    }
+    dispatch(setBoss(val))
+  };
 
   return (
     <section className={corpsystemsStyle} >
@@ -54,8 +82,53 @@ export const Corpsystems = () => {
 
               <UserData/>
 
-            </form>
+              { mainUser.id 
+                && mainUser.company.hrs01_id 
+                && mainUser.branch.hrs05_id 
+                && mainUser.department.app22_id 
+                && mainUser.position_name 
+                && mainUser.email
+                ? <>
+                    <div className={styles.gapRow}></div>
+                    <Row>
+                      <label>{`${dictionary.user_boss[lang]}`}</label>
+                      <div className={styles.wrapField}>
+                        <SelectInput
+                          selectHandler = { val => onSetBoss(val) }
+                          placeholder = {`${dictionary.userNameOlaceholder[lang]}`}
+                          val = ''
+                          name='bossName'
+                        />                  
+                      </div>
+                    </Row>
 
+                    { boss
+                      ? <>
+                          <div className={styles.gapRow}></div>
+                          <Row>
+                              <label>{`${dictionary.system[lang]}`}</label>
+                              <div className={styles.wrapField}>
+                                <Select
+                                  selectHandler = { val => dispatch(setSapSystem(val)) }
+                                  selectClear  = { () =>  console.log() }
+                                  placeholder = '>'
+                                  selectList = {systemList}
+                                  val = ''
+                                  name='systemSelect'
+                                />
+                              </div>
+                            </Row>
+                            
+
+
+
+                        </>
+                      : null
+                    }
+                  </>
+                : null
+              }
+            </form>
           : null
         }
       </div>

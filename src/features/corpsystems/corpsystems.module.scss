@@ -47,7 +47,7 @@
   
   .form {
     flex-grow: 1;
-    overflow-y: auto;
+    // overflow-y: auto;
     padding: 1vmax;
     color: #424242;
     font-size: 1.2vmax;
@@ -121,9 +121,21 @@
           }
         }
       }
-
-
     }
+
+    .gapRow {
+      margin-top:  1.3vmax;
+    }
+
+    overflow-y: auto;
+    scrollbar-width: 3px;
+    scrollbar-color: rgb(152, 226, 251) rgb(40, 197, 250);
+    &::-webkit-scrollbar { width: 3px; }
+    &::-webkit-scrollbar-track { background: rgb(152, 226, 251); }
+    &::-webkit-scrollbar-thumb { background-color: rgb(40, 197, 250); }
+    
+    padding-bottom: 25vmax;
+    margin-bottom: 1vmax;
   }
 
   
@@ -135,7 +147,10 @@
 
     .form {
       color: rgb(241, 241, 241);
-     
+
+      scrollbar-color: #161619 #60606d;
+      &::-webkit-scrollbar-track { background: #161619; }
+      &::-webkit-scrollbar-thumb { background-color: #60606d; }
     }
   }
 

@@ -6,7 +6,7 @@ import dictionary from '../../dictionary.json';
 import { getUserId, userDataLoading, userData, 
   getCompanies, companyListData, setCompany, getBranches, branchListData, locationLiistData, positionInputData,
   getDepartments, departmentLiistData, setBranch, setDepartment, getSapBranch, getLocations, setLocation, setPosition,
-  unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, unSetPosition } from "../corpsystems/corpsystemsSlice";
+  unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, unSetPosition, clearForm } from "../corpsystems/corpsystemsSlice";
 import { Row } from "../components/row/row";
 import { SelectInput } from "../components/selectInput/selectInput";
 import { UserDataLoader } from "./userDataLoader";
@@ -42,6 +42,7 @@ export const UserData = () => {
     if ( userDataList.branch && Object.keys(userDataList.branch).length 
           && userDataList.department && !Object.keys(userDataList.department).length) {
       dispatch(getDepartments( {'api_key': api_key, 'hrs05_id': userDataList.branch.hrs05_id} ));  
+      
       if ( !userDataList.location ) {
         dispatch(getLocations( {'api_key': api_key, 'hrs05_id': userDataList.branch.hrs05_id} ));      
       }
@@ -56,7 +57,9 @@ export const UserData = () => {
   }, [api_key, dispatch, userDataList.department, userDataList.sap_branch])
     
   const setUser = val => {
-    // if ( !val ) {
+    if ( !val ) {
+      dispatch(clearForm());
+    }
       dispatch(unsetBrancList());
       dispatch(unsetDepartmentList());
       dispatch(unsetCompanyList());
@@ -92,6 +95,7 @@ export const UserData = () => {
   const onUnsetDepartment = () => {
     dispatch(setDepartment([]));
     dispatch(unSetSapBranch());
+    dispatch(clearForm());
   };
 
   const onUnsetBranch = () => {
@@ -101,6 +105,7 @@ export const UserData = () => {
     dispatch(unsetDepartmentList());
     dispatch(setLocation({name: null,}));
     dispatch(unsetLocationList());
+    dispatch(clearForm());
   };
 
   const onUnsetCompany = () => {
@@ -111,7 +116,8 @@ export const UserData = () => {
     dispatch(unsetBrancList());
     dispatch(unsetDepartmentList());
     dispatch(unsetLocationList());
-    dispatch(setLocation({name: null,}))
+    dispatch(setLocation({name: null,}));
+    dispatch(clearForm());
   };
 
   const onUnsetlocation = () => dispatch(setLocation({name: null,}));
@@ -119,7 +125,7 @@ export const UserData = () => {
   return (
     <div className={styles.userData}>
       <Row>
-        <label>{`${dictionary.userName[lang]}:`}</label>
+        <label>{`${dictionary.userName[lang]}`}</label>
         <div className={styles.wrapField}>
           <SelectInput
             selectHandler = { val => setUser(val) }
@@ -141,14 +147,14 @@ export const UserData = () => {
         { userDataList.id 
           ? <div className={styles.userDataList}>
               <Row>
-                <label>{`${dictionary.email[lang]}:`}</label>
+                <label>{`${dictionary.email[lang]}`}</label>
                 <div className={styles.wrapField}>
                   <InfoField val = {userDataList.email} />                          
                 </div>
               </Row>
 
               <Row>
-                <label>{`${dictionary.ad_account[lang]}:`}</label>
+                <label>{`${dictionary.ad_account[lang]}`}</label>
                 <div className={styles.wrapField}>
                   <InfoField val = {userDataList.ad_user} />                          
                 </div>
@@ -156,7 +162,7 @@ export const UserData = () => {
 
               { Object.keys(userDataList.company).length || companyList.length
                 ? <Row>
-                    <label>{`${dictionary.company[lang]}:`}</label>
+                    <label>{`${dictionary.company[lang]}`}</label>
                     <div className={styles.wrapField}>
                       { userDataList.company.name && !companyList.length
                         ? <InfoField val = {userDataList.company.name} />
@@ -176,7 +182,7 @@ export const UserData = () => {
               
               { Object.keys(userDataList.branch).length || branchList.length
                 ? <Row>
-                    <label>{`${dictionary.branch[lang]}:`}</label>
+                    <label>{`${dictionary.branch[lang]}`}</label>
                     <div className={styles.wrapField}>
                       { !branchList.length
                         ? <InfoField val = {userDataList.branch.name} />
@@ -197,7 +203,7 @@ export const UserData = () => {
               {/* { Object.keys(userDataList.department).length || departmentLiist.length */}
               { Object.keys(userDataList.department).length || Object.keys(departmentLiist).length
                 ? <Row>
-                    <label>{`${dictionary.department[lang]}:`}</label>
+                    <label>{`${dictionary.department[lang]}`}</label>
                     <div className={styles.wrapField}>
                       { !Object.keys(departmentLiist).length
                         ? <InfoField val = {userDataList.department.name} />
@@ -217,7 +223,7 @@ export const UserData = () => {
 
               { Object.keys(userDataList.company).length || companyList.length
                 ? <Row>
-                    <label>{`${dictionary.position[lang]}:`}</label>
+                    <label>{`${dictionary.position[lang]}`}</label>
                     <div className={styles.wrapField}>
                       { userDataList.position_name && !positionInput
                         ? <InfoField val = {userDataList.position_name} />
@@ -236,7 +242,7 @@ export const UserData = () => {
 
               { userDataList.location || locationLiist.length
                 ? <Row>
-                    <label>{`${dictionary.location[lang]}:`}</label>
+                    <label>{`${dictionary.location[lang]}`}</label>
                     <div className={styles.wrapField}>
                       { !locationLiist.length
                         ? <InfoField val = { userDataList.location } />
@@ -256,7 +262,7 @@ export const UserData = () => {
 
               { Object.keys(userDataList.sap_branch).length
                 ? <Row>
-                    <label>{`${dictionary.sap_branch[lang]}:`}</label>
+                    <label>{`${dictionary.sap_branch[lang]}`}</label>
                     <div className={styles.wrapField}>
                       <InfoField val = {userDataList.sap_branch.name } />                          
                     </div>

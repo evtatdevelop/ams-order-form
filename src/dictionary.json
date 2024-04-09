@@ -83,6 +83,21 @@
     "EN": "SAP Branch",
     "RU": "Филиал SAP",
     "ZH": "SAP分公司"
+  },
+  "user_boss": {
+    "EN": "User's immediate manager",
+    "RU": "Руководителя пользователя",
+    "ZH": "用户的直接主管"
+  },
+  "system": {
+    "EN": "System",
+    "RU": "Система",
+    "ZH": "系统"
+  },
+  "subsystem": {
+    "EN": "Subsystem",
+    "RU": "Подсистема",
+    "ZH": "子系统"
   }
   
 
