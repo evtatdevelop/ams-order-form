@@ -7,26 +7,29 @@ import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
 import { corpSyst, getSessionKey, getCorpsystem, userData, 
-  setBoss, clearForm, bossData, getSystemList, systemListData, setSapSystem, getSubSystemList } from "./corpsystemsSlice";
+  setBoss, clearForm, getSystemList, systemListData, setSapSystem, getSubSystemList, 
+  subSystemListData, unSetSapSystem, setSabSapSystem, unSetSabSapSystem, subSystemLoadingData } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { UserData } from "../userData/userData";
 
 import { Row } from "../components/row/row";
 import { SelectInput } from "../components/selectInput/selectInput";
 import Select from "../components/select/select";
+import { Systems } from "./systems/systems";
 
 export const Corpsystems = () => {
   const { system } = useParams();
   const dispatch = useDispatch();
   const {
-    lang, api_key, last_name, first_name, middle_name
-  }                 = useSelector(user);
-  const dark        = useSelector(darkTheme);
-  const load        = useSelector(loading);
-  const cs          = useSelector(corpSyst);
-  const mainUser    = useSelector(userData);
-  const boss        = useSelector(bossData);
-  const systemList  = useSelector(systemListData);
+    lang, api_key, last_name, first_name, middle_name,
+  }                       = useSelector(user);
+  const dark              = useSelector(darkTheme);
+  const load              = useSelector(loading);
+  const cs                = useSelector(corpSyst);
+  const mainUser          = useSelector(userData);
+  const systemList        = useSelector(systemListData);
+  const subSystemList     = useSelector(subSystemListData);
+  const subSystemLoading  = useSelector(subSystemLoadingData);
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
@@ -93,7 +96,7 @@ export const Corpsystems = () => {
                     <Row>
                       <label>{`${dictionary.user_boss[lang]}`}</label>
                       <div className={styles.wrapField}>
-                        <SelectInput
+                        <SelectInput  // !other select for boss
                           selectHandler = { val => onSetBoss(val) }
                           placeholder = {`${dictionary.userNameOlaceholder[lang]}`}
                           val = ''
@@ -102,27 +105,45 @@ export const Corpsystems = () => {
                       </div>
                     </Row>
 
-                    { boss
-                      ? <>
-                          <div className={styles.gapRow}></div>
-                          <Row>
-                              <label>{`${dictionary.system[lang]}`}</label>
-                              <div className={styles.wrapField}>
-                                <Select
-                                  selectHandler = { val => dispatch(setSapSystem(val)) }
-                                  selectClear  = { () =>  console.log() }
-                                  placeholder = '>'
-                                  selectList = {systemList}
-                                  val = ''
-                                  name='systemSelect'
-                                />
-                              </div>
-                            </Row>
-                            
+                    { mainUser.boss
+                      ? <Systems/>
+                        // <>
+                        //   <div className={styles.gapRow}></div>
+                        //   <Row>
+                        //     <label>{`${dictionary.system[lang]}`}</label>
+                        //     <div className={styles.wrapField}>
+                        //       <Select
+                        //         selectHandler = { val => dispatch(setSapSystem(val)) }
+                        //         selectClear  = { () =>  dispatch(unSetSapSystem()) }
+                        //         placeholder = '>'
+                        //         selectList = {systemList}
+                        //         val = ''
+                        //         name='systemSelect'
+                        //       />
+                        //     </div>
+                        //   </Row>
+
+                        //   { cs.sapSystem.sub
+                        //     ? subSystemList.length 
+                        //       ? <Row>
+                        //           <label>{`${dictionary.subsystem[lang]}`}</label>
+                        //           <div className={styles.wrapField}>
+                        //             <Select
+                        //               selectHandler = { val => dispatch(setSabSapSystem(val)) }
+                        //               selectClear  = { () => dispatch(unSetSabSapSystem()) }
+                        //               placeholder = '>'
+                        //               selectList = {subSystemList}
+                        //               val = ''
+                        //               name='systemSelect'
+                        //             />
+                        //           </div>
+                        //         </Row>
+                        //       : null //? subSystemLoading  
+                        //     : null
+                        //   }
 
 
-
-                        </>
+                        // </>
                       : null
                     }
                   </>

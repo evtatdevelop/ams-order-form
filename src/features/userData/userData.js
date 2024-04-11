@@ -86,6 +86,7 @@ export const UserData = () => {
   };
 
   const onSetPosition = val => {
+    if ( !val ) dispatch(clearForm());
     dispatch(setPosition(val))
   };
   

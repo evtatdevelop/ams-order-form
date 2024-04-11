@@ -5,12 +5,13 @@ import { getUserData } from "../user/userSliceAPI";
 const initialState = {
   loading: false,
   userDataLoading: false,
+  subSystemLoading: false,
   positionInput: false, 
 
   system: null,
   sessionKey: null,
   user: {},
-  boss: null,
+  // boss: null,
 
   companyList: [],
   branchList: [],
@@ -53,18 +54,17 @@ export const corpsystemSlice = createSlice({
       state.user.position_name = action.payload;
       state.positionInput = true;
     },
-    setBoss: (state, action) => { state.boss = action.payload; },
+    setBoss: (state, action) => { state.user.boss = action.payload; }, //! moveto user
 
     setSapSystem: (state, action) => { 
       state.system.sapSystem = {...action.payload, asz00_id: action.payload.id, subSapSystem: {} }
       // state.sapSystem = {...action.payload, asz00_id: action.payload.id }
       delete state.system.sapSystem.id;
     },
+    setSabSapSystem: (state, action) => {
+      state.system.sapSystem.subSapSystem = {...action.payload}
+    }, 
 
-    clearForm: (state) => {
-      console.log('Clear Form');
-      state.boss = null;
-    },
 
     unSetPosition: (state) => {
       state.user.position_name = null;
@@ -75,7 +75,18 @@ export const corpsystemSlice = createSlice({
     unsetBrancList: (state) => { state.branchList = []; },
     unsetCompanyList: (state) => { state.companyList = []; },
     unsetLocationList: (state) => { state.locationLiist = []; },
-
+    unSetSapSystem: (state) => { 
+      state.system.sapSystem = {};
+      state.subSystemList = []; 
+    },
+    unSetSabSapSystem: (state) => {
+      state.system.sapSystem.subSapSystem = {}
+    },
+    clearForm: (state) => {
+      state.user.boss = null;
+      state.system.sapSystem = {};
+      state.subSystemList = [];
+    },  
   },
 
   extraReducers: (builder) => { builder
@@ -91,7 +102,7 @@ export const corpsystemSlice = createSlice({
       state.branchList = [];
       state.departmentLiist = [];
       state.locationLiist = [];
-      state.user = { ...action.payload };
+      state.user = { ...action.payload, boss: null };
       state.userDataLoading = false;
     })
 
@@ -146,17 +157,17 @@ export const corpsystemSlice = createSlice({
       state.loading = false;
     })
 
-    .addCase(getSubSystemList.pending, ( state ) => { state.loading = true })
+    .addCase(getSubSystemList.pending, ( state ) => { state.subSystemLoading = true })
     .addCase(getSubSystemList.fulfilled, ( state, action ) => {
       state.subSystemList = [...action.payload];
-      state.loading = false;
+      state.subSystemLoading = false;
     })
   }
 });
 
 export const { setCompany, setBranch, setDepartment, setLocation, setPosition, unSetPosition,
   unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, 
-  setBoss, clearForm, setSapSystem,
+  setBoss, clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
 } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;
@@ -167,7 +178,8 @@ export const branchListData       = ( state ) => state.corpsystems.branchList;
 export const departmentLiistData  = ( state ) => state.corpsystems.departmentLiist;
 export const locationLiistData    = ( state ) => state.corpsystems.locationLiist;
 export const positionInputData    = ( state ) => state.corpsystems.positionInput;
-export const bossData             = ( state ) => state.corpsystems.boss;
 export const systemListData       = ( state ) => state.corpsystems.systemList;
+export const subSystemListData    = ( state ) => state.corpsystems.subSystemList;
+export const subSystemLoadingData = ( state ) => state.corpsystems.subSystemLoading;
 
 export default corpsystemSlice.reducer;
