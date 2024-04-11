@@ -7,14 +7,11 @@ import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
 import { corpSyst, getSessionKey, getCorpsystem, userData, 
-  setBoss, clearForm, getSystemList, systemListData, setSapSystem, getSubSystemList, 
-  subSystemListData, unSetSapSystem, setSabSapSystem, unSetSabSapSystem, subSystemLoadingData } from "./corpsystemsSlice";
+  setBoss, clearForm, getSystemList, getSubSystemList, } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { UserData } from "../userData/userData";
-
 import { Row } from "../components/row/row";
 import { SelectInput } from "../components/selectInput/selectInput";
-import Select from "../components/select/select";
 import { Systems } from "./systems/systems";
 
 export const Corpsystems = () => {
@@ -27,9 +24,6 @@ export const Corpsystems = () => {
   const load              = useSelector(loading);
   const cs                = useSelector(corpSyst);
   const mainUser          = useSelector(userData);
-  const systemList        = useSelector(systemListData);
-  const subSystemList     = useSelector(subSystemListData);
-  const subSystemLoading  = useSelector(subSystemLoadingData);
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
@@ -67,6 +61,7 @@ export const Corpsystems = () => {
     <section className={corpsystemsStyle} >
       <div className={styles.wrapperCS} >
         <TopBar/>
+        
         { !load
           ? <form className={styles.form}>
               { cs 
@@ -106,44 +101,10 @@ export const Corpsystems = () => {
                     </Row>
 
                     { mainUser.boss
-                      ? <Systems/>
-                        // <>
-                        //   <div className={styles.gapRow}></div>
-                        //   <Row>
-                        //     <label>{`${dictionary.system[lang]}`}</label>
-                        //     <div className={styles.wrapField}>
-                        //       <Select
-                        //         selectHandler = { val => dispatch(setSapSystem(val)) }
-                        //         selectClear  = { () =>  dispatch(unSetSapSystem()) }
-                        //         placeholder = '>'
-                        //         selectList = {systemList}
-                        //         val = ''
-                        //         name='systemSelect'
-                        //       />
-                        //     </div>
-                        //   </Row>
+                      ? <>
+                          <Systems/>
 
-                        //   { cs.sapSystem.sub
-                        //     ? subSystemList.length 
-                        //       ? <Row>
-                        //           <label>{`${dictionary.subsystem[lang]}`}</label>
-                        //           <div className={styles.wrapField}>
-                        //             <Select
-                        //               selectHandler = { val => dispatch(setSabSapSystem(val)) }
-                        //               selectClear  = { () => dispatch(unSetSabSapSystem()) }
-                        //               placeholder = '>'
-                        //               selectList = {subSystemList}
-                        //               val = ''
-                        //               name='systemSelect'
-                        //             />
-                        //           </div>
-                        //         </Row>
-                        //       : null //? subSystemLoading  
-                        //     : null
-                        //   }
-
-
-                        // </>
+                        </>
                       : null
                     }
                   </>

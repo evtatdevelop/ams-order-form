@@ -1,8 +1,8 @@
 import React from "react";
-import { darkTheme } from "../main/mainpageSlice";
+import { darkTheme } from "../../main/mainpageSlice";
 import { useSelector } from "react-redux";
 
-export const UserDataLoader = () => {
+export const DataLoader = () => {
 
   const dark = useSelector(darkTheme);
   const color = dark ? '#FFFFFF' : '#000000';

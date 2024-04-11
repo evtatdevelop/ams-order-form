@@ -7,6 +7,7 @@ import { corpSyst, getSystemList, systemListData, setSapSystem, getSubSystemList
   subSystemListData, unSetSapSystem, setSabSapSystem, unSetSabSapSystem } from "../corpsystemsSlice";
 import { Row } from "../../components/row/row";
 import Select from "../../components/select/select";
+import { DataLoader } from "./dataLoader";
 
 export const Systems = () => {
   const dispatch = useDispatch();
@@ -43,21 +44,22 @@ export const Systems = () => {
       </Row>
 
       { cs.sapSystem.sub
-        ? subSystemList.length 
-          ? <Row>
-              <label>{`${dictionary.subsystem[lang]}`}</label>
-              <div className={styles.wrapField}>
-                <Select
-                  selectHandler = { val => dispatch(setSabSapSystem(val)) }
-                  selectClear  = { () => dispatch(unSetSabSapSystem()) }
-                  placeholder = '>'
-                  selectList = {subSystemList}
-                  val = ''
-                  name='systemSelect'
-                />
-              </div>
-            </Row>
-          : null //? subSystemLoading  
+        ? <Row>
+            <label>{`${dictionary.subsystem[lang]}`}</label>
+            { subSystemList.length 
+              ? <div className={styles.wrapField}>
+                  <Select
+                    selectHandler = { val => dispatch(setSabSapSystem(val)) }
+                    selectClear  = { () => dispatch(unSetSabSapSystem()) }
+                    placeholder = '>'
+                    selectList = {subSystemList}
+                    val = ''
+                    name='systemSelect'
+                  />
+                </div>  
+              : <div className={styles.loader}><DataLoader/></div> 
+            }    
+          </Row>
         : null
       }
     </div>

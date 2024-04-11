@@ -4,4 +4,11 @@
   .wrapField {
     width: 75%;
   }
+
+  .loader {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
