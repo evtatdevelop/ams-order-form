@@ -24,3 +24,9 @@ export const searchUsers = ( data ) => {
   const author_id = data.author_id ? data.author_id : '';
   return service.getResource(`${_apiBase}/?q=users&string=${string}&author_id=${author_id}`, data)
 }
+
+export const searchBoss = ( data ) => {
+  const string = data.string ? data.string : '';
+  const author_id = data.author_id ? data.author_id : '';
+  return service.getResource(`${_apiBase}/?q=bosses&string=${string}&author_id=${author_id}`, data)
+}

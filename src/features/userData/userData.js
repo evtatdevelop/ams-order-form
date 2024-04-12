@@ -133,6 +133,7 @@ export const UserData = () => {
             placeholder = {`${dictionary.userNameOlaceholder[lang]}`}
             val = ''
             name='userName'
+            mode = 'user'
           />                  
         </div>
       </Row>

@@ -1,14 +1,14 @@
 import React, { useState, useRef  } from "react";
 import styles from './selectInput.module.scss';
 import { useSelector } from "react-redux";
-import { searchUsers } from "../../user/userSliceAPI";
+import { searchUsers, searchBoss } from "../../user/userSliceAPI";
 import { TestLoader } from "./testLoader";
 import { darkTheme } from "../../main/mainpageSlice";
 import { user } from "../../user/userSlice";
 
 export const SelectInput = props => {
   const ref = useRef(null)
-  const {selectHandler, placeholder, val, name} = props
+  const {selectHandler, placeholder, val, name, mode} = props
   const { api_key } = useSelector(user);
   const dark = useSelector(darkTheme);
 
@@ -19,11 +19,20 @@ export const SelectInput = props => {
   const [loading, setloading] = useState(false)
     
   const onSearchUsers  = (string) => {
-    if ( string ) searchUsers({'string': string, 'api_key': api_key}).then(value => {
-      setSelectList(value)
-      setShow(true)
-      setloading(false)
-    }) 
+    if ( string ) {
+      if ( mode === 'user' ) searchUsers({'string': string, 'api_key': api_key}).then(value => {
+          setSelectList(value)
+          setShow(true)
+          setloading(false)
+        });
+
+      if ( mode === 'boss' ) searchBoss({'string': string, 'api_key': api_key}).then(value => {
+        setSelectList(value)
+        setShow(true)
+        setloading(false)
+      })      
+    }
+ 
   }
 
   const onInput = val => {

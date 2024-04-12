@@ -96,6 +96,7 @@ export const Corpsystems = () => {
                           placeholder = {`${dictionary.userNameOlaceholder[lang]}`}
                           val = ''
                           name='bossName'
+                          mode = 'boss'
                         />                  
                       </div>
                     </Row>
