@@ -102,6 +102,7 @@ export const Corpsystems = () => {
 
                     { mainUser.boss
                       ? <>
+                          <div className={styles.gapRow}></div>
                           <Systems/>
 
                         </>

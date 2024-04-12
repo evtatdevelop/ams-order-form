@@ -129,10 +129,10 @@
 
     overflow-y: auto;
     scrollbar-width: 3px;
-    scrollbar-color: rgb(152, 226, 251) rgb(40, 197, 250);
+    scrollbar-color: #74d2fe rgb(223, 247, 255);
     &::-webkit-scrollbar { width: 3px; }
-    &::-webkit-scrollbar-track { background: rgb(152, 226, 251); }
-    &::-webkit-scrollbar-thumb { background-color: rgb(40, 197, 250); }
+    &::-webkit-scrollbar-track { background: #74d2fe; }
+    &::-webkit-scrollbar-thumb { background-color: rgb(223, 247, 255); }
     
     padding-bottom: 25vmax;
     margin-bottom: 1vmax;

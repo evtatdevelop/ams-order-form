@@ -60,6 +60,9 @@ export const corpsystemSlice = createSlice({
       state.system.sapSystem = {...action.payload, asz00_id: action.payload.id, subSapSystem: {} }
       // state.sapSystem = {...action.payload, asz00_id: action.payload.id }
       delete state.system.sapSystem.id;
+      state.system.sapSystem.subSapSystem = {};
+      state.subSystemList = [];
+
     },
     setSabSapSystem: (state, action) => {
       state.system.sapSystem.subSapSystem = {...action.payload}
