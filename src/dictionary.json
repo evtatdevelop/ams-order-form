@@ -98,6 +98,41 @@
     "EN": "Subsystem",
     "RU": "Подсистема",
     "ZH": "子系统"
+  },
+  "roles": {
+    "EN": "Roles",
+    "RU": "Роли",
+    "ZH": "角色"
+  },
+  "add_role": {
+    "EN": "Add role",
+    "RU": "Добавить роль",
+    "ZH": "添加角色"
+  },
+  "nameRole": {
+    "EN": "Role",
+    "RU": "Роль",
+    "ZH": "角色"
+  },
+  "nameProcessGroup": {
+    "EN": "Process group",
+    "RU": "Группа процессов",
+    "ZH": "进程组"
+  },  
+  "search": {
+    "EN": "Search",
+    "RU": "Поиск",
+    "ZH": "搜索"
+  },
+  "save": {
+    "EN": "Save",
+    "RU": "Сохранить",
+    "ZH": "节省"
+  },
+  "cancel": {
+    "EN": "Cancel",
+    "RU": "Отмена",
+    "ZH": "取消"
   }
   
 

@@ -12,27 +12,27 @@
     box-shadow: inset 0px 0px 10px green;
     &::before {
       position: absolute;
-      top: .1vmax;
-      left: .1vmax;
+      top: .2vmax;
+      left: .2vmax;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: .2vmax;
       color: green;
       content: 'TEST';
-      outline: .1vmax solid green;
+      box-shadow: 0px 0px 10px green;
     }
     &::after {
       position: absolute;
-      bottom: .1vmax;
-      right: .1vmax;
+      bottom: .2vmax;
+      right: .2vmax;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: .2vmax;
       color: green;
       content: 'TEST';
-      outline: .1vmax solid green;
+      box-shadow: 0px 0px 10px green;
     }
   }
   

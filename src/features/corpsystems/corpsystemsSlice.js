@@ -11,7 +11,7 @@ const initialState = {
   system: null,
   sessionKey: null,
   user: {},
-  // boss: null,
+  roles: [],
 
   companyList: [],
   branchList: [],
@@ -184,5 +184,6 @@ export const positionInputData    = ( state ) => state.corpsystems.positionInput
 export const systemListData       = ( state ) => state.corpsystems.systemList;
 export const subSystemListData    = ( state ) => state.corpsystems.subSystemList;
 export const subSystemLoadingData = ( state ) => state.corpsystems.subSystemLoading;
+export const rolesData            = ( state ) => state.corpsystems.roles;
 
 export default corpsystemSlice.reducer;

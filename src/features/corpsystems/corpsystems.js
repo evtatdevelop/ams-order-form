@@ -13,6 +13,7 @@ import { UserData } from "../userData/userData";
 import { Row } from "../components/row/row";
 import { SelectInput } from "../components/selectInput/selectInput";
 import { Systems } from "./systems/systems";
+import { Roles } from "./roles/roles";
 
 export const Corpsystems = () => {
   const { system } = useParams();
@@ -91,7 +92,7 @@ export const Corpsystems = () => {
                     <Row>
                       <label>{`${dictionary.user_boss[lang]}`}</label>
                       <div className={styles.wrapField}>
-                        <SelectInput  // !other select for boss
+                        <SelectInput
                           selectHandler = { val => onSetBoss(val) }
                           placeholder = {`${dictionary.userNameOlaceholder[lang]}`}
                           val = ''
@@ -106,6 +107,16 @@ export const Corpsystems = () => {
                           <div className={styles.gapRow}></div>
                           <Systems/>
 
+                          { Object.keys(cs.sapSystem).length 
+                            && ( !cs.sapSystem.sub 
+                              || (cs.sapSystem.sub && cs.sapSystem.subSapSystem && Object.keys(cs.sapSystem.subSapSystem).length) 
+                            ) ? <>
+                                <div className={styles.gapRow}></div>
+                                <Roles/>
+
+                              </>
+                            : null
+                          }
                         </>
                       : null
                     }
