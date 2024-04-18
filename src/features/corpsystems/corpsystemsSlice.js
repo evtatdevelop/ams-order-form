@@ -1,18 +1,22 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { sessionKey, companies, branches, departments, sapBranch, locations, corpsystem, systemList, subSystemList } from "./corpsystemsSliceAPI";
+import { sessionKey, companies, branches, departments, sapBranch, locations, corpsystem, systemList, subSystemList, processGroups, getParam } from "./corpsystemsSliceAPI";
 import { getUserData } from "../user/userSliceAPI";
 
 const initialState = {
   loading: false,
   userDataLoading: false,
   subSystemLoading: false,
-  positionInput: false, 
+  positionInput: false,
+
 
   system: null,
   sessionKey: null,
   user: {},
   roles: [],
 
+  params: {
+    enable_subsystems: null,
+  },
   companyList: [],
   branchList: [],
   departmentLiist: [],
@@ -31,6 +35,8 @@ export const getLocations     = createAsyncThunk( 'corpsystem/getLocations', asy
 export const getCorpsystem    = createAsyncThunk( 'corpsystem/getCorpsystem', async ( data ) => await corpsystem(data) );
 export const getSystemList    = createAsyncThunk( 'corpsystem/getSystemList', async ( data ) => await systemList(data) );
 export const getSubSystemList = createAsyncThunk( 'corpsystem/getSubSystemList', async ( data ) => await subSystemList(data) );
+export const getProcessGroups = createAsyncThunk( 'corpsystem/getProcessGroups', async ( data ) => await processGroups(data) );
+export const getGetParam      = createAsyncThunk( 'corpsystem/getGetParam', async ( data ) => await getParam(data) );
 
 export const corpsystemSlice = createSlice({
   name: 'corpsystems',
@@ -65,8 +71,9 @@ export const corpsystemSlice = createSlice({
 
     },
     setSabSapSystem: (state, action) => {
-      state.system.sapSystem.subSapSystem = {...action.payload}
-    }, 
+      state.system.sapSystem.subSapSystem = {...action.payload, asz80_id: action.payload.id}
+      delete state.system.sapSystem.id;
+    },
 
 
     unSetPosition: (state) => {
@@ -165,12 +172,24 @@ export const corpsystemSlice = createSlice({
       state.subSystemList = [...action.payload];
       state.subSystemLoading = false;
     })
+
+    .addCase(getGetParam.pending, ( state ) => { state.subSystemLoading = true })
+    .addCase(getGetParam.fulfilled, ( state, action ) => {
+      state.params.enable_subsystems = action.payload
+      state.subSystemLoading = false;
+    })
+
+    .addCase(getProcessGroups.pending, ( state ) => { state.subSystemLoading = true })
+    .addCase(getProcessGroups.fulfilled, ( state, action ) => {
+      // console.log([...action.payload]);
+      state.subSystemLoading = false;
+    })
   }
 });
 
 export const { setCompany, setBranch, setDepartment, setLocation, setPosition, unSetPosition,
   unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, 
-  setBoss, clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
+  setBoss, clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem, 
 } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;
@@ -185,5 +204,6 @@ export const systemListData       = ( state ) => state.corpsystems.systemList;
 export const subSystemListData    = ( state ) => state.corpsystems.subSystemList;
 export const subSystemLoadingData = ( state ) => state.corpsystems.subSystemLoading;
 export const rolesData            = ( state ) => state.corpsystems.roles;
+export const paramsData           = ( state ) => state.corpsystems.params;
 
 export default corpsystemSlice.reducer;

@@ -3,28 +3,59 @@ import styles from './systems.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { user, } from '../../user/userSlice';
 import dictionary from '../../../dictionary.json';
-import { corpSyst, getSystemList, systemListData, setSapSystem, getSubSystemList, 
-  subSystemListData, unSetSapSystem, setSabSapSystem, unSetSabSapSystem } from "../corpsystemsSlice";
+import { corpSyst, getSystemList, systemListData, setSapSystem, getSubSystemList, userData, paramsData,
+  subSystemListData, unSetSapSystem, setSabSapSystem, unSetSabSapSystem, getGetParam, getProcessGroups } from "../corpsystemsSlice";
 import { Row } from "../../components/row/row";
 import Select from "../../components/select/select";
 import { DataLoader } from "./dataLoader";
 
 export const Systems = () => {
   const dispatch = useDispatch();
-  const { lang, api_key } = useSelector(user);
-  const cs                = useSelector(corpSyst);
-  const systemList        = useSelector(systemListData);
-  const subSystemList     = useSelector(subSystemListData);
+  const { id, lang, api_key } = useSelector(user);
+  const cs            = useSelector(corpSyst);
+  const systemList    = useSelector(systemListData);
+  const subSystemList = useSelector(subSystemListData);
+  const mainUser      = useSelector(userData);
+  const params        = useSelector(paramsData);
 
   useEffect(() => {
     if ( cs && cs.asz22_id && cs.instance_type ) 
       dispatch(getSystemList( {'api_key': api_key, 'asz22_id': cs.asz22_id, 'instance_type': cs.instance_type} ))
   }, [api_key, cs, dispatch]);
 
+  // useEffect(() => {
+  //   if ( cs && cs.sapSystem && Object.keys(cs.sapSystem).length && cs.sapSystem.sub)
+  //     dispatch(getSubSystemList( {'api_key': api_key, 'asz00_id': cs.sapSystem.asz00_id} ))
+  // }, [api_key, cs, dispatch]);
+
+
   useEffect(() => {
-    if ( cs && cs.sapSystem && Object.keys(cs.sapSystem).length && cs.sapSystem.sub)
-      dispatch(getSubSystemList( {'api_key': api_key, 'asz00_id': cs.sapSystem.asz00_id} ))
-  }, [api_key, cs, dispatch]);
+    if ( cs && cs.sapSystem && Object.keys(cs.sapSystem).length ) {
+      dispatch(getGetParam( {'api_key': api_key, 'param_code': 'ENABLE_SUBSYSTEMS', 'asz22_id': cs.asz22_id, 'asz00_id': cs.sapSystem.asz00_id} ))     
+      if ( Object.keys(mainUser).length 
+            && id 
+            && cs.sapSystem 
+            && Object.keys(cs.sapSystem).length 
+            && Object.keys(mainUser.sap_branch).length && mainUser.sap_branch.asz01_id
+      )
+        dispatch(getProcessGroups( {
+          api_key: api_key,
+          asz00_id: cs.sapSystem.asz00_id,
+          asz01_id: mainUser.sap_branch.asz01_id,
+          instance_type: cs.instance_type,
+          app12_id_author: id,
+          orderType: 'ADD_PRIVS',
+          app12_id: mainUser.id, 
+        } ));    
+    }
+  }, [api_key, cs, dispatch, id, mainUser]);
+
+
+  useEffect(() => {
+    if ( cs && cs.sapSystem && Object.keys(cs.sapSystem).length && params.enable_subsystems === '1' ) {
+          dispatch(getSubSystemList( {'api_key': api_key, 'asz00_id': cs.sapSystem.asz00_id} )) 
+        }         
+  }, [api_key, cs, dispatch, params]);
 
 
   return (
@@ -43,7 +74,7 @@ export const Systems = () => {
         </div>
       </Row>
 
-      { cs.sapSystem.sub
+      { params.enable_subsystems === '1'
         ? <Row>
             <label>{`${dictionary.subsystem[lang]}`}</label>
             { subSystemList.length 

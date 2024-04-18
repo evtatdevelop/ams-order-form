@@ -47,6 +47,7 @@
     bottom: 0;
     right: 0;
     background-color: transparent;
+    animation: appearance 300ms ease-in-out forwards;
 
     .oneRoleSandbox {
       width: 75%;
@@ -140,10 +141,8 @@
     0% {
       opacity: .3;
     }
-    80% {
-    }
     100% {
-      opacity: .9;
+      opacity: 1;
     }
   }
   

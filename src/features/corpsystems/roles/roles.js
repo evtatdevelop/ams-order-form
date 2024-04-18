@@ -71,12 +71,8 @@ export const Roles = () => {
               </div>
 
               <div className={styles.control}>
-                <button type="button"
-                  onClick={ () => handleOk(true) }
-                >{dictionary.save[lang]}</button>
-                <button type="button"
-                  onClick={ () => handleCancel(true) }
-                >{dictionary.cancel[lang]}</button>
+                <button type="button" onClick={ () => handleOk(true) }>{dictionary.save[lang]}</button>
+                <button type="button" onClick={ () => handleCancel(true) }>{dictionary.cancel[lang]}</button>
               </div>
             </div>
           </section>

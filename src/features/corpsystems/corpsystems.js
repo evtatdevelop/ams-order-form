@@ -7,7 +7,7 @@ import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
 import { corpSyst, getSessionKey, getCorpsystem, userData, 
-  setBoss, clearForm, getSystemList, getSubSystemList, } from "./corpsystemsSlice";
+  setBoss, clearForm, getSystemList, paramsData } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { UserData } from "../userData/userData";
 import { Row } from "../components/row/row";
@@ -17,14 +17,15 @@ import { Roles } from "./roles/roles";
 
 export const Corpsystems = () => {
   const { system } = useParams();
-  const dispatch = useDispatch();
+  const dispatch  = useDispatch();
   const {
     lang, api_key, last_name, first_name, middle_name,
-  }                       = useSelector(user);
-  const dark              = useSelector(darkTheme);
-  const load              = useSelector(loading);
-  const cs                = useSelector(corpSyst);
-  const mainUser          = useSelector(userData);
+  }               = useSelector(user);
+  const dark      = useSelector(darkTheme);
+  const load      = useSelector(loading);
+  const cs        = useSelector(corpSyst);
+  const mainUser  = useSelector(userData);
+  const params    = useSelector(paramsData);
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
@@ -37,10 +38,6 @@ export const Corpsystems = () => {
       dispatch(getSystemList( {'api_key': api_key, 'asz22_id': cs.asz22_id, 'instance_type': cs.instance_type} ))
   }, [api_key, cs, dispatch]);
 
-  useEffect(() => {
-    if ( cs && cs.sapSystem && Object.keys(cs.sapSystem).length && cs.sapSystem.sub)
-      dispatch(getSubSystemList( {'api_key': api_key, 'asz00_id': cs.sapSystem.asz00_id} ))
-  }, [api_key, cs, dispatch]);
 
   let corpsystemsStyle = dark 
     ? `${styles.corpsystems} ${styles.dark}`
@@ -107,10 +104,9 @@ export const Corpsystems = () => {
                           <div className={styles.gapRow}></div>
                           <Systems/>
 
-                          { Object.keys(cs.sapSystem).length 
-                            && ( !cs.sapSystem.sub 
-                              || (cs.sapSystem.sub && cs.sapSystem.subSapSystem && Object.keys(cs.sapSystem.subSapSystem).length) 
-                            ) ? <>
+                          { ( Object.keys(cs.sapSystem).length && (params.enable_subsystems || params.enable_subsystems === '1') && cs.sapSystem.subSapSystem && Object.keys(cs.sapSystem.subSapSystem).length )
+                            || ( Object.keys(cs.sapSystem).length && params.enable_subsystems !== '1' )
+                            ? <>
                                 <div className={styles.gapRow}></div>
                                 <Roles/>
 
