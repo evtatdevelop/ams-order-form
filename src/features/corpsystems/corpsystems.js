@@ -7,7 +7,7 @@ import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
 import { corpSyst, getSessionKey, getCorpsystem, userData, 
-  setBoss, clearForm, getSystemList, processGroupListData, roleListData } from "./corpsystemsSlice";
+  setBoss, clearForm, getSystemList, processGroupListData, roleListData, } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { UserData } from "../userData/userData";
 import { Row } from "../components/row/row";
@@ -105,8 +105,6 @@ export const Corpsystems = () => {
                           <Systems/>
 
                           { processGroupList.length && roleList.length
-                            // ( Object.keys(cs.sapSystem).length && (params.enable_subsystems || params.enable_subsystems === '1') && cs.sapSystem.subSapSystem && Object.keys(cs.sapSystem.subSapSystem).length )
-                            // || ( Object.keys(cs.sapSystem).length && params.enable_subsystems !== '1' )
                             ? <>
                                 <div className={styles.gapRow}></div>
                                 <Roles/>

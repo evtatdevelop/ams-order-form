@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { user, } from '../../user/userSlice';
 import dictionary from '../../../dictionary.json';
 import { corpSyst, getSystemList, systemListData, setSapSystem, getSubSystemList, userData, paramsData,
-  subSystemListData, unSetSapSystem, setSabSapSystem, unSetSabSapSystem, getGetParam, getProcessGroups } from "../corpsystemsSlice";
+  subSystemListData, unSetSapSystem, setSabSapSystem, unSetSabSapSystem, getGetParam, 
+  getProcessGroups, subSystemLoadingData, getRoles } from "../corpsystemsSlice";
 import { Row } from "../../components/row/row";
 import Select from "../../components/select/select";
 import { DataLoader } from "./dataLoader";
@@ -12,21 +13,18 @@ import { DataLoader } from "./dataLoader";
 export const Systems = () => {
   const dispatch = useDispatch();
   const { id, lang, api_key } = useSelector(user);
-  const cs            = useSelector(corpSyst);
-  const systemList    = useSelector(systemListData);
-  const subSystemList = useSelector(subSystemListData);
-  const mainUser      = useSelector(userData);
-  const params        = useSelector(paramsData);
+  const cs                    = useSelector(corpSyst);
+  const systemList            = useSelector(systemListData);
+  const subSystemList         = useSelector(subSystemListData);
+  const mainUser              = useSelector(userData);
+  const params                = useSelector(paramsData);
+  const subSystemLoading      = useSelector(subSystemLoadingData);
+
 
   useEffect(() => {
     if ( cs && cs.asz22_id && cs.instance_type ) 
       dispatch(getSystemList( {'api_key': api_key, 'asz22_id': cs.asz22_id, 'instance_type': cs.instance_type} ))
   }, [api_key, cs, dispatch]);
-
-  // useEffect(() => {
-  //   if ( cs && cs.sapSystem && Object.keys(cs.sapSystem).length && cs.sapSystem.sub)
-  //     dispatch(getSubSystemList( {'api_key': api_key, 'asz00_id': cs.sapSystem.asz00_id} ))
-  // }, [api_key, cs, dispatch]);
 
 
   useEffect(() => {
@@ -46,16 +44,58 @@ export const Systems = () => {
           app12_id_author: id,
           orderType: 'ADD_PRIVS',
           app12_id: mainUser.id, 
-        } ));    
+        } ));
     }
   }, [api_key, cs, dispatch, id, mainUser]);
 
-
+  
   useEffect(() => {
     if ( cs && cs.sapSystem && Object.keys(cs.sapSystem).length && params.enable_subsystems === '1' ) {
-          dispatch(getSubSystemList( {'api_key': api_key, 'asz00_id': cs.sapSystem.asz00_id} )) 
-        }         
+      dispatch(getSubSystemList( {'api_key': api_key, 'asz00_id': cs.sapSystem.asz00_id} ));
+    }         
   }, [api_key, cs, dispatch, params]);
+
+  
+  useEffect(() => {
+
+    //! RoleList
+    if ( cs && cs.sapSystem 
+        && Object.keys(cs.sapSystem).length 
+        && ( params.enable_subsystems !== null && !params.enable_subsystems) 
+      ) {
+      dispatch(getRoles( {
+        api_key: api_key,
+        asz00_id: cs.sapSystem.asz00_id,
+        asz01_id: mainUser.sap_branch.asz01_id,
+        instance_type: cs.instance_type,
+        app12_id_author: id,
+        orderType: 'ADD_PRIVS',
+        app12_id: mainUser.id, 
+      } ));
+    }         
+  }, [api_key, cs, dispatch, id, mainUser.id, mainUser.sap_branch.asz01_id, params.enable_subsystems]);
+
+
+  useEffect(() => {
+
+    //! RoleList
+    if ( cs && cs.sapSystem 
+        && Object.keys(cs.sapSystem).length 
+        && Object.keys(cs.sapSystem.subSapSystem).length 
+        && cs.sapSystem.subSapSystem.asz80_id
+    ) { dispatch(getRoles( {
+          api_key: api_key,
+          asz00_id: cs.sapSystem.asz00_id,
+          asz01_id: mainUser.sap_branch.asz01_id,
+          instance_type: cs.instance_type,
+          app12_id_author: id,
+          orderType: 'ADD_PRIVS',
+          app12_id: mainUser.id, 
+      } ));
+      
+   }
+            
+  }, [api_key, cs, dispatch, id, mainUser]);
 
 
   return (
@@ -76,20 +116,30 @@ export const Systems = () => {
 
       { params.enable_subsystems === '1'
         ? <Row>
-            <label>{`${dictionary.subsystem[lang]}`}</label>
             { subSystemList.length 
-              ? <div className={styles.wrapField}>
-                  <Select
-                    selectHandler = { val => dispatch(setSabSapSystem(val)) }
-                    selectClear  = { () => dispatch(unSetSabSapSystem()) }
-                    placeholder = '>'
-                    selectList = {subSystemList}
-                    val = ''
-                    name='systemSelect'
-                  />
-                </div>  
-              : <div className={styles.loader}><DataLoader/></div> //!! load process Groups and Roles Lists && Getting Params
+              ? <>
+                  <label>{`${dictionary.subsystem[lang]}`}</label>
+                  <div className={styles.wrapField}>
+                    <Select
+                      selectHandler = { val => dispatch(setSabSapSystem(val)) }
+                      selectClear  = { () => dispatch(unSetSabSapSystem()) }
+                      placeholder = '>'
+                      selectList = {subSystemList}
+                      val = ''
+                      name='systemSelect'
+                    />
+                  </div>                 
+                </>
+              : null
             }    
+          </Row>
+        : null
+      }
+
+      { subSystemLoading
+        ? <Row>
+            <label></label>
+            <div className={styles.loader}><DataLoader/></div>
           </Row>
         : null
       }
