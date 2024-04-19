@@ -32,13 +32,13 @@ export const Systems = () => {
   useEffect(() => {
     if ( cs && cs.sapSystem && Object.keys(cs.sapSystem).length ) {
       dispatch(getGetParam( {'api_key': api_key, 'param_code': 'ENABLE_SUBSYSTEMS', 'asz22_id': cs.asz22_id, 'asz00_id': cs.sapSystem.asz00_id} ))     
+      
       if ( Object.keys(mainUser).length 
             && id 
             && cs.sapSystem 
             && Object.keys(cs.sapSystem).length 
             && Object.keys(mainUser.sap_branch).length && mainUser.sap_branch.asz01_id
-      )
-        dispatch(getProcessGroups( {
+      ) dispatch(getProcessGroups( {
           api_key: api_key,
           asz00_id: cs.sapSystem.asz00_id,
           asz01_id: mainUser.sap_branch.asz01_id,
@@ -88,7 +88,7 @@ export const Systems = () => {
                     name='systemSelect'
                   />
                 </div>  
-              : <div className={styles.loader}><DataLoader/></div> 
+              : <div className={styles.loader}><DataLoader/></div> //!! load process Groups and Roles Lists && Getting Params
             }    
           </Row>
         : null

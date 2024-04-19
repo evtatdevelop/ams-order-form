@@ -23,6 +23,8 @@ const initialState = {
   locationLiist: [],
   systemList: [],
   subSystemList: [],
+  processGroupList: [],
+  roleList: [],
 }
 
 export const getSessionKey    = createAsyncThunk( 'corpsystem/getSessionKey', async ( data ) => await sessionKey(data) );
@@ -181,7 +183,7 @@ export const corpsystemSlice = createSlice({
 
     .addCase(getProcessGroups.pending, ( state ) => { state.subSystemLoading = true })
     .addCase(getProcessGroups.fulfilled, ( state, action ) => {
-      // console.log([...action.payload]);
+      state.processGroupList = [...action.payload]
       state.subSystemLoading = false;
     })
   }
@@ -205,5 +207,7 @@ export const subSystemListData    = ( state ) => state.corpsystems.subSystemList
 export const subSystemLoadingData = ( state ) => state.corpsystems.subSystemLoading;
 export const rolesData            = ( state ) => state.corpsystems.roles;
 export const paramsData           = ( state ) => state.corpsystems.params;
+export const processGroupListData = ( state ) => state.corpsystems.processGroupList;
+export const roleListData         = ( state ) => state.corpsystems.roleList;
 
 export default corpsystemSlice.reducer;
