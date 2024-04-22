@@ -19,7 +19,7 @@ export const systemList     = ( data ) => service.getResource(`${_apiBase}/?q=sy
 export const subSystemList  = ( data ) => service.getResource(`${_apiBase}/?q=subsystem_list&asz00_id=${data.asz00_id}`, data.api_key);
 export const processGroups  = ( data ) => service.getResource(`${_apiBase}/?q=process_groups&asz00_id=${data.asz00_id}&asz01_id=${data.asz01_id}&instance_type=${data.instance_type}&app12_id_author=${data.app12_id_author}&ordertype=${data.orderType}&app12_id=${data.app12_id}`, data.api_key);
 export const getParam       = ( data ) => service.getResource(`${_apiBase}/?q=get_param&asz22_id=${data.asz22_id}&param_code=${data.param_code}&asz00_id=${data.asz00_id}`, data.api_key);
-export const roles          = ( data ) => service.getResource(`${_apiBase}/?q=process_groups&asz00_id=${data.asz00_id}&asz01_id=${data.asz01_id}&instance_type=${data.instance_type}&app12_id_author=${data.app12_id_author}&ordertype=${data.orderType}&app12_id=${data.app12_id}`, data.api_key);
+export const roles          = ( data ) => service.getResource(`${_apiBase}/?q=roles&asz00_id=${data.asz00_id}&asz01_id=${data.asz01_id}&instance_type=${data.instance_type}&app12_id_author=${data.app12_id_author}&ordertype=${data.orderType}&app12_id=${data.app12_id}&asz80_id=${data.asz80_id}`, data.api_key);
 
 // export const uploadFile = ( data ) => service.uploadFile(`${_apiBase}/?q=uploadfile`, data);
 // export const uplodeData = ( data ) => service.postResource(`${_apiBase}/?q=staffdata`, data);

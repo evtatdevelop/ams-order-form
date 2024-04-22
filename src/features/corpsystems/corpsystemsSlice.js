@@ -91,15 +91,20 @@ export const corpsystemSlice = createSlice({
     unsetLocationList: (state) => { state.locationLiist = []; },
     unSetSapSystem: (state) => { 
       state.system.sapSystem = {};
-      state.subSystemList = []; 
+      state.subSystemList = [];
+      state.processGroupList = [];
+      state.roleList={}
     },
     unSetSabSapSystem: (state) => {
       state.system.sapSystem.subSapSystem = {}
+      state.roleList={}
     },
     clearForm: (state) => {
       state.user.boss = null;
       state.system.sapSystem = {};
       state.subSystemList = [];
+      state.processGroupList = [];
+      state.roleList={}
     },  
   },
 

@@ -71,6 +71,7 @@ export const Systems = () => {
         app12_id_author: id,
         orderType: 'ADD_PRIVS',
         app12_id: mainUser.id, 
+        asz80_id: 0,  
       } ));
     }         
   }, [api_key, cs, dispatch, id, mainUser.id, mainUser.sap_branch.asz01_id, params.enable_subsystems]);
@@ -91,6 +92,7 @@ export const Systems = () => {
           app12_id_author: id,
           orderType: 'ADD_PRIVS',
           app12_id: mainUser.id, 
+          asz80_id: cs.sapSystem.subSapSystem.asz80_id, 
       } ));
       
    }
