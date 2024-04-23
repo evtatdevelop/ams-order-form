@@ -1,26 +1,74 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from './roles.module.scss';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../dictionary.json";
 import { user } from '.././../user/userSlice';
-import { rolesData } from "../corpsystemsSlice";
+import { rolesData, processGroupListData, roleListData, addRole } from "../corpsystemsSlice";
 import { Row } from "../../components/row/row";
 import Input from "../../components/input/Input";
 import Select from "../../components/select/select";
 import { darkTheme } from "../../main/mainpageSlice";
+import { InfoField } from "../../components/infoField/infoField";
 
 export const Roles = () => {
+  
+  const dispatch = useDispatch();
   const { lang } = useSelector(user);
   const roles = useSelector(rolesData);
   const dark = useSelector(darkTheme);
+  const processGroupList = useSelector(processGroupListData);
+  const roleList = useSelector(roleListData);
   
+  const [role, setRole] = useState({});
   const [roleAdder, showRoleAdder] = useState(false);
+  const [hereGroups, setHereGroups] = useState([]);
+  const [hereRoles, setHereRoles] = useState([]);
+
+  const getGroupById = groupId => processGroupList.find(item => item.id === groupId);
+  const getRolesByGroupId = groupId => roleList.filter(item => item.proccss_group_id === groupId );
+
+  const handleGroup = val => {
+    setRole({...role, processGroup: val});
+    setHereRoles(getRolesByGroupId(val.id));
+  }
+  const handleRole = val => {
+    const group = getGroupById(val.proccss_group_id);
+    setRole({processGroup: group, role: val});
+    setHereGroups([group]);
+  }
+  const cancelGroup = () => {
+    setHereRoles([...roleList.reduce((summ, item) => [...summ, {...item, name: `${item.name} ( ${item.code} )`}], [])]);
+    setRole({})
+  }
+  const cancelRole = () => {
+    setHereGroups([...processGroupList]);
+    setRole({});
+  }
+
   const handleOk = () => {
+    dispatch(addRole(role));
     showRoleAdder(false);
   }
   const handleCancel = () => {
     showRoleAdder(false);
   }
+
+  useEffect(() => {
+    if ( processGroupList.length ) setHereGroups([...processGroupList])
+    else setHereGroups([])
+  }, [processGroupList]);
+
+  useEffect(() => {
+    if ( roleList.length ) {
+      setHereRoles([
+        ...roleList.reduce((summ, item) => [...summ, {...item, name: `${item.name} ( ${item.code} )`}], [])
+      ])
+    }
+    else setHereRoles([])
+  }, [roleList]);
+
+
+
 
   let rolesStyle = dark 
   ? `${styles.roles} ${styles.dark}`
@@ -51,19 +99,23 @@ export const Roles = () => {
                   placeholder = {dictionary.search[lang]}
                   val = ''
                 />
+                { hereGroups.length > 1
+                  ? <Select
+                      selectHandler = { val => handleGroup(val) }
+                      selectClear  = { () => cancelGroup() }
+                      placeholder = {dictionary.nameProcessGroup[lang]}
+                      selectList = {hereGroups}
+                      val = ''
+                      name='processGroups'
+                    />
+                  : <InfoField val = {hereGroups[0].name} />                          
+                }
+                
                 <Select
-                  selectHandler = { val => console.log(val) }
-                  selectClear  = { val => console.log(null) }
-                  placeholder = {dictionary.nameProcessGroup[lang]}
-                  selectList = {[{'id':1, 'name': 'one'}, {'id':2, 'name': 'two'}, {'id':3, 'name': 'three'}, {'id':4, 'name': 'four'}, {'id':5, 'name': 'five'}, {'id':6, 'name': 'six'}, {'id':7, 'name': 'seven'}, {'id':8, 'name': 'eight'}, ]}
-                  val = ''
-                  name='processGroups'
-                />
-                <Select
-                  selectHandler = { val => console.log(val) }
-                  selectClear  = { val => console.log(null) }
+                  selectHandler = { val => handleRole(val) }
+                  selectClear  = { () => cancelRole() }
                   placeholder = {dictionary.nameRole[lang]}
-                  selectList = {[{'id':1, 'name': 'one'}, {'id':2, 'name': 'two'}, {'id':3, 'name': 'three'}, {'id':4, 'name': 'four'}, {'id':5, 'name': 'five'}, {'id':6, 'name': 'six'}, {'id':7, 'name': 'seven'}, {'id':8, 'name': 'eight'}, ]}
+                  selectList = {hereRoles}
                   val = ''
                   name='roles'
                 />
