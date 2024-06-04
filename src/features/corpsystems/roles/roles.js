@@ -24,12 +24,14 @@ export const Roles = () => {
   const [hereGroups, setHereGroups] = useState([]);
   const [hereRoles, setHereRoles] = useState([]);
 
+  const formatRoleNames = (roleListIn) => [...roleListIn.reduce((summ, item) => [...summ, {...item, name: `${item.name} ( ${item.code} )`}], [])];
+
   const getGroupById = groupId => processGroupList.find(item => item.id === groupId);
-  const getRolesByGroupId = groupId => roleList.filter(item => item.proccss_group_id === groupId );
+  const getRolesByGroupId = groupId => roleList.filter(item => item.proccss_group_id === groupId);
 
   const handleGroup = val => {
     setRole({...role, processGroup: val});
-    setHereRoles(getRolesByGroupId(val.id));
+    setHereRoles( formatRoleNames(getRolesByGroupId(val.id)) );
   }
   const handleRole = val => {
     const group = getGroupById(val.proccss_group_id);
@@ -37,7 +39,8 @@ export const Roles = () => {
     setHereGroups([group]);
   }
   const cancelGroup = () => {
-    setHereRoles([...roleList.reduce((summ, item) => [...summ, {...item, name: `${item.name} ( ${item.code} )`}], [])]);
+    // setHereRoles([...roleList.reduce((summ, item) => [...summ, {...item, name: `${item.name} ( ${item.code} )`}], [])]);
+    setHereRoles( formatRoleNames(roleList) );
     setRole({})
   }
   const cancelRole = () => {
@@ -48,6 +51,9 @@ export const Roles = () => {
   const handleOk = () => {
     dispatch(addRole(role));
     showRoleAdder(false);
+    setHereGroups([...processGroupList]);
+    // setHereRoles([...roleList.reduce((summ, item) => [...summ, {...item, name: `${item.name} ( ${item.code} )`}], [])]);
+    setHereRoles( formatRoleNames(roleList) );
   }
   const handleCancel = () => {
     showRoleAdder(false);
@@ -60,15 +66,11 @@ export const Roles = () => {
 
   useEffect(() => {
     if ( roleList.length ) {
-      setHereRoles([
-        ...roleList.reduce((summ, item) => [...summ, {...item, name: `${item.name} ( ${item.code} )`}], [])
-      ])
+      // setHereRoles([...roleList.reduce((summ, item) => [...summ, {...item, name: `${item.name} ( ${item.code} )`}], [])])
+      setHereRoles( formatRoleNames(roleList) );
     }
     else setHereRoles([])
   }, [roleList]);
-
-
-
 
   let rolesStyle = dark 
   ? `${styles.roles} ${styles.dark}`

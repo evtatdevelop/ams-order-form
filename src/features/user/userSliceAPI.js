@@ -1,32 +1,27 @@
 import Service from "../../services";
-import { testMode, offline, offlinelang } from "../../config";
+import { offlinelang, apiBase, } from "../../config";
 
 const service = new Service();
 
-const _apiBase = testMode 
-? 'https://request.sibgenco.local/ams_api_tst'
-: 'https://request.sibgenco.local/ams_api';
+export const getRemoteUser = ( data ) => !offlinelang 
+  ? service.getResource(`${apiBase}/?q=remoteuser`, data)
+  : offlinelang === 'ru' ? service.getResource(`${apiBase}/remoteuser`, data) : service.getResource(`${apiBase}/remoteuseren`, data);
 
-// export const getRemoteUser = ( data ) => service.getResource(`${_apiBase}/?q=remoteuser`, data);
-export const getRemoteUser = ( data ) => offline 
-  ? offlinelang === 'ru' ? service.getResource(`http://localhost:3000/remoteuser`, data) : service.getResource(`http://localhost:3000/remoteuseren`, data)
-  : service.getResource(`${_apiBase}/?q=remoteuser`, data);
-
-export const setUserLang = ( data ) => service.updateResource(`${_apiBase}/?q=user`, data);
+export const setUserLang = ( data ) => service.updateResource(`${apiBase}/?q=user`, data);
 
 export const getUserData = ( data ) => {
   const mode = data.app12_id ? `&app12_id=${data.app12_id}` : data.login ? `&login=${data.login}` : null;
-  return mode ? service.getResource(`${_apiBase}/?q=user${mode}`, data) : []
+  return mode ? service.getResource(`${apiBase}/?q=user${mode}`, data) : []
 }
 
 export const searchUsers = ( data ) => {
   const string = data.string ? data.string : '';
   const author_id = data.author_id ? data.author_id : '';
-  return service.getResource(`${_apiBase}/?q=users&string=${string}&author_id=${author_id}`, data)
+  return service.getResource(`${apiBase}/?q=users&string=${string}&author_id=${author_id}`, data)
 }
 
 export const searchBoss = ( data ) => {
   const string = data.string ? data.string : '';
   const author_id = data.author_id ? data.author_id : '';
-  return service.getResource(`${_apiBase}/?q=bosses&string=${string}&author_id=${author_id}`, data)
+  return service.getResource(`${apiBase}/?q=bosses&string=${string}&author_id=${author_id}`, data)
 }
