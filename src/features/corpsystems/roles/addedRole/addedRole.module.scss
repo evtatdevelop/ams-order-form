@@ -1,0 +1,72 @@
+.addedRole {
+  display: flex;
+  margin-bottom: 1vmax;
+  justify-content: space-between;
+  align-items: center;
+
+  outline: 1px solid gray;
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 0;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+  }
+  
+  .header {
+    flex-grow: 1;
+    padding: .8vmax;
+    justify-content: flex-start;
+    text-align: left;
+    overflow-x: hidden;
+    cursor: pointer;
+  }
+
+  .remove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 0;
+    // border: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    width: 2vmax;
+    height: 2vmax;
+    color: gray;
+    transition: color .3s;
+    font-size: 1.7vmax;
+    font-weight: 100;
+    border-radius: .1vmax;
+
+    &.showClnBtn {
+      opacity: 1;
+    }
+
+    &:focus,
+    &:hover {
+      color: red;
+    } 
+  }
+
+  //
+  // Dark styles
+  //
+  &.dark {
+    .header {
+      color: #aaa9a9;
+    }
+  
+    .clearBtn {
+      &:focus,
+      &:hover {
+        color: coral;
+      } 
+    }
+  }   
+}
+

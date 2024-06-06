@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../dictionary.json";
 import { user } from '.././../user/userSlice';
 import { rolesData, processGroupListData, roleListData, addRole } from "../corpsystemsSlice";
-import { Row } from "../../components/row/row";
 import Input from "../../components/input/Input";
 import Select from "../../components/select/select";
 import { darkTheme } from "../../main/mainpageSlice";
 import { InfoField } from "../../components/infoField/infoField";
+import { AddedRoles } from "./addedRole/addedRole";
 
 export const Roles = () => {
   
@@ -39,7 +39,6 @@ export const Roles = () => {
     setHereGroups([group]);
   }
   const cancelGroup = () => {
-    // setHereRoles([...roleList.reduce((summ, item) => [...summ, {...item, name: `${item.name} ( ${item.code} )`}], [])]);
     setHereRoles( formatRoleNames(roleList) );
     setRole({})
   }
@@ -48,14 +47,24 @@ export const Roles = () => {
     setRole({});
   }
 
+  // ! test function. Requires development
+  const checkRole = role => {
+    if ( Object.keys(role).length && role.role?.name && role.role?.code ) return true;
+    return false;
+  }
+
   const handleOk = () => {
+    if ( !checkRole(role) ) return;
+    console.log(role);
     dispatch(addRole(role));
     showRoleAdder(false);
     setHereGroups([...processGroupList]);
-    // setHereRoles([...roleList.reduce((summ, item) => [...summ, {...item, name: `${item.name} ( ${item.code} )`}], [])]);
     setHereRoles( formatRoleNames(roleList) );
+    cancelRole();
   }
   const handleCancel = () => {
+    setHereGroups([...processGroupList]);
+    setHereRoles( formatRoleNames(roleList) );
     showRoleAdder(false);
   }
 
@@ -66,7 +75,6 @@ export const Roles = () => {
 
   useEffect(() => {
     if ( roleList.length ) {
-      // setHereRoles([...roleList.reduce((summ, item) => [...summ, {...item, name: `${item.name} ( ${item.code} )`}], [])])
       setHereRoles( formatRoleNames(roleList) );
     }
     else setHereRoles([])
@@ -78,18 +86,19 @@ export const Roles = () => {
 
   return (
     <div className={rolesStyle}>
-      <Row className={styles.roleRow}>
+      <div className={styles.roleRow}>
         <label>{dictionary.roles[lang]}</label>
         <ul className={styles.roleList}>
           { roles.length
-            ? roles.map((item, index) => console.log(index, item))
+            // ? roles.map((item, index) => <li key={index}>{`${item.role.name} ( ${item.role.code} )`}</li>)
+            ? roles.map((item, index) => <AddedRoles item = {item} key={index} />)
             : null
           }
           <li><button type="button" className={styles.btnRoleForm}
             onClick={ () => showRoleAdder(true) }
           >{dictionary.add_role[lang]}</button></li> 
         </ul>
-      </Row>
+      </div>
       
       { roleAdder
         ? <section className={styles.roleAdder}>
@@ -133,7 +142,6 @@ export const Roles = () => {
         : null
       }
 
-   
     </div>
   
   )

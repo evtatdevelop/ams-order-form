@@ -3,9 +3,11 @@
   flex-direction: column;
 
   .roleRow {
-    align-items: normal;
+    display: flex;
+    width: 100%;
+    
     label {
-      padding-top: .9vmax;
+      margin-top: .5vmax;
     }
   }
 
@@ -13,28 +15,23 @@
     width: 75%;
     list-style-type: decimal;
     
-    li {
-      button {
-        width: 100%;
-        margin-bottom: .3vmax;
-        background-color: transparent;
-        color: #161619;
-        border: .1vmax solid gray;
-        border-radius: .3vmax;
-        padding: 1vmax;
-        text-align: left;
-        cursor: pointer;
+    .btnRoleForm {
+      width: 100%;
+      margin-bottom: .3vmax;
+      background-color: transparent;
+      color: #161619;
+      border: .1vmax solid gray;
+      border-radius: .3vmax;
+      padding: 1vmax;
+      text-align: left;
+      cursor: pointer;
+      color: #161619;
+      text-align: center;
+      transition: background-color .3s;
 
-        &.btnRoleForm {
-          color: #161619;
-          text-align: center;
-          transition: background-color .3s;
-
-          &:hover,
-          &:focus {
-            background-color: #16161919
-          }
-        }
+      &:hover,
+      &:focus {
+        background-color: #16161919
       }
     }
   }
@@ -96,21 +93,17 @@
   // Dark styles
   //
   &.dark {
-    .roleList {
-      li {
-        button {
-          background-color: transparent;
-          color: white;
-          border: .1vmax solid gray;
-          &.btnRoleForm {
-            color: wheat;
-          }
+    .btnRoleForm {
+      background-color: transparent;
+      color: white;
+      border: .1vmax solid gray;
+      &.btnRoleForm {
+        color: wheat;
+      }
 
-          &:hover,
-          &:focus {
-            background-color: #ffffff18
-          }
-        }
+      &:hover,
+      &:focus {
+        background-color: #ffffff18
       }
     }
   

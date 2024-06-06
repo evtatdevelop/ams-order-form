@@ -93,23 +93,30 @@ export const corpsystemSlice = createSlice({
       state.system.sapSystem = {};
       state.subSystemList = [];
       state.processGroupList = [];
-      state.roleList=[]
+      state.roleList=[];
+      state.roles = [];
     },
     unSetSabSapSystem: (state) => {
-      state.system.sapSystem.subSapSystem = {}
-      state.roleList={}
+      state.system.sapSystem.subSapSystem = {};
+      state.processGroupList = [];
+      state.roleList=[];
+      state.roles = [];
     },
     clearForm: (state) => {
       state.user.boss = null;
       state.system.sapSystem = {};
       state.subSystemList = [];
       state.processGroupList = [];
-      state.roleList=[]
+      state.roleList = [];
+      state.roles = [];
     },
     
     addRole: (state, action) => {
       state.roles = [...state.roles, action.payload]
-    } 
+    },
+    rmRole: (state, action) => {
+      state.roles = [...state.roles.filter(item => item.role.id !== action.payload)]
+    }
   },
 
   extraReducers: (builder) => { builder
@@ -209,7 +216,7 @@ export const corpsystemSlice = createSlice({
 export const { setCompany, setBranch, setDepartment, setLocation, setPosition, unSetPosition,
   unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, 
   setBoss, clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
-  addRole,  
+  addRole, rmRole, 
 } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;
