@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from './roles.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../dictionary.json";
@@ -11,7 +11,7 @@ import { InfoField } from "../../components/infoField/infoField";
 import { AddedRoles } from "./addedRole/addedRole";
 
 export const Roles = () => {
-  
+  const searchRef = useRef(null);
   const dispatch = useDispatch();
   const { lang } = useSelector(user);
   const roles = useSelector(rolesData);
@@ -23,6 +23,20 @@ export const Roles = () => {
   const [roleAdder, showRoleAdder] = useState(false);
   const [hereGroups, setHereGroups] = useState([]);
   const [hereRoles, setHereRoles] = useState([]);
+  const [hereSearch, setHereSearch] = useState([]);
+
+
+  useEffect(() => {
+    if ( processGroupList.length ) setHereGroups([...processGroupList])
+    else setHereGroups([])
+  }, [processGroupList]);
+
+  useEffect(() => {
+    if ( roleList.length ) {
+      setHereRoles( formatRoleNames(roleList) );
+    }
+    else setHereRoles([])
+  }, [roleList]);
 
   const formatRoleNames = (roleListIn) => [...roleListIn.reduce((summ, item) => [...summ, {...item, name: `${item.name} ( ${item.code} )`}], [])];
 
@@ -55,30 +69,43 @@ export const Roles = () => {
 
   const handleOk = () => {
     if ( !checkRole(role) ) return;
-    console.log(role);
     dispatch(addRole(role));
     showRoleAdder(false);
     setHereGroups([...processGroupList]);
     setHereRoles( formatRoleNames(roleList) );
     cancelRole();
   }
+
   const handleCancel = () => {
     setHereGroups([...processGroupList]);
     setHereRoles( formatRoleNames(roleList) );
     showRoleAdder(false);
+    setHereSearch([]);
+    setRole({});
   }
 
-  useEffect(() => {
-    if ( processGroupList.length ) setHereGroups([...processGroupList])
-    else setHereGroups([])
-  }, [processGroupList]);
-
-  useEffect(() => {
-    if ( roleList.length ) {
-      setHereRoles( formatRoleNames(roleList) );
+  const searchRole = str => {
+    if ( !str ) {
+      setHereSearch([]);
+      return
     }
-    else setHereRoles([])
-  }, [roleList]);
+    setHereSearch([
+      ...roleList.filter(role => role.name.toUpperCase().includes(str.toUpperCase()) || role.code.includes(str.toUpperCase())),
+      ...processGroupList.filter(roup => roup.name.toUpperCase().includes(str.toUpperCase())),
+    ]);
+  }
+
+  const searchChoice = item => {
+    if ( item.code ) {
+      handleRole(item)
+      setHereRoles([item]);
+    } else { 
+      handleGroup( item );
+      setHereGroups([item]);
+    }
+    setHereSearch([]);
+    if ( searchRef.current ) searchRef.current.clearInput();
+  }
 
   let rolesStyle = dark 
   ? `${styles.roles} ${styles.dark}`
@@ -90,7 +117,6 @@ export const Roles = () => {
         <label>{dictionary.roles[lang]}</label>
         <ul className={styles.roleList}>
           { roles.length
-            // ? roles.map((item, index) => <li key={index}>{`${item.role.name} ( ${item.role.code} )`}</li>)
             ? roles.map((item, index) => <AddedRoles item = {item} key={index} />)
             : null
           }
@@ -105,10 +131,11 @@ export const Roles = () => {
             <div className={styles.oneRoleSandbox}>
               <div className={styles.roleData}>
                 <Input 
-                  inputHandler = { val => console.log(val) }
+                  inputHandler = { val => searchRole(val) }
                   inputClear = { () => {} }
                   placeholder = {dictionary.search[lang]}
                   val = ''
+                  ref={searchRef} 
                 />
                 { hereGroups.length > 1
                   ? <Select
@@ -122,14 +149,33 @@ export const Roles = () => {
                   : <InfoField val = {hereGroups[0].name} />                          
                 }
                 
-                <Select
-                  selectHandler = { val => handleRole(val) }
-                  selectClear  = { () => cancelRole() }
-                  placeholder = {dictionary.nameRole[lang]}
-                  selectList = {hereRoles}
-                  val = ''
-                  name='roles'
-                />
+                { hereRoles.length > 1
+                  ? <Select
+                      selectHandler = { val => handleRole(val) }
+                      selectClear  = { () => cancelRole() }
+                      placeholder = {dictionary.nameRole[lang]}
+                      selectList = {hereRoles}
+                      val = ''
+                      name='roles'
+                    />
+                  : <InfoField val = {hereRoles[0].name} />
+                }
+
+                { hereSearch.length
+                  ? <ul className={styles.searhResult}>
+                      { hereSearch.map((item, index) => <li key={index} className={styles.serchItem}>
+                          <button type="button"
+                            onClick={()=>searchChoice(item)}
+                          >
+                            <div className={styles.label}>{item.code ? 'role:' : 'group:'}</div>
+                            <div className={styles.name}>{item.name}</div>
+                          </button>
+                        </li>
+                      )}
+                    </ul>
+                  : null  
+
+                }
 
               </div>
 
