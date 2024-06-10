@@ -3,7 +3,7 @@ import styles from './roles.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../dictionary.json";
 import { user } from '.././../user/userSlice';
-import { rolesData, processGroupListData, roleListData, addRole } from "../corpsystemsSlice";
+import { rolesData, processGroupListData, roleListData, getLevels, levelsData, clearLevels, addRole } from "../corpsystemsSlice";
 import Input from "../../components/input/Input";
 import Select from "../../components/select/select";
 import { darkTheme } from "../../main/mainpageSlice";
@@ -13,11 +13,12 @@ import { AddedRoles } from "./addedRole/addedRole";
 export const Roles = () => {
   const searchRef = useRef(null);
   const dispatch = useDispatch();
-  const { lang } = useSelector(user);
+  const { lang, api_key } = useSelector(user);
   const roles = useSelector(rolesData);
   const dark = useSelector(darkTheme);
   const processGroupList = useSelector(processGroupListData);
   const roleList = useSelector(roleListData);
+  const levels = useSelector(levelsData);
   
   const [role, setRole] = useState({});
   const [roleAdder, showRoleAdder] = useState(false);
@@ -46,20 +47,34 @@ export const Roles = () => {
   const handleGroup = val => {
     setRole({...role, processGroup: val});
     setHereRoles( formatRoleNames(getRolesByGroupId(val.id)) );
+    setRole({});
+    dispatch(clearLevels());
+    //! добавить очистку роли через ref
   }
   const handleRole = val => {
     const group = getGroupById(val.proccss_group_id);
     setRole({processGroup: group, role: val});
     setHereGroups([group]);
+
+    dispatch(getLevels({
+      api_key,
+      lang,
+      asz03_id: val.id,  
+    }));
   }
   const cancelGroup = () => {
     setHereRoles( formatRoleNames(roleList) );
-    setRole({})
+    setRole({});
+    dispatch(clearLevels());
+    //! добавить очистку роли через ref
   }
   const cancelRole = () => {
     setHereGroups([...processGroupList]);
     setRole({});
+    dispatch(clearLevels());
   }
+
+
 
   // ! test function. Requires development
   const checkRole = role => {
@@ -74,6 +89,7 @@ export const Roles = () => {
     setHereGroups([...processGroupList]);
     setHereRoles( formatRoleNames(roleList) );
     cancelRole();
+    dispatch(clearLevels());
   }
 
   const handleCancel = () => {
@@ -82,6 +98,7 @@ export const Roles = () => {
     showRoleAdder(false);
     setHereSearch([]);
     setRole({});
+    dispatch(clearLevels());
   }
 
   const searchRole = str => {
@@ -167,13 +184,24 @@ export const Roles = () => {
                           <button type="button"
                             onClick={()=>searchChoice(item)}
                           >
-                            <div className={styles.label}>{item.code ? 'role:' : 'group:'}</div>
-                            <div className={styles.name}>{item.name}</div>
+                            <div className={styles.label}>{`${item.code ? dictionary.nameRole[lang]: dictionary.nameProcessGroup[lang]}:`}</div>
+                            <div className={styles.name}>{`${item.name}`}
+                              { item.code ? <span className={styles.code}>{` (${item.code} )`}</span> : null } 
+                            </div>
+                            
                           </button>
                         </li>
                       )}
                     </ul>
                   : null  
+
+                }
+
+                { levels.length
+                  ? <ul>
+                      {levels.map((item, index) => <li key={index}>{item.name}</li>)}
+                    </ul>
+                  : null
 
                 }
 

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { sessionKey, companies, branches, departments, sapBranch, locations, corpsystem, 
-  systemList, subSystemList, processGroups, getParam, roles } from "./corpsystemsSliceAPI";
+  systemList, subSystemList, processGroups, getParam, roles, levels } from "./corpsystemsSliceAPI";
 import { getUserData } from "../user/userSliceAPI";
 
 const initialState = {
@@ -26,6 +26,7 @@ const initialState = {
   subSystemList: [],
   processGroupList: [],
   roleList: [],
+  levels: [],
 }
 
 export const getSessionKey    = createAsyncThunk( 'corpsystem/getSessionKey', async ( data ) => await sessionKey(data) );
@@ -41,6 +42,7 @@ export const getSubSystemList = createAsyncThunk( 'corpsystem/getSubSystemList',
 export const getProcessGroups = createAsyncThunk( 'corpsystem/getProcessGroups', async ( data ) => await processGroups(data) );
 export const getGetParam      = createAsyncThunk( 'corpsystem/getGetParam', async ( data ) => await getParam(data) );
 export const getRoles         = createAsyncThunk( 'corpsystem/getRoles', async ( data ) => await roles(data) );
+export const getLevels        = createAsyncThunk( 'corpsystem/getLevels', async ( data ) => await levels(data) );
 
 export const corpsystemSlice = createSlice({
   name: 'corpsystems',
@@ -116,6 +118,11 @@ export const corpsystemSlice = createSlice({
     },
     rmRole: (state, action) => {
       state.roles = [...state.roles.filter(item => item.role.id !== action.payload)]
+    },
+
+    // temep data
+    clearLevels: (state) => {
+      state.levels = []
     }
   },
 
@@ -210,13 +217,19 @@ export const corpsystemSlice = createSlice({
       state.roleList = [...action.payload];
       state.subSystemLoading = false;
     })
+
+    .addCase(getLevels.pending, ( state ) => { state.subSystemLoading = true })
+    .addCase(getLevels.fulfilled, ( state, action ) => {
+      state.levels = [...action.payload];
+      state.subSystemLoading = false;
+    })
   }
 });
 
 export const { setCompany, setBranch, setDepartment, setLocation, setPosition, unSetPosition,
   unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, 
   setBoss, clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
-  addRole, rmRole, 
+  addRole, rmRole, clearLevels,
 } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;
@@ -234,5 +247,6 @@ export const rolesData            = ( state ) => state.corpsystems.roles;
 export const paramsData           = ( state ) => state.corpsystems.params;
 export const processGroupListData = ( state ) => state.corpsystems.processGroupList;
 export const roleListData         = ( state ) => state.corpsystems.roleList;
+export const levelsData           = ( state ) => state.corpsystems.levels;
 
 export default corpsystemSlice.reducer;

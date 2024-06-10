@@ -78,19 +78,26 @@
             button {
               width: 100%;
               display: flex;
+              align-items: center;
               padding: 1vmax .5vmax;
               background-color: transparent;
               outline: .1vmax solid transparent;
               transition: outline .3s;
 
               .label {
-                width: 5vmax;
+                // width: 5vmax;
                 color: gray;
                 text-align: left;
+                overflow: hidden;
+                margin-right: 1vmax;
+                white-space: nowrap;
               }
               .name {
                 text-align: left;
                 flex-grow: 1;
+              }
+              .code {
+                color: rgb(192, 191, 191);
               }
 
               &:hover,
