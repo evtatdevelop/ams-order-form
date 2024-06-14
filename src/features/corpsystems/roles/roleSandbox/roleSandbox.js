@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from './roleSandbox.module.scss';
 import { useSelector, useDispatch } from "react-redux";
-import dictionary from "../../../dictionary.json";
-import { user } from '.././../user/userSlice';
-import { showRoleAdder, processGroupListData, roleListData, getLevels, roleSendboxData,  levelsData, setRole, clearLevels, addRole} from "../corpsystemsSlice";
-import Input from "../../components/input/Input";
-import Select from "../../components/select/select";
-import { darkTheme } from "../../main/mainpageSlice";
-import { InfoField } from "../../components/infoField/infoField";
-import { WindowInput } from "../../components/windowInput/windowInput";
-import { getContractorsData } from "../corpsystemsSliceAPI";
+import dictionary from "../../../../dictionary.json";
+import { user } from '../../../user/userSlice';
+import { showRoleAdder, processGroupListData, roleListData, getLevels, roleSendboxData,  levelsData, setRole, clearLevels, addRole} from "../../corpsystemsSlice";
+import Input from "../../../components/input/Input";
+import Select from "../../../components/select/select";
+import { darkTheme } from "../../../main/mainpageSlice";
+import { InfoField } from "../../../components/infoField/infoField";
+import { Levels } from "./levels/levels";
 
 export const RoleSandbox = () => {
   const searchRef = useRef(null);
@@ -132,6 +131,7 @@ export const RoleSandbox = () => {
             val = ''
             ref={searchRef} 
           />
+
           { hereGroups.length > 1
             ? <Select
                 selectHandler = { val => handleGroup(val) }
@@ -141,7 +141,7 @@ export const RoleSandbox = () => {
                 val = ''
                 name='processGroups'
               />
-            : <InfoField val = '{hereGroups[0].name}' />                          
+            : <InfoField val = { hereGroups.length ? hereGroups[0].name : null } />                          
           }
           
           { hereRoles.length > 1
@@ -153,7 +153,7 @@ export const RoleSandbox = () => {
                 val = ''
                 name='roles'
               />
-            : <InfoField val = '{hereRoles[0].name}' />
+            : <InfoField val = { hereRoles.length ? hereRoles[0].name : null } />
           }
 
           { hereSearch.length
@@ -171,27 +171,13 @@ export const RoleSandbox = () => {
                   </li>
                 )}
               </ul>
-            : null  
-
+            : null
           }
 
           { levels.length
-            ? <ul>
-                { levels.map((item, index) => <li key={index}>
-
-                <WindowInput 
-                  inputHandler = { val => console.log(val) }
-                  placeholder = {item.name}
-                  winContentFunc = {getContractorsData}
-                  content = {contractorList}
-                  search = {['name', 'inn']}
-                />
-                </li>)}
-              </ul>
+            ? <Levels/>
             : null
-
           }
-
         </div>
 
         <div className={styles.control}>
@@ -202,11 +188,3 @@ export const RoleSandbox = () => {
     </section>
   )
 }
-
-
-const contractorList = (value) => 
-  <div className={styles.contractors}>
-    <div className={styles.list}>
-      {value.data ? value.data.map(item => <div key={item.id} itemID={item.id}>{`${item.name} (${item.inn})`}</div>) : null}
-    </div>
-  </div>

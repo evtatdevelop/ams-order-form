@@ -6,7 +6,7 @@ import { user } from '.././../user/userSlice';
 import { rolesData, showRoleAdder, roleAdderData } from "../corpsystemsSlice";
 import { darkTheme } from "../../main/mainpageSlice";
 import { AddedRoles } from "./addedRole/addedRole";
-import { RoleSandbox } from "../roleSandbox/roleSandbox";
+import { RoleSandbox } from "./roleSandbox/roleSandbox";
 
 export const Roles = () => {
   const dispatch = useDispatch();

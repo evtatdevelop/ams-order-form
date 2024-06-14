@@ -25,9 +25,9 @@ const initialState = {
   locationLiist: [],
   systemList: [],
   subSystemList: [],
+
   processGroupList: [],
   roleList: [],
-  
   roleAdder: false,
   roleSendbox: {},
   levels: [],
@@ -127,8 +127,6 @@ export const corpsystemSlice = createSlice({
     rmRole: (state, action) => {
       state.roles = [...state.roles.filter(item => item.role.id !== action.payload)]
     },
-
-    // temep data
 
     setRole: (state, action) => {
       state.roleSendbox = {...action.payload}
