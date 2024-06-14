@@ -53,62 +53,62 @@
       background-color: #f6f6fb;
       display: flex;
       flex-direction: column;
-      .roleData {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        overflow-y: auto;
-        padding: .5vmax;
+      // .roleData {
+      //   flex-grow: 1;
+      //   display: flex;
+      //   flex-direction: column;
+      //   overflow-y: auto;
+      //   padding: .5vmax;
 
-        .searhResult {
-          margin-top: 1vmax;
-          display: flex;
-          flex-direction: column;
-          overflow-y: auto;
-          align-items:stretch;
-          padding: .5vmax;
+      //   .searhResult {
+      //     margin-top: 1vmax;
+      //     display: flex;
+      //     flex-direction: column;
+      //     overflow-y: auto;
+      //     align-items:stretch;
+      //     padding: .5vmax;
           
-          // 
-          .serchItem {
-            display: flex;
-            // margin: .2vmax;
+      //     // 
+      //     .serchItem {
+      //       display: flex;
+      //       // margin: .2vmax;
             
-            // outline: 1px solid red;
+      //       // outline: 1px solid red;
             
-            button {
-              width: 100%;
-              display: flex;
-              align-items: center;
-              padding: 1vmax .5vmax;
-              background-color: transparent;
-              outline: .1vmax solid transparent;
-              transition: outline .3s;
+      //       button {
+      //         width: 100%;
+      //         display: flex;
+      //         align-items: center;
+      //         padding: 1vmax .5vmax;
+      //         background-color: transparent;
+      //         outline: .1vmax solid transparent;
+      //         transition: outline .3s;
 
-              .label {
-                // width: 5vmax;
-                color: gray;
-                text-align: left;
-                overflow: hidden;
-                margin-right: 1vmax;
-                white-space: nowrap;
-              }
-              .name {
-                text-align: left;
-                flex-grow: 1;
-              }
-              .code {
-                color: rgb(192, 191, 191);
-              }
+      //         .label {
+      //           // width: 5vmax;
+      //           color: gray;
+      //           text-align: left;
+      //           overflow: hidden;
+      //           margin-right: 1vmax;
+      //           white-space: nowrap;
+      //         }
+      //         .name {
+      //           text-align: left;
+      //           flex-grow: 1;
+      //         }
+      //         .code {
+      //           color: rgb(192, 191, 191);
+      //         }
 
-              &:hover,
-              &:focus {
-                outline: .1vmax solid grey;
-              }                            
-            }
-          }
-        }
+      //         &:hover,
+      //         &:focus {
+      //           outline: .1vmax solid grey;
+      //         }                            
+      //       }
+      //     }
+      //   }
 
-      }
+      // }
       .control {
         display: flex;
         justify-content: space-around;
@@ -172,19 +172,19 @@
           }
         }
   
-        .roleData {
-          .searhResult {
-            .serchItem {
+        // .roleData {
+        //   .searhResult {
+        //     .serchItem {
 
-              .label {
-                // color: wheat;
-              }
-              .name {
-                color: white
-              }
-            }
-          }  
-        }
+        //       .label {
+        //         // color: wheat;
+        //       }
+        //       .name {
+        //         color: white
+        //       }
+        //     }
+        //   }  
+        // }
 
         outline: 1px solid grey;
       }

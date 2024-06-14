@@ -1,128 +1,135 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import styles from './roles.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../dictionary.json";
 import { user } from '.././../user/userSlice';
-import { rolesData, processGroupListData, roleListData, getLevels, levelsData, clearLevels, addRole } from "../corpsystemsSlice";
-import Input from "../../components/input/Input";
-import Select from "../../components/select/select";
+import { rolesData, clearLevels, addRole, roleSendboxData, setRole } from "../corpsystemsSlice";
+// import Input from "../../components/input/Input";
+// import Select from "../../components/select/select";
 import { darkTheme } from "../../main/mainpageSlice";
-import { InfoField } from "../../components/infoField/infoField";
+// import { InfoField } from "../../components/infoField/infoField";
 import { AddedRoles } from "./addedRole/addedRole";
+// import { WindowInput } from "../../components/windowInput/windowInput";
+// import { getContractorsData } from "../corpsystemsSliceAPI";
+import { RoleSandbox } from "../roleSandbox/roleSandbox";
 
 export const Roles = () => {
-  const searchRef = useRef(null);
+  // const searchRef = useRef(null);
   const dispatch = useDispatch();
-  const { lang, api_key } = useSelector(user);
+  const { lang } = useSelector(user);
   const roles = useSelector(rolesData);
   const dark = useSelector(darkTheme);
-  const processGroupList = useSelector(processGroupListData);
-  const roleList = useSelector(roleListData);
-  const levels = useSelector(levelsData);
+
+  const role = useSelector(roleSendboxData);
+
+  // const processGroupList = useSelector(processGroupListData);
+  // const roleList = useSelector(roleListData);
+  // const levels = useSelector(levelsData);
   
-  const [role, setRole] = useState({});
+  // const [role, setRole] = useState({});
   const [roleAdder, showRoleAdder] = useState(false);
-  const [hereGroups, setHereGroups] = useState([]);
-  const [hereRoles, setHereRoles] = useState([]);
-  const [hereSearch, setHereSearch] = useState([]);
+  // const [hereGroups, setHereGroups] = useState([]);
+  // const [hereRoles, setHereRoles] = useState([]);
+  // const [hereSearch, setHereSearch] = useState([]);
 
 
-  useEffect(() => {
-    if ( processGroupList.length ) setHereGroups([...processGroupList])
-    else setHereGroups([])
-  }, [processGroupList]);
+  // useEffect(() => {
+  //   if ( processGroupList.length ) setHereGroups([...processGroupList])
+  //   else setHereGroups([])
+  // }, [processGroupList]);
 
-  useEffect(() => {
-    if ( roleList.length ) {
-      setHereRoles( formatRoleNames(roleList) );
-    }
-    else setHereRoles([])
-  }, [roleList]);
+  // useEffect(() => {
+  //   if ( roleList.length ) {
+  //     setHereRoles( formatRoleNames(roleList) );
+  //   }
+  //   else setHereRoles([])
+  // }, [roleList]);
 
-  const formatRoleNames = (roleListIn) => [...roleListIn.reduce((summ, item) => [...summ, {...item, name: `${item.name} ( ${item.code} )`}], [])];
+  // const formatRoleNames = (roleListIn) => [...roleListIn.reduce((summ, item) => [...summ, {...item, name: `${item.name} ( ${item.code} )`}], [])];
 
-  const getGroupById = groupId => processGroupList.find(item => item.id === groupId);
-  const getRolesByGroupId = groupId => roleList.filter(item => item.proccss_group_id === groupId);
+  // const getGroupById = groupId => processGroupList.find(item => item.id === groupId);
+  // const getRolesByGroupId = groupId => roleList.filter(item => item.proccss_group_id === groupId);
 
-  const handleGroup = val => {
-    setRole({...role, processGroup: val});
-    setHereRoles( formatRoleNames(getRolesByGroupId(val.id)) );
-    setRole({});
-    dispatch(clearLevels());
-    //! добавить очистку роли через ref
-  }
-  const handleRole = val => {
-    const group = getGroupById(val.proccss_group_id);
-    setRole({processGroup: group, role: val});
-    setHereGroups([group]);
+  // const handleGroup = val => {
+  //   setRole({...role, processGroup: val});
+  //   setHereRoles( formatRoleNames(getRolesByGroupId(val.id)) );
+  //   setRole({});
+  //   dispatch(clearLevels());
+  //   //? добавить очистку роли через ref
+  // }
+  // const handleRole = val => {
+  //   const group = getGroupById(val.proccss_group_id);
+  //   setRole({processGroup: group, role: val});
+  //   setHereGroups([group]);
 
-    dispatch(getLevels({
-      api_key,
-      lang,
-      asz03_id: val.id,  
-    }));
-  }
-  const cancelGroup = () => {
-    setHereRoles( formatRoleNames(roleList) );
-    setRole({});
-    dispatch(clearLevels());
-    //! добавить очистку роли через ref
-  }
+  //   dispatch(getLevels({
+  //     api_key,
+  //     lang,
+  //     asz03_id: val.id,  
+  //   }));
+  // }
+  // const cancelGroup = () => {
+  //   setHereRoles( formatRoleNames(roleList) );
+  //   setRole({});
+  //   dispatch(clearLevels());
+  //   //? добавить очистку роли через ref
+  // }
   const cancelRole = () => {
-    setHereGroups([...processGroupList]);
-    setRole({});
+    // setHereGroups([...processGroupList]);
+    dispatch(setRole({}));
     dispatch(clearLevels());
   }
 
 
 
-  // ! test function. Requires development
+  // ? test function. Requires development
   const checkRole = role => {
-    if ( Object.keys(role).length && role.role?.name && role.role?.code ) return true;
-    return false;
+    // if ( Object.keys(role).length && role.role?.name && role.role?.code ) return true;
+    // return false;
+    return true;
   }
 
   const handleOk = () => {
     if ( !checkRole(role) ) return;
     dispatch(addRole(role));
     showRoleAdder(false);
-    setHereGroups([...processGroupList]);
-    setHereRoles( formatRoleNames(roleList) );
+    // setHereGroups([...processGroupList]);
+    // setHereRoles( formatRoleNames(roleList) );
     cancelRole();
     dispatch(clearLevels());
   }
 
   const handleCancel = () => {
-    setHereGroups([...processGroupList]);
-    setHereRoles( formatRoleNames(roleList) );
+    // setHereGroups([...processGroupList]);
+    // setHereRoles( formatRoleNames(roleList) );
     showRoleAdder(false);
-    setHereSearch([]);
-    setRole({});
+    // setHereSearch([]);
+    dispatch(setRole({}));
     dispatch(clearLevels());
   }
 
-  const searchRole = str => {
-    if ( !str ) {
-      setHereSearch([]);
-      return
-    }
-    setHereSearch([
-      ...roleList.filter(role => role.name.toUpperCase().includes(str.toUpperCase()) || role.code.includes(str.toUpperCase())),
-      ...processGroupList.filter(roup => roup.name.toUpperCase().includes(str.toUpperCase())),
-    ]);
-  }
+  // const searchRole = str => {
+  //   if ( !str ) {
+  //     setHereSearch([]);
+  //     return
+  //   }
+  //   setHereSearch([
+  //     ...roleList.filter(role => role.name.toUpperCase().includes(str.toUpperCase()) || role.code.includes(str.toUpperCase())),
+  //     ...processGroupList.filter(roup => roup.name.toUpperCase().includes(str.toUpperCase())),
+  //   ]);
+  // }
 
-  const searchChoice = item => {
-    if ( item.code ) {
-      handleRole(item)
-      setHereRoles([item]);
-    } else { 
-      handleGroup( item );
-      setHereGroups([item]);
-    }
-    setHereSearch([]);
-    if ( searchRef.current ) searchRef.current.clearInput();
-  }
+  // const searchChoice = item => {
+  //   if ( item.code ) {
+  //     handleRole(item)
+  //     setHereRoles([item]);
+  //   } else { 
+  //     handleGroup( item );
+  //     setHereGroups([item]);
+  //   }
+  //   setHereSearch([]);
+  //   if ( searchRef.current ) searchRef.current.clearInput();
+  // }
 
   let rolesStyle = dark 
   ? `${styles.roles} ${styles.dark}`
@@ -146,7 +153,8 @@ export const Roles = () => {
       { roleAdder
         ? <section className={styles.roleAdder}>
             <div className={styles.oneRoleSandbox}>
-              <div className={styles.roleData}>
+              <RoleSandbox/>
+              {/* <div className={styles.roleData}>
                 <Input 
                   inputHandler = { val => searchRole(val) }
                   inputClear = { () => {} }
@@ -199,13 +207,22 @@ export const Roles = () => {
 
                 { levels.length
                   ? <ul>
-                      {levels.map((item, index) => <li key={index}>{item.name}</li>)}
+                      { levels.map((item, index) => <li key={index}>
+
+                      <WindowInput 
+                        inputHandler = { val => console.log(val) }
+                        placeholder = {item.name}
+                        winContentFunc = {getContractorsData}
+                        content = {contractorList}
+                        search = {['name', 'inn']}
+                      />
+                      </li>)}
                     </ul>
                   : null
 
                 }
 
-              </div>
+              </div> */}
 
               <div className={styles.control}>
                 <button type="button" onClick={ () => handleOk(true) }>{dictionary.save[lang]}</button>
@@ -220,3 +237,11 @@ export const Roles = () => {
   
   )
 }
+
+
+// const contractorList = (value) => 
+//   <div className={styles.contractors}>
+//     <div className={styles.list}>
+//       {value.data ? value.data.map(item => <div key={item.id} itemID={item.id}>{`${item.name} (${item.inn})`}</div>) : null}
+//     </div>
+//   </div>

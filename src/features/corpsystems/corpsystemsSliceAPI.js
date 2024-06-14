@@ -18,12 +18,6 @@ export const getParam       = ( data ) => service.getResource(`${apiBase}/?q=get
 export const roles          = ( data ) => service.getResource(`${apiBase}/?q=roles&asz00_id=${data.asz00_id}&asz01_id=${data.asz01_id}&instance_type=${data.instance_type}&app12_id_author=${data.app12_id_author}&ordertype=${data.orderType}&app12_id=${data.app12_id}&asz80_id=${data.asz80_id}`, data.api_key);
 export const levels         = ( data ) => service.getResource(`${apiBase}/?q=levels&lang=${data.lang}&asz03_id=${data.asz03_id}`, data.api_key);
 
-// export const uploadFile = ( data ) => service.uploadFile(`${_apiBase}/?q=uploadfile`, data);
-// export const uplodeData = ( data ) => service.postResource(`${_apiBase}/?q=staffdata`, data);
 
-// export const getMainpageData = ( api_key ) => offline 
-//   ? offlinelang === 'ru' ? service.getResource(`http://localhost:3000/mainpage`, api_key) : service.getResource(`http://localhost:3000/mainpageen`, api_key)
-//   : service.getResource(`${_apiBase}/?q=mainpage`, api_key);
 
-// export const addPrefers = ( data ) => service.updateResource(`${_apiBase}/?q=addprefers`, data);
-// export const delPrefers = ( data ) => service.updateResource(`${_apiBase}/?q=delprefers`, data);
+export const getContractorsData = ( api_key ) => service.getResource(`${apiBase}/?q=contractors`, api_key);

@@ -18,6 +18,7 @@ const initialState = {
   params: {
     enable_subsystems: null,
   },
+
   companyList: [],
   branchList: [],
   departmentLiist: [],
@@ -26,6 +27,8 @@ const initialState = {
   subSystemList: [],
   processGroupList: [],
   roleList: [],
+  
+  roleSendbox: {},
   levels: [],
 }
 
@@ -121,6 +124,11 @@ export const corpsystemSlice = createSlice({
     },
 
     // temep data
+
+    setRole: (state, action) => {
+      state.roleSendbox = {...action.payload}
+    },
+
     clearLevels: (state) => {
       state.levels = []
     }
@@ -229,7 +237,8 @@ export const corpsystemSlice = createSlice({
 export const { setCompany, setBranch, setDepartment, setLocation, setPosition, unSetPosition,
   unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, 
   setBoss, clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
-  addRole, rmRole, clearLevels,
+  addRole, rmRole, 
+  setRole, clearLevels,
 } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;
@@ -247,6 +256,7 @@ export const rolesData            = ( state ) => state.corpsystems.roles;
 export const paramsData           = ( state ) => state.corpsystems.params;
 export const processGroupListData = ( state ) => state.corpsystems.processGroupList;
 export const roleListData         = ( state ) => state.corpsystems.roleList;
+export const roleSendboxData      = ( state ) => state.corpsystems.roleSendbox;
 export const levelsData           = ( state ) => state.corpsystems.levels;
 
 export default corpsystemSlice.reducer;
