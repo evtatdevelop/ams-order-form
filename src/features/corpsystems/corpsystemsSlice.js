@@ -28,6 +28,7 @@ const initialState = {
   processGroupList: [],
   roleList: [],
   
+  roleAdder: false,
   roleSendbox: {},
   levels: [],
 }
@@ -116,6 +117,10 @@ export const corpsystemSlice = createSlice({
       state.roles = [];
     },
     
+    showRoleAdder: (state, action) => {
+      state.roleAdder = action.payload
+    },
+
     addRole: (state, action) => {
       state.roles = [...state.roles, action.payload]
     },
@@ -237,7 +242,7 @@ export const corpsystemSlice = createSlice({
 export const { setCompany, setBranch, setDepartment, setLocation, setPosition, unSetPosition,
   unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, 
   setBoss, clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
-  addRole, rmRole, 
+  showRoleAdder, addRole, rmRole, 
   setRole, clearLevels,
 } = corpsystemSlice.actions;
 
@@ -258,5 +263,6 @@ export const processGroupListData = ( state ) => state.corpsystems.processGroupL
 export const roleListData         = ( state ) => state.corpsystems.roleList;
 export const roleSendboxData      = ( state ) => state.corpsystems.roleSendbox;
 export const levelsData           = ( state ) => state.corpsystems.levels;
+export const roleAdderData        = ( state ) => state.corpsystems.roleAdder;
 
 export default corpsystemSlice.reducer;

@@ -3,7 +3,7 @@ import styles from './roleSandbox.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../dictionary.json";
 import { user } from '.././../user/userSlice';
-import { processGroupListData, roleListData, getLevels, roleSendboxData,  levelsData, setRole, clearLevels, } from "../corpsystemsSlice";
+import { showRoleAdder, processGroupListData, roleListData, getLevels, roleSendboxData,  levelsData, setRole, clearLevels, addRole} from "../corpsystemsSlice";
 import Input from "../../components/input/Input";
 import Select from "../../components/select/select";
 import { darkTheme } from "../../main/mainpageSlice";
@@ -18,18 +18,12 @@ export const RoleSandbox = () => {
   const dark = useSelector(darkTheme);
   const processGroupList = useSelector(processGroupListData);
   const roleList = useSelector(roleListData);
-
   const role = useSelector(roleSendboxData);
   const levels = useSelector(levelsData);
-  
-
-  // const [role, setRole] = useState({});
-
 
   const [hereGroups, setHereGroups] = useState([]);
   const [hereRoles, setHereRoles] = useState([]);
   const [hereSearch, setHereSearch] = useState([]);
-
 
   useEffect(() => {
     if ( processGroupList.length ) setHereGroups([...processGroupList])
@@ -46,6 +40,7 @@ export const RoleSandbox = () => {
   const formatRoleNames = (roleListIn) => [...roleListIn.reduce((summ, item) => [...summ, {...item, name: `${item.name} ( ${item.code} )`}], [])];
 
   const getGroupById = groupId => processGroupList.find(item => item.id === groupId);
+
   const getRolesByGroupId = groupId => roleList.filter(item => item.proccss_group_id === groupId);
 
   const handleGroup = val => {
@@ -53,7 +48,6 @@ export const RoleSandbox = () => {
     setHereRoles( formatRoleNames(getRolesByGroupId(val.id)) );
     dispatch(setRole({}));
     dispatch(clearLevels());
-    //? добавить очистку роли через ref
   }
 
   const handleRole = val => {
@@ -72,7 +66,6 @@ export const RoleSandbox = () => {
     setHereRoles( formatRoleNames(roleList) );
     dispatch(setRole({}));
     dispatch(clearLevels());
-    //? добавить очистку роли через ref
   }
 
   const cancelRole = () => {
@@ -104,83 +97,109 @@ export const RoleSandbox = () => {
     if ( searchRef.current ) searchRef.current.clearInput();
   }
 
+  // ? test function. Requires development
+  const checkRole = role => {
+    console.log(role);
+    return true;
+  }
+
+  const handleOk = () => {
+    if ( !checkRole(role) ) return;
+    dispatch(addRole(role));
+    dispatch(showRoleAdder(false));
+    cancelRole();
+    dispatch(clearLevels());
+  }
+
+  const handleCancel = () => {
+    dispatch(showRoleAdder(false));
+    dispatch(setRole({}));
+    dispatch(clearLevels());
+  }
+
   let roleSandboxStyle = dark
   ? `${styles.roleSandbox} ${styles.dark}`
   : `${styles.roleSandbox}`
 
   return (
-    <div className={roleSandboxStyle}>
-      <Input 
-        inputHandler = { val => searchRole(val) }
-        inputClear = { () => {} }
-        placeholder = {dictionary.search[lang]}
-        val = ''
-        ref={searchRef} 
-      />
-      { hereGroups.length > 1
-        ? <Select
-            selectHandler = { val => handleGroup(val) }
-            selectClear  = { () => cancelGroup() }
-            placeholder = {dictionary.nameProcessGroup[lang]}
-            selectList = {hereGroups}
+    <section className={roleSandboxStyle}>
+      <div className={styles.oneRoleSandbox}>
+        <div className={styles.roleData}>
+          <Input 
+            inputHandler = { val => searchRole(val) }
+            inputClear = { () => {} }
+            placeholder = {dictionary.search[lang]}
             val = ''
-            name='processGroups'
+            ref={searchRef} 
           />
-        // : <InfoField val = {hereGroups[0].name} />                          
-        : <InfoField val = '{hereGroups[0].name}' />                          
-      }
-      
-      { hereRoles.length > 1
-        ? <Select
-            selectHandler = { val => handleRole(val) }
-            selectClear  = { () => cancelRole() }
-            placeholder = {dictionary.nameRole[lang]}
-            selectList = {hereRoles}
-            val = ''
-            name='roles'
-          />
-        // : <InfoField val = {hereRoles[0].name} />
-        : <InfoField val = '{hereRoles[0].name}' />
-      }
+          { hereGroups.length > 1
+            ? <Select
+                selectHandler = { val => handleGroup(val) }
+                selectClear  = { () => cancelGroup() }
+                placeholder = {dictionary.nameProcessGroup[lang]}
+                selectList = {hereGroups}
+                val = ''
+                name='processGroups'
+              />
+            : <InfoField val = '{hereGroups[0].name}' />                          
+          }
+          
+          { hereRoles.length > 1
+            ? <Select
+                selectHandler = { val => handleRole(val) }
+                selectClear  = { () => cancelRole() }
+                placeholder = {dictionary.nameRole[lang]}
+                selectList = {hereRoles}
+                val = ''
+                name='roles'
+              />
+            : <InfoField val = '{hereRoles[0].name}' />
+          }
 
-      { hereSearch.length
-        ? <ul className={styles.searhResult}>
-            { hereSearch.map((item, index) => <li key={index} className={styles.serchItem}>
-                <button type="button"
-                  onClick={()=>searchChoice(item)}
-                >
-                  <div className={styles.label}>{`${item.code ? dictionary.nameRole[lang]: dictionary.nameProcessGroup[lang]}:`}</div>
-                  <div className={styles.name}>{`${item.name}`}
-                    { item.code ? <span className={styles.code}>{` (${item.code} )`}</span> : null } 
-                  </div>
-                  
-                </button>
-              </li>
-            )}
-          </ul>
-        : null  
+          { hereSearch.length
+            ? <ul className={styles.searhResult}>
+                { hereSearch.map((item, index) => <li key={index} className={styles.serchItem}>
+                    <button type="button"
+                      onClick={()=>searchChoice(item)}
+                    >
+                      <div className={styles.label}>{`${item.code ? dictionary.nameRole[lang]: dictionary.nameProcessGroup[lang]}:`}</div>
+                      <div className={styles.name}>{`${item.name}`}
+                        { item.code ? <span className={styles.code}>{` (${item.code} )`}</span> : null } 
+                      </div>
+                      
+                    </button>
+                  </li>
+                )}
+              </ul>
+            : null  
 
-      }
+          }
 
-      { levels.length
-        ? <ul>
-            { levels.map((item, index) => <li key={index}>
+          { levels.length
+            ? <ul>
+                { levels.map((item, index) => <li key={index}>
 
-            <WindowInput 
-              inputHandler = { val => console.log(val) }
-              placeholder = {item.name}
-              winContentFunc = {getContractorsData}
-              content = {contractorList}
-              search = {['name', 'inn']}
-            />
-            </li>)}
-          </ul>
-        : null
+                <WindowInput 
+                  inputHandler = { val => console.log(val) }
+                  placeholder = {item.name}
+                  winContentFunc = {getContractorsData}
+                  content = {contractorList}
+                  search = {['name', 'inn']}
+                />
+                </li>)}
+              </ul>
+            : null
 
-      }
+          }
 
-    </div>
-  
+        </div>
+
+        <div className={styles.control}>
+          <button type="button" onClick={ () => handleOk(true) }>{dictionary.save[lang]}</button>
+          <button type="button" onClick={ () => handleCancel(true) }>{dictionary.cancel[lang]}</button>
+        </div>
+      </div>
+    </section>
   )
 }
 

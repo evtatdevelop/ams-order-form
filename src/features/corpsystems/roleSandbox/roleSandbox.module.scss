@@ -1,76 +1,151 @@
 .roleSandbox {
-  flex-grow: 1;
+  position: fixed;
   display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  padding: .5vmax;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: transparent;
+  animation: appearance 300ms ease-in-out forwards;
 
-  .searhResult {
-    margin-top: 1vmax;
+  .oneRoleSandbox {
+    width: 75%;
+    height: 85%;
+    margin: auto;
+    background-color: #f6f6fb;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
-    align-items:stretch;
-    padding: .5vmax;
-    
-    // 
-    .serchItem {
+    .roleData {
+      flex-grow: 1;
       display: flex;
-      // margin: .2vmax;
-      
-      // outline: 1px solid red;
-      
-      button {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        padding: 1vmax .5vmax;
-        background-color: transparent;
-        outline: .1vmax solid transparent;
-        transition: outline .3s;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: .5vmax;
 
-        .label {
-          // width: 5vmax;
-          color: gray;
-          text-align: left;
-          overflow: hidden;
-          margin-right: 1vmax;
-          white-space: nowrap;
+      .searhResult {
+        margin-top: 1vmax;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        align-items:stretch;
+        padding: .5vmax;
+        
+        // 
+        .serchItem {
+          display: flex;
+          // margin: .2vmax;
+          
+          // outline: 1px solid red;
+          
+          button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 1vmax .5vmax;
+            background-color: transparent;
+            outline: .1vmax solid transparent;
+            transition: outline .3s;
+
+            .label {
+              // width: 5vmax;
+              color: gray;
+              text-align: left;
+              overflow: hidden;
+              margin-right: 1vmax;
+              white-space: nowrap;
+            }
+            .name {
+              text-align: left;
+              flex-grow: 1;
+            }
+            .code {
+              color: rgb(192, 191, 191);
+            }
+
+            &:hover,
+            &:focus {
+              outline: .1vmax solid grey;
+            }                            
+          }
         }
-        .name {
-          text-align: left;
-          flex-grow: 1;
-        }
-        .code {
-          color: rgb(192, 191, 191);
-        }
+      }
+
+    }
+    .control {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 1vmax;
+
+      button {
+        width: 35%;
+        height: 2.5vmax;
+        background-color: transparent;
+        border: .1vmax solid grey;
+        border-radius: .3vmax;
+        color: #161619;
+        transition: background-color .3s;
 
         &:hover,
         &:focus {
-          outline: .1vmax solid grey;
-        }                            
+          background-color: #16161919
+        }
       }
     }
+
+    outline: 1px solid grey;
   }
 
-  
+
   //
   // Dark styles
   //
   &.dark {
-    .searhResult {
-      .serchItem {
+    background-color: transparent;
+      .oneRoleSandbox {
+        background-color: #161619f8;
+        .control {
+          button {
+            background-color: transparent;
+            border: .1vmax solid grey;
+            color: wheat;
 
-        .label {
-          // color: wheat;
+            &:hover,
+            &:focus {
+              background-color: #ffffff18
+            }
+          }
         }
-        .name {
-          color: white
-        }
+
+        .roleData {
+          .searhResult {
+            .serchItem {
+
+              .label {
+                // color: wheat;
+              }
+              .name {
+                color: white
+              }
+            }
+          }  
+        }        
+
+        outline: 1px solid grey;
       }
+
+    @keyframes appearance {
+      0% {
+        opacity: .3;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    
+    @media screen and (max-width: 1000px) {
+    
     }
 
   }
-
 }
-
