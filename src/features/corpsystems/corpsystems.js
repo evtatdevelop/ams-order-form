@@ -35,8 +35,10 @@ export const Corpsystems = () => {
 
   useEffect(() => {
     if ( cs && cs.asz22_id && cs.instance_type ) 
-      dispatch(getSystemList( {'api_key': api_key, 'asz22_id': cs.asz22_id, 'instance_type': cs.instance_type} ))
-  }, [api_key, cs, dispatch]);
+      // dispatch(getSystemList( {'api_key': api_key, 'asz22_id': cs.asz22_id, 'instance_type': cs.instance_type} ))
+      dispatch(getSystemList( {'api_key': api_key, 'asz22_id': cs.asz22_id, 'instance_type': cs.instance_type, 'lang': lang} ))
+  // }, [api_key, cs, dispatch]);
+  }, [api_key, cs, dispatch, lang]);
 
 
   let corpsystemsStyle = dark 

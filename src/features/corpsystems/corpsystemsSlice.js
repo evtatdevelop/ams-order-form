@@ -29,6 +29,7 @@ const initialState = {
   processGroupList: [],
   roleList: [],
   roleAdder: false,
+  
   roleSendbox: {},
   levels: [],
 }

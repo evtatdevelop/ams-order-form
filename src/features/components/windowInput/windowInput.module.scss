@@ -5,36 +5,44 @@
   width: 100%;
 
   .htmInput {
-    border: 1px solid lightblue;
     width: 100%;
-    padding: 8px 40px 8px 12px;
+    padding: .7vmax 3vmax .7vmax 1vmax;
     font: inherit;
-    letter-spacing: .6px;
+    letter-spacing: .01vmax;
     font-size: inherit;
-    outline: 1px solid gray;
-    border-radius: 3px;
+    font-weight: 400;
+    font-size: 1vmax;
+    color: #424242;
+    border-bottom: .1vmax solid #424242;
+    border-radius: .1vmax;
+    background-color: transparent;
+    transition: background-color 1s;
     
     &:focus {
-      outline: 1px solid lightblue;
+      color: navy;
+      background-color: rgba(255, 217, 0, 0.111);
     }
   }
 
   .clearBtn {
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     right: 0;
     border: none;
     padding: 0;
     margin: 0;
     background-color: transparent;
-    width: 38px;
-    height: 38px;
+    width: 2vmax;
+    height: 2vmax;
     color: gray;
     transition: color .3s;
-    font-size: 24px;
+    font-size: 1.7vmax;
     font-weight: 100;
     opacity: 0;
     transition: opacity .3s;
-    border-radius: 3px;
+    border-radius: .1vmax;
 
     &.showClnBtn {
       opacity: 1;
@@ -43,7 +51,7 @@
     &:focus,
     &:hover {
       color: red;
-    } 
+    }
   }
 
   .loading {
@@ -84,11 +92,18 @@
     .window {
       display: flex;
       flex-direction: column;
-      background-color: white;
+      // background-color: white;
       border: 1px solid gray;
       border-radius: 3px;
-      max-width: 98vw;
-      max-height: 90vh;
+      // max-width: 50vw;
+      // max-height: 90vh;
+      width: 75vw;
+      height: 85vh;
+
+      
+
+      // background-color: #f6f6fb;
+      background-color: #161619f8;
 
 
       .windowHead {
@@ -99,11 +114,15 @@
         border-bottom: 1px solid rgba(128, 128, 128, .3);
         background-color: rgb(205, 232, 242);
 
+        background-color: #28282B;
+
         .windowName {
           font: inherit;
           font-weight: 700;
           letter-spacing: 1.1px;
+          
           color: #424242;
+          color: wheat;
         }
 
         .windowCloser {
@@ -113,7 +132,10 @@
           background-color: transparent;
           width: 38px;
           height: 38px;
-          color: gray;
+
+          color: rgb(7, 7, 7);
+          color: grey;
+
           transition: color .3s;
           font-size: 24px;
           font-weight: 100;
@@ -137,6 +159,7 @@
 
         input[type=text] {
           // border: 1px solid lightblue;
+          background-color: transparent;
           width: 100%;
           padding: 8px 40px 8px 12px;
           font: inherit;
@@ -157,7 +180,9 @@
           background-color: transparent;
           width: 38px;
           height: 38px;
+          
           color: gray;
+
           transition: color .3s;
           font-size: 24px;
           font-weight: 100;
@@ -184,9 +209,12 @@
         // padding: 10px;
         display: flex;
         // flex-direction: column;
-        align-items: center;
+        // align-items: center;
         justify-content: center;
-
+        
+        color: #424242;
+        color: #bcbaba;
+        overflow-y: auto;
       }
     }
 
@@ -200,6 +228,70 @@
       overflow: hidden;
     }  
   }
+
+
+
+
+
+  //
+  // Dark styles
+  //
+  &.dark {
+    .htmInput {
+      color: gray;  
+
+      &:focus {
+        color: rgb(207, 207, 229);
+        background-color: rgba(0, 0, 128, 0.036);
+      }
+    }   
+    .clearBtn {
+      &:focus,
+      &:hover {
+        color: coral;
+      } 
+    }
+
+    .modalWrapper {
+    
+      .window {
+        background-color: #161619f8;
+  
+  
+        .windowHead {
+  
+          .windowName {
+          }
+  
+          .windowCloser {
+        
+            &.showClnBtn {
+            }
+        
+            &:focus,
+            &:hover {
+
+            }       
+          }
+        }
+      
+        .search {
+          input[type=text] {
+          }
+  
+          .styleClnSearchBtn {
+          } 
+        }
+        .winMain {
+          color: #bcbaba;
+        }
+      }  
+    }
+
+
+
+  } 
+
 
 
 }

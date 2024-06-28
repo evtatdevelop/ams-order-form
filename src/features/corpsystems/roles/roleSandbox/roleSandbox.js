@@ -30,9 +30,7 @@ export const RoleSandbox = () => {
   }, [processGroupList]);
 
   useEffect(() => {
-    if ( roleList.length ) {
-      setHereRoles( formatRoleNames(roleList) );
-    }
+    if ( roleList.length ) setHereRoles( formatRoleNames(roleList) );
     else setHereRoles([])
   }, [roleList]);
 

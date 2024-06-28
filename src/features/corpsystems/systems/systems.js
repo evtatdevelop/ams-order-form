@@ -23,8 +23,10 @@ export const Systems = () => {
 
   useEffect(() => {
     if ( cs && cs.asz22_id && cs.instance_type ) 
-      dispatch(getSystemList( {'api_key': api_key, 'asz22_id': cs.asz22_id, 'instance_type': cs.instance_type} ))
-  }, [api_key, cs, dispatch]);
+      // dispatch(getSystemList( {'api_key': api_key, 'asz22_id': cs.asz22_id, 'instance_type': cs.instance_type} ))
+      dispatch(getSystemList( {'api_key': api_key, 'asz22_id': cs.asz22_id, 'instance_type': cs.instance_type, 'lang': lang} ))
+  // }, [api_key, cs, dispatch]);
+  }, [api_key, cs, dispatch, lang]);
 
 
   useEffect(() => {
@@ -52,9 +54,10 @@ export const Systems = () => {
   useEffect(() => {
     // if ( cs?.sapSystem && Object.keys(cs.sapSystem).length && params.enable_subsystems === '1' ) { // ? https://learn.javascript.ru/optional-chaining#optsionalnaya-tsepochka
     if ( cs && cs.sapSystem && Object.keys(cs.sapSystem).length && params.enable_subsystems === '1' ) {
-      dispatch(getSubSystemList( {'api_key': api_key, 'asz00_id': cs.sapSystem.asz00_id} ));
+      dispatch(getSubSystemList( {'api_key': api_key, 'asz00_id': cs.sapSystem.asz00_id, 'lang': lang} ));
     }         
-  }, [api_key, cs, dispatch, params]);
+  // }, [api_key, cs, dispatch, params]);
+  }, [api_key, cs, dispatch, lang, params.enable_subsystems]);
 
   
   useEffect(() => {
