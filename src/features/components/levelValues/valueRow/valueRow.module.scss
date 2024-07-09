@@ -1,0 +1,20 @@
+.valueRow{
+  display: flex;
+  width: 100%;
+  margin-bottom: 1vmax;
+  
+  .visualCheck{
+    width: 3vmax;
+    margin-right: .5vmax;
+    outline: 1px solid green;
+  }
+  .visualCode{
+    flex-grow: 1;
+    margin-right: .5vmax;
+    outline: 1px solid red;
+  }
+  .visualName{
+    flex-grow: 5;
+    outline: 1px solid blue;
+  }
+}

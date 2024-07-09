@@ -8,6 +8,8 @@ import { sessionKeyData } from "../../corpsystems/corpsystemsSlice";
 import { userData } from "../../corpsystems/corpsystemsSlice";
 import { roleSendboxData } from "../../corpsystems/corpsystemsSlice";
 import { corpSyst } from "../../corpsystems/corpsystemsSlice";
+import Input from "../../components/input/Input";
+import { ValueRow } from "./valueRow/valueRow";
 
 
 const LevelValues = (props, ref) => {
@@ -44,12 +46,12 @@ const LevelValues = (props, ref) => {
       asz00_id: corpSystem.sapSystem.asz00_id,
       asz22_id: corpSystem.asz22_id,
       process_group: roleSendbox.processGroup.name,
-      asz03_code: 'Z_PM_TEST'
+      asz03_code: roleSendbox.role.code
      }).then((value) => {
-      // console.log(value);
+      console.log(value);
       setValues(value);
     });
-  }, []);
+  }, [api_key, asz05_id, corpSystem.asz22_id, corpSystem.sapSystem.asz00_id, id, orderUser.id, roleSendbox.cnt, roleSendbox.processGroup.name, roleSendbox.role.code, roleSendbox.role.id, sessionKey]);
 
   const onInput = val => {
     setValue(val);
@@ -92,8 +94,21 @@ const LevelValues = (props, ref) => {
       { show
         ? <div className={styles.window}>
             <header className={styles.header}>{name}</header>
+            <Input 
+              inputHandler = { val => console.log(val) }
+              inputClear = { () => console.log(null) }
+              placeholder = 'Search'
+              val = ''
+            />
             <ul className={styles.main}>
-              {values.map((value, index) => <li key={index}>{value.value}</li>)}
+              { values.map((value, index) => <ValueRow key={index} item={value}/>
+                // <li key={index}>
+                  
+                //   {value.value}
+                
+                // </li>
+                )
+              }
             </ul>
             <footer className={styles.footer}>
               <button type="button"
