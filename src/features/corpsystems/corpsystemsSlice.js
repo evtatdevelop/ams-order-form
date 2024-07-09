@@ -136,6 +136,7 @@ export const corpsystemSlice = createSlice({
     clearLevels: (state) => {
       state.levels = []
     }
+
   },
 
   extraReducers: (builder) => { builder
@@ -263,5 +264,6 @@ export const roleListData         = ( state ) => state.corpsystems.roleList;
 export const roleSendboxData      = ( state ) => state.corpsystems.roleSendbox;
 export const levelsData           = ( state ) => state.corpsystems.levels;
 export const roleAdderData        = ( state ) => state.corpsystems.roleAdder;
+export const sessionKeyData       = ( state ) => state.corpsystems.sessionKey;
 
 export default corpsystemSlice.reducer;

@@ -3,7 +3,7 @@ import styles from './roleSandbox.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../../dictionary.json";
 import { user } from '../../../user/userSlice';
-import { showRoleAdder, processGroupListData, roleListData, getLevels, roleSendboxData,  levelsData, setRole, clearLevels, addRole} from "../../corpsystemsSlice";
+import { showRoleAdder, processGroupListData, roleListData, getLevels, roleSendboxData,  levelsData, setRole, clearLevels, addRole, rolesData} from "../../corpsystemsSlice";
 import Input from "../../../components/input/Input";
 import Select from "../../../components/select/select";
 import { darkTheme } from "../../../main/mainpageSlice";
@@ -23,6 +23,13 @@ export const RoleSandbox = () => {
   const [hereGroups, setHereGroups] = useState([]);
   const [hereRoles, setHereRoles] = useState([]);
   const [hereSearch, setHereSearch] = useState([]);
+  
+  const roles = useSelector(rolesData);
+  console.log(roles);
+  const [cnt, ] = useState(roles.length ? roles[roles.length-1].cnt+1 : 1);
+
+  
+  // const getCnt = roles.length ? roles.pop().cnt : 1;
 
   useEffect(() => {
     if ( processGroupList.length ) setHereGroups([...processGroupList])
@@ -41,7 +48,7 @@ export const RoleSandbox = () => {
   const getRolesByGroupId = groupId => roleList.filter(item => item.proccss_group_id === groupId);
 
   const handleGroup = val => {
-    dispatch(setRole({...role, processGroup: val}));
+    dispatch(setRole({cnt: cnt, ...role, processGroup: val, }));
     setHereRoles( formatRoleNames(getRolesByGroupId(val.id)) );
     dispatch(setRole({}));
     dispatch(clearLevels());
@@ -49,7 +56,7 @@ export const RoleSandbox = () => {
 
   const handleRole = val => {
     const group = getGroupById(val.proccss_group_id);
-    dispatch(setRole({processGroup: group, role: val}));
+    dispatch(setRole({cnt: cnt, processGroup: group, role: val, }));
     setHereGroups([group]);
 
     dispatch(getLevels({
