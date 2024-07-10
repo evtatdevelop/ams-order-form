@@ -1,20 +1,39 @@
 .valueRow{
   display: flex;
   width: 100%;
-  margin-bottom: 1vmax;
+  margin-bottom: .5vmax;
+  align-items: center;
+  min-height: 2vmax;
+  outline: 1px solid gray;
   
+  div {
+    display: flex;
+    align-items: center;
+    padding: .5vmax;
+    margin-left: .5vmax;
+    font-weight: 400;
+  }
+
   .visualCheck{
-    width: 3vmax;
-    margin-right: .5vmax;
-    outline: 1px solid green;
+    justify-content: center;
+    width: 2vmax;
+    flex-grow: 0;
+    flex-shrink: 0;
+    // outline: 1px solid green;
   }
   .visualCode{
-    flex-grow: 1;
-    margin-right: .5vmax;
-    outline: 1px solid red;
+    min-width: 3vmax;
+    max-width: 85%;
+    overflow: hidden;
+    flex-grow: 0;
+    flex-shrink: 0;
+    // outline: 1px solid red;
   }
   .visualName{
-    flex-grow: 5;
-    outline: 1px solid blue;
+    min-width: 3vmax;
+    max-width: 95%;
+    overflow: hidden;
+    // flex-grow: 1;
+    // outline: 1px solid blue;
   }
 }

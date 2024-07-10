@@ -24,6 +24,7 @@ const LevelValues = (props, ref) => {
  
   const [show, setShow] = useState(false);
   const [values, setValues] = useState([]);
+  const [refers, setRefers] = useState(1);
   
   const [value, setValue] = useState(val ? val : "");
   const [timerId, setTimerId] = useState(null);
@@ -48,8 +49,8 @@ const LevelValues = (props, ref) => {
       process_group: roleSendbox.processGroup.name,
       asz03_code: roleSendbox.role.code
      }).then((value) => {
-      console.log(value);
       setValues(value);
+      setRefers(getDataLength(value));
     });
   }, [api_key, asz05_id, corpSystem.asz22_id, corpSystem.sapSystem.asz00_id, id, orderUser.id, roleSendbox.cnt, roleSendbox.processGroup.name, roleSendbox.role.code, roleSendbox.role.id, sessionKey]);
 
@@ -69,6 +70,14 @@ const LevelValues = (props, ref) => {
   const styleClnBtn = value ? `${styles.clearBtn} ${styles.showClnBtn}` : `${styles.clearBtn}`
 
   useImperativeHandle(ref, () => ({ clearInput }));
+
+
+  const codeWith = refers[0] === 'value' 
+    ? Math.floor(100 / (refers[1] + 1)) 
+    : Math.floor(100*refers[1] / (refers[1] + 1));
+  const displayCode = refers[0] === 'value' && refers[1] === 'full' ? 'none' : 'flex';  
+  const displayValue = refers[0] === 'code' && refers[1] === 'full' ? 'none' : 'flex';
+
 
   const selectInputStyle = dark 
   ? `${styles.selectInput} ${styles.dark}`
@@ -100,15 +109,15 @@ const LevelValues = (props, ref) => {
               placeholder = 'Search'
               val = ''
             />
+
+            <div className={styles.tableHead}>
+              <div className={styles.headCheck}><input type="checkbox"/></div>
+              <div className={styles.headCode} style={{width: `${codeWith}%`, display: `${displayCode}`}}>Code</div>
+              <div className={styles.headName} style={{display: `${displayValue}`}}>Value</div>
+            </div>
+
             <ul className={styles.main}>
-              { values.map((value, index) => <ValueRow key={index} item={value}/>
-                // <li key={index}>
-                  
-                //   {value.value}
-                
-                // </li>
-                )
-              }
+              { values.map((value, index) => <ValueRow key={index} item={value} refers={refers}/>) }
             </ul>
             <footer className={styles.footer}>
               <button type="button"
@@ -126,5 +135,21 @@ const LevelValues = (props, ref) => {
     </div>
   )
 }
+
+const getDataLength = values => {
+  if ( !values.length ) return ['value', 1];
+
+  const data = values.reduce((res, curr) => { return {
+    count: ++res.count,
+    sum: { code: res.sum.code + curr.code.length, value: res.sum.value + curr.value.length }
+  }}, {sum: {code: 0, value: 0}, count: 0});
+
+  if ( !data.sum.value ) return ['code', 'full'];
+  if ( !data.sum.code ) return ['value', 'full'];
+
+  const refers = (data.sum.value/data.count) / (data.sum.code/data.count);
+  return refers > 1 ? ['value', Math.floor(refers)] : ['code', Math.floor(1/refers)];
+}
+
 
 export default forwardRef(LevelValues);
