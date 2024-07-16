@@ -120,9 +120,14 @@ const LevelValues = (props, ref) => {
             />
 
             <div className={styles.tableHead}>
-              <div className={styles.headCheck}><input type="checkbox"/></div>
+              <div className={styles.headCheck}>
+                <button type="button" className={styles.checklAll} 
+                  onClick={() => console.log('checkAll')}
+                />
+              </div>
               <div className={styles.headCode} style={{width: `${codeWith}%`, display: `${displayCode}`}}>Code</div>
               <div className={styles.headName} style={{display: `${displayValue}`}}>Value</div>
+              {/* <div className={styles.scrolGap} ></div> */}
             </div>
 
             <ul className={styles.main}>

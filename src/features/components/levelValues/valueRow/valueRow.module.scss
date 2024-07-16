@@ -1,41 +1,59 @@
 .valueRow{
-  display: flex;
-  width: 100%;
-  margin-bottom: .5vmax;
-  align-items: center;
-  min-height: 2vmax;
+  padding: .1vmax;
   outline: 1px solid gray;
-  
-  div {
+  margin-bottom: .5vmax;
+  margin-right: .5vmax;
+
+  .wrapperBtn {
     display: flex;
     align-items: center;
-    padding: .5vmax;
-    margin-left: .5vmax;
-    font-weight: 400;
-  }
+    width: 100%;
+    margin-bottom: .5vmax;
+    align-items: center;
+    min-height: 2vmax;
+    background-color: transparent;
+    color: gray;
+    padding: 0;
 
-  .visualCheck{
-    justify-content: center;
-    width: 4vmax;
-    flex-grow: 0;
-    flex-shrink: 0;
-    // outline: 1px solid green;
+    div {
+      display: flex;
+      // justify-content: center;
+      align-items: center;
+      text-align: left;
+      padding: .5vmax;
+      // margin-right: .5vmax;
+      font-weight: 400;
+      overflow: hidden;
+      // background-color: rgb(187, 187, 187);
+    }
+
+    .visualCheck{
+      justify-content: center;
+      width: 4vmax;
+      flex-grow: 0;
+      flex-shrink: 0;
+      // outline: 1px solid green;
+    }
+    
+    .visualCode{
+      min-width: 3vmax;
+      max-width: 85%;
+      overflow: hidden;
+      flex-grow: 0;
+      flex-shrink: 0;
+      border-left: .1vmax dotted grey;
+      // outline: 1px solid red;
+      margin-right: .1vmax;
+    }
+    .visualName{
+      min-width: 3vmax;
+      max-width: 95%;
+      overflow: hidden;
+      border-left: .1vmax dotted grey;
+      flex-grow: 1;
+      // outline: 1px solid blue;
+    }    
   }
-  .visualCode{
-    min-width: 3vmax;
-    max-width: 85%;
-    overflow: hidden;
-    flex-grow: 0;
-    flex-shrink: 0;
-    border-left: .1vmax dotted transparent;
-    // outline: 1px solid red;
-  }
-  .visualName{
-    min-width: 3vmax;
-    max-width: 95%;
-    overflow: hidden;
-    // flex-grow: 1;
-    border-left: .1vmax dotted transparent;
-    // outline: 1px solid blue;
-  }
+  
+
 }
