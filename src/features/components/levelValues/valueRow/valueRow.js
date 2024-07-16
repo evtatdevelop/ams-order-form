@@ -35,7 +35,7 @@ export const ValueRow = (props) => {
   return (
   
     <li className={selectInputStyle}>
-
+      
       <div className={styles.visualCheck}><input type="checkbox"/></div>
       <div className={styles.visualCode} style={{width: `${codeWith}%`, display: `${displayCode}`}}>{code}</div>
       <div className={styles.visualName} style={{display: `${displayValue}`}}>{value}</div>
