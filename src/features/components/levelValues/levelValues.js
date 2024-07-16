@@ -24,6 +24,7 @@ const LevelValues = (props, ref) => {
  
   const [show, setShow] = useState(false);
   const [values, setValues] = useState([]);
+  const [filtr, setfiltr] = useState([]);
   const [refers, setRefers] = useState(1);
   
   const [value, setValue] = useState(val ? val : "");
@@ -50,6 +51,7 @@ const LevelValues = (props, ref) => {
       asz03_code: roleSendbox.role.code
      }).then((value) => {
       setValues(value);
+      setfiltr(value);
       setRefers(getDataLength(value));
     });
   }, [api_key, asz05_id, corpSystem.asz22_id, corpSystem.sapSystem.asz00_id, id, orderUser.id, roleSendbox.cnt, roleSendbox.processGroup.name, roleSendbox.role.code, roleSendbox.role.id, sessionKey]);
@@ -71,6 +73,13 @@ const LevelValues = (props, ref) => {
 
   useImperativeHandle(ref, () => ({ clearInput }));
 
+  // console.log(values);
+
+  const filter = str => str.trim() 
+    ? setfiltr(values.filter(item => item.code.toUpperCase().includes(str.trim().toUpperCase()) || item.value.toUpperCase().includes(str.trim().toUpperCase())))
+    : setfiltr(values);
+  
+  const clearFiler = () => setfiltr(values);
 
   const codeWith = refers[0] === 'value' 
     ? Math.floor(100 / (refers[1] + 1)) 
@@ -104,8 +113,8 @@ const LevelValues = (props, ref) => {
         ? <div className={styles.window}>
             <header className={styles.header}>{name}</header>
             <Input 
-              inputHandler = { val => console.log(val) }
-              inputClear = { () => console.log(null) }
+              inputHandler = { val => filter(val) }
+              inputClear = { () => clearFiler() }
               placeholder = 'Search'
               val = ''
             />
@@ -117,7 +126,8 @@ const LevelValues = (props, ref) => {
             </div>
 
             <ul className={styles.main}>
-              { values.map((value, index) => <ValueRow key={index} item={value} refers={refers}/>) }
+              {/* { values.map((value, index) => <ValueRow key={index} item={value} refers={refers}/>) } */}
+              { filtr.map((value, index) => <ValueRow key={index} item={value} refers={refers}/>) }
             </ul>
             <footer className={styles.footer}>
               <button type="button"
