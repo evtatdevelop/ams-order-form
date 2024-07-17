@@ -38,16 +38,9 @@ export const ValueRow = (props) => {
   : `${styles.valueRow}`
 
   return (
-  
     <li className={selectvalueRow}>
-      <button type="button" className={styles.wrapperBtn}
-        onClick={ () => checkUncheck() }
-      >
-        <div className={styles.visualCheck}>
-          {/* <input type="checkbox"/> */}
-          <CheckBox check = {true}/>
-        </div>
-        
+      <button type="button" className={styles.wrapperBtn} onClick={ () => checkUncheck() } >
+        <div className={styles.visualCheck}><CheckBox check = {true}/></div>
         <div className={styles.visualCode} style={{width: `${codeWith}%`, display: `${displayCode}`}}>{code}</div>
         <div className={styles.visualName} style={{display: `${displayValue}`}}>{value}</div>
       </button>

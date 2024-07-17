@@ -2,6 +2,24 @@
   display: flex;
   width: 1.5vmax;
   height: 1.5vmax;
+  justify-content: center;
+  align-items: center;
+
+  .faCheck {
+    color: lightgreen;
+    animation: appearance 300ms ease-in-out forwards;
+  }
 
   outline: 1px solid grey;
+
+  @keyframes appearance {
+    0% {
+      opacity: .3;
+    }
+    80% {
+    }
+    100% {
+      opacity: .9;
+    }
+  }
 }
