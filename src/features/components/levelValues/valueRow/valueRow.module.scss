@@ -1,6 +1,6 @@
 .valueRow{
   padding: .1vmax;
-  outline: 1px solid gray;
+  outline: .1vmax solid gray;
   margin-bottom: .5vmax;
   margin-right: .5vmax;
 
@@ -52,6 +52,12 @@
       border-left: .1vmax dotted grey;
       flex-grow: 1;
       // outline: 1px solid blue;
+    }
+    
+    transition: background-color .1s;
+    &:hover,
+    &:focus {
+      background-color: #ffffff18
     }    
   }
   

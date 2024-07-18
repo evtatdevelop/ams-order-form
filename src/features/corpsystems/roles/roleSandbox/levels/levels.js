@@ -9,6 +9,8 @@ import LevelValues from "../../../../components/levelValues/levelValues";
 export const Levels = () => {
   const levels = useSelector(levelsData);
 
+  const addLevel = (data) => console.log(data);
+
   return (
     <ul className={styles.levels}>
       { levels.map((item, index) =><li key={item.asz05_id} className={styles.levelRow}>
@@ -17,21 +19,21 @@ export const Levels = () => {
             ? <LevelValues
                 name = { item.name }
                 asz05_id = { item.asz05_id }
-                inputHandler = { val => console.log(val) }
+                inputHandler = { val => addLevel({'asz05_id': item.asz05_id, val}) }
                 inputClear = { () => console.log(null) }
                 placeholder = 'TYPE1 / TYPE2'
-                val = ''
+                val = { [] }
               />
             : item.display_type === 'MANUAL' 
               ? <Input 
-                  inputHandler = { val => console.log(val) }
+                  inputHandler = { val => addLevel({'asz05_id': item.asz05_id, val}) }
                   inputClear = { () => console.log(null) }
                   placeholder = 'MANUAL'
                   val = ''
                 />
               : item.display_type === 'EMPLOYEE'
                 ? <SelectInput
-                    selectHandler = { val => console.log(val) }
+                    selectHandler = { val => addLevel({'asz05_id': item.asz05_id, val}) }
                     placeholder = {'EMPLOYEE'}
                     val = ''
                     name='userNameLevel'

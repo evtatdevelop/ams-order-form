@@ -21,7 +21,7 @@ export const ValueRow = (props) => {
   } = props.item;
 
   const checkUncheck = () => {
-    console.log( id );
+    props.setCheck( id )
   }
 
 
@@ -40,7 +40,7 @@ export const ValueRow = (props) => {
   return (
     <li className={selectvalueRow}>
       <button type="button" className={styles.wrapperBtn} onClick={ () => checkUncheck() } >
-        <div className={styles.visualCheck}><CheckBox check = {true}/></div>
+        <div className={styles.visualCheck}><CheckBox check = { props.check }/></div>
         <div className={styles.visualCode} style={{width: `${codeWith}%`, display: `${displayCode}`}}>{code}</div>
         <div className={styles.visualName} style={{display: `${displayValue}`}}>{value}</div>
       </button>
