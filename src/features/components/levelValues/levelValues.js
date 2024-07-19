@@ -15,7 +15,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const LevelValues = (props, ref) => {
   const insideref = useRef(null)
-  const {name, asz05_id, inputHandler, inputClear, placeholder, val } = props
+  const {name, asz05_id, inputHandler, inputClear, placeholder, val, multiple_select } = props
 
   const { api_key, id} = useSelector(user);
   const orderUser = useSelector(userData);
@@ -54,9 +54,9 @@ const LevelValues = (props, ref) => {
     });
   }, [api_key, asz05_id, corpSystem.asz22_id, corpSystem.sapSystem.asz00_id, id, orderUser.id, roleSendbox.cnt, roleSendbox.processGroup.name, roleSendbox.role.code, roleSendbox.role.id, sessionKey]);
 
+  const gitValueById = id => values.find(item => item.id === id);
 
   const showWin = () => {
-    // setShow(true)
     values.length 
     ? setShow(true)
     : console.log('noData');
@@ -86,14 +86,18 @@ const LevelValues = (props, ref) => {
       setBackUp(value);
       setIsChanged(true);      
     }
-    value.find(item => item === id)
-    ? setValue(value.filter(item => item !== id))
-    : setValue([...value, id])
+    if ( gitValueById(id).multiple_select === 'ONE_VALUE' ) setValue([id])
+    else if ( value.find(item => item === id) ) setValue(value.filter(item => item !== id))
+      else setValue([...value, id]);
   }
 
   const checkAll = () => {
+    if ( !isChanged ) {
+      setBackUp(value);
+      setIsChanged(true);      
+    }
     if ( !filtr.filter(item => !value.includes(item.id)).length )                 //? All filtered ones are contained in the “value”.
-      setValue( value.filter(val => !filtr.map(item => item.id).includes(val)) )  //? Remove all filtered ones are contained from the “value”.
+      setValue( value.filter(val => !filtr.map(item => item.id).includes(val)) )  //? Remove all filtered ones are contained from the “value”. 
     else setValue( [...new Set([...value, ...filtr.map(item => item.id)])] );     //? Add all filtered and not exists ones to “value”.
   }
 
@@ -104,16 +108,9 @@ const LevelValues = (props, ref) => {
     setBackUp([]);
     setIsChanged(false);
     setVisual('');
-    // setValue(val);
-    // inputClear();
-    // insideref.current.focus();
   }
 
   const onInput = val => {
-    // setValue(val);
-    // clearTimeout(timerId);
-    // const timer = setTimeout(() => inputHandler(val), 500);
-    // setTimerId(timer);
   }
 
   const styleClnBtn = value.length ? `${styles.clearBtn} ${styles.showClnBtn}` : `${styles.clearBtn}`
@@ -179,11 +176,13 @@ const LevelValues = (props, ref) => {
 
             <div className={styles.tableHead}>
               <div className={styles.headCheck}>
-                <button type="button" className={stylesChecklAllStyle} 
-                  onClick={() => checkAll()}
-                >
-                  <FontAwesomeIcon icon={ faCheck } className={styles.faCheck} />
-                </button>
+                
+                { multiple_select === 'MULTIPLE_VALUES'
+                  ? <button type="button" className={stylesChecklAllStyle} onClick={() => checkAll()}>
+                      <FontAwesomeIcon icon={ faCheck } className={styles.faCheck} />
+                    </button>
+                  : null  
+                }
               </div>
               <div className={styles.headCode} style={{width: `${codeWith}%`, display: `${displayCode}`}}>Code</div>
               <div className={styles.headName} style={{display: `${displayValue}`}}>Value</div>

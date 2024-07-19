@@ -19,8 +19,9 @@ export const Levels = () => {
             ? <LevelValues
                 name = { item.name }
                 asz05_id = { item.asz05_id }
+                multiple_select = { item.multiple_select }
                 inputHandler = { val => addLevel({'asz05_id': item.asz05_id, val}) }
-                inputClear = { () => console.log(null) }
+                inputClear = { () => {} }
                 placeholder = 'TYPE1 / TYPE2'
                 val = { [] }
               />

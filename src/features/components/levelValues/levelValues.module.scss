@@ -138,6 +138,11 @@
           &.all {
             color: lightgreen;
           }
+
+          &:hover,
+          &:focus {
+            background-color: #ffffff18
+          }
         }
       }
       .headCode{
