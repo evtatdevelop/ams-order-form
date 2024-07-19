@@ -15,7 +15,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const LevelValues = (props, ref) => {
   const insideref = useRef(null)
-  const {name, asz05_id, inputHandler, inputClear, placeholder, val, multiple_select } = props
+  const {name, asz05_id, inputHandler, inputClear, placeholder, multiple_select } = props
 
   const { api_key, id} = useSelector(user);
   const orderUser = useSelector(userData);

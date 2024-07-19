@@ -23,9 +23,10 @@ export const RoleSandbox = () => {
   const [hereGroups, setHereGroups] = useState([]);
   const [hereRoles, setHereRoles] = useState([]);
   const [hereSearch, setHereSearch] = useState([]);
+  const [hereLevels, setHereLevels] = useState([]);
   
   const roles = useSelector(rolesData);
-  console.log(roles);
+  // console.log(roles);
   const [cnt, ] = useState(roles.length ? roles[roles.length-1].cnt+1 : 1);
 
   
@@ -64,6 +65,15 @@ export const RoleSandbox = () => {
       lang,
       asz03_id: val.id,  
     }));
+  }
+
+  const handleLevel = newLvl => {
+    let newLevels = []; 
+    if ( hereLevels.find(item => item.asz05_id === newLvl.asz05_id) )
+      newLevels = [...hereLevels.filter(item => item.asz05_id !== newLvl.asz05_id), newLvl];
+    else newLevels = [...hereLevels, newLvl];
+    dispatch(setRole({...role, levels: newLevels }));
+    setHereLevels(newLevels);
   }
 
   const cancelGroup = () => {
@@ -180,7 +190,7 @@ export const RoleSandbox = () => {
           }
 
           { levels.length
-            ? <Levels/>
+            ? <Levels handleLevel = {handleLevel}/>
             : null
           }
         </div>
