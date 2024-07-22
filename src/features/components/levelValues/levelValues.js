@@ -137,9 +137,8 @@ const LevelValues = (props, ref) => {
   ? `${styles.selectInput} ${styles.dark}`
   : `${styles.selectInput}`
 
-  
   const stylesChecklAllStyle = filtr.filter(item => value.includes(item.id)).length //? there're checked
-  ? filtr.length !== filtr.filter(item => value.includes(item.id)).length           //? nat all filtred are checked
+  ? filtr.length !== filtr.filter(item => value.includes(item.id)).length           //? not all filtred are checked
     ? `${styles.checklAll} ${styles.notAll}`
     : `${styles.checklAll} ${styles.all}`
   : `${styles.checklAll}`

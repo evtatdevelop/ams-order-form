@@ -19,18 +19,13 @@ export const RoleSandbox = () => {
   const roleList = useSelector(roleListData);
   const role = useSelector(roleSendboxData);
   const levels = useSelector(levelsData);
-
+  const [hereSearch, setHereSearch] = useState([]);
   const [hereGroups, setHereGroups] = useState([]);
   const [hereRoles, setHereRoles] = useState([]);
-  const [hereSearch, setHereSearch] = useState([]);
   const [hereLevels, setHereLevels] = useState([]);
   
   const roles = useSelector(rolesData);
-  // console.log(roles);
   const [cnt, ] = useState(roles.length ? roles[roles.length-1].cnt+1 : 1);
-
-  
-  // const getCnt = roles.length ? roles.pop().cnt : 1;
 
   useEffect(() => {
     if ( processGroupList.length ) setHereGroups([...processGroupList])
