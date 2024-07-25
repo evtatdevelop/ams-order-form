@@ -18,6 +18,7 @@ export const getParam       = ( data ) => service.getResource(`${apiBase}/?q=get
 export const roles          = ( data ) => service.getResource(`${apiBase}/?q=roles&asz00_id=${data.asz00_id}&asz01_id=${data.asz01_id}&instance_type=${data.instance_type}&app12_id_author=${data.app12_id_author}&ordertype=${data.orderType}&app12_id=${data.app12_id}&asz80_id=${data.asz80_id}`, data.api_key);
 export const levels         = ( data ) => service.getResource(`${apiBase}/?q=levels&lang=${data.lang}&asz03_id=${data.asz03_id}`, data.api_key);
 export const levelValues    = ( data ) => service.getResource(`${apiBase}/?q=level_values&lang=${data.lang}&asz05_id=${data.asz05_id}&skey=${data.skey}&cnt=${data.cnt}&app12_id_author=${data.app12_id_author}&app12_id=${data.app12_id}&asz03_id=${data.asz03_id}&order_type=${data.order_type}&asz00_id=${data.asz00_id}&asz22_id=${data.asz22_id}&process_group=${data.process_group}&asz03_code=${data.asz03_code}`, data.api_key);
+export const sandboxLevel   = ( data ) => service.getResource(`${apiBase}/?q=sandbox_level&event=${data.event}&session_key=${data.session_key}&blk_id=${data.blk_id}&asz06_id=${data.asz06_id}&asz03_id=${data.asz03_id}`, data.api_key);
 
 
 

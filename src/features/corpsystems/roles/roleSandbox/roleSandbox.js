@@ -3,7 +3,8 @@ import styles from './roleSandbox.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../../dictionary.json";
 import { user } from '../../../user/userSlice';
-import { showRoleAdder, processGroupListData, roleListData, getLevels, roleSendboxData,  levelsData, setRole, clearLevels, addRole, rolesData} from "../../corpsystemsSlice";
+import { showRoleAdder, processGroupListData, roleListData, getLevels, roleSendboxData,  levelsData, setRole, clearLevels, addRole, rolesData
+  , processLevel, sessionKeyData, } from "../../corpsystemsSlice";
 import Input from "../../../components/input/Input";
 import Select from "../../../components/select/select";
 import { darkTheme } from "../../../main/mainpageSlice";
@@ -19,6 +20,8 @@ export const RoleSandbox = () => {
   const roleList = useSelector(roleListData);
   const role = useSelector(roleSendboxData);
   const levels = useSelector(levelsData);
+  const sessionKey = useSelector(sessionKeyData);
+
   const [hereSearch, setHereSearch] = useState([]);
   const [hereGroups, setHereGroups] = useState([]);
   const [hereRoles, setHereRoles] = useState([]);
@@ -60,6 +63,9 @@ export const RoleSandbox = () => {
       lang,
       asz03_id: val.id,  
     }));
+
+    // !TEST
+    // dispatch(processLevel({api_key, asz06_id: 469572, event: 'mkSessionLevel', session_key: sessionKey, blk_id: 1, asz03_id: 50287 }));
   }
 
   const handleLevel = newLvl => {
@@ -68,7 +74,26 @@ export const RoleSandbox = () => {
       newLevels = [...hereLevels.filter(item => item.asz05_id !== newLvl.asz05_id), newLvl];
     else newLevels = [...hereLevels, newLvl];
     dispatch(setRole({...role, levels: newLevels }));
+    
+    console.log(newLvl);
+    dispatch(processLevel({api_key, asz06_id: newLvl.val[0], event: 'mkSessionLevel', session_key: sessionKey, blk_id: role.cnt, asz03_id: role.role.id }));
+    
     setHereLevels(newLevels);
+  }
+
+  // !!! NEED TO TEST
+  const clearLevel = asz05_id => {
+    console.log(`edit sandBox levels ${asz05_id}`);
+    // console.log(role);
+    // console.log(levels);
+     console.log('recursive clearing');
+    const children = levels.filter(item=> item.parent === asz05_id)
+    console.log(children);
+    children.map(child => clearLevel(child.asz05_id))
+    
+    dispatch(setRole({...role, levels: role.levels.filter(item => item.asz05_id !== asz05_id) }));
+
+   
   }
 
   const cancelGroup = () => {
@@ -185,7 +210,10 @@ export const RoleSandbox = () => {
           }
 
           { levels.length
-            ? <Levels handleLevel = {handleLevel}/>
+            ? <Levels 
+                handleLevel = {handleLevel}
+                clearLevel = {clearLevel}
+              />
             : null
           }
         </div>

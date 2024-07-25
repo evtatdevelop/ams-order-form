@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 import { darkTheme } from "../../main/mainpageSlice";
 import { levelValues } from "../../corpsystems/corpsystemsSliceAPI";
 import { user } from "../../user/userSlice";
-import { sessionKeyData } from "../../corpsystems/corpsystemsSlice";
-import { userData } from "../../corpsystems/corpsystemsSlice";
-import { roleSendboxData } from "../../corpsystems/corpsystemsSlice";
-import { corpSyst } from "../../corpsystems/corpsystemsSlice";
+import { sessionKeyData, userData, corpSyst, roleSendboxData, } from "../../corpsystems/corpsystemsSlice";
+// import { userData } from "../../corpsystems/corpsystemsSlice";
+// import { roleSendboxData } from "../../corpsystems/corpsystemsSlice";
+// import { corpSyst } from "../../corpsystems/corpsystemsSlice";
 import Input from "../../components/input/Input";
 import { ValueRow } from "./valueRow/valueRow";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -87,8 +87,8 @@ const LevelValues = (props, ref) => {
       setIsChanged(true);      
     }
     if ( gitValueById(id).multiple_select === 'ONE_VALUE' ) setValue([id])
-    else if ( value.find(item => item === id) ) setValue(value.filter(item => item !== id))
-      else setValue([...value, id]);
+    else  if ( value.find(item => item === id) ) setValue(value.filter(item => item !== id))
+          else setValue([...value, id]);
   }
 
   const checkAll = () => {
@@ -108,6 +108,7 @@ const LevelValues = (props, ref) => {
     setBackUp([]);
     setIsChanged(false);
     setVisual('');
+    inputClear();
   }
 
   const onInput = val => {

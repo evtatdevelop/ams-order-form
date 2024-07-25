@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { sessionKey, companies, branches, departments, sapBranch, locations, corpsystem, 
-  systemList, subSystemList, processGroups, getParam, roles, levels } from "./corpsystemsSliceAPI";
+  systemList, subSystemList, processGroups, getParam, roles, levels, sandboxLevel } from "./corpsystemsSliceAPI";
 import { getUserData } from "../user/userSliceAPI";
 
 const initialState = {
@@ -48,6 +48,7 @@ export const getProcessGroups = createAsyncThunk( 'corpsystem/getProcessGroups',
 export const getGetParam      = createAsyncThunk( 'corpsystem/getGetParam', async ( data ) => await getParam(data) );
 export const getRoles         = createAsyncThunk( 'corpsystem/getRoles', async ( data ) => await roles(data) );
 export const getLevels        = createAsyncThunk( 'corpsystem/getLevels', async ( data ) => await levels(data) );
+export const processLevel     = createAsyncThunk( 'corpsystem/processLevel', async ( data ) => await sandboxLevel(data) );
 
 export const corpsystemSlice = createSlice({
   name: 'corpsystems',
@@ -234,6 +235,16 @@ export const corpsystemSlice = createSlice({
     .addCase(getLevels.pending, ( state ) => { state.subSystemLoading = true })
     .addCase(getLevels.fulfilled, ( state, action ) => {
       state.levels = [...action.payload];
+      state.subSystemLoading = false;
+    })
+
+    .addCase(processLevel.pending, ( state ) => { 
+      state.subSystemLoading = true 
+      console.log('processLevel');
+    })
+    .addCase(processLevel.fulfilled, ( state, action ) => {
+      
+      console.log('>> ', action.payload);
       state.subSystemLoading = false;
     })
   }
