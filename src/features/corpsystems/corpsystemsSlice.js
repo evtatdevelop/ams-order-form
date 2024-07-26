@@ -240,11 +240,10 @@ export const corpsystemSlice = createSlice({
 
     .addCase(processLevel.pending, ( state ) => { 
       state.subSystemLoading = true 
-      console.log('processLevel');
     })
     .addCase(processLevel.fulfilled, ( state, action ) => {
-      
-      console.log('>> ', action.payload);
+      console.log('DBProcessLevel', action.payload);
+      state.roleSendbox.levels.find(item => +item.asz05_id === +action.payload ).changed = true;
       state.subSystemLoading = false;
     })
   }

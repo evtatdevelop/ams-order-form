@@ -18,7 +18,7 @@ export const Levels = props => {
   return (
     <ul className={styles.levels}>
       { levels.map(item => 
-        !item.parent || ( roleSendbox.levels && roleSendbox.levels.find(level => level.asz05_id === item.parent) )
+        !item.parent || ( roleSendbox.levels?.find(level => level.asz05_id === item.parent)?.val.length )
         ? <li key={item.asz05_id} className={styles.levelRow}>
             <div className={styles.levelName}>{item.name}</div>
             { item.display_type === 'TYPE1' || !item.display_type === 'TYPE2' 
@@ -27,7 +27,7 @@ export const Levels = props => {
                   asz05_id = { item.asz05_id }
                   parent = { item.parent }
                   multiple_select = { item.multiple_select }
-                  inputHandler = { val => handleLevel({'asz05_id': item.asz05_id, val}) }
+                  inputHandler = { val => handleLevel({'asz05_id': item.asz05_id, ...val}) }
                   inputClear = { () => clearLevel(item.asz05_id) }
                   placeholder = 'TYPE1 / TYPE2'
                   val = { [] }

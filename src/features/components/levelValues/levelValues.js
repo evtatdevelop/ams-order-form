@@ -17,10 +17,6 @@ const LevelValues = (props, ref) => {
   const insideref = useRef(null)
   const {name, asz05_id, inputHandler, inputClear, placeholder, multiple_select, parent } = props
 
-  console.log(parent);
-  
-  // const dispatch = useDispatch();
-
   const { api_key, id} = useSelector(user);
   const orderUser = useSelector(userData);
   const roleSendbox = useSelector(roleSendboxData);
@@ -38,25 +34,33 @@ const LevelValues = (props, ref) => {
   const [visual, setVisual] = useState('');
 
   useEffect(() => {
-    levelValues({ 
-      api_key: api_key,
-      asz05_id: asz05_id, //9115
-      skey: sessionKey,
-      cnt: roleSendbox.cnt,
-      app12_id_author: id, 
-      app12_id: orderUser.id, 
-      asz03_id: roleSendbox.role.id,
-      order_type: 'ADD_PRIVS',
-      asz00_id: corpSystem.sapSystem.asz00_id,
-      asz22_id: corpSystem.asz22_id,
-      process_group: roleSendbox.processGroup.name,
-      asz03_code: roleSendbox.role.code
-     }).then((values) => {
-      setValues(values);
-      setfiltr(values);
-      setRefers(getDataLength(values));
-    });
-  }, [api_key, asz05_id, corpSystem.asz22_id, corpSystem.sapSystem.asz00_id, id, orderUser.id, roleSendbox.cnt, roleSendbox.processGroup.name, roleSendbox.role.code, roleSendbox.role.id, sessionKey]);
+    if ( !parent
+         || ( parent && roleSendbox.levels.find(item => item.asz05_id === parent)?.changed )
+    ) {
+      console.log(`get level values for ${asz05_id}`);
+
+      levelValues({ 
+        api_key: api_key,
+        asz05_id: asz05_id,
+        skey: sessionKey,
+        cnt: roleSendbox.cnt,
+        app12_id_author: id, 
+        app12_id: orderUser.id, 
+        asz03_id: roleSendbox.role.id,
+        order_type: 'ADD_PRIVS',
+        asz00_id: corpSystem.sapSystem.asz00_id,
+        asz22_id: corpSystem.asz22_id,
+        process_group: roleSendbox.processGroup.name,
+        asz03_code: roleSendbox.role.code
+      }).then((values) => {
+        setValues(values);
+        setfiltr(values);
+        setRefers(getDataLength(values));
+      });
+
+    } 
+
+  }, [api_key, asz05_id, corpSystem.asz22_id, corpSystem.sapSystem.asz00_id, id, orderUser.id, parent, roleSendbox.cnt, roleSendbox.levels, roleSendbox.processGroup.name, roleSendbox.role.code, roleSendbox.role.id, sessionKey]);
 
   const gitValueById = id => values.find(item => item.id === id);
 
@@ -67,16 +71,9 @@ const LevelValues = (props, ref) => {
   }
 
   const saveValueSet = () => {
-
-    // !NOT WORK
-    // if ( isChanged && roleSendbox.levels ) {
-    //   console.log('Clearing sub levels');
-    //   dispatch(setRole({...roleSendbox, levels: roleSendbox.levels.filter(item => item.asz05_id !== asz05_id) }));
-    //   inputClear();
-    // };
-
+    // !Check filling
     setVisual( getVisualValue() );
-    inputHandler(value);
+    inputHandler({val: value, changed: false});
     setBackUp([]);
     setIsChanged(false);
     clearFiler();
