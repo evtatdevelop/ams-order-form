@@ -1,13 +1,10 @@
 import React, {useState, useRef, forwardRef, useImperativeHandle, useEffect } from "react";
 import styles from './levelValues.module.scss';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, } from "react-redux";
 import { darkTheme } from "../../main/mainpageSlice";
 import { levelValues } from "../../corpsystems/corpsystemsSliceAPI";
 import { user } from "../../user/userSlice";
-import { sessionKeyData, userData, corpSyst, roleSendboxData, setRole } from "../../corpsystems/corpsystemsSlice";
-// import { userData } from "../../corpsystems/corpsystemsSlice";
-// import { roleSendboxData } from "../../corpsystems/corpsystemsSlice";
-// import { corpSyst } from "../../corpsystems/corpsystemsSlice";
+import { sessionKeyData, userData, corpSyst, roleSendboxData, } from "../../corpsystems/corpsystemsSlice";
 import Input from "../../components/input/Input";
 import { ValueRow } from "./valueRow/valueRow";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -72,8 +69,14 @@ const LevelValues = (props, ref) => {
 
   const saveValueSet = () => {
     // !Check filling
+
+    // !Removed Values
+    // console.log( backUp, value );
+    const removed = backUp.filter(before => !value.map(after => after).includes(before)) 
+    // console.log( removed );
+
     setVisual( getVisualValue() );
-    inputHandler({val: value, changed: false});
+    inputHandler({val: value, changed: false, removed});
     setBackUp([]);
     setIsChanged(false);
     clearFiler();

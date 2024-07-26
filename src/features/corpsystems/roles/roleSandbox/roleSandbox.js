@@ -72,7 +72,7 @@ export const RoleSandbox = () => {
       newLevels = [...hereLevels.filter(item => item.asz05_id !== newLvl.asz05_id), newLvl];
     else newLevels = [...hereLevels, newLvl];
     dispatch(setRole({...role, levels: newLevels }));
-    dispatch(processLevel({api_key, asz06_ids: newLvl.val, event: 'mkSessionLevels', session_key: sessionKey, blk_id: role.cnt, asz03_id: role.role.id, asz05_id: newLvl.asz05_id }));
+    dispatch(processLevel({api_key, asz06_ids: newLvl.val, event: 'mkSessionLevels', session_key: sessionKey, blk_id: role.cnt, asz03_id: role.role.id, asz05_id: newLvl.asz05_id, removed: newLvl.removed }));
     setHereLevels(newLevels);
   }
 
