@@ -76,7 +76,8 @@ export const RoleSandbox = () => {
     dispatch(setRole({...role, levels: newLevels }));
     
     console.log(newLvl);
-    dispatch(processLevel({api_key, asz06_id: newLvl.val[0], event: 'mkSessionLevel', session_key: sessionKey, blk_id: role.cnt, asz03_id: role.role.id }));
+    // dispatch(processLevel({api_key, asz06_id: newLvl.val[0], event: 'mkSessionLevel', session_key: sessionKey, blk_id: role.cnt, asz03_id: role.role.id }));
+    dispatch(processLevel({api_key, asz06_ids: newLvl.val, event: 'mkSessionLevels', session_key: sessionKey, blk_id: role.cnt, asz03_id: role.role.id }));
     
     setHereLevels(newLevels);
   }
@@ -86,7 +87,7 @@ export const RoleSandbox = () => {
     console.log(`edit sandBox levels ${asz05_id}`);
     // console.log(role);
     // console.log(levels);
-     console.log('recursive clearing');
+    console.log('recursive clearing');
     const children = levels.filter(item=> item.parent === asz05_id)
     console.log(children);
     children.map(child => clearLevel(child.asz05_id))

@@ -25,6 +25,7 @@ export const Levels = props => {
               ? <LevelValues
                   name = { item.name }
                   asz05_id = { item.asz05_id }
+                  parent = { item.parent }
                   multiple_select = { item.multiple_select }
                   inputHandler = { val => handleLevel({'asz05_id': item.asz05_id, val}) }
                   inputClear = { () => clearLevel(item.asz05_id) }

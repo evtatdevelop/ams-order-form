@@ -1,10 +1,10 @@
 import React, {useState, useRef, forwardRef, useImperativeHandle, useEffect } from "react";
 import styles from './levelValues.module.scss';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { darkTheme } from "../../main/mainpageSlice";
 import { levelValues } from "../../corpsystems/corpsystemsSliceAPI";
 import { user } from "../../user/userSlice";
-import { sessionKeyData, userData, corpSyst, roleSendboxData, } from "../../corpsystems/corpsystemsSlice";
+import { sessionKeyData, userData, corpSyst, roleSendboxData, setRole } from "../../corpsystems/corpsystemsSlice";
 // import { userData } from "../../corpsystems/corpsystemsSlice";
 // import { roleSendboxData } from "../../corpsystems/corpsystemsSlice";
 // import { corpSyst } from "../../corpsystems/corpsystemsSlice";
@@ -15,7 +15,11 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const LevelValues = (props, ref) => {
   const insideref = useRef(null)
-  const {name, asz05_id, inputHandler, inputClear, placeholder, multiple_select } = props
+  const {name, asz05_id, inputHandler, inputClear, placeholder, multiple_select, parent } = props
+
+  console.log(parent);
+  
+  // const dispatch = useDispatch();
 
   const { api_key, id} = useSelector(user);
   const orderUser = useSelector(userData);
@@ -63,6 +67,14 @@ const LevelValues = (props, ref) => {
   }
 
   const saveValueSet = () => {
+
+    // !NOT WORK
+    // if ( isChanged && roleSendbox.levels ) {
+    //   console.log('Clearing sub levels');
+    //   dispatch(setRole({...roleSendbox, levels: roleSendbox.levels.filter(item => item.asz05_id !== asz05_id) }));
+    //   inputClear();
+    // };
+
     setVisual( getVisualValue() );
     inputHandler(value);
     setBackUp([]);
