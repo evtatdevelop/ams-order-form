@@ -11,10 +11,6 @@ export const Levels = props => {
   const roleSendbox = useSelector(roleSendboxData);
   const { handleLevel, clearLevel } = props;
 
-  // const addLevel = (data) => console.log(data);
-  // console.log(levels);
-  // console.log(roleSendbox);
-
   return (
     <ul className={styles.levels}>
       { levels.map(item => 

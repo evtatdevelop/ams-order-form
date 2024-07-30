@@ -4,7 +4,7 @@ import { useSelector, } from "react-redux";
 import { darkTheme } from "../../main/mainpageSlice";
 import { levelValues } from "../../corpsystems/corpsystemsSliceAPI";
 import { user } from "../../user/userSlice";
-import { sessionKeyData, userData, corpSyst, roleSendboxData, levelsData} from "../../corpsystems/corpsystemsSlice";
+import { sessionKeyData, userData, corpSyst, roleSendboxData,} from "../../corpsystems/corpsystemsSlice";
 import Input from "../../components/input/Input";
 import { ValueRow } from "./valueRow/valueRow";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -20,12 +20,12 @@ const LevelValues = (props, ref) => {
   const corpSystem = useSelector(corpSyst);
   const dark = useSelector(darkTheme);
   const sessionKey = useSelector(sessionKeyData);
-  const levels = useSelector(levelsData);
   
   const [show, setShow] = useState(false);
   const [values, setValues] = useState([]);
   const [filtr, setfiltr] = useState([]);
   const [refers, setRefers] = useState(1); 
+
   const [value, setValue] = useState([]);
   const [backUp, setBackUp] = useState([]);
   const [isChanged, setIsChanged] = useState(false);
@@ -33,7 +33,7 @@ const LevelValues = (props, ref) => {
 
   useEffect(() => {
     if ( !parent
-         || ( parent && roleSendbox.levels.find(item => item.asz05_id === parent)?.changed )
+         || ( parent && roleSendbox.levels?.find(item => item.asz05_id === parent)?.changed )
     ) {
       console.log(`get level values for ${asz05_id}`);
 
@@ -62,19 +62,23 @@ const LevelValues = (props, ref) => {
 
   const gitValueById = id => values.find(item => item.id === id);
 
+
   const showWin = () => {
+    inputClear();
+
     values.length 
     ? setShow(true)
     : console.log('noData');
   }
 
-  const saveValueSet = () => {
-    // !Check filling
 
-    // !Removed Values
-    // console.log( backUp, value );
-    const removed = backUp.filter(before => !value.map(after => after).includes(before)) 
-    // console.log( removed );
+
+  const saveValueSet = () => {
+
+    // TODO: Check filling
+
+    //? Removed Values
+    const removed = backUp.filter(before => !value.map(after => after).includes(before))
 
     setVisual( getVisualValue() );
     inputHandler({val: value, changed: false, removed});
@@ -114,7 +118,9 @@ const LevelValues = (props, ref) => {
     else setValue( [...new Set([...value, ...filtr.map(item => item.id)])] );     //? Add all filtered and not exists ones to “value”.
   }
 
+
   const getVisualValue = () => value.map(id => values.find(item => item.id === id).code ).join(', ');
+
 
   const clearInput = () => {
     setValue([]);
@@ -126,6 +132,9 @@ const LevelValues = (props, ref) => {
 
   const onInput = val => {
   }
+
+
+
 
   const styleClnBtn = value.length ? `${styles.clearBtn} ${styles.showClnBtn}` : `${styles.clearBtn}`
 
@@ -227,7 +236,7 @@ const LevelValues = (props, ref) => {
           }
         </div>
 
-      : null
+      : 'loading'
 
   )
 }
