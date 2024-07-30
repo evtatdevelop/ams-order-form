@@ -4,7 +4,7 @@ import { useSelector, } from "react-redux";
 import { darkTheme } from "../../main/mainpageSlice";
 import { levelValues } from "../../corpsystems/corpsystemsSliceAPI";
 import { user } from "../../user/userSlice";
-import { sessionKeyData, userData, corpSyst, roleSendboxData, } from "../../corpsystems/corpsystemsSlice";
+import { sessionKeyData, userData, corpSyst, roleSendboxData, levelsData} from "../../corpsystems/corpsystemsSlice";
 import Input from "../../components/input/Input";
 import { ValueRow } from "./valueRow/valueRow";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -20,6 +20,7 @@ const LevelValues = (props, ref) => {
   const corpSystem = useSelector(corpSyst);
   const dark = useSelector(darkTheme);
   const sessionKey = useSelector(sessionKeyData);
+  const levels = useSelector(levelsData);
   
   const [show, setShow] = useState(false);
   const [values, setValues] = useState([]);
@@ -157,74 +158,77 @@ const LevelValues = (props, ref) => {
   : `${styles.checklAll}`
 
   return (
-    <div className={selectInputStyle}>
-      <div className={styles.inputWrapper}>
-        <input type="text" className={styles.htmInput}
-          value={ visual }
-          onInput={e => onInput(e.target.value)}
-          placeholder = {placeholder}
-          ref={insideref}
-          onFocus={() => showWin()}
-        />
-        
-        {<button type="button" 
-            className={styleClnBtn}
-            onClick={() => clearInput()}
-            aria-label="Clear"
-            >&times;</button>
-        }      
-      </div>
-
-      { show
-        ? <div className={styles.window}>
-            <header className={styles.header}>{name}</header>
-
-            <Input 
-              inputHandler = { val => filter(val) }
-              inputClear = { () => clearFiler() }
-              placeholder = 'Search'
-              val = ''
+    values.length
+      ? <div className={selectInputStyle}>
+          <div className={styles.inputWrapper}>
+            <input type="text" className={styles.htmInput}
+              value={ visual }
+              onInput={e => onInput(e.target.value)}
+              placeholder = {placeholder}
+              ref={insideref}
+              onFocus={() => showWin()}
             />
-
-            <div className={styles.tableHead}>
-              <div className={styles.headCheck}>
-                
-                { multiple_select === 'MULTIPLE_VALUES'
-                  ? <button type="button" className={stylesChecklAllStyle} onClick={() => checkAll()}>
-                      <FontAwesomeIcon icon={ faCheck } className={styles.faCheck} />
-                    </button>
-                  : null  
-                }
-              </div>
-              <div className={styles.headCode} style={{width: `${codeWith}%`, display: `${displayCode}`}}>Code</div>
-              <div className={styles.headName} style={{display: `${displayValue}`}}>Value</div>
-            </div>
-
-            <ul className={styles.main}>
-              { filtr.map((item, index) => 
-                <ValueRow 
-                  key={index}
-                  item={item}
-                  refers={refers}
-                  check={getCheckValue(item.id)}
-                  setCheck = {setCheck}
-                />) 
-              }
-            </ul>
-
-            <footer className={styles.footer}>
-              <button type="button"
-                onClick={() => saveValueSet()}
-              >Ok</button>
-              <button type="button"
-                onClick={() => cancel()}
-              >Cancel</button>
-            </footer>
+            
+            {<button type="button" 
+                className={styleClnBtn}
+                onClick={() => clearInput()}
+                aria-label="Clear"
+                >&times;</button>
+            }      
           </div>
-        : null
-      }
 
-    </div>
+          { show
+            ? <div className={styles.window}>
+                <header className={styles.header}>{name}</header>
+
+                <Input 
+                  inputHandler = { val => filter(val) }
+                  inputClear = { () => clearFiler() }
+                  placeholder = 'Search'
+                  val = ''
+                />
+
+                <div className={styles.tableHead}>
+                  <div className={styles.headCheck}>
+                    
+                    { multiple_select === 'MULTIPLE_VALUES'
+                      ? <button type="button" className={stylesChecklAllStyle} onClick={() => checkAll()}>
+                          <FontAwesomeIcon icon={ faCheck } className={styles.faCheck} />
+                        </button>
+                      : null  
+                    }
+                  </div>
+                  <div className={styles.headCode} style={{width: `${codeWith}%`, display: `${displayCode}`}}>Code</div>
+                  <div className={styles.headName} style={{display: `${displayValue}`}}>Value</div>
+                </div>
+
+                <ul className={styles.main}>
+                  { filtr.map((item, index) => 
+                    <ValueRow 
+                      key={index}
+                      item={item}
+                      refers={refers}
+                      check={getCheckValue(item.id)}
+                      setCheck = {setCheck}
+                    />) 
+                  }
+                </ul>
+
+                <footer className={styles.footer}>
+                  <button type="button"
+                    onClick={() => saveValueSet()}
+                  >Ok</button>
+                  <button type="button"
+                    onClick={() => cancel()}
+                  >Cancel</button>
+                </footer>
+              </div>
+            : null
+          }
+        </div>
+
+      : null
+
   )
 }
 

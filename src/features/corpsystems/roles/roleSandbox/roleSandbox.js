@@ -65,8 +65,22 @@ export const RoleSandbox = () => {
     }));
   }
 
+  const clearChildren = newLvl => {
+    console.log('clear children');
+    // console.log(newLvl);
+    // console.log( levels.filter(level => level.parent === newLvl.asz05_id).map(lvl => lvl.asz05_id) );
+
+    // ? getting SendBox subLevels
+    // console.log( role.levels.filter(sb_level => levels.filter(level => level.parent === newLvl.asz05_id).map(lvl => lvl.asz05_id).includes(sb_level.asz05_id)) );
+
+  }
+
   const handleLevel = newLvl => {
-    console.log(newLvl);
+    
+    // console.log(newLvl);
+     // !clean subLevels
+    clearChildren(newLvl);
+
     let newLevels = []; 
     if ( hereLevels.find(item => item.asz05_id === newLvl.asz05_id) )
       newLevels = [...hereLevels.filter(item => item.asz05_id !== newLvl.asz05_id), newLvl];
@@ -79,7 +93,9 @@ export const RoleSandbox = () => {
   // !!! NEED TO TEST
   const clearLevel = asz05_id => {
     console.log(`edit sandBox levels ${asz05_id}`);
-    console.log('!!!NEED recursive clearing');
+
+    // !TODO
+    // dispatch(processLevel({api_key, asz06_ids: newLvl.val, event: 'mkSessionLevels', session_key: sessionKey, blk_id: role.cnt, asz03_id: role.role.id, asz05_id: newLvl.asz05_id, removed: newLvl.removed }));
 
     const children = levels.filter(item=> item.parent === asz05_id)
     children.map(child => clearLevel(child.asz05_id))   
