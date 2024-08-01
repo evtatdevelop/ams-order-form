@@ -47,7 +47,7 @@ export const RoleSandbox = () => {
   const getRolesByGroupId = groupId => roleList.filter(item => item.proccss_group_id === groupId);
 
   const handleGroup = val => {
-    dispatch(setRole({cnt: cnt, ...role, processGroup: val, }));
+    dispatch(setRole({cnt: cnt, ...role, processGroup: val, levels: []}));
     setHereRoles( formatRoleNames(getRolesByGroupId(val.id)) );
     dispatch(setRole({}));
     dispatch(clearLevels());
@@ -55,7 +55,7 @@ export const RoleSandbox = () => {
 
   const handleRole = val => {
     const group = getGroupById(val.proccss_group_id);
-    dispatch(setRole({cnt: cnt, processGroup: group, role: val, }));
+    dispatch(setRole({cnt: cnt, processGroup: group, role: val, levels: []}));
     setHereGroups([group]);
 
     dispatch(getLevels({
@@ -66,25 +66,53 @@ export const RoleSandbox = () => {
   }
 
 
-  const handleLevel = newLvl => {
-    // console.log(newLvl);
-    let newLevels = []; 
-    if ( hereLevels.find(item => item.asz05_id === newLvl.asz05_id) )
-      newLevels = [...hereLevels.filter(item => item.asz05_id !== newLvl.asz05_id), newLvl];
-    else newLevels = [...hereLevels, newLvl];
-    dispatch(setRole({...role, levels: newLevels }));
-    // TODO: 
-    dispatch(processLevel({api_key, asz06_ids: newLvl.val, event: 'mkSessionLevels', session_key: sessionKey, blk_id: role.cnt, asz03_id: role.role.id, asz05_id: newLvl.asz05_id, removed: newLvl.removed }));
-    setHereLevels(newLevels);
-  }
+
+
+
+  // const handleLevel = newLvl => {
+  //   // console.log(newLvl);
+  //   let newLevels = []; 
+  //   if ( hereLevels.find(item => item.asz05_id === newLvl.asz05_id) )
+  //     newLevels = [...hereLevels.filter(item => item.asz05_id !== newLvl.asz05_id), newLvl];
+  //   else newLevels = [...hereLevels, newLvl];
+  //   dispatch(setRole({...role, levels: newLevels }));
+  //   dispatch(processLevel({api_key, asz06_ids: newLvl.val, event: 'mkSessionLevels', session_key: sessionKey, blk_id: role.cnt, asz03_id: role.role.id, asz05_id: newLvl.asz05_id, removed: newLvl.removed }));
+  //   setHereLevels(newLevels);
+  // }
 
   // !!! NEED TO TEST
-  const clearLevel = asz05_id => { 
-    // TODO: dispatch(processLevel({api_key, asz06_ids: newLvl.val, event: 'mkSessionLevels', session_key: sessionKey, blk_id: role.cnt, asz03_id: role.role.id, asz05_id: newLvl.asz05_id, removed: newLvl.removed }));
-    const children = levels.filter(item=> item.parent === asz05_id)
-    children.map(child => clearLevel(child.asz05_id))   
-    dispatch(setRole({...role, levels: role.levels?.filter(item => item.asz05_id !== asz05_id) }));
-  }
+
+
+  // const clearLevel = asz05_id => { 
+  //   if ( !asz05_id ) return;
+  //   console.log("clear", asz05_id);
+
+  //   const valForRemove = [asz05_id];
+  //   const getRmValue = () => {
+
+  //   }
+
+
+
+
+
+
+  //   // //todo const removed = role.levels?.find(item => item.asz05_id === asz05_id)?.val;
+  //   // //todo console.log(removed);
+  //   // //todo if ( removed?.length ) dispatch(processLevel({api_key, asz05_id, removed: removed, event: 'rmSessionLevels', session_key: sessionKey, blk_id: role.cnt, }));
+    
+  //   // if ( role.levels?.find(item => item.asz05_id === asz05_id) ) {
+  //   //   const children = role.levels.filter(item=> item.parent === asz05_id);
+  //   //   console.log('children', children);   
+  //   //   if ( children.length ) children.map(child => clearLevel(child.asz05_id))   
+  //   // }
+
+  //   // console.log('left level', role.levels?.filter(item => item.asz05_id !== asz05_id) );
+
+
+    
+  //   // dispatch(setRole({...role, levels: role.levels?.filter(item => item.asz05_id !== asz05_id) })); 
+  // }
 
 
   const cancelGroup = () => {
@@ -202,8 +230,8 @@ export const RoleSandbox = () => {
 
           { levels.length
             ? <Levels 
-                handleLevel = {handleLevel}
-                clearLevel = {clearLevel}
+                // handleLevel = {handleLevel}
+                // clearLevel = {clearLevel}
               />
             : null
           }

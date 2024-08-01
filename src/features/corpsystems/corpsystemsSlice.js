@@ -243,7 +243,7 @@ export const corpsystemSlice = createSlice({
     })
     .addCase(processLevel.fulfilled, ( state, action ) => {
       console.log('DBProcessLevel', action.payload);
-      state.roleSendbox.levels.find(item => +item.asz05_id === +action.payload ).changed = true;
+      // if ( state.roleSendbox?.levels && action.payload ) state.roleSendbox.levels.find( item => +item.asz05_id === +action.payload ).changed = true;
       state.subSystemLoading = false;
     })
   }

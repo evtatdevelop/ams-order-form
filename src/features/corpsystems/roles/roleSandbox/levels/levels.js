@@ -9,7 +9,7 @@ import LevelValues from "../../../../components/levelValues/levelValues";
 export const Levels = props => {
   const levels = useSelector(levelsData);
   const roleSendbox = useSelector(roleSendboxData);
-  const { handleLevel, clearLevel } = props;
+  // const { handleLevel, clearLevel } = props;
 
   return (
     <ul className={styles.levels}>
@@ -23,21 +23,21 @@ export const Levels = props => {
                   asz05_id = { item.asz05_id }
                   parent = { item.parent }
                   multiple_select = { item.multiple_select }
-                  inputHandler = { val => handleLevel({'asz05_id': item.asz05_id, ...val}) }
-                  inputClear = { () => clearLevel(item.asz05_id) }
+                  // inputHandler = { val => handleLevel({'asz05_id': item.asz05_id, ...val}) }
+                  // inputClear = { () => clearLevel(item.asz05_id) }
                   placeholder = 'TYPE1 / TYPE2'
                   val = { [] }
                 />
               : item.display_type === 'MANUAL' 
                 ? <Input 
-                    inputHandler = { val => handleLevel({'asz05_id': item.asz05_id, val}) }
+                    // inputHandler = { val => handleLevel({'asz05_id': item.asz05_id, val}) }
                     inputClear = { () => console.log(null) }
                     placeholder = 'MANUAL'
                     val = ''
                   />
                 : item.display_type === 'EMPLOYEE'
                   ? <SelectInput
-                      selectHandler = { val => handleLevel({'asz05_id': item.asz05_id, val}) }
+                      // selectHandler = { val => handleLevel({'asz05_id': item.asz05_id, val}) }
                       placeholder = {'EMPLOYEE'}
                       val = ''
                       name='userNameLevel'
