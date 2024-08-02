@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { darkTheme } from "../../main/mainpageSlice";
 import { levelValues } from "../../corpsystems/corpsystemsSliceAPI";
 import { user } from "../../user/userSlice";
-import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel} from "../../corpsystems/corpsystemsSlice";
+import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel, setLevelsValue, unSetLevelsValue, } from "../../corpsystems/corpsystemsSlice";
 import Input from "../../components/input/Input";
 import { ValueRow } from "./valueRow/valueRow";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -60,6 +60,9 @@ const LevelValues = (props, ref) => {
   }, [api_key, asz05_id, corpSystem.asz22_id, corpSystem.sapSystem.asz00_id, id, orderUser.id, parent, roleSendbox.cnt, roleSendbox.levels, roleSendbox.processGroup.name, roleSendbox.role.code, roleSendbox.role.id, sessionKey]);
 
 
+  // useEffect(() => {
+  //   if ( roleSendbox.levels.length ) console.log( roleSendbox.levels );
+  // })
 
   const showWin = () => {
     // inputClear();
@@ -67,8 +70,8 @@ const LevelValues = (props, ref) => {
     setBackUp(value);
 
     if ( value.length ) {
-      console.log('need to CLEAR VALUEs for this level', asz05_id);
-      console.log('need to SAVE VALUEs for SUB levels');      
+      // console.log('need to CLEAR VALUEs for this level', asz05_id);
+      // console.log('need to SAVE VALUEs for SUB levels');      
     }
 
 
@@ -77,84 +80,30 @@ const LevelValues = (props, ref) => {
     : console.log('noData');
   }
 
-
-
-
-
-  // const handleLevel = newLvl => {
-  //   let newLevels = []; 
-    // if ( hereLevels.find(item => item.asz05_id === newLvl.asz05_id) )
-    //   newLevels = [...hereLevels.filter(item => item.asz05_id !== newLvl.asz05_id), newLvl];
-    // else newLevels = [...hereLevels, newLvl];
-    // dispatch(setRole({...role, levels: newLevels }));
-    // dispatch(processLevel({api_key, asz06_ids: newLvl.val, event: 'mkSessionLevels', session_key: sessionKey, blk_id: role.cnt, asz03_id: role.role.id, asz05_id: newLvl.asz05_id, removed: newLvl.removed }));
-    // setHereLevels(newLevels);
-  // }
-
-  // const clearLevel = asz05_id => { 
-  //   if ( !asz05_id ) return;
-  //   console.log("clear", asz05_id);
-
-  //   const valForRemove = [asz05_id];
-  //   const getRmValue = () => {
-
-  //   }
-
-  //   // //todo const removed = role.levels?.find(item => item.asz05_id === asz05_id)?.val;
-  //   // //todo console.log(removed);
-  //   // //todo if ( removed?.length ) dispatch(processLevel({api_key, asz05_id, removed: removed, event: 'rmSessionLevels', session_key: sessionKey, blk_id: role.cnt, }));
-    
-  //   // if ( role.levels?.find(item => item.asz05_id === asz05_id) ) {
-  //   //   const children = role.levels.filter(item=> item.parent === asz05_id);
-  //   //   console.log('children', children);   
-  //   //   if ( children.length ) children.map(child => clearLevel(child.asz05_id))   
-  //   // }
-
-  //   // console.log('left level', role.levels?.filter(item => item.asz05_id !== asz05_id) );
-  //   // dispatch(setRole({...role, levels: role.levels?.filter(item => item.asz05_id !== asz05_id) })); 
-  // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const saveValueSet = () => {
 
     if ( !value.length ) return;
 
     const removed = backUp.filter(before => !value.map(after => after).includes(before));
     const added = value.filter(after => !backUp.map(before => before).includes(after));
+    // console.log('backUp', backUp);
+    // console.log('removed', removed);
+    // console.log('added', added);
 
-    console.log('backUp', backUp);
-    console.log('removed', removed);
-    console.log('added', added);
+    if ( removed.length ) { 
+      dispatch(unSetLevelsValue({asz05_id, removed }));
 
-    if ( removed.length ) {
-      console.log('needed to DEL values from SandBox'); 
       console.log('needed to REMOVE SUB LEVELS for removed levels');
-
-      console.log('needed to call DBProcessLevel - rmSessionLevels');
+      // console.log('needed to call DBProcessLevel - rmSessionLevels');
+      dispatch(processLevel({api_key, removed, event: 'rmSessionLevels', session_key: sessionKey, blk_id: roleSendbox.cnt, asz03_id: roleSendbox.role.id, asz05_id, }));
     }
     
     if ( added.length ) {
-      console.log('needed to ADD values to SandBox');
-      // dispatch(setRole({...role, levels: newLevels }));
+      dispatch(setLevelsValue({asz05_id, added }));
 
-      console.log('needed to call DBProcessLevel - mkSessionLevels');
-      const newLvl = {asz05_id, val: value, changed: false, removed, parent};
-      dispatch(processLevel({api_key, asz06_ids: newLvl.val, event: 'mkSessionLevels', session_key: sessionKey, blk_id: roleSendbox.cnt, asz03_id: roleSendbox.role.id, asz05_id: newLvl.asz05_id, removed: newLvl.removed }));      
+      // console.log('needed to call DBProcessLevel - mkSessionLevels');
+      dispatch(processLevel({api_key, added, event: 'mkSessionLevels', session_key: sessionKey, blk_id: roleSendbox.cnt, asz03_id: roleSendbox.role.id, asz05_id, removed: [] }));
     }
-
-    // inputHandler({val: value, changed: false, removed, parent});
     
     setIsChanged(false);
     setVisual( getVisualValue() );   
@@ -171,8 +120,8 @@ const LevelValues = (props, ref) => {
     clearFiler();
     setShow(false);
 
-    console.log('need to RENEW VALUEs for this level', asz05_id);
-    console.log('need to RENEW VALUEs for SUB level');
+    // console.log('need to RENEW VALUEs for this level', asz05_id);
+    // console.log('need to RENEW VALUEs for SUB level');
   }
  
 

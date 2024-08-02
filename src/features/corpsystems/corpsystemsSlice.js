@@ -130,13 +130,38 @@ export const corpsystemSlice = createSlice({
       state.roles = [...state.roles.filter(item => item.role.id !== action.payload)]
     },
 
+    clearLevels: (state) => {
+      state.levels = []
+    },
+
     setRole: (state, action) => {
       state.roleSendbox = {...action.payload}
     },
 
-    clearLevels: (state) => {
-      state.levels = []
-    }
+
+    setLevelsValue: (state, action) => {
+      // console.log(action.payload);
+      const {asz05_id, added } = action.payload;
+      const level = state.roleSendbox.levels.find(level => level.asz05_id === asz05_id)
+      if ( level ) {
+        state.roleSendbox.levels = state.roleSendbox.levels.filter(level => level.asz05_id !== asz05_id);
+        state.roleSendbox.levels.push({asz05_id, value: [...level.value, ...added], changed: false})
+      } else {
+        state.roleSendbox.levels.push({asz05_id, value: added, changed: false})
+      }
+    },
+    unSetLevelsValue: (state, action) => {
+      // console.log(action.payload);
+      const {asz05_id, removed } = action.payload;
+      const level = state.roleSendbox.levels.find(level => level.asz05_id === asz05_id)
+      if ( level ) {
+        state.roleSendbox.levels = state.roleSendbox.levels.filter(level => level.asz05_id !== asz05_id);
+        state.roleSendbox.levels.push({asz05_id, value: level.value.filter(level => !removed.map(rm => rm).includes(level)), changed: false })
+      }
+    },
+
+
+
 
   },
 
@@ -243,7 +268,7 @@ export const corpsystemSlice = createSlice({
     })
     .addCase(processLevel.fulfilled, ( state, action ) => {
       console.log('DBProcessLevel', action.payload);
-      // if ( state.roleSendbox?.levels && action.payload ) state.roleSendbox.levels.find( item => +item.asz05_id === +action.payload ).changed = true;
+      if ( state.roleSendbox.levels && action.payload ) state.roleSendbox.levels.find( item => +item.asz05_id === +action.payload ).changed = true;
       state.subSystemLoading = false;
     })
   }
@@ -253,7 +278,7 @@ export const { setCompany, setBranch, setDepartment, setLocation, setPosition, u
   unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, 
   setBoss, clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
   showRoleAdder, addRole, rmRole, 
-  setRole, clearLevels,
+  setRole, clearLevels, setLevelsValue, unSetLevelsValue,
 } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;

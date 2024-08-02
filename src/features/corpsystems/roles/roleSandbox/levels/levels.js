@@ -14,7 +14,7 @@ export const Levels = props => {
   return (
     <ul className={styles.levels}>
       { levels.map(item => 
-        !item.parent || ( roleSendbox.levels?.find(level => level.asz05_id === item.parent)?.val.length )
+        !item.parent || ( roleSendbox.levels?.find(level => level.asz05_id === item.parent)?.value.length )
         ? <li key={item.asz05_id} className={styles.levelRow}>
             <div className={styles.levelName}>{item.name}</div>
             { item.display_type === 'TYPE1' || !item.display_type === 'TYPE2' 
