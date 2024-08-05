@@ -62,11 +62,23 @@ const LevelValues = (props, ref) => {
     if ( roleSendbox.levels.length 
          &&  roleSendbox.levels.find(level => level.asz05_id === asz05_id)
     ) {
-      console.log( roleSendbox.levels );
+      // console.log( roleSendbox.levels );
       setValue(roleSendbox.levels.find(level => level.asz05_id === asz05_id).value);
+
+
+      // console.log(asz05_id, roleSendbox.levels.find(level => level.asz05_id === asz05_id).value, values );
+      const removed = roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.filter(idDelVal => !values.map(listItem => listItem.id).includes(idDelVal));
+      
+      if ( removed.length ) { 
+        dispatch(unSetLevelsValue({asz05_id, removed }));
+        dispatch(processLevel({api_key, removed, event: 'rmSessionLevels', session_key: sessionKey, blk_id: roleSendbox.cnt, asz03_id: roleSendbox.role.id, asz05_id, }));
+      }
+
+      //? the new list of values ​​no longer contains such values
+      //todo: perhaps it's be used for cleaning sublevels
       setVisual( roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.map(id => values.find(item => item.id === id)?.code ).join(', ') )
     }
-  }, [asz05_id, roleSendbox.levels, values])
+  }, [api_key, asz05_id, dispatch, roleSendbox.cnt, roleSendbox.levels, roleSendbox.role.id, sessionKey, values])
 
 
   const showWin = () => {
