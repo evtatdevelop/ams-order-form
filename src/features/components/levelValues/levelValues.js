@@ -12,7 +12,6 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const LevelValues = (props, ref) => {
   const insideref = useRef(null)
-  // const {name, asz05_id, inputHandler, inputClear, placeholder, multiple_select, parent } = props
   const {name, asz05_id, placeholder, multiple_select, parent } = props
   
   const dispatch = useDispatch();
@@ -33,80 +32,64 @@ const LevelValues = (props, ref) => {
   const [isChanged, setIsChanged] = useState(false);
   const [visual, setVisual] = useState('');
 
+
   useEffect(() => {
     if ( !parent
          || ( parent && roleSendbox.levels?.find(item => item.asz05_id === parent)?.changed )
-    ) {
-      // console.log(`get level values for ${asz05_id}`);
-      levelValues({ 
-        api_key: api_key,
-        asz05_id: asz05_id,
-        skey: sessionKey,
-        cnt: roleSendbox.cnt,
-        app12_id_author: id, 
-        app12_id: orderUser.id, 
-        asz03_id: roleSendbox.role.id,
-        order_type: 'ADD_PRIVS',
-        asz00_id: corpSystem.sapSystem.asz00_id,
-        asz22_id: corpSystem.asz22_id,
-        process_group: roleSendbox.processGroup.name,
-        asz03_code: roleSendbox.role.code
-      }).then((values) => {
-        setValues(values);
-        setfiltr(values);
-        setRefers(getDataLength(values));
-      });
+    ) { levelValues({ 
+          api_key: api_key,
+          asz05_id: asz05_id,
+          skey: sessionKey,
+          cnt: roleSendbox.cnt,
+          app12_id_author: id, 
+          app12_id: orderUser.id, 
+          asz03_id: roleSendbox.role.id,
+          order_type: 'ADD_PRIVS',
+          asz00_id: corpSystem.sapSystem.asz00_id,
+          asz22_id: corpSystem.asz22_id,
+          process_group: roleSendbox.processGroup.name,
+          asz03_code: roleSendbox.role.code
+        }).then((values) => {
+          setValues(values);
+          setfiltr(values);
+          setRefers(getDataLength(values));
+        });
     } 
   }, [api_key, asz05_id, corpSystem.asz22_id, corpSystem.sapSystem.asz00_id, id, orderUser.id, parent, roleSendbox.cnt, roleSendbox.levels, roleSendbox.processGroup.name, roleSendbox.role.code, roleSendbox.role.id, sessionKey]);
 
 
-  // useEffect(() => {
-  //   if ( roleSendbox.levels.length ) console.log( roleSendbox.levels );
-  // })
+  useEffect(() => {
+    if ( roleSendbox.levels.length 
+         &&  roleSendbox.levels.find(level => level.asz05_id === asz05_id)
+    ) {
+      console.log( roleSendbox.levels );
+      setValue(roleSendbox.levels.find(level => level.asz05_id === asz05_id).value);
+      setVisual( roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.map(id => values.find(item => item.id === id)?.code ).join(', ') )
+    }
+  }, [asz05_id, roleSendbox.levels, values])
+
 
   const showWin = () => {
-    // inputClear();
-
     setBackUp(value);
-
-    if ( value.length ) {
-      // console.log('need to CLEAR VALUEs for this level', asz05_id);
-      // console.log('need to SAVE VALUEs for SUB levels');      
-    }
-
-
     values.length 
     ? setShow(true)
     : console.log('noData');
   }
 
+
   const saveValueSet = () => {
-
     if ( !value.length ) return;
-
     const removed = backUp.filter(before => !value.map(after => after).includes(before));
     const added = value.filter(after => !backUp.map(before => before).includes(after));
-    // console.log('backUp', backUp);
-    // console.log('removed', removed);
-    // console.log('added', added);
-
     if ( removed.length ) { 
       dispatch(unSetLevelsValue({asz05_id, removed }));
-
-      console.log('needed to REMOVE SUB LEVELS for removed levels');
-      // console.log('needed to call DBProcessLevel - rmSessionLevels');
       dispatch(processLevel({api_key, removed, event: 'rmSessionLevels', session_key: sessionKey, blk_id: roleSendbox.cnt, asz03_id: roleSendbox.role.id, asz05_id, }));
     }
-    
     if ( added.length ) {
       dispatch(setLevelsValue({asz05_id, added }));
-
-      // console.log('needed to call DBProcessLevel - mkSessionLevels');
       dispatch(processLevel({api_key, added, event: 'mkSessionLevels', session_key: sessionKey, blk_id: roleSendbox.cnt, asz03_id: roleSendbox.role.id, asz05_id, removed: [] }));
     }
-    
     setIsChanged(false);
-    setVisual( getVisualValue() );   
     setBackUp([]);
     clearFiler();
     setShow(false);
@@ -119,56 +102,37 @@ const LevelValues = (props, ref) => {
     setIsChanged(false);
     clearFiler();
     setShow(false);
-
-    // console.log('need to RENEW VALUEs for this level', asz05_id);
-    // console.log('need to RENEW VALUEs for SUB level');
   }
  
 
-
-
-  
-  const getCheckValue = itemId => value.find(item => item === itemId); 
-
   const setCheck = id => {
-    if ( !isChanged ) {
-      // setBackUp(value);
-      setIsChanged(true);      
-    }
-
+    if ( !isChanged ) setIsChanged(true);
     const gitValueById = id => values.find(item => item.id === id);
-
     if ( gitValueById(id).multiple_select === 'ONE_VALUE' ) setValue([id])
     else  if ( value.find(item => item === id) ) setValue(value.filter(item => item !== id))
           else setValue([...value, id]);
   }
 
+
   const checkAll = () => {
-    if ( !isChanged ) {
-      // setBackUp(value);
-      setIsChanged(true);      
-    }
+    if ( !isChanged ) setIsChanged(true);
     if ( !filtr.filter(item => !value.includes(item.id)).length )                 //? All filtered ones are contained in the “value”.
       setValue( value.filter(val => !filtr.map(item => item.id).includes(val)) )  //? Remove all filtered ones are contained from the “value”. 
     else setValue( [...new Set([...value, ...filtr.map(item => item.id)])] );     //? Add all filtered and not exists ones to “value”.
   }
 
-  const getVisualValue = () => value.map(id => values.find(item => item.id === id).code ).join(', ');
 
+  //! NEED TO CHECK
   const clearInput = () => {
     setValue([]);
     setBackUp([]);
     setIsChanged(false);
     setVisual('');
-
-
-    // inputClear();
-  }
-
-  const onInput = val => {
   }
 
 
+  // const onInput = val => {}
+  const getCheckValue = itemId => value.find(item => item === itemId); 
 
 
   const styleClnBtn = value.length ? `${styles.clearBtn} ${styles.showClnBtn}` : `${styles.clearBtn}`
@@ -207,7 +171,8 @@ const LevelValues = (props, ref) => {
           <div className={styles.inputWrapper}>
             <input type="text" className={styles.htmInput}
               value={ visual }
-              onInput={e => onInput(e.target.value)}
+              // onInput={e => onInput(e.target.value)}
+              onInput={() => {}}
               placeholder = {placeholder}
               ref={insideref}
               onFocus={() => showWin()}
