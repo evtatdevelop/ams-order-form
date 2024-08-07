@@ -3,8 +3,8 @@ import styles from './roleSandbox.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../../dictionary.json";
 import { user } from '../../../user/userSlice';
-import { showRoleAdder, processGroupListData, roleListData, getLevels, roleSendboxData,  levelsData, setRole, clearLevels, addRole, rolesData
-  , processLevel, sessionKeyData, } from "../../corpsystemsSlice";
+import { showRoleAdder, processGroupListData, roleListData, getLevels, roleSendboxData, 
+  levelsData, setRole, clearLevels, addRole, rolesData, clearLevelValues, processLevel, sessionKeyData, } from "../../corpsystemsSlice";
 import Input from "../../../components/input/Input";
 import Select from "../../../components/select/select";
 import { darkTheme } from "../../../main/mainpageSlice";
@@ -25,7 +25,6 @@ export const RoleSandbox = () => {
   const [hereSearch, setHereSearch] = useState([]);
   const [hereGroups, setHereGroups] = useState([]);
   const [hereRoles, setHereRoles] = useState([]);
-  const [hereLevels, setHereLevels] = useState([]);
   
   const roles = useSelector(rolesData);
   const [cnt, ] = useState(roles.length ? roles[roles.length-1].cnt+1 : 1);
@@ -65,56 +64,6 @@ export const RoleSandbox = () => {
     }));
   }
 
-
-
-
-
-  // const handleLevel = newLvl => {
-  //   // console.log(newLvl);
-  //   let newLevels = []; 
-  //   if ( hereLevels.find(item => item.asz05_id === newLvl.asz05_id) )
-  //     newLevels = [...hereLevels.filter(item => item.asz05_id !== newLvl.asz05_id), newLvl];
-  //   else newLevels = [...hereLevels, newLvl];
-  //   dispatch(setRole({...role, levels: newLevels }));
-  //   dispatch(processLevel({api_key, asz06_ids: newLvl.val, event: 'mkSessionLevels', session_key: sessionKey, blk_id: role.cnt, asz03_id: role.role.id, asz05_id: newLvl.asz05_id, removed: newLvl.removed }));
-  //   setHereLevels(newLevels);
-  // }
-
-  // !!! NEED TO TEST
-
-
-  // const clearLevel = asz05_id => { 
-  //   if ( !asz05_id ) return;
-  //   console.log("clear", asz05_id);
-
-  //   const valForRemove = [asz05_id];
-  //   const getRmValue = () => {
-
-  //   }
-
-
-
-
-
-
-  //   // //todo const removed = role.levels?.find(item => item.asz05_id === asz05_id)?.val;
-  //   // //todo console.log(removed);
-  //   // //todo if ( removed?.length ) dispatch(processLevel({api_key, asz05_id, removed: removed, event: 'rmSessionLevels', session_key: sessionKey, blk_id: role.cnt, }));
-    
-  //   // if ( role.levels?.find(item => item.asz05_id === asz05_id) ) {
-  //   //   const children = role.levels.filter(item=> item.parent === asz05_id);
-  //   //   console.log('children', children);   
-  //   //   if ( children.length ) children.map(child => clearLevel(child.asz05_id))   
-  //   // }
-
-  //   // console.log('left level', role.levels?.filter(item => item.asz05_id !== asz05_id) );
-
-
-    
-  //   // dispatch(setRole({...role, levels: role.levels?.filter(item => item.asz05_id !== asz05_id) })); 
-  // }
-
-
   const cancelGroup = () => {
     setHereRoles( formatRoleNames(roleList) );
     dispatch(setRole({}));
@@ -149,6 +98,20 @@ export const RoleSandbox = () => {
     setHereSearch([]);
     if ( searchRef.current ) searchRef.current.clearInput();
   }
+
+  const clearLevel = asz05_id => {    
+    const getRmList = function(asz05_id) {
+      const childrenId = levels.filter(level => level.parent === asz05_id ).map(level => level.asz05_id);
+      const value = (role.levels.find(lvl => lvl.asz05_id === asz05_id))?.value;
+      if ( value.length ) rmValues = [...rmValues, ...value];
+      dispatch(clearLevelValues({asz05_id }));                    //? remove from sandBox
+      if ( childrenId.length ) childrenId.map(child => getRmList(child));
+    }
+    let rmValues = [];
+    getRmList(asz05_id);                                          //? remove from DB
+    if ( rmValues.length ) dispatch(processLevel({api_key, removed: rmValues, event: 'rmSessionLevels', session_key: sessionKey, blk_id: role.cnt, asz03_id: role.role.id, asz05_id, }));
+  } 
+
 
   // ? test function. Requires development
   const checkRole = role => {
@@ -229,10 +192,7 @@ export const RoleSandbox = () => {
           }
 
           { levels.length
-            ? <Levels 
-                // handleLevel = {handleLevel}
-                // clearLevel = {clearLevel}
-              />
+            ? <Levels clearLevel={clearLevel} />
             : null
           }
         </div>

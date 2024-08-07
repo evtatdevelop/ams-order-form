@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { darkTheme } from "../../main/mainpageSlice";
 import { levelValues } from "../../corpsystems/corpsystemsSliceAPI";
 import { user } from "../../user/userSlice";
-import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel, setLevelsValue, unSetLevelsValue, } from "../../corpsystems/corpsystemsSlice";
+import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel, setLevelsValue, unSetLevelsValue, clearLevelValues} from "../../corpsystems/corpsystemsSlice";
 import Input from "../../components/input/Input";
 import { ValueRow } from "./valueRow/valueRow";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -12,7 +12,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const LevelValues = (props, ref) => {
   const insideref = useRef(null)
-  const {name, asz05_id, placeholder, multiple_select, parent } = props
+  const {name, asz05_id, placeholder, multiple_select, parent, clearLevel } = props
   
   const dispatch = useDispatch();
   const { api_key, id} = useSelector(user);
@@ -62,20 +62,15 @@ const LevelValues = (props, ref) => {
     if ( roleSendbox.levels.length 
          &&  roleSendbox.levels.find(level => level.asz05_id === asz05_id)
     ) {
-      // console.log( roleSendbox.levels );
       setValue(roleSendbox.levels.find(level => level.asz05_id === asz05_id).value);
 
-
-      // console.log(asz05_id, roleSendbox.levels.find(level => level.asz05_id === asz05_id).value, values );
+      //? the new list of values ​​no longer contains such values
       const removed = roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.filter(idDelVal => !values.map(listItem => listItem.id).includes(idDelVal));
-      
       if ( removed.length ) { 
         dispatch(unSetLevelsValue({asz05_id, removed }));
         dispatch(processLevel({api_key, removed, event: 'rmSessionLevels', session_key: sessionKey, blk_id: roleSendbox.cnt, asz03_id: roleSendbox.role.id, asz05_id, }));
       }
 
-      //? the new list of values ​​no longer contains such values
-      //todo: perhaps it's be used for cleaning sublevels
       setVisual( roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.map(id => values.find(item => item.id === id)?.code ).join(', ') )
     }
   }, [api_key, asz05_id, dispatch, roleSendbox.cnt, roleSendbox.levels, roleSendbox.role.id, sessionKey, values])
@@ -134,18 +129,23 @@ const LevelValues = (props, ref) => {
   }
 
 
-  //! NEED TO CHECK
+  
   const clearInput = () => {
     setValue([]);
     setBackUp([]);
     setIsChanged(false);
     setVisual('');
+    if ( value.length ) { 
+      // dispatch(clearLevelValues({asz05_id }));
+      // dispatch(processLevel({api_key, value, event: 'rmSessionLevels', session_key: sessionKey, blk_id: roleSendbox.cnt, asz03_id: roleSendbox.role.id, asz05_id, }));
+      
+      // todo: clean children
+      clearLevel(asz05_id);
+    }    
   }
 
 
-  // const onInput = val => {}
   const getCheckValue = itemId => value.find(item => item === itemId); 
-
 
   const styleClnBtn = value.length ? `${styles.clearBtn} ${styles.showClnBtn}` : `${styles.clearBtn}`
 
@@ -183,7 +183,6 @@ const LevelValues = (props, ref) => {
           <div className={styles.inputWrapper}>
             <input type="text" className={styles.htmInput}
               value={ visual }
-              // onInput={e => onInput(e.target.value)}
               onInput={() => {}}
               placeholder = {placeholder}
               ref={insideref}
@@ -191,10 +190,10 @@ const LevelValues = (props, ref) => {
             />
             
             {<button type="button" 
-                className={styleClnBtn}
-                onClick={() => clearInput()}
-                aria-label="Clear"
-                >&times;</button>
+              className={styleClnBtn}
+              onClick={() => clearInput()}
+              aria-label="Clear"
+              >&times;</button>
             }      
           </div>
 
