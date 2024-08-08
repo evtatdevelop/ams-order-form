@@ -4,11 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { darkTheme } from "../../main/mainpageSlice";
 import { levelValues } from "../../corpsystems/corpsystemsSliceAPI";
 import { user } from "../../user/userSlice";
-import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel, setLevelsValue, unSetLevelsValue, clearLevelValues} from "../../corpsystems/corpsystemsSlice";
+import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel, setLevelsValue, unSetLevelsValue, } from "../../corpsystems/corpsystemsSlice";
 import Input from "../../components/input/Input";
 import { ValueRow } from "./valueRow/valueRow";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { DataLoader } from "./dataLoader";
+import { TestLoader } from "./testLoader";
 
 const LevelValues = (props, ref) => {
   const insideref = useRef(null)
@@ -31,12 +33,14 @@ const LevelValues = (props, ref) => {
   const [backUp, setBackUp] = useState([]);
   const [isChanged, setIsChanged] = useState(false);
   const [visual, setVisual] = useState('');
+  const [updating, setUpdating] = useState(false);
 
 
   useEffect(() => {
     if ( !parent
          || ( parent && roleSendbox.levels?.find(item => item.asz05_id === parent)?.changed )
-    ) { levelValues({ 
+    ) { setUpdating(true);
+        levelValues({ 
           api_key: api_key,
           asz05_id: asz05_id,
           skey: sessionKey,
@@ -53,6 +57,7 @@ const LevelValues = (props, ref) => {
           setValues(values);
           setfiltr(values);
           setRefers(getDataLength(values));
+          setUpdating(false);
         });
     } 
   }, [api_key, asz05_id, corpSystem.asz22_id, corpSystem.sapSystem.asz00_id, id, orderUser.id, parent, roleSendbox.cnt, roleSendbox.levels, roleSendbox.processGroup.name, roleSendbox.role.code, roleSendbox.role.id, sessionKey]);
@@ -129,25 +134,13 @@ const LevelValues = (props, ref) => {
   }
 
 
-  
   const clearInput = () => {
     setValue([]);
     setBackUp([]);
     setIsChanged(false);
     setVisual('');
-    if ( value.length ) { 
-      // dispatch(clearLevelValues({asz05_id }));
-      // dispatch(processLevel({api_key, value, event: 'rmSessionLevels', session_key: sessionKey, blk_id: roleSendbox.cnt, asz03_id: roleSendbox.role.id, asz05_id, }));
-      
-      // todo: clean children
-      clearLevel(asz05_id);
-    }    
+    if ( value.length ) clearLevel(asz05_id);
   }
-
-
-  const getCheckValue = itemId => value.find(item => item === itemId); 
-
-  const styleClnBtn = value.length ? `${styles.clearBtn} ${styles.showClnBtn}` : `${styles.clearBtn}`
 
   useImperativeHandle(ref, () => ({ clearInput }));
 
@@ -161,11 +154,16 @@ const LevelValues = (props, ref) => {
     setfiltr(values)
   };
 
+  const getCheckValue = itemId => value.find(item => item === itemId); 
+  
   const codeWith = refers[0] === 'value' 
     ? Math.floor(100 / (refers[1] + 1)) 
     : Math.floor(100*refers[1] / (refers[1] + 1));
   const displayCode = refers[0] === 'value' && refers[1] === 'full' ? 'none' : 'flex';  
   const displayValue = refers[0] === 'code' && refers[1] === 'full' ? 'none' : 'flex';
+
+  const styleClnBtn = value.length ? `${styles.clearBtn} ${styles.showClnBtn}` : `${styles.clearBtn}`
+  const styleLoading = updating ? `${styles.loading} ${styles.showLoading}` : `${styles.loading}`
 
   const selectInputStyle = dark 
   ? `${styles.selectInput} ${styles.dark}`
@@ -176,6 +174,8 @@ const LevelValues = (props, ref) => {
     ? `${styles.checklAll} ${styles.notAll}`
     : `${styles.checklAll} ${styles.all}`
   : `${styles.checklAll}`
+
+  
 
   return (
     values.length
@@ -188,13 +188,14 @@ const LevelValues = (props, ref) => {
               ref={insideref}
               onFocus={() => showWin()}
             />
-            
-            {<button type="button" 
-              className={styleClnBtn}
-              onClick={() => clearInput()}
-              aria-label="Clear"
-              >&times;</button>
-            }      
+            { updating
+              ? <div className={styleLoading}><TestLoader/></div>
+              : <button type="button" 
+                  className={styleClnBtn}
+                  onClick={() => clearInput()}
+                  aria-label="Clear"
+                >&times;</button>
+            }
           </div>
 
           { show
@@ -247,7 +248,7 @@ const LevelValues = (props, ref) => {
           }
         </div>
 
-      : 'loading'
+      : <div className={styles.loader}><DataLoader/></div>
 
   )
 }

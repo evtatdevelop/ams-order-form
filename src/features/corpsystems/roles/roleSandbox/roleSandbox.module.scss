@@ -22,6 +22,10 @@
       overflow-y: auto;
       padding: .5vmax;
 
+      .searchBlank {
+        width: 100%;
+        height: 2.7vmax;
+      }
       .searhResult {
         margin-top: 1vmax;
         display: flex;

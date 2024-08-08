@@ -57,7 +57,28 @@
       &:hover {
         color: red;
       } 
-    }    
+    }
+    
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      right: 0;
+      border: none;
+      padding: 0;
+      margin: 0;
+      background-color: transparent;
+      width: 2vmax;
+      height: 2vmax;
+      opacity: 0;
+      transition: opacity .3s;
+      border-radius: .1vmax;
+
+      &.showLoading {
+        opacity: 1;
+      }
+    }     
   }
 
 
@@ -219,6 +240,7 @@
   }
 
 
+
   //
   // Dark styles
   //
@@ -238,4 +260,16 @@
       } 
     }
   } 
-}
+}  
+
+.loader {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    svg {
+      width: 3vmax;
+      height: 3vmax;
+    }
+  }  

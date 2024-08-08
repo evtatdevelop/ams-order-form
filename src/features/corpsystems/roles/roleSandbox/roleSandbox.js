@@ -25,6 +25,9 @@ export const RoleSandbox = () => {
   const [hereSearch, setHereSearch] = useState([]);
   const [hereGroups, setHereGroups] = useState([]);
   const [hereRoles, setHereRoles] = useState([]);
+
+  console.log('role', Object.keys(role).length );
+  
   
   const roles = useSelector(rolesData);
   const [cnt, ] = useState(roles.length ? roles[roles.length-1].cnt+1 : 1);
@@ -103,7 +106,7 @@ export const RoleSandbox = () => {
     const getRmList = function(asz05_id) {
       const childrenId = levels.filter(level => level.parent === asz05_id ).map(level => level.asz05_id);
       const value = (role.levels.find(lvl => lvl.asz05_id === asz05_id))?.value;
-      if ( value.length ) rmValues = [...rmValues, ...value];
+      if ( value?.length ) rmValues = [...rmValues, ...value];
       dispatch(clearLevelValues({asz05_id }));                    //? remove from sandBox
       if ( childrenId.length ) childrenId.map(child => getRmList(child));
     }
@@ -141,13 +144,17 @@ export const RoleSandbox = () => {
     <section className={roleSandboxStyle}>
       <div className={styles.oneRoleSandbox}>
         <div className={styles.roleData}>
-          <Input 
-            inputHandler = { val => searchRole(val) }
-            inputClear = { () => {} }
-            placeholder = {dictionary.search[lang]}
-            val = ''
-            ref={searchRef} 
-          />
+          { !Object.keys(role).length
+            ? <Input 
+                inputHandler = { val => searchRole(val) }
+                inputClear = { () => {} }
+                placeholder = {dictionary.search[lang]}
+                val = ''
+                ref={searchRef} 
+              />
+            : <div className={styles.searchBlank}></div>
+          }
+          
 
           { hereGroups.length > 1
             ? <Select
