@@ -11,13 +11,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { DataLoader } from "./dataLoader";
 import { TestLoader } from "./testLoader";
+import dictionary from "../../../dictionary.json";
 
 const LevelValues = (props, ref) => {
   const insideref = useRef(null)
   const {name, asz05_id, placeholder, multiple_select, parent, clearLevel } = props
   
   const dispatch = useDispatch();
-  const { api_key, id} = useSelector(user);
+  const { api_key, id, lang} = useSelector(user);
   const orderUser = useSelector(userData);
   const roleSendbox = useSelector(roleSendboxData);
   const corpSystem = useSelector(corpSyst);
@@ -58,10 +59,13 @@ const LevelValues = (props, ref) => {
           setfiltr(values);
           setRefers(getDataLength(values));
           setUpdating(false);
+          // if ( !value.length ) setShow(true); //? outoopen window with values
         });
     } 
   }, [api_key, asz05_id, corpSystem.asz22_id, corpSystem.sapSystem.asz00_id, id, orderUser.id, parent, roleSendbox.cnt, roleSendbox.levels, roleSendbox.processGroup.name, roleSendbox.role.code, roleSendbox.role.id, sessionKey]);
 
+
+  // Операции МОЛ (кладовщиков)
 
   useEffect(() => {
     if ( roleSendbox.levels.length 
@@ -155,7 +159,7 @@ const LevelValues = (props, ref) => {
   };
 
   const getCheckValue = itemId => value.find(item => item === itemId); 
-  
+
   const codeWith = refers[0] === 'value' 
     ? Math.floor(100 / (refers[1] + 1)) 
     : Math.floor(100*refers[1] / (refers[1] + 1));
@@ -205,7 +209,7 @@ const LevelValues = (props, ref) => {
                 <Input 
                   inputHandler = { val => filter(val) }
                   inputClear = { () => clearFiler() }
-                  placeholder = 'Search'
+                  placeholder = {dictionary.search[lang]}
                   val = ''
                 />
 
@@ -238,10 +242,10 @@ const LevelValues = (props, ref) => {
                 <footer className={styles.footer}>
                   <button type="button"
                     onClick={() => saveValueSet()}
-                  >Ok</button>
+                  >{dictionary.save[lang]}</button>
                   <button type="button"
                     onClick={() => cancel()}
-                  >Cancel</button>
+                  >{dictionary.cancel[lang]}</button>
                 </footer>
               </div>
             : null

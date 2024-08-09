@@ -25,9 +25,6 @@ export const RoleSandbox = () => {
   const [hereSearch, setHereSearch] = useState([]);
   const [hereGroups, setHereGroups] = useState([]);
   const [hereRoles, setHereRoles] = useState([]);
-
-  console.log('role', Object.keys(role).length );
-  
   
   const roles = useSelector(rolesData);
   const [cnt, ] = useState(roles.length ? roles[roles.length-1].cnt+1 : 1);
@@ -56,8 +53,16 @@ export const RoleSandbox = () => {
   }
 
   const handleRole = val => {
+    //? Re:formatRoleNames
+    // val.name = val.name.slice(0, val.name.lastIndexOf('(', val.length)).trim();
+    const role = {
+      ...val,
+      name: val.name.slice(0, val.name.lastIndexOf('(', val.length)).trim(),
+    }
+
     const group = getGroupById(val.proccss_group_id);
-    dispatch(setRole({cnt: cnt, processGroup: group, role: val, levels: []}));
+    // dispatch(setRole({cnt: cnt, processGroup: group, role: val, levels: []}));
+    dispatch(setRole({cnt: cnt, processGroup: group, role, levels: []}));
     setHereGroups([group]);
 
     dispatch(getLevels({
@@ -102,6 +107,10 @@ export const RoleSandbox = () => {
     if ( searchRef.current ) searchRef.current.clearInput();
   }
 
+  const clearSerch = () => {
+    setHereSearch([]);
+  }
+
   const clearLevel = asz05_id => {    
     const getRmList = function(asz05_id) {
       const childrenId = levels.filter(level => level.parent === asz05_id ).map(level => level.asz05_id);
@@ -140,6 +149,8 @@ export const RoleSandbox = () => {
   ? `${styles.roleSandbox} ${styles.dark}`
   : `${styles.roleSandbox}`
 
+  // console.log(hereSearch)
+
   return (
     <section className={roleSandboxStyle}>
       <div className={styles.oneRoleSandbox}>
@@ -147,7 +158,7 @@ export const RoleSandbox = () => {
           { !Object.keys(role).length
             ? <Input 
                 inputHandler = { val => searchRole(val) }
-                inputClear = { () => {} }
+                inputClear = { () => clearSerch() }
                 placeholder = {dictionary.search[lang]}
                 val = ''
                 ref={searchRef} 
@@ -188,7 +199,7 @@ export const RoleSandbox = () => {
                     >
                       <div className={styles.label}>{`${item.code ? dictionary.nameRole[lang]: dictionary.nameProcessGroup[lang]}:`}</div>
                       <div className={styles.name}>{`${item.name}`}
-                        { item.code ? <span className={styles.code}>{` (${item.code} )`}</span> : null } 
+                        { item.code ? <span className={styles.code}>{` (${item.code} ) ${item.proccss_group_name ? ` [ ${item.proccss_group_name} ]` : null}`}</span> : null } 
                       </div>
                       
                     </button>

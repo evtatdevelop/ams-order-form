@@ -271,7 +271,7 @@ export const corpsystemSlice = createSlice({
       state.subSystemLoading = true 
     })
     .addCase(processLevel.fulfilled, ( state, action ) => {
-      console.log('DBProcessLevel', action.payload);
+      // console.log('DBProcessLevel', action.payload);
       if ( state.roleSendbox.levels && action.payload ) {
         if ( state.roleSendbox.levels.find( item => +item.asz05_id === +action.payload ) )
         state.roleSendbox.levels.find( item => +item.asz05_id === +action.payload ).changed = true;
