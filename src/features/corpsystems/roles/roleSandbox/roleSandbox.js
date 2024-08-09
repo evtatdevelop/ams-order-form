@@ -130,12 +130,9 @@ export const RoleSandbox = () => {
 
   // ? test function. Requires development
   const checkRole = role => {
-    console.log('role', role);
-    
-    if ( !role?.role?.id ) return false;
-    
-    //todo: check filing of levels 
-    if ( role.levels && !role.levels.length ) return false;
+    //todo: perhaps much strong tests are needed 
+    if ( !role?.role?.id ) return false; 
+    if ( role.levels && (!role.levels.length || levels.length !== role.levels.length) ) return false;
 
     return true;
   }
