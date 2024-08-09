@@ -264,6 +264,9 @@ export const corpsystemSlice = createSlice({
     .addCase(getLevels.pending, ( state ) => { state.subSystemLoading = true })
     .addCase(getLevels.fulfilled, ( state, action ) => {
       state.levels = [...action.payload];
+      
+      console.log(action.payload);
+      if ( action.payload.length ) state.roleSendbox = {...state.roleSendbox, levels: []}
       state.subSystemLoading = false;
     })
 

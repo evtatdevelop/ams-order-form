@@ -46,7 +46,8 @@ export const RoleSandbox = () => {
   const getRolesByGroupId = groupId => roleList.filter(item => item.proccss_group_id === groupId);
 
   const handleGroup = val => {
-    dispatch(setRole({cnt: cnt, ...role, processGroup: val, levels: []}));
+    // dispatch(setRole({cnt: cnt, ...role, processGroup: val, levels: []}));
+    dispatch(setRole({cnt: cnt, ...role, processGroup: val, }));
     setHereRoles( formatRoleNames(getRolesByGroupId(val.id)) );
     dispatch(setRole({}));
     dispatch(clearLevels());
@@ -62,7 +63,9 @@ export const RoleSandbox = () => {
 
     const group = getGroupById(val.proccss_group_id);
     // dispatch(setRole({cnt: cnt, processGroup: group, role: val, levels: []}));
-    dispatch(setRole({cnt: cnt, processGroup: group, role, levels: []}));
+    // dispatch(setRole({cnt: cnt, processGroup: group, role, levels: []}));
+    dispatch(setRole({cnt: cnt, processGroup: group, role, }));
+
     setHereGroups([group]);
 
     dispatch(getLevels({
@@ -127,7 +130,13 @@ export const RoleSandbox = () => {
 
   // ? test function. Requires development
   const checkRole = role => {
-    console.log('NEDD checkRole', role);
+    console.log('role', role);
+    
+    if ( !role?.role?.id ) return false;
+    
+    //todo: check filing of levels 
+    if ( role.levels && !role.levels.length ) return false;
+
     return true;
   }
 
