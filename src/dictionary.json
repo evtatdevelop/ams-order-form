@@ -133,6 +133,11 @@
     "EN": "Cancel",
     "RU": "Отмена",
     "ZH": "取消"
+  },
+  "request_route_approval": {
+    "EN": "Form a consideration route",
+    "RU": "Cформировать маршрут согласования",
+    "ZH": "形成考虑路线"
   }
   
 

@@ -1,0 +1,50 @@
+.approvals {
+  animation: appearance 700ms ease-in-out forwards;
+
+  .btnRouteApproval {
+    width: 100%;
+    min-height: 20px;
+    height: 7vh;
+    margin-bottom: .3vmax;
+    background-color: transparent;
+    color: #161619;
+    border: .1vmax solid gray;
+    border-radius: .3vmax;
+    padding: 1vmax;
+    text-align: left;
+    cursor: pointer;
+    color: #161619;
+    text-align: center;
+    transition: background-color .3s;
+
+    &:hover,
+    &:focus {
+      background-color: #16161919
+    }
+  }
+
+  //
+  // Dark styles
+  //
+  &.dark {
+    .btnRouteApproval {
+      background-color: transparent;
+      border: .1vmax solid gray;
+      color: wheat;
+
+      &:hover,
+      &:focus {
+        background-color: #ffffff18;
+      }
+    }  
+  }
+
+  @keyframes appearance {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}  

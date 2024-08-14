@@ -28,9 +28,11 @@ export const Roles = () => {
             ? roles.map((item, index) => <AddedRoles item = {item} key={index} />)
             : null
           }
+          
           <li><button type="button" className={styles.btnRoleForm}
             onClick={ () => dispatch(showRoleAdder(true)) }
           >{dictionary.add_role[lang]}</button></li> 
+
         </ul>
       </div>
       

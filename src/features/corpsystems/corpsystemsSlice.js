@@ -243,35 +243,43 @@ export const corpsystemSlice = createSlice({
       state.subSystemLoading = false;
     })
 
-    .addCase(getGetParam.pending, ( state ) => { state.subSystemLoading = true })
+    .addCase(getGetParam.pending, ( state ) => { 
+      // state.subSystemLoading = true 
+    })
     .addCase(getGetParam.fulfilled, ( state, action ) => {
       state.params.enable_subsystems = action.payload
-      state.subSystemLoading = false;
+      // state.subSystemLoading = false;
     })
 
-    .addCase(getProcessGroups.pending, ( state ) => { state.subSystemLoading = true })
+    .addCase(getProcessGroups.pending, ( state ) => { 
+      // state.subSystemLoading = true 
+    })
     .addCase(getProcessGroups.fulfilled, ( state, action ) => {
       state.processGroupList = [...action.payload]
-      state.subSystemLoading = false;
+      // state.subSystemLoading = false;
     })
 
-    .addCase(getRoles.pending, ( state ) => { state.subSystemLoading = true })
+    .addCase(getRoles.pending, ( state ) => { 
+      // state.subSystemLoading = true 
+    })
     .addCase(getRoles.fulfilled, ( state, action ) => {
       state.roleList = [...action.payload];
-      state.subSystemLoading = false;
+      // state.subSystemLoading = false;
     })
 
-    .addCase(getLevels.pending, ( state ) => { state.subSystemLoading = true })
+    .addCase(getLevels.pending, ( state ) => { 
+      // state.subSystemLoading = true 
+    })
     .addCase(getLevels.fulfilled, ( state, action ) => {
       state.levels = [...action.payload];
       
       console.log(action.payload);
       if ( action.payload.length ) state.roleSendbox = {...state.roleSendbox, levels: []}
-      state.subSystemLoading = false;
+      // state.subSystemLoading = false;
     })
 
     .addCase(processLevel.pending, ( state ) => { 
-      state.subSystemLoading = true 
+      // state.subSystemLoading = true 
     })
     .addCase(processLevel.fulfilled, ( state, action ) => {
       // console.log('DBProcessLevel', action.payload);
@@ -279,7 +287,7 @@ export const corpsystemSlice = createSlice({
         if ( state.roleSendbox.levels.find( item => +item.asz05_id === +action.payload ) )
         state.roleSendbox.levels.find( item => +item.asz05_id === +action.payload ).changed = true;
       }
-      state.subSystemLoading = false;
+      // state.subSystemLoading = false;
     })
   }
 });

@@ -15,6 +15,10 @@ export const AddedRoles = props => {
   ? `${styles.addedRole} ${styles.dark}`
   : `${styles.addedRole}`
 
+  //! Important
+  //toDo: call rmSessionRole
+  
+
   return (
     <li className={addedRolesStyle}>
       <button type="button" className={styles.header}>{`${item.role.name} ( ${item.role.code} )`}</button>

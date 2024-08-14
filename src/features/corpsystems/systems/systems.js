@@ -142,7 +142,7 @@ export const Systems = () => {
         : null
       }
 
-      { subSystemLoading
+      { subSystemLoading && !subSystemList.length
         ? <Row>
             <label></label>
             <div className={styles.loader}><DataLoader/></div>

@@ -7,13 +7,14 @@ import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
 import { corpSyst, getSessionKey, getCorpsystem, userData, 
-  setBoss, clearForm, getSystemList, processGroupListData, roleListData, } from "./corpsystemsSlice";
+  setBoss, clearForm, getSystemList, processGroupListData, roleListData, rolesData, } from "./corpsystemsSlice";
 import { changeTheme } from "../main/mainpageSlice";
 import { UserData } from "../userData/userData";
 import { Row } from "../components/row/row";
 import { SelectInput } from "../components/selectInput/selectInput";
 import { Systems } from "./systems/systems";
 import { Roles } from "./roles/roles";
+import { Approvals } from "./approvals/approvals";
 
 export const Corpsystems = () => {
   const { system } = useParams();
@@ -26,6 +27,7 @@ export const Corpsystems = () => {
   const mainUser          = useSelector(userData);
   const processGroupList  = useSelector(processGroupListData);
   const roleList          = useSelector(roleListData);
+  const roles             = useSelector(rolesData);
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
@@ -87,7 +89,7 @@ export const Corpsystems = () => {
                 && mainUser.position_name 
                 && mainUser.email
                 ? <>
-                    <div className={styles.gapRow}></div>
+                    {/* <div className={styles.gapRow}></div> */}
                     <Row>
                       <label>{`${dictionary.user_boss[lang]}`}</label>
                       <div className={styles.wrapField}>
@@ -103,13 +105,21 @@ export const Corpsystems = () => {
 
                     { mainUser.boss
                       ? <>
-                          <div className={styles.gapRow}></div>
+                          {/* <div className={styles.gapRow}></div> */}
                           <Systems/>
 
                           { processGroupList.length && roleList.length
                             ? <>
                                 <div className={styles.gapRow}></div>
                                 <Roles/>
+
+                                { roles.length
+                                  ? <>
+                                      <div className={styles.gapRow}></div>  
+                                      <Approvals/>
+                                    </> 
+                                  : null
+                                }  
 
                               </>
                             : null

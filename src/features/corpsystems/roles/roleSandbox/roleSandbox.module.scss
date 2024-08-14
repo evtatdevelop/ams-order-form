@@ -7,6 +7,7 @@
   right: 0;
   background-color: transparent;
   animation: appearance 300ms ease-in-out forwards;
+  z-index: 999;
 
   .oneRoleSandbox {
     width: 75%;
@@ -37,9 +38,6 @@
         // 
         .serchItem {
           display: flex;
-          // margin: .2vmax;
-          
-          // outline: 1px solid red;
           
           button {
             width: 100%;
@@ -51,7 +49,6 @@
             transition: outline .3s;
 
             .label {
-              // width: 5vmax;
               color: gray;
               text-align: left;
               overflow: hidden;
@@ -83,7 +80,8 @@
 
       button {
         width: 35%;
-        height: 2.5vmax;
+        min-height: 20px;
+        height: 4vh;
         background-color: transparent;
         border: .1vmax solid grey;
         border-radius: .3vmax;
