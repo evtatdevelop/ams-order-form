@@ -1,29 +1,32 @@
 import React from "react";
 import styles from './addedRole.module.scss';
 import { useSelector, useDispatch } from "react-redux";
-import { rmRole } from "../../corpsystemsSlice";
-
+import { rmRole, processLevel, sessionKeyData, } from "../../corpsystemsSlice";
 import { darkTheme } from "../../../main/mainpageSlice";
+import { user } from "../../../user/userSlice";
 
 export const AddedRoles = props => {
 
   const {item} = props;
+  const { api_key, } = useSelector(user);
   const dispatch = useDispatch();
   const dark = useSelector(darkTheme);
+  const sessionKey = useSelector(sessionKeyData);
+
+  const removeRole = () => {
+    dispatch(rmRole(item.role.id))
+    dispatch(processLevel({api_key, event: 'rmSessionRole', session_key: sessionKey, blk_id: item.cnt, }));
+  }
 
   let addedRolesStyle = dark 
   ? `${styles.addedRole} ${styles.dark}`
   : `${styles.addedRole}`
 
-  //! Important
-  //toDo: call rmSessionRole
-  
-
   return (
     <li className={addedRolesStyle}>
       <button type="button" className={styles.header}>{`${item.role.name} ( ${item.role.code} )`}</button>
       <button type="button" className={styles.remove}
-        onClick={() => dispatch(rmRole(item.role.id))}
+        onClick={() => removeRole()}
       >&times;</button>
     </li>
   )
