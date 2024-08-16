@@ -18,13 +18,19 @@ export const AddedRoles = props => {
     dispatch(processLevel({api_key, event: 'rmSessionRole', session_key: sessionKey, blk_id: item.cnt, }));
   }
 
+  const viewRole = () => {
+    console.log('view / modify', item)
+  }
+
   let addedRolesStyle = dark 
   ? `${styles.addedRole} ${styles.dark}`
   : `${styles.addedRole}`
 
   return (
     <li className={addedRolesStyle}>
-      <button type="button" className={styles.header}>{`${item.role.name} ( ${item.role.code} )`}</button>
+      <button type="button" className={styles.header}
+        onClick={() => viewRole() }
+      >{`${item.role.name} ( ${item.role.code} )`}</button>
       <button type="button" className={styles.remove}
         onClick={() => removeRole()}
       >&times;</button>

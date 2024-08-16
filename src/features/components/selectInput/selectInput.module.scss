@@ -105,7 +105,8 @@
     }
 
     &.showSelectList {
-      max-height: 15vmax;
+      // max-height: 15vmax;
+      max-height: 25vh;
       overflow: auto;
       opacity: 1;
     }

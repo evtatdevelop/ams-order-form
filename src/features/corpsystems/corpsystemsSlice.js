@@ -283,9 +283,18 @@ export const corpsystemSlice = createSlice({
     })
     .addCase(processLevel.fulfilled, ( state, action ) => {
       console.log('DBProcessLevel', action.payload);
-      if ( state.roleSendbox.levels && action.payload ) {
-        if ( state.roleSendbox.levels.find( item => +item.asz05_id === +action.payload ) )
-          state.roleSendbox.levels.find( item => +item.asz05_id === +action.payload ).changed = true;
+      const {event, value} = action.payload;
+      switch ( event ) {
+        case 'mkSessionLevels':
+        case 'rmSessionLevels': 
+          if ( state.roleSendbox.levels && action.payload ) {
+            if ( state.roleSendbox.levels.find( item => +item.asz05_id === +value ) )
+              state.roleSendbox.levels.find( item => +item.asz05_id === +value ).changed = true;
+          }
+          break;
+        case 'rmSessionRole': break;
+        case 'rmSession': break;
+        default: return;  
       }
       // state.subSystemLoading = false;
     })

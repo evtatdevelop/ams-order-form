@@ -3,13 +3,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
+  // position: relative;
   width: 100%;
 
   .input {
     display: flex;
     align-items: center;
-    position: relative;
+    // position: relative;
     width: 100%;
   
     .htmInput {
@@ -86,7 +86,8 @@
     }
 
     &.showSelectList {
-      max-height: 15vmax;
+      // max-height: 15vmax;
+      max-height: 25vh;
       overflow: auto;
       opacity: 1;
     }
