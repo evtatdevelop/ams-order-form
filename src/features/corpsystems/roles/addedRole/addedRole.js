@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './addedRole.module.scss';
 import { useSelector, useDispatch } from "react-redux";
-import { rmRole, processLevel, sessionKeyData, } from "../../corpsystemsSlice";
+import { editRole, processLevel, sessionKeyData, } from "../../corpsystemsSlice";
 import { darkTheme } from "../../../main/mainpageSlice";
 import { user } from "../../../user/userSlice";
 
@@ -14,12 +14,13 @@ export const AddedRoles = props => {
   const sessionKey = useSelector(sessionKeyData);
 
   const removeRole = () => {
-    dispatch(rmRole(item.role.id))
+    // dispatch(rmRole(item.role.id))
     dispatch(processLevel({api_key, event: 'rmSessionRole', session_key: sessionKey, blk_id: item.cnt, }));
   }
 
   const viewRole = () => {
-    console.log('view / modify', item)
+    // console.log('view / modify', item)
+    dispatch(editRole(item))
   }
 
   let addedRolesStyle = dark 

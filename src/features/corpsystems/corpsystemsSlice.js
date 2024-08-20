@@ -8,7 +8,7 @@ const initialState = {
   userDataLoading: false,
   subSystemLoading: false,
   positionInput: false,
-
+  editSandBox: false,
 
   system: null,
   sessionKey: null,
@@ -138,6 +138,13 @@ export const corpsystemSlice = createSlice({
       state.roleSendbox = {...action.payload}
     },
 
+    editRole: (state, action) => {
+      state.roleSendbox = {...action.payload}
+      state.roleAdder = true;
+      state.editSandBox = true;
+    },
+
+
 
     setLevelsValue: (state, action) => {
       // console.log(action.payload);
@@ -165,7 +172,11 @@ export const corpsystemSlice = createSlice({
     },
 
 
-
+    cancelEdit: (state) => {
+      console.log('cancelEdit');
+      
+      state.editSandBox = false;
+    },
 
   },
 
@@ -273,9 +284,7 @@ export const corpsystemSlice = createSlice({
     .addCase(getLevels.fulfilled, ( state, action ) => {
       state.levels = [...action.payload];
       
-      // console.log(action.payload);
-      if ( action.payload.length ) state.roleSendbox = {...state.roleSendbox, levels: []}
-      // state.subSystemLoading = false;
+      if ( action.payload.length && !state.roleSendbox.levels ) state.roleSendbox = {...state.roleSendbox, levels: []}
     })
 
     .addCase(processLevel.pending, ( state ) => { 
@@ -292,7 +301,9 @@ export const corpsystemSlice = createSlice({
               state.roleSendbox.levels.find( item => +item.asz05_id === +value ).changed = true;
           }
           break;
-        case 'rmSessionRole': break;
+        case 'rmSessionRole': 
+          state.roles = [...state.roles.filter(item => item.cnt !== value)]
+        break;
         case 'rmSession': break;
         default: return;  
       }
@@ -304,8 +315,8 @@ export const corpsystemSlice = createSlice({
 export const { setCompany, setBranch, setDepartment, setLocation, setPosition, unSetPosition,
   unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, 
   setBoss, clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
-  showRoleAdder, addRole, rmRole, 
-  setRole, clearLevels, setLevelsValue, unSetLevelsValue, clearLevelValues
+  showRoleAdder, addRole, rmRole, editRole,
+  setRole, clearLevels, setLevelsValue, unSetLevelsValue, clearLevelValues, cancelEdit
 } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;
@@ -327,5 +338,6 @@ export const roleSendboxData      = ( state ) => state.corpsystems.roleSendbox;
 export const levelsData           = ( state ) => state.corpsystems.levels;
 export const roleAdderData        = ( state ) => state.corpsystems.roleAdder;
 export const sessionKeyData       = ( state ) => state.corpsystems.sessionKey;
+export const editSandBoxData      = ( state ) => state.corpsystems.editSandBox;
 
 export default corpsystemSlice.reducer;

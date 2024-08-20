@@ -24,6 +24,11 @@
     text-align: left;
     overflow-x: hidden;
     cursor: pointer;
+
+    &:focus,
+    &:hover {
+      background-color: #ffffff18;
+    }    
   }
 
   .remove {

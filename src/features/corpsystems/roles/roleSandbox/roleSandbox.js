@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../../dictionary.json";
 import { user } from '../../../user/userSlice';
 import { showRoleAdder, processGroupListData, roleListData, getLevels, roleSendboxData, 
-  levelsData, setRole, clearLevels, addRole, rolesData, clearLevelValues, processLevel, sessionKeyData, } from "../../corpsystemsSlice";
+  levelsData, setRole, clearLevels, addRole, rolesData, clearLevelValues, processLevel, sessionKeyData, cancelEdit } from "../../corpsystemsSlice";
 import Input from "../../../components/input/Input";
 import Select from "../../../components/select/select";
 import { darkTheme } from "../../../main/mainpageSlice";
@@ -26,9 +26,27 @@ export const RoleSandbox = () => {
   const [hereGroups, setHereGroups] = useState([]);
   const [hereRoles, setHereRoles] = useState([]);
   
+  const [hereGroup, setHereGroup] = useState('');
+  const [hereRole, setHereRole] = useState('');
+  
+  
   const roles = useSelector(rolesData);
   const [cnt, ] = useState(roles.length ? roles[roles.length-1].cnt+1 : 1);
 
+  //toDo: View / Modify
+  useEffect(() => {
+    if ( Object.keys(role).length ) {
+      console.log('role', role);
+      setHereGroup(role.processGroup.name);
+      setHereRole(`${role.role.name} ( ${role.role.code} )`)
+      dispatch(getLevels({
+        api_key,
+        lang,
+        asz03_id: role.role.id,  
+      }));      
+    }
+  }, [])
+  
   useEffect(() => {
     if ( processGroupList.length ) setHereGroups([...processGroupList])
     else setHereGroups([])
@@ -54,20 +72,13 @@ export const RoleSandbox = () => {
   }
 
   const handleRole = val => {
+    console.log('val', val);
+    
     //? Re:formatRoleNames
-    // val.name = val.name.slice(0, val.name.lastIndexOf('(', val.length)).trim();
-    const role = {
-      ...val,
-      name: val.name.slice(0, val.name.lastIndexOf('(', val.length)).trim(),
-    }
-
+    const role = {...val, name: val.name.slice(0, val.name.lastIndexOf('(', val.length)).trim(), }
     const group = getGroupById(val.proccss_group_id);
-    // dispatch(setRole({cnt: cnt, processGroup: group, role: val, levels: []}));
-    // dispatch(setRole({cnt: cnt, processGroup: group, role, levels: []}));
     dispatch(setRole({cnt: cnt, processGroup: group, role, }));
-
     setHereGroups([group]);
-
     dispatch(getLevels({
       api_key,
       lang,
@@ -143,12 +154,14 @@ export const RoleSandbox = () => {
     dispatch(showRoleAdder(false));
     cancelRole();
     dispatch(clearLevels());
+    dispatch(cancelEdit());
   }
 
   const handleCancel = () => {
     dispatch(showRoleAdder(false));
     dispatch(setRole({}));
     dispatch(clearLevels());
+    dispatch(cancelEdit());
   }
 
   let roleSandboxStyle = dark
@@ -179,8 +192,8 @@ export const RoleSandbox = () => {
                 selectClear  = { () => cancelGroup() }
                 placeholder = {dictionary.nameProcessGroup[lang]}
                 selectList = {hereGroups}
-                val = ''
-                name='processGroups'
+                val = {hereGroup}
+                name=''
               />
             : <InfoField val = { hereGroups.length ? hereGroups[0].name : null } />                          
           }
@@ -191,8 +204,8 @@ export const RoleSandbox = () => {
                 selectClear  = { () => cancelRole() }
                 placeholder = {dictionary.nameRole[lang]}
                 selectList = {hereRoles}
-                val = ''
-                name='roles'
+                val = {hereRole}
+                name=''
               />
             : <InfoField val = { hereRoles.length ? hereRoles[0].name : null } />
           }
