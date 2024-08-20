@@ -124,7 +124,7 @@ export const corpsystemSlice = createSlice({
     },
 
     addRole: (state, action) => {
-      state.roles = [...state.roles, action.payload]
+      state.roles = [...state.roles.filter(item => item.cnt !== action.payload.cnt), action.payload]
     },
     rmRole: (state, action) => {
       state.roles = [...state.roles.filter(item => item.role.id !== action.payload)]

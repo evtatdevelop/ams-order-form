@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { darkTheme } from "../../main/mainpageSlice";
 import { levelValues } from "../../corpsystems/corpsystemsSliceAPI";
 import { user } from "../../user/userSlice";
-import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel, setLevelsValue, unSetLevelsValue, editSandBoxData, } from "../../corpsystems/corpsystemsSlice";
+import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel, setLevelsValue, unSetLevelsValue, editSandBoxData, cancelEdit, } from "../../corpsystems/corpsystemsSlice";
 import Input from "../../components/input/Input";
 import { ValueRow } from "./valueRow/valueRow";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -70,24 +70,21 @@ const LevelValues = (props, ref) => {
     if ( roleSendbox.levels.length 
          &&  roleSendbox.levels.find(level => level.asz05_id === asz05_id)
     ) {
-
-      // console.log( roleSendbox.levels.find(level => level.asz05_id === asz05_id).value );
-
       setValue(roleSendbox.levels.find(level => level.asz05_id === asz05_id).value);
-
+      //? the new list of values ​​no longer contains such values
+      const removed = roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.filter(idDelVal => !values.map(listItem => listItem.id).includes(idDelVal));
       if ( !editSandBox ) {
-        //? the new list of values ​​no longer contains such values
-        const removed = roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.filter(idDelVal => !values.map(listItem => listItem.id).includes(idDelVal));
         if ( removed.length ) { 
           dispatch(unSetLevelsValue({asz05_id, removed }));
           dispatch(processLevel({api_key, removed, event: 'rmSessionLevels', session_key: sessionKey, blk_id: roleSendbox.cnt, asz03_id: roleSendbox.role.id, asz05_id, }));
-        }        
+        }
       }
-
-
       setVisual( roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.map(id => values.find(item => item.id === id)?.code ).join(', ') )
+
     }
-  }, [api_key, asz05_id, dispatch, editSandBox, roleSendbox.cnt, roleSendbox.levels, roleSendbox.role.id, sessionKey, values])
+  }, [api_key, asz05_id, dispatch, 
+    editSandBox, 
+    roleSendbox.cnt, roleSendbox.levels, roleSendbox.role.id, sessionKey, values])
 
 
 
@@ -129,6 +126,8 @@ const LevelValues = (props, ref) => {
  
 
   const setCheck = id => {
+    
+    dispatch(cancelEdit());
     if ( !isChanged ) setIsChanged(true);
     const gitValueById = id => values.find(item => item.id === id);
     if ( gitValueById(id).multiple_select === 'ONE_VALUE' ) setValue([id])
