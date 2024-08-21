@@ -5,6 +5,9 @@
   align-items: center;
 
   outline: 1px solid gray;
+  &:hover {
+    background-color: #ffffff18;
+  }  
 
   button {
     display: flex;
@@ -25,8 +28,7 @@
     overflow-x: hidden;
     cursor: pointer;
 
-    &:focus,
-    &:hover {
+    &:focus {
       background-color: #ffffff18;
     }    
   }

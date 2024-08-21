@@ -33,7 +33,6 @@ export const RoleSandbox = () => {
   const roles = useSelector(rolesData);
   const [cnt, ] = useState(roles.length ? roles[roles.length-1].cnt+1 : 1);
 
-  //toDo: View / Modify
   useEffect(() => {
     if ( Object.keys(role).length ) {
       console.log('role', role);
@@ -64,7 +63,6 @@ export const RoleSandbox = () => {
   const getRolesByGroupId = groupId => roleList.filter(item => item.proccss_group_id === groupId);
 
   const handleGroup = val => {
-    // dispatch(setRole({cnt: cnt, ...role, processGroup: val, levels: []}));
     dispatch(setRole({cnt: cnt, ...role, processGroup: val, }));
     setHereRoles( formatRoleNames(getRolesByGroupId(val.id)) );
     dispatch(setRole({}));

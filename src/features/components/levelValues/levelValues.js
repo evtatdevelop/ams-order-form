@@ -60,6 +60,7 @@ const LevelValues = (props, ref) => {
           setfiltr(values);
           setRefers(getDataLength(values));
           setUpdating(false);
+
           // if ( !value.length ) setShow(true); //? outoopen window with values
         });
     } 
@@ -127,7 +128,8 @@ const LevelValues = (props, ref) => {
 
   const setCheck = id => {
     
-    dispatch(cancelEdit());
+    // dispatch(cancelEdit()); //? ...moved to DBProcessLevel
+    
     if ( !isChanged ) setIsChanged(true);
     const gitValueById = id => values.find(item => item.id === id);
     if ( gitValueById(id).multiple_select === 'ONE_VALUE' ) setValue([id])
