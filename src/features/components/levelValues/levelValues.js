@@ -129,29 +129,17 @@ const LevelValues = (props, ref) => {
   const setCheck = id => {    
     // dispatch(cancelEdit()); //? ...moved to DBProcessLevel
     if ( !isChanged ) setIsChanged(true);
-    // const gitValueById = id => values.find(item => item.id === id);
     const val = values.find(item => item.id === id);
     if ( val.code === "ALL" ) {
       if ( value.find(item => item === id) ) setValue(value.filter(item => item !== id))
       else setValue([...value.filter(item => !values.filter(itemVal => itemVal.code_parent === val.code_parent).map(i => i.id).includes(item) ), id]);
     } else {
-      // if ( gitValueById(id).multiple_select === 'ONE_VALUE' ) setValue([id])
       if ( val.multiple_select === 'ONE_VALUE' ) setValue([id])
       else  if ( value.find(item => item === id) ) setValue(value.filter(item => item !== id))
-            // else setValue([...value, id]);      
             else setValue([...value.filter(item => !values.filter(itemVal => itemVal.code_parent === val.code_parent && itemVal.code === "ALL").map(i => i.id).includes(item) ), id]);      
     }
   }
-
-
-  // const checkAll = () => {
-  //   if ( !isChanged ) setIsChanged(true);
-  //   if ( !filtr.filter(item => !value.includes(item.id)).length )                 //? All filtered ones are contained in the “value”.
-  //     setValue( value.filter(val => !filtr.map(item => item.id).includes(val)) )  //? Remove all filtered ones are contained from the “value”. 
-  //   else setValue( [...new Set([...value, ...filtr.map(item => item.id)])] );     //? Add all filtered and not exists ones to “value”.
-  // }
-
-
+  
   const checkAll = () => {
     if ( !isChanged ) setIsChanged(true);
 
@@ -167,23 +155,24 @@ const LevelValues = (props, ref) => {
           //? only ALLs
           //? only depended on ALLs 
           if ( !filtr.filter(item => !value.includes(item.id)).length ) setValue( value.filter(item => values.find(i => i.id === item).code !== 'ALL' ) );  //? unSet                                
-          else setValue( [ ...value.filter(itm => !filtr.map(item => item.code_parent).includes( values.find(i => i.id === itm).code_parent ) ), ...filtr.map(item => item.id)] );  //? Set
-           
+          else setValue( [ ...value.filter(itm => !filtr.map(item => item.code_parent).includes( values.find(i => i.id === itm).code_parent ) ), ...filtr.map(item => item.id)] );  //? Set   
         } else {
-          //? ALLs and others
-          
+          //? ALLs and others       
           if ( !filtr.filter(itemVal=> itemVal.code !== 'ALL').filter(item => !value.includes(item.id)).length )
-            setValue( value.filter(val => !filtr.map(item => item.id).includes(val)) )                                            //? unSet
-          //todo: unSet ALLs !!! AND check code_parent for all filtred !!! { !values.find(i => i.id === item).code === "ALL" && ... }
-          // else setValue( [...new Set([...value, ...filtr.filter(itemVal=> itemVal.code !== 'ALL').map(item => item.id)])] );      //? Set
-          else setValue( [...new Set([ ...value.filter(item => !values.find(i => i.id === item).code === "ALL"  ), ...filtr.filter(itemVal=> itemVal.code !== 'ALL').map(item => item.id)])] );      //? Set
+            setValue( value.filter(val => !filtr.map(item => item.id).includes(val)) )                           //? unSet
+          else setValue([...new Set([ 
+            ...value.filter(item => !values.filter(i => i.code === "ALL" && filtr.map(fltItm => fltItm.code_parent ).includes(i.code_parent)).map(itm => itm.id).includes(item)), //? remove all vals with code 'ALL' and code_parent included in filtred items list  
+            ...filtr.filter(itemVal=> itemVal.code !== 'ALL').map(item => item.id) 
+          ])]);                                                                                                 //? Set
         }
       }
     } else {
       //? No ALLs
       if ( !filtr.filter(item => !value.includes(item.id)).length )                 //? All filtered ones are contained in the “value”.
         setValue( value.filter(val => !filtr.map(item => item.id).includes(val)) )  //? Remove all filtered ones are contained from the “value”. 
-      else setValue( [...new Set([...value, ...filtr.map(item => item.id)])] );     //? Add all filtered and not exists ones to “value”.
+      else setValue( [...new Set([
+        ...value.filter(item => !values.filter(i => i.code === "ALL" && filtr.map(fltItm => fltItm.code_parent ).includes(i.code_parent)).map(itm => itm.id).includes(item)), //? remove all vals with code 'ALL' and code_parent included in filtred items list 
+        ...filtr.map(item => item.id)])] );     //? Add all filtered and not exists ones to “value”.
     }
   }
 
