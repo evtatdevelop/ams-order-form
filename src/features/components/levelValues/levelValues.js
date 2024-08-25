@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { darkTheme } from "../../main/mainpageSlice";
 import { levelValues } from "../../corpsystems/corpsystemsSliceAPI";
 import { user } from "../../user/userSlice";
-import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel, setLevelsValue, unSetLevelsValue, editSandBoxData, cancelEdit, } from "../../corpsystems/corpsystemsSlice";
+import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel, setLevelsValue, unSetLevelsValue, editSandBoxData, } from "../../corpsystems/corpsystemsSlice";
 import Input from "../../components/input/Input";
 import { ValueRow } from "./valueRow/valueRow";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -36,6 +36,7 @@ const LevelValues = (props, ref) => {
   const [isChanged, setIsChanged] = useState(false);
   const [visual, setVisual] = useState('');
   const [updating, setUpdating] = useState(false);
+  const [showAlls, setShowAlls] = useState(false);
 
 
   useEffect(() => {
@@ -148,7 +149,7 @@ const LevelValues = (props, ref) => {
       if ( filtr.length === values.length ) { 
         //? No Filter
         console.log( `show styory about ALLs` );
-      
+        setShowAlls(true);
       } else {
         //? whith filter
         if ( filtr.length === filtr.filter(item => item.code === 'ALL').length ) {
@@ -172,7 +173,7 @@ const LevelValues = (props, ref) => {
         setValue( value.filter(val => !filtr.map(item => item.id).includes(val)) )  //? Remove all filtered ones are contained from the “value”. 
       else setValue( [...new Set([
         ...value.filter(item => !values.filter(i => i.code === "ALL" && filtr.map(fltItm => fltItm.code_parent ).includes(i.code_parent)).map(itm => itm.id).includes(item)), //? remove all vals with code 'ALL' and code_parent included in filtred items list 
-        ...filtr.map(item => item.id)])] );     //? Add all filtered and not exists ones to “value”.
+        ...filtr.map(item => item.id)])] );                                         //? Add all filtered and not exists ones to “value”.
     }
   }
 
@@ -267,6 +268,36 @@ const LevelValues = (props, ref) => {
                 </div>
 
                 <ul className={styles.main}>
+                  { showAlls
+                    ? <li className={styles.allAllsArea}>
+                        <div className={styles.allList}>
+                          { values.filter(item => item.code === "ALL").map(item => 
+                            <button key={item.id}  type="button"
+                              onClick={() => console.log(`${item.value}`)}
+                            >
+                               {`${item.value}`} 
+                            </button>)
+                          }
+                          <button type="button">with options</button>
+                        </div>
+                        <button
+                          type="button"
+                          className={styles.showInfoBtn} 
+                          onClick={() => console.log(`Show ALLs story`)}
+                        >
+                          !
+                        </button>
+                        <button
+                          type="button"
+                          className={styles.closeAllsAria} 
+                          onClick={() => setShowAlls(false)}
+                        >
+                          &times;
+                        </button>
+                      </li>
+                    : null
+                  }
+                  
                   { filtr.map((item, index) => 
                     <ValueRow 
                       key={index}
