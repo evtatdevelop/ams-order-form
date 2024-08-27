@@ -200,16 +200,16 @@
       
       .allAllsArea {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        
-        justify-content: space-around; //! TEST
-
-        padding: .5vmax;
+        padding: .1vmax;
+        padding-right: 2vmax;
+        // padding-top: .5vmax;
+        // padding-bottom: .5vmax;
         outline: .1vmax solid gray;
         margin-bottom: .5vmax;
         margin-right: .5vmax;
         background-color: #ffffff18;
-        // min-height: 1vh;
         overflow-y: hidden;
 
         .allList {
@@ -220,17 +220,60 @@
           overflow-y: auto;
 
           button {
-            margin-top: .2vmax;
-            margin-bottom: .2vmax;
-            padding: .3vmax 1vmax;
+            display: flex;
+            align-items: center;
+            // margin-top: .2vmax;
+            // margin-bottom: .2vmax;
+            padding: 0;
+            padding-right: 1vmax;
+            background-color: transparent;
+            color: wheat;
+
+            .visualCheck {
+              display: flex;
+              align-items: center;
+              text-align: left;
+              padding: .5vmax;
+              font-weight: 400;
+              overflow: hidden;              
+              justify-content: center;
+              width: 4vmax;
+              flex-grow: 0;
+              flex-shrink: 0;
+              // outline: 1px solid green;
+            }
+
+            &:hover {
+              background-color: rgb(66, 66, 66);
+            }
+
           }
         }
-          .showInfoBtn{
-          display: flex;
+        .infoArea {
+
+          .showInfoBtn {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 3vmax;
+            height: 3vmax;
+            border-radius: 1.5vmax;
+            background-color: transparent;
+            color: rgb(0, 89, 119);
+            cursor: pointer;  
+            font-size: 3vmax;
+            transition: background-color .3s, color .3s;
+
+            &:hover {
+              color: wheat
+            }
+          }          
         }
-        .closeAllsAria{
-          display: flex;
-        }
+        // .closeAllsAria{
+        //   display: flex;
+        // }
 
         animation: appear 1300ms ease-out forwards;
         @keyframes appear {
@@ -247,6 +290,8 @@
           }
         }        
       }
+
+
     }
 
 
@@ -257,14 +302,14 @@
       button {
         width: 25%;
         min-height: 20px;
-        height: 4vh;
+        height: 3vmax;
         margin-bottom: .3vmax;
         background-color: transparent;
         color: #161619;
         // color: wheat;
         border: .1vmax solid gray;
         border-radius: .3vmax;
-        padding: 1vmax;
+        // padding: 1vmax;
         text-align: left;
         cursor: pointer;
         text-align: center;
@@ -352,6 +397,59 @@
         }      
       }
       .main {
+        .allAllsArea {
+          outline: .1vmax solid gray;
+          background-color: #ffffff18;
+          .allList {
+            button {
+              background-color: transparent;
+              color: wheat;
+  
+              &:hover {
+                background-color: rgb(66, 66, 66);
+              }
+  
+            }
+          }
+          .infoArea {
+  
+            .showInfoBtn {
+              padding: 0;
+              margin: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 2vmax;
+              height: 2vmax;
+              border-radius: 1vmax;
+              background-color: transparent;
+              // color: rgb(0, 89, 119);
+              color: wheat;
+              cursor: pointer;  
+              font-size: 2vmax;
+              transition: background-color .3s, color .3s;
+              border: .1vmax solid wheat;
+            }          
+          }
+          // .closeAllsAria{
+          //   display: flex;
+          // }
+  
+          animation: appear 1300ms ease-out forwards;
+          @keyframes appear {
+            0% {
+              opacity: .0;
+              max-height: 0vh;
+            }
+            50% {
+              opacity: 1;
+              max-height: 15vh;
+            }
+            100% {
+              max-height: 30vh;
+            }
+          }        
+        }        
       }
   
   

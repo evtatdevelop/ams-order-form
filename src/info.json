@@ -1,0 +1,7 @@
+{
+  "alls": {
+    "EN": "It is best to perform a mass request for permissions using special values ​​in the list - \"All\". In this case, the number of necessary approvals will be minimal. Otherwise, the approval will be performed element by element, the number of required approvals may be large.",
+    "RU": "Массовый запрос полномочий оптимально выполнять с использованием специальных значений в списке - \"Все\". В этом случае количество необходимых согласований будет минимальным. В ином случае согласование будет выполняться попозиционно, количество требуемых согласований может быть большим.",
+    "ZH": "最好使用列表中的特殊值“All”来执行批量权限请求。在这种情况下，所需的批准数量将最少。否则，批准将逐个元素进行，所需批准的数量可能会很大。"
+  }
+}

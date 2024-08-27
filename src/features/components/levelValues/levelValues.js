@@ -8,10 +8,11 @@ import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel, setL
 import Input from "../../components/input/Input";
 import { ValueRow } from "./valueRow/valueRow";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { DataLoader } from "./dataLoader";
 import { TestLoader } from "./testLoader";
 import dictionary from "../../../dictionary.json";
+import { CheckBox } from "./valueRow/checkBox/checkBox";
 
 const LevelValues = (props, ref) => {
   const insideref = useRef(null)
@@ -148,7 +149,6 @@ const LevelValues = (props, ref) => {
       //? There're ALLs
       if ( filtr.length === values.length ) { 
         //? No Filter
-        console.log( `show styory about ALLs` );
         setShowAlls(true);
       } else {
         //? whith filter
@@ -177,6 +177,22 @@ const LevelValues = (props, ref) => {
     }
   }
 
+  const checkAllAther = () => {
+    console.log(value);
+    
+    setValue([...new Set([ 
+      ...value,
+      ...values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent) ).map(item => item.id) 
+    ])]);
+  }
+  const getCheckOterValue = () => {
+    // console.log( 'values', values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent) ).length );
+    // console.log( 'value', value.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes( values.find(itm => itm.id === otherItem).code_parent  ) ).length );
+    return  values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent) ).length
+            ===
+            value.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes( values.find(itm => itm.id === otherItem).code_parent  ) ).length;
+
+  }
 
   const clearInput = () => {
     setValue([]);
@@ -268,35 +284,40 @@ const LevelValues = (props, ref) => {
                 </div>
 
                 <ul className={styles.main}>
+
                   { showAlls
                     ? <li className={styles.allAllsArea}>
                         <div className={styles.allList}>
                           { values.filter(item => item.code === "ALL").map(item => 
                             <button key={item.id}  type="button"
-                              onClick={() => console.log(`${item.value}`)}
+                              onClick={() => setCheck(item.id)}
                             >
-                               {`${item.value}`} 
+                              <div className={styles.visualCheck}><CheckBox check = {getCheckValue(item.id)}/></div>
+                              <div>{ `${item.value}` }</div>
                             </button>)
                           }
-                          <button type="button">with options</button>
+                          <button type="button"
+                            onClick={() => checkAllAther()}    
+                          >
+                            <div className={styles.visualCheck}><CheckBox check = { getCheckOterValue() }/> </div>
+                            <div>{dictionary.other_options[lang]}</div>
+                          </button>
                         </div>
-                        <button
-                          type="button"
-                          className={styles.showInfoBtn} 
-                          onClick={() => console.log(`Show ALLs story`)}
-                        >
-                          !
-                        </button>
-                        <button
-                          type="button"
-                          className={styles.closeAllsAria} 
-                          onClick={() => setShowAlls(false)}
-                        >
-                          &times;
-                        </button>
+                        <div className={styles.infoArea}>
+                          <button
+                            type="button"
+                            className={styles.showInfoBtn} 
+                            onClick={() => console.log(`alls`)}
+                          >
+                            <FontAwesomeIcon icon={ faCircleInfo }  />
+                          </button>
+
+                        </div>
+                        
                       </li>
                     : null
                   }
+
                   
                   { filtr.map((item, index) => 
                     <ValueRow 
