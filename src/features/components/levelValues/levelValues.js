@@ -178,20 +178,17 @@ const LevelValues = (props, ref) => {
   }
 
   const checkAllAther = () => {
-    console.log(value);
-    
-    setValue([...new Set([ 
+    if ( getCheckOterValue() ) {
+      setValue(value.filter(item => values.find(itm => itm.id === item).code === 'ALL'))
+    } else setValue([...new Set([ 
       ...value,
       ...values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent) ).map(item => item.id) 
     ])]);
   }
   const getCheckOterValue = () => {
-    // console.log( 'values', values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent) ).length );
-    // console.log( 'value', value.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes( values.find(itm => itm.id === otherItem).code_parent  ) ).length );
     return  values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent) ).length
             ===
             value.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes( values.find(itm => itm.id === otherItem).code_parent  ) ).length;
-
   }
 
   const clearInput = () => {
