@@ -8,11 +8,12 @@ import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel, setL
 import Input from "../../components/input/Input";
 import { ValueRow } from "./valueRow/valueRow";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faCircleInfo, faCircleXmark, } from '@fortawesome/free-solid-svg-icons'
 import { DataLoader } from "./dataLoader";
 import { TestLoader } from "./testLoader";
 import dictionary from "../../../dictionary.json";
 import { CheckBox } from "./valueRow/checkBox/checkBox";
+import { showInfoData, setShowInfo, } from "../../corpsystems/corpsystemsSlice";
 
 const LevelValues = (props, ref) => {
   const insideref = useRef(null)
@@ -26,6 +27,7 @@ const LevelValues = (props, ref) => {
   const dark = useSelector(darkTheme);
   const sessionKey = useSelector(sessionKeyData);
   const editSandBox = useSelector(editSandBoxData);
+  const showInfo = useSelector(showInfoData);
   
   const [show, setShow] = useState(false);
   const [values, setValues] = useState([]);
@@ -284,7 +286,7 @@ const LevelValues = (props, ref) => {
 
                   { showAlls
                     ? <li className={styles.allAllsArea}>
-                        <div className={styles.allList}>
+                        {/* <div className={styles.allList}> */}
                           { values.filter(item => item.code === "ALL").map(item => 
                             <button key={item.id}  type="button"
                               onClick={() => setCheck(item.id)}
@@ -299,17 +301,20 @@ const LevelValues = (props, ref) => {
                             <div className={styles.visualCheck}><CheckBox check = { getCheckOterValue() }/> </div>
                             <div>{dictionary.other_options[lang]}</div>
                           </button>
-                        </div>
-                        <div className={styles.infoArea}>
+                        {/* </div> */}
+                        {/* <div className={styles.infoArea}>
                           <button
                             type="button"
                             className={styles.showInfoBtn} 
-                            onClick={() => console.log(`alls`)}
+                            onClick={() => dispatch(setShowInfo(!showInfo))}
                           >
-                            <FontAwesomeIcon icon={ faCircleInfo }  />
+                            { showInfo
+                              ? <FontAwesomeIcon icon={ faCircleXmark }/>
+                              : <FontAwesomeIcon icon={ faCircleInfo }/>
+                            }  
                           </button>
 
-                        </div>
+                        </div> */}
                         
                       </li>
                     : null

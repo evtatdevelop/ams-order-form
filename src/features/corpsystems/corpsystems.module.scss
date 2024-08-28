@@ -1,4 +1,5 @@
 .corpsystems {
+  // position: relative;
   width: 100%;
   height: 100vh;
   color: #424242;
@@ -6,7 +7,7 @@
   justify-content: center;
   font-size: 1.2vmax;
   animation: appearance 500ms ease-in-out forwards;
-  
+
   &.test {
     position: relative;
     box-shadow: inset 0px 0px 10px green;
@@ -138,7 +139,17 @@
     margin-bottom: 1vmax;
   }
 
-  
+  .info {
+    position: fixed;
+    margin: auto;
+    width: 50vw;
+    height: 50vh;
+    z-index: 9999;
+    outline: 1px solid red; 
+    background-color: rgba(255, 0, 0, 0.048)
+  }
+
+
   //
   // Dark styles
   //

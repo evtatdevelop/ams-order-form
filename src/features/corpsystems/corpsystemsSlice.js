@@ -9,6 +9,7 @@ const initialState = {
   subSystemLoading: false,
   positionInput: false,
   editSandBox: false,
+  showInfo: false,
 
   system: null,
   sessionKey: null,
@@ -178,6 +179,10 @@ export const corpsystemSlice = createSlice({
       state.editSandBox = false;
     },
 
+    setShowInfo: (state, action) => {
+      state.showInfo = action.payload;
+    },
+
   },
 
   extraReducers: (builder) => { builder
@@ -317,7 +322,7 @@ export const { setCompany, setBranch, setDepartment, setLocation, setPosition, u
   unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, 
   setBoss, clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
   showRoleAdder, addRole, rmRole, editRole,
-  setRole, clearLevels, setLevelsValue, unSetLevelsValue, clearLevelValues, cancelEdit
+  setRole, clearLevels, setLevelsValue, unSetLevelsValue, clearLevelValues, cancelEdit, setShowInfo,
 } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;
@@ -340,5 +345,6 @@ export const levelsData           = ( state ) => state.corpsystems.levels;
 export const roleAdderData        = ( state ) => state.corpsystems.roleAdder;
 export const sessionKeyData       = ( state ) => state.corpsystems.sessionKey;
 export const editSandBoxData      = ( state ) => state.corpsystems.editSandBox;
+export const showInfoData         = ( state ) => state.corpsystems.showInfo;
 
 export default corpsystemSlice.reducer;

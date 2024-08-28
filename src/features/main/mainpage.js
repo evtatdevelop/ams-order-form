@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { user, loading } from '../user/userSlice';
 import { darkTheme } from "./mainpageSlice";
 import { TopBar } from "../topBar/topBar";
-import { changeTheme } from "./mainpageSlice";
+import { changeTheme, } from "./mainpageSlice";
 
 export const MainPage = () => {
   const dispatch = useDispatch();

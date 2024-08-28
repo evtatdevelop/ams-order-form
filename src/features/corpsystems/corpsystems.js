@@ -15,6 +15,7 @@ import { SelectInput } from "../components/selectInput/selectInput";
 import { Systems } from "./systems/systems";
 import { Roles } from "./roles/roles";
 import { Approvals } from "./approvals/approvals";
+import { setShowInfo, showInfoData } from "./corpsystemsSlice";
 
 export const Corpsystems = () => {
   const { system } = useParams();
@@ -28,6 +29,7 @@ export const Corpsystems = () => {
   const processGroupList  = useSelector(processGroupListData);
   const roleList          = useSelector(roleListData);
   const roles             = useSelector(rolesData);
+  const showInfo          = useSelector(showInfoData);
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
@@ -134,6 +136,12 @@ export const Corpsystems = () => {
           : null
         }
       </div>
+
+      { showInfo
+          ? <div className={styles.info}>INFO</div>
+          : null
+      }
+
     </section>
   )
 }

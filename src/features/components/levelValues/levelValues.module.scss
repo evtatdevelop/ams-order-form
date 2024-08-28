@@ -398,39 +398,68 @@
       }
       .main {
         .allAllsArea {
+          display: flex;
+          flex-direction: column;
+          // width: 100%;
           outline: .1vmax solid gray;
           background-color: #ffffff18;
-          .allList {
-            button {
-              background-color: transparent;
-              color: wheat;
-  
-              &:hover {
-                background-color: rgb(66, 66, 66);
-              }
-  
+          overflow-y: auto;
+          overflow-x: hidden;
+          padding: .1vmax;
+
+          button {
+            width: 100%;
+            display: flex;
+            padding: 0;
+            
+            align-items: center;
+            background-color: transparent;
+            color: wheat;
+
+            min-height: 3vmax;
+            // margin-bottom: .5vmax;
+
+            // outline: 1px solid red;
+
+            &:hover {
+              background-color: rgb(66, 66, 66);
+            }
+            .visualCheck{
+              display: flex;
+              align-items: center;
+              text-align: left;
+              padding: .5vmax;
+              font-weight: 400;
+              overflow: hidden;
+              justify-content: center;
+              width: 4vmax;
+              flex-grow: 0;
+              flex-shrink: 0;
+              // outline: 1px solid green;
             }
           }
-          .infoArea {
+            
+
+          // .infoArea {
   
-            .showInfoBtn {
-              padding: 0;
-              margin: 0;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              width: 2vmax;
-              height: 2vmax;
-              border-radius: 1vmax;
-              background-color: transparent;
-              // color: rgb(0, 89, 119);
-              color: wheat;
-              cursor: pointer;  
-              font-size: 2vmax;
-              transition: background-color .3s, color .3s;
-              border: .1vmax solid wheat;
-            }          
-          }
+          //   .showInfoBtn {
+          //     padding: 0;
+          //     margin: 0;
+          //     display: flex;
+          //     justify-content: center;
+          //     align-items: center;
+          //     width: 2vmax;
+          //     height: 2vmax;
+          //     border-radius: 1vmax;
+          //     background-color: transparent;
+          //     // color: rgb(0, 89, 119);
+          //     color: wheat;
+          //     cursor: pointer;  
+          //     font-size: 2vmax;
+          //     transition: background-color .3s, color .3s;
+          //     border: .1vmax solid wheat;
+          //   }          
+          // }
           // .closeAllsAria{
           //   display: flex;
           // }

@@ -17,12 +17,9 @@ export const mainpageSlice = createSlice({
   initialState,
   reducers: {
     changeTheme: (state, action) => {
-      // state.darkTheme = !state.darkTheme;
       state.darkTheme = action.payload;
-      // console.log('! ', JSON.parse(localStorage.getItem('darkTheme')));
       localStorage.setItem(`darkTheme`, JSON.stringify(state.darkTheme));
-      // console.log('!! ', JSON.parse(localStorage.getItem('darkTheme')));
-    },
+    }
 
   },
 
@@ -45,12 +42,7 @@ export const mainpageSlice = createSlice({
 
 export const { changeTheme } = mainpageSlice.actions;
 
-export const loading  = ( state ) => state.mainpage.loading;
-export const darkTheme  = ( state ) => state.mainpage.darkTheme;
-// export const data = ( state ) => state.mainpage.data;
-// export const row_from  = ( state ) => state.mainpage.row_from;
-// export const row_num  = ( state ) => state.mainpage.row_num;
-// export const counter  = ( state ) => state.mainpage.counter;
-// export const staffbook  = ( state ) => state.mainpage.staffbook;
+export const loading      = ( state ) => state.mainpage.loading;
+export const darkTheme    = ( state ) => state.mainpage.darkTheme;
 
 export default mainpageSlice.reducer;
