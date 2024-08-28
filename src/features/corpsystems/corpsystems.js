@@ -3,6 +3,7 @@ import styles from './corpsystems.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { user, loading } from '../user/userSlice';
 import dictionary from '../../dictionary.json';
+import info from '../../info.json';
 import { darkTheme } from "../main/mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { useParams } from "react-router-dom";
@@ -15,7 +16,9 @@ import { SelectInput } from "../components/selectInput/selectInput";
 import { Systems } from "./systems/systems";
 import { Roles } from "./roles/roles";
 import { Approvals } from "./approvals/approvals";
-import { setShowInfo, showInfoData } from "./corpsystemsSlice";
+import { setShowInfo, showInfoData, textInfoData } from "./corpsystemsSlice";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInfo, } from '@fortawesome/free-solid-svg-icons'
 
 export const Corpsystems = () => {
   const { system } = useParams();
@@ -30,6 +33,7 @@ export const Corpsystems = () => {
   const roleList          = useSelector(roleListData);
   const roles             = useSelector(rolesData);
   const showInfo          = useSelector(showInfoData);
+  const textInfo          = useSelector(textInfoData);
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
@@ -138,7 +142,21 @@ export const Corpsystems = () => {
       </div>
 
       { showInfo
-          ? <div className={styles.info}>INFO</div>
+          ? <div className={styles.info}>
+              <div className={styles.infoWindow}>
+
+                <div className={styles.infoIcon}><FontAwesomeIcon icon={ faInfo }/></div>
+
+                <div className={styles.textArea}>{info[textInfo][lang]}</div>
+                
+                <button className={styles.closeInfoBtn}
+                  type="buttton"
+                  onClick={() => dispatch(setShowInfo(false)) }
+                >Got it</button>                
+              </div>
+
+          
+            </div>
           : null
       }
 

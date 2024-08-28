@@ -8,7 +8,7 @@ import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel, setL
 import Input from "../../components/input/Input";
 import { ValueRow } from "./valueRow/valueRow";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faCircleInfo, faCircleXmark, } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faCircleInfo, } from '@fortawesome/free-solid-svg-icons'
 import { DataLoader } from "./dataLoader";
 import { TestLoader } from "./testLoader";
 import dictionary from "../../../dictionary.json";
@@ -188,6 +188,10 @@ const LevelValues = (props, ref) => {
     ])]);
   }
   const getCheckOterValue = () => {
+    // console.log(values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent) ).length);
+    // console.log(value.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes( values.find(itm => itm.id === otherItem).code_parent  ) ).length);
+    console.log( values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent)).length );
+        
     return  values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent) ).length
             ===
             value.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes( values.find(itm => itm.id === otherItem).code_parent  ) ).length;
@@ -286,37 +290,40 @@ const LevelValues = (props, ref) => {
 
                   { showAlls
                     ? <li className={styles.allAllsArea}>
-                        {/* <div className={styles.allList}> */}
-                          { values.filter(item => item.code === "ALL").map(item => 
-                            <button key={item.id}  type="button"
-                              onClick={() => setCheck(item.id)}
-                            >
-                              <div className={styles.visualCheck}><CheckBox check = {getCheckValue(item.id)}/></div>
-                              <div>{ `${item.value}` }</div>
-                            </button>)
-                          }
-                          <button type="button"
-                            onClick={() => checkAllAther()}    
-                          >
-                            <div className={styles.visualCheck}><CheckBox check = { getCheckOterValue() }/> </div>
-                            <div>{dictionary.other_options[lang]}</div>
-                          </button>
-                        {/* </div> */}
-                        {/* <div className={styles.infoArea}>
-                          <button
-                            type="button"
-                            className={styles.showInfoBtn} 
-                            onClick={() => dispatch(setShowInfo(!showInfo))}
-                          >
-                            { showInfo
-                              ? <FontAwesomeIcon icon={ faCircleXmark }/>
-                              : <FontAwesomeIcon icon={ faCircleInfo }/>
-                            }  
-                          </button>
+                      { values.filter(item => item.code === "ALL").map(item => 
+                        <button key={item.id}  type="button"
+                          onClick={() => setCheck(item.id)}
+                        >
+                          <div className={styles.visualCheck}><CheckBox check = {getCheckValue(item.id)}/></div>
+                          <div>{ `${item.value}` }</div>
+                        </button>)
+                      }
+                      { values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent)).length
+                        ? <button type="button"
+                          onClick={() => checkAllAther()}    
+                        >
+                          <div className={styles.visualCheck}><CheckBox check = { getCheckOterValue() }/> </div>
+                          <div>{dictionary.other_options[lang]}</div>
+                        </button>
+                        : null
+                      }
 
-                        </div> */}
+                      <div className={styles.infoArea}>
+                        { !showInfo
+                          ? <button
+                              type="button"
+                              className={styles.showInfoBtn} 
+                              onClick={() => dispatch(setShowInfo({showInfo: !showInfo, data: 'alls'}))}
+                            >
+                              <FontAwesomeIcon icon={ faCircleInfo }/>  
+                            </button>
+                          : null
+                        }
+
+
+                      </div>
                         
-                      </li>
+                    </li>
                     : null
                   }
 

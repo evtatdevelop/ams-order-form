@@ -397,34 +397,32 @@
         }      
       }
       .main {
+        position: relative;
+
         .allAllsArea {
+          // position: relative;
           display: flex;
           flex-direction: column;
-          // width: 100%;
           outline: .1vmax solid gray;
           background-color: #ffffff18;
           overflow-y: auto;
           overflow-x: hidden;
           padding: .1vmax;
+          min-height: 4.5vmax;
 
           button {
             width: 100%;
             display: flex;
             padding: 0;
-            
             align-items: center;
             background-color: transparent;
             color: wheat;
-
             min-height: 3vmax;
-            // margin-bottom: .5vmax;
-
-            // outline: 1px solid red;
-
             &:hover {
               background-color: rgb(66, 66, 66);
             }
-            .visualCheck{
+
+            .visualCheck {
               display: flex;
               align-items: center;
               text-align: left;
@@ -435,34 +433,27 @@
               width: 4vmax;
               flex-grow: 0;
               flex-shrink: 0;
-              // outline: 1px solid green;
             }
           }
             
 
-          // .infoArea {
-  
-          //   .showInfoBtn {
-          //     padding: 0;
-          //     margin: 0;
-          //     display: flex;
-          //     justify-content: center;
-          //     align-items: center;
-          //     width: 2vmax;
-          //     height: 2vmax;
-          //     border-radius: 1vmax;
-          //     background-color: transparent;
-          //     // color: rgb(0, 89, 119);
-          //     color: wheat;
-          //     cursor: pointer;  
-          //     font-size: 2vmax;
-          //     transition: background-color .3s, color .3s;
-          //     border: .1vmax solid wheat;
-          //   }          
-          // }
-          // .closeAllsAria{
-          //   display: flex;
-          // }
+          .infoArea {
+            position: absolute;
+            right: 3vmax;
+            top: 1.3vmax;
+            
+            .showInfoBtn {
+              padding: 0;
+              margin: 0;
+              background-color: transparent;
+              color: wheat;
+              cursor: pointer;  
+              font-size: 2vmax;
+              transition: background-color .3s, color .3s;
+              border: .1vmax solid wheat;
+              animation: appear 1300ms ease-out forwards;
+            }          
+          }
   
           animation: appear 1300ms ease-out forwards;
           @keyframes appear {

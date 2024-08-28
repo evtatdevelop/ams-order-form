@@ -9,7 +9,9 @@ const initialState = {
   subSystemLoading: false,
   positionInput: false,
   editSandBox: false,
+  
   showInfo: false,
+  textInfo: '',
 
   system: null,
   sessionKey: null,
@@ -180,7 +182,11 @@ export const corpsystemSlice = createSlice({
     },
 
     setShowInfo: (state, action) => {
-      state.showInfo = action.payload;
+      console.log(action.payload);
+
+      state.showInfo = action.payload.showInfo;
+      if ( action.payload.showInfo ) state.textInfo = action.payload.data;
+      else state.textInfo = '';      
     },
 
   },
@@ -346,5 +352,6 @@ export const roleAdderData        = ( state ) => state.corpsystems.roleAdder;
 export const sessionKeyData       = ( state ) => state.corpsystems.sessionKey;
 export const editSandBoxData      = ( state ) => state.corpsystems.editSandBox;
 export const showInfoData         = ( state ) => state.corpsystems.showInfo;
+export const textInfoData         = ( state ) => state.corpsystems.textInfo;
 
 export default corpsystemSlice.reducer;

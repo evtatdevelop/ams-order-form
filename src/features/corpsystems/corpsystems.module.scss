@@ -140,13 +140,80 @@
   }
 
   .info {
+    display: flex;
     position: fixed;
-    margin: auto;
-    width: 50vw;
-    height: 50vh;
+    width: 100%;
+    height: 100vh;
     z-index: 9999;
     outline: 1px solid red; 
-    background-color: rgba(255, 0, 0, 0.048)
+    background-color: transparent;
+    animation: appeaWin 300ms ease-in-out forwards;
+
+    .infoWindow {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      margin: auto;
+      width: 50%;
+      max-height: 50vh;
+      min-height: 10vh;
+      color: rgba(255, 255, 255, 0.774);
+      background-color: rgb(66, 66, 66);
+      padding: 2vmax;
+      padding-bottom: 2vmax;
+      outline: 1px solid wheat;
+
+      .infoIcon {
+        position: absolute;
+        left: 1vmax;
+        top: 1vmax;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 3vmax;
+        height: 3vmax;
+        border-radius: 1.5vmax;
+        border: .1vmax solid wheat;
+        font-size: 1.5vmax;
+        color: wheat;
+      }
+
+      .textArea {
+        font-size: 1.2vmax;
+        line-height: 1.7;
+        margin-top: 2vmax;
+        margin-bottom: 2vmax;
+        margin-left: 3vmax;
+      }
+      .closeInfoBtn {
+        width: 25%;
+        min-height: 20px;
+        height: 3vmax;
+        background-color: transparent;
+        color: wheat;
+        border: .1vmax solid gray;
+        border-radius: .3vmax;
+        text-align: left;
+        cursor: pointer;
+        text-align: center;
+        transition: background-color .3s;
+  
+        &:hover,
+        &:focus {
+          background-color: #16161919
+        }
+      }
+    }
+    @keyframes appeaWin {
+      0% {
+        opacity: .3;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
   }
 
 
