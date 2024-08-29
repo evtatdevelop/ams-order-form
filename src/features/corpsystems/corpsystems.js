@@ -18,7 +18,7 @@ import { Roles } from "./roles/roles";
 import { Approvals } from "./approvals/approvals";
 import { setShowInfo, showInfoData, textInfoData } from "./corpsystemsSlice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfo, } from '@fortawesome/free-solid-svg-icons'
+import { faCircleInfo, faTriangleExclamation, faCircleXmark, } from '@fortawesome/free-solid-svg-icons'
 
 export const Corpsystems = () => {
   const { system } = useParams();
@@ -53,10 +53,9 @@ export const Corpsystems = () => {
     ? `${styles.corpsystems} ${styles.dark}`
     : `${styles.corpsystems}`
 
-  corpsystemsStyle = cs && cs.instance_type === "TEST" 
+  corpsystemsStyle = cs && cs.instance_type === "TEST"
     ? `${corpsystemsStyle} ${styles.test}`
     : `${corpsystemsStyle}`
-
 
   const onSetBoss = val => {
     if ( !val ) {
@@ -64,6 +63,9 @@ export const Corpsystems = () => {
     }
     dispatch(setBoss(val))
   };
+
+  const infoIconStyle = textInfo && info[textInfo]['mode'] ? `${styles.infoIcon} ${styles[info[textInfo]['mode']]}` : `${styles.infoIcon}`;
+  
 
   return (
     <section className={corpsystemsStyle} >
@@ -144,13 +146,24 @@ export const Corpsystems = () => {
       { showInfo
           ? <div className={styles.info}>
               <div className={styles.infoWindow}>
+                
+                <div className={infoIconStyle}>
+                  { info[textInfo]['mode'] === 'info'
+                    ? <FontAwesomeIcon icon={ faCircleInfo }/>
+                    : info[textInfo]['mode'] === 'warning'
+                      ? <FontAwesomeIcon icon={ faTriangleExclamation }/>
+                      : info[textInfo]['mode'] === 'error'
+                        ? <FontAwesomeIcon icon={ faCircleXmark }/>
+                        : null  
+                  }                  
+                </div>
 
                 <div className={styles.textArea}>{info[textInfo][lang]}</div>
                 
                 <button className={styles.closeInfoBtn}
                   type="buttton"
                   onClick={() => dispatch(setShowInfo(false)) }
-                >Got it</button>                
+                >{info[textInfo]['btn'][lang]}</button>                
               </div>
 
           

@@ -149,6 +149,7 @@
     animation: appeaWin 300ms ease-in-out forwards;
 
     .infoWindow {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -162,6 +163,28 @@
       padding: 2vmax;
       padding-bottom: 2vmax;
       outline: 1px solid wheat;
+
+      .infoIcon {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2vmax;
+        top: 1vmax;
+        left: 1.5vmax;
+        width: 2vmax;
+        height: 2vmax;
+
+        &.info {
+          color: lightblue;
+        }
+        &.warning {
+          color: rgb(245, 245, 165);
+        }
+        &.error {
+          color: coral;
+        }
+      }
 
       .textArea {
         font-size: 1.2vmax;

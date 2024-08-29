@@ -150,7 +150,6 @@ export const corpsystemSlice = createSlice({
 
 
     setLevelsValue: (state, action) => {
-      // console.log(action.payload);
       const {asz05_id, added } = action.payload;
       const level = state.roleSendbox.levels.find(level => level.asz05_id === asz05_id)
       if ( level ) {
@@ -161,7 +160,6 @@ export const corpsystemSlice = createSlice({
       }
     },
     unSetLevelsValue: (state, action) => {
-      // console.log(action.payload);
       const {asz05_id, removed } = action.payload;
       const level = state.roleSendbox.levels.find(level => level.asz05_id === asz05_id)
       if ( level ) {
@@ -176,14 +174,10 @@ export const corpsystemSlice = createSlice({
 
 
     cancelEdit: (state) => {
-      console.log('cancelEdit');
-      
       state.editSandBox = false;
     },
 
     setShowInfo: (state, action) => {
-      console.log(action.payload);
-
       state.showInfo = action.payload.showInfo;
       if ( action.payload.showInfo ) state.textInfo = action.payload.data;
       else state.textInfo = '';      
@@ -302,7 +296,6 @@ export const corpsystemSlice = createSlice({
       // state.subSystemLoading = true 
     })
     .addCase(processLevel.fulfilled, ( state, action ) => {
-      console.log('DBProcessLevel', action.payload);
       const {event, value} = action.payload;
       switch ( event ) {
         case 'mkSessionLevels':

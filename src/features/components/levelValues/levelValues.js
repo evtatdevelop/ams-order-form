@@ -104,6 +104,19 @@ const LevelValues = (props, ref) => {
 
   const saveValueSet = () => {
     if ( !value.length ) return;
+    
+    //toDo: Checking of filling
+    // console.log('values', [...new Set(values.map(item => item.code_parent))].length );
+    // console.log( 'value', [...new Set(values.filter(item => value.includes(item.id)))].length );
+    if (parent && [...new Set(values.map(item => item.code_parent))].length !== [...new Set(values.filter(item => value.includes(item.id)))].length ) {
+      
+      console.log( '!!! SHOW ERROR MESSAGE !!!' );
+      dispatch(setShowInfo({showInfo: !showInfo, data: 'incomplete', }));
+
+      return
+    }
+    
+
     const removed = backUp.filter(before => !value.map(after => after).includes(before));
     const added = value.filter(after => !backUp.map(before => before).includes(after));
     if ( removed.length ) { 
@@ -120,7 +133,6 @@ const LevelValues = (props, ref) => {
     setShow(false);
   };
 
-
   const cancel = () => {
     if ( isChanged ) setValue(backUp);
     setBackUp([]);
@@ -129,7 +141,6 @@ const LevelValues = (props, ref) => {
     setShow(false);
   }
  
-
   const setCheck = id => {    
     // dispatch(cancelEdit()); //? ...moved to DBProcessLevel
     if ( !isChanged ) setIsChanged(true);
@@ -151,7 +162,10 @@ const LevelValues = (props, ref) => {
       //? There're ALLs
       if ( filtr.length === values.length ) { 
         //? No Filter
-        setShowAlls(true);
+        if ( showAlls ) setValue([...new Set([...values.filter(item => item.code === 'ALL').map(i=>i.id), 
+          ...values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent) ).map(i=>i.id)
+         ])]);
+        else setShowAlls(true);
       } else {
         //? whith filter
         if ( filtr.length === filtr.filter(item => item.code === 'ALL').length ) {
@@ -188,10 +202,6 @@ const LevelValues = (props, ref) => {
     ])]);
   }
   const getCheckOterValue = () => {
-    // console.log(values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent) ).length);
-    // console.log(value.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes( values.find(itm => itm.id === otherItem).code_parent  ) ).length);
-    console.log( values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent)).length );
-        
     return  values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent) ).length
             ===
             value.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes( values.find(itm => itm.id === otherItem).code_parent  ) ).length;
@@ -233,12 +243,16 @@ const LevelValues = (props, ref) => {
   : `${styles.selectInput}`
 
   const stylesChecklAllStyle = filtr.filter(item => value.includes(item.id)).length //? there're checked
-  ? filtr.length !== filtr.filter(item => value.includes(item.id)).length           //? not all filtred are checked
-    ? `${styles.checklAll} ${styles.notAll}`
-    : `${styles.checklAll} ${styles.all}`
+  ? filtr.length === filtr.filter(item => value.includes(item.id)).length   //? not all filtred are checked
+    ||
+    value.filter(valItm=>values.filter(item=>item.code==='ALL').map(i=>i.id).includes(valItm)).length +     //? all CHECKED ALLs   
+    value.filter(valItm=>values.filter(otherItem=>!values.filter(item=>item.code==="ALL").map(i=>i.code_parent).includes(otherItem.code_parent)).map(i=>i.id).includes(valItm)).length ===   //? all CHECKED not ALLs nor their children
+    values.filter(item => item.code === 'ALL').map(i=>i.id).length +      //? all ALLs
+    values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent) ).map(i=>i.id).length    //? all not ALLs nor their children
+    ? `${styles.checklAll} ${styles.all}`
+    : `${styles.checklAll} ${styles.notAll}`
   : `${styles.checklAll}`
 
-  
 
   return (
     values.length
@@ -312,7 +326,7 @@ const LevelValues = (props, ref) => {
                         <button
                           type="button"
                           className={styles.showInfoBtn} 
-                          onClick={() => dispatch(setShowInfo({showInfo: !showInfo, data: 'alls'}))}
+                          onClick={() => dispatch(setShowInfo({showInfo: !showInfo, data: 'alls', }))}
                         >
                           <FontAwesomeIcon icon={ faCircleInfo }/>  
                         </button>
