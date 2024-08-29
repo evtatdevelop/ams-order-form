@@ -446,12 +446,16 @@
               padding: 0;
               margin: 0;
               background-color: transparent;
-              color: wheat;
+              color: rgba(245, 222, 179, 0.514);
               cursor: pointer;  
               font-size: 2vmax;
-              transition: background-color .3s, color .3s;
-              border: .1vmax solid wheat;
+              transition: background-color .3s, color .3s, border .3s;
+              border: .1vmax solid rgba(245, 222, 179, 0.658);
               animation: appear 1300ms ease-out forwards;
+
+              &:hover {
+                border: .1vmax solid wheat;
+              }
             }          
           }
   

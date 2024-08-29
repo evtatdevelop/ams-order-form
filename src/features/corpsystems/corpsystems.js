@@ -145,8 +145,6 @@ export const Corpsystems = () => {
           ? <div className={styles.info}>
               <div className={styles.infoWindow}>
 
-                <div className={styles.infoIcon}><FontAwesomeIcon icon={ faInfo }/></div>
-
                 <div className={styles.textArea}>{info[textInfo][lang]}</div>
                 
                 <button className={styles.closeInfoBtn}

@@ -309,18 +309,13 @@ const LevelValues = (props, ref) => {
                       }
 
                       <div className={styles.infoArea}>
-                        { !showInfo
-                          ? <button
-                              type="button"
-                              className={styles.showInfoBtn} 
-                              onClick={() => dispatch(setShowInfo({showInfo: !showInfo, data: 'alls'}))}
-                            >
-                              <FontAwesomeIcon icon={ faCircleInfo }/>  
-                            </button>
-                          : null
-                        }
-
-
+                        <button
+                          type="button"
+                          className={styles.showInfoBtn} 
+                          onClick={() => dispatch(setShowInfo({showInfo: !showInfo, data: 'alls'}))}
+                        >
+                          <FontAwesomeIcon icon={ faCircleInfo }/>  
+                        </button>
                       </div>
                         
                     </li>
