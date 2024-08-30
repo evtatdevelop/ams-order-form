@@ -17,13 +17,15 @@ export const ValueRow = (props) => {
     // multiple_select,
     // name,
     // orglevels_order,
-    value
+    value,
   } = props.item;
 
   const checkUncheck = () => {
     props.setCheck( id )
   }
 
+  if ( props.incomplete ) console.log(code);
+  
 
   const dark = useSelector(darkTheme);
 
@@ -37,9 +39,13 @@ export const ValueRow = (props) => {
   ? `${styles.valueRow} ${styles.dark}`
   : `${styles.valueRow}`
 
+  const wrapperBtnStyle = props.incomplete && !props.check
+  ? `${styles.wrapperBtn} ${styles.incomplete}`
+  : `${styles.wrapperBtn}`
+
   return (
     <li className={selectvalueRow}>
-      <button type="button" className={styles.wrapperBtn} onClick={ () => checkUncheck() } >
+      <button type="button" className={wrapperBtnStyle} onClick={ () => checkUncheck() } >
         <div className={styles.visualCheck}><CheckBox check = { props.check }/></div>
         <div className={styles.visualCode} style={{width: `${codeWith}%`, display: `${displayCode}`}}>{code}</div>
         <div className={styles.visualName} style={{display: `${displayValue}`}}>{value}</div>

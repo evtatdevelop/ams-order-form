@@ -40,6 +40,7 @@ const LevelValues = (props, ref) => {
   const [visual, setVisual] = useState('');
   const [updating, setUpdating] = useState(false);
   const [showAlls, setShowAlls] = useState(false);
+  const [incompleteList, setIncompleteList] = useState([]);
 
 
   useEffect(() => {
@@ -105,18 +106,12 @@ const LevelValues = (props, ref) => {
   const saveValueSet = () => {
     if ( !value.length ) return;
     
-    //toDo: Checking of filling
-    // console.log('values', [...new Set(values.map(item => item.code_parent))].length );
-    // console.log( 'value', [...new Set(values.filter(item => value.includes(item.id)))].length );
     if (parent && [...new Set(values.map(item => item.code_parent))].length !== [...new Set(values.filter(item => value.includes(item.id)))].length ) {
-      
-      console.log( '!!! SHOW ERROR MESSAGE !!!' );
+      setIncompleteList([...new Set(values.map(item => item.code_parent))].filter(itm => ![...new Set(values.filter(item => value.includes(item.id)).map(i=>i.code_parent) )].includes(itm) ));
       dispatch(setShowInfo({showInfo: !showInfo, data: 'incomplete', }));
-
       return
     }
     
-
     const removed = backUp.filter(before => !value.map(after => after).includes(before));
     const added = value.filter(after => !backUp.map(before => before).includes(after));
     if ( removed.length ) { 
@@ -131,6 +126,7 @@ const LevelValues = (props, ref) => {
     setBackUp([]);
     clearFiler();
     setShow(false);
+    setIncompleteList([]);
   };
 
   const cancel = () => {
@@ -139,6 +135,7 @@ const LevelValues = (props, ref) => {
     setIsChanged(false);
     clearFiler();
     setShow(false);
+    setIncompleteList([]);
   }
  
   const setCheck = id => {    
@@ -344,6 +341,7 @@ const LevelValues = (props, ref) => {
                       refers={refers}
                       check={getCheckValue(item.id)}
                       setCheck = {setCheck}
+                      incomplete = {incompleteList.includes(item.code_parent)}
                     />) 
                   }
                 </ul>
