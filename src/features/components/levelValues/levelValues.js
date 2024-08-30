@@ -105,12 +105,25 @@ const LevelValues = (props, ref) => {
 
   const saveValueSet = () => {
     if ( !value.length ) return;
+
+    // console.log( [...new Set(values.map(item => item.code_parent))] );
+    // console.log( [...new Set(values.filter(item => value.includes(item.id)).map(item => item.code_parent))] );
     
-    if (parent && [...new Set(values.map(item => item.code_parent))].length !== [...new Set(values.filter(item => value.includes(item.id)))].length ) {
+    
+    if (parent 
+        && 
+        [...new Set(values.map(item => item.code_parent))].length !== [...new Set(values.filter(item => value.includes(item.id)).map(item => item.code_parent))].length
+      ) {
       setIncompleteList([...new Set(values.map(item => item.code_parent))].filter(itm => ![...new Set(values.filter(item => value.includes(item.id)).map(i=>i.code_parent) )].includes(itm) ));
       dispatch(setShowInfo({showInfo: !showInfo, data: 'incomplete', }));
       return
     }
+
+    //toDo: check of not ALL
+    console.log(
+      values.filter(item => value.includes(item.id))
+    );
+    
     
     const removed = backUp.filter(before => !value.map(after => after).includes(before));
     const added = value.filter(after => !backUp.map(before => before).includes(after));
@@ -293,8 +306,8 @@ const LevelValues = (props, ref) => {
                       : null  
                     }
                   </div>
-                  <div className={styles.headCode} style={{width: `${codeWith}%`, display: `${displayCode}`}}>Code</div>
-                  <div className={styles.headName} style={{display: `${displayValue}`}}>Value</div>
+                  <div className={styles.headCode} style={{width: `${codeWith}%`, display: `${displayCode}`}}>{dictionary.code[lang]}</div>
+                  <div className={styles.headName} style={{display: `${displayValue}`}}>{dictionary.value[lang]}</div>
                 </div>
 
                 <ul className={styles.main}>
