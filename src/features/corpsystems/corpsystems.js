@@ -143,7 +143,7 @@ export const Corpsystems = () => {
         }
       </div>
 
-      { showInfo
+      { showInfo === 'on'
           ? <div className={styles.info}>
               <div className={styles.infoWindow}>
                 
@@ -162,7 +162,7 @@ export const Corpsystems = () => {
                 
                 <button className={styles.closeInfoBtn}
                   type="buttton"
-                  onClick={() => dispatch(setShowInfo(false)) }
+                  onClick={() => dispatch(setShowInfo({showInfo: 'off', data: '', })) }
                 >{info[textInfo]['btn'][lang]}</button>                
               </div>
 

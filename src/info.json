@@ -20,5 +20,16 @@
     "EN": "Incomplete filling of sublevels.",
     "RU": "Неполное заполнение подуровней.",
     "ZH": "子級別填滿不完整。"
+  },
+  "notOptimal": {
+    "mode": "warning",
+    "btn": {
+      "EN": "Got it",
+      "RU": "Понятно",
+      "ZH": "天氣晴朗"
+    },
+    "EN": "Sublevels are not filled optimally.",
+    "RU": "Не оптимальное заполнение подуровней.",
+    "ZH": "子級別未得到最佳填充"
   }
 }

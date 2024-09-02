@@ -10,7 +10,7 @@ const initialState = {
   positionInput: false,
   editSandBox: false,
   
-  showInfo: false,
+  showInfo: '',
   textInfo: '',
 
   system: null,
@@ -179,8 +179,10 @@ export const corpsystemSlice = createSlice({
 
     setShowInfo: (state, action) => {
       state.showInfo = action.payload.showInfo;
-      if ( action.payload.showInfo ) state.textInfo = action.payload.data;
-      else state.textInfo = '';      
+      if ( action.payload.showInfo === 'on' ) state.textInfo = action.payload.data;
+      else state.textInfo = ''; 
+      console.log( '!', state.showInfo );
+           
     },
 
   },

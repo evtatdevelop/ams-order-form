@@ -2,9 +2,9 @@ import React, {useState, useRef, forwardRef, useImperativeHandle, useEffect } fr
 import styles from './levelValues.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { darkTheme } from "../../main/mainpageSlice";
-import { levelValues } from "../../corpsystems/corpsystemsSliceAPI";
+import { levels, levelValues } from "../../corpsystems/corpsystemsSliceAPI";
 import { user } from "../../user/userSlice";
-import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel, setLevelsValue, unSetLevelsValue, editSandBoxData, } from "../../corpsystems/corpsystemsSlice";
+import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel, setLevelsValue, unSetLevelsValue, editSandBoxData, showInfoData, setShowInfo, } from "../../corpsystems/corpsystemsSlice";
 import Input from "../../components/input/Input";
 import { ValueRow } from "./valueRow/valueRow";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,7 +13,6 @@ import { DataLoader } from "./dataLoader";
 import { TestLoader } from "./testLoader";
 import dictionary from "../../../dictionary.json";
 import { CheckBox } from "./valueRow/checkBox/checkBox";
-import { showInfoData, setShowInfo, } from "../../corpsystems/corpsystemsSlice";
 
 const LevelValues = (props, ref) => {
   const insideref = useRef(null)
@@ -28,6 +27,9 @@ const LevelValues = (props, ref) => {
   const sessionKey = useSelector(sessionKeyData);
   const editSandBox = useSelector(editSandBoxData);
   const showInfo = useSelector(showInfoData);
+
+  // console.log(showInfo);
+  
   
   const [show, setShow] = useState(false);
   const [values, setValues] = useState([]);
@@ -108,21 +110,42 @@ const LevelValues = (props, ref) => {
 
     // console.log( [...new Set(values.map(item => item.code_parent))] );
     // console.log( [...new Set(values.filter(item => value.includes(item.id)).map(item => item.code_parent))] );
-    
+    console.log('0', showInfo);
     
     if (parent 
         && 
         [...new Set(values.map(item => item.code_parent))].length !== [...new Set(values.filter(item => value.includes(item.id)).map(item => item.code_parent))].length
       ) {
       setIncompleteList([...new Set(values.map(item => item.code_parent))].filter(itm => ![...new Set(values.filter(item => value.includes(item.id)).map(i=>i.code_parent) )].includes(itm) ));
-      dispatch(setShowInfo({showInfo: !showInfo, data: 'incomplete', }));
+      dispatch(setShowInfo({showInfo: 'on', data: 'incomplete', }));
       return
     }
 
     //toDo: check of not ALL
-    console.log(
-      values.filter(item => value.includes(item.id))
+    const items = idArr => values.filter(item => idArr.includes(item.id));
+    const ids = itemArr => itemArr.map(item => item.id);
+    const alls = arr => arr.filter(iAll=>iAll.code === "ALL");
+    const codeParents = arr => arr.map(item=>item.code_parent);
+
+    // console.log(
+    //   values.filter(itemAll => itemAll.code === 'ALL' && 
+    //     codeParents(items(ids(alls(values)).filter(item=>!ids(alls(items(value))).includes(item))))
+    //     .filter(item => values.filter(i=>i.code_parent === item).length - 1 === items(value).filter(i=>i.code_parent === item).length )
+    //     .includes(itemAll.code_parent) 
+    //   )
+    // );
+    const fullNotAll = values.filter(itemAll => itemAll.code === 'ALL' && 
+      codeParents(items(ids(alls(values)).filter(item=>!ids(alls(items(value))).includes(item))))
+      .filter(item => values.filter(i=>i.code_parent === item).length - 1 === items(value).filter(i=>i.code_parent === item).length )
+      .includes(itemAll.code_parent) 
     );
+    
+    if ( fullNotAll.length ){ 
+      dispatch(setShowInfo({showInfo: 'on', data: 'notOptimal', }));
+      return
+    }  
+
+    
     
     
     const removed = backUp.filter(before => !value.map(after => after).includes(before));
@@ -336,7 +359,7 @@ const LevelValues = (props, ref) => {
                         <button
                           type="button"
                           className={styles.showInfoBtn} 
-                          onClick={() => dispatch(setShowInfo({showInfo: !showInfo, data: 'alls', }))}
+                          onClick={() => dispatch(setShowInfo({showInfo: 'on', data: 'alls', }))}
                         >
                           <FontAwesomeIcon icon={ faCircleInfo }/>  
                         </button>
