@@ -40,11 +40,13 @@ const LevelValues = (props, ref) => {
   const [showAlls, setShowAlls] = useState(false);
   const [incompleteList, setIncompleteList] = useState([]);
   const [notOptimalList, setNotOptimalList] = useState([]);
+  // const [addParentVals, setAddParentVals] = useState(false);
 
 
   const items = idArr => values.filter(item => idArr.includes(item.id));
   const ids = itemArr => itemArr.map(item => item.id);
   const alls = arr => arr.filter(iAll=>iAll.code === "ALL");
+  // const notAlls = arr => arr.filter(iAll=>iAll.code !== "ALL");
   const codeParents = arr => arr.map(item=>item.code_parent);
 
 
@@ -79,20 +81,32 @@ const LevelValues = (props, ref) => {
          &&  roleSendbox.levels.find(level => level.asz05_id === asz05_id)
     ) {
       setValue(roleSendbox.levels.find(level => level.asz05_id === asz05_id).value);
-      if ( !editSandBox ) {
+      
+      // if ( !editSandBox ) {
+      if ( !editSandBox && parent ) {
         //? the new list of values ​​no longer contains such values
         const removed = roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.filter(idDelVal => !values.map(listItem => listItem.id).includes(idDelVal));
         if ( removed.length ) { 
           dispatch(unSetLevelsValue({asz05_id, removed }));
           dispatch(processLevel({api_key, removed, event: 'rmSessionLevels', session_key: sessionKey, blk_id: roleSendbox.cnt, asz03_id: roleSendbox.role.id, asz05_id, }));
         }
+
+        //toDo: case where values ​​were added
+        // if ( parent ) {
+          const newParendValues = values.filter(item => !codeParents(items(value)).includes(item.code_parent));
+          // console.log( newParendValues );
+          if ( newParendValues.length ) {
+            // setAddParentVals( true )
+            showWin();
+          }
+        // }
       }
       setVisual( roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.map(id => 
         values.find(item => item.id === id)?.code === "ALL" 
         ? `${values.find(item => item.id === id)?.code}(${values.find(item => item.id === id)?.code_parent})` 
         : values.find(item => item.id === id)?.code ).join(', ') )
-
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [api_key, asz05_id, dispatch, 
     editSandBox, 
     roleSendbox.cnt, roleSendbox.levels, roleSendbox.role.id, sessionKey, values])

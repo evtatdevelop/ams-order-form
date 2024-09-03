@@ -147,8 +147,6 @@ export const corpsystemSlice = createSlice({
       state.editSandBox = true;
     },
 
-
-
     setLevelsValue: (state, action) => {
       const {asz05_id, added } = action.payload;
       const level = state.roleSendbox.levels.find(level => level.asz05_id === asz05_id)
