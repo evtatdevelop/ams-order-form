@@ -24,7 +24,7 @@ export const ValueRow = (props) => {
     props.setCheck( id )
   }
 
-  if ( props.incomplete ) console.log(code);
+  // if ( props.incomplete ) console.log(code);
   
 
   const dark = useSelector(darkTheme);
@@ -39,7 +39,7 @@ export const ValueRow = (props) => {
   ? `${styles.valueRow} ${styles.dark}`
   : `${styles.valueRow}`
 
-  const wrapperBtnStyle = props.incomplete && !props.check
+  const wrapperBtnStyle = (props.incomplete || props.notOptimal) && !props.check
   ? `${styles.wrapperBtn} ${styles.incomplete}`
   : `${styles.wrapperBtn}`
 

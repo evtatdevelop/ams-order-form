@@ -35,7 +35,6 @@ export const RoleSandbox = () => {
 
   useEffect(() => {
     if ( Object.keys(role).length ) {
-      console.log('role', role);
       setHereGroup(role.processGroup.name);
       setHereRole(`${role.role.name} ( ${role.role.code} )`)
       dispatch(getLevels({
@@ -70,7 +69,6 @@ export const RoleSandbox = () => {
   }
 
   const handleRole = val => {
-    console.log('val', val);
     
     //? Re:formatRoleNames
     const role = {...val, name: val.name.slice(0, val.name.lastIndexOf('(', val.length)).trim(), }
@@ -166,7 +164,6 @@ export const RoleSandbox = () => {
   ? `${styles.roleSandbox} ${styles.dark}`
   : `${styles.roleSandbox}`
 
-  // console.log(hereSearch)
 
   return (
     <section className={roleSandboxStyle}>

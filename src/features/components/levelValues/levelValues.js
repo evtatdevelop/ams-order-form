@@ -2,9 +2,9 @@ import React, {useState, useRef, forwardRef, useImperativeHandle, useEffect } fr
 import styles from './levelValues.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { darkTheme } from "../../main/mainpageSlice";
-import { levels, levelValues } from "../../corpsystems/corpsystemsSliceAPI";
+import { levelValues } from "../../corpsystems/corpsystemsSliceAPI";
 import { user } from "../../user/userSlice";
-import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel, setLevelsValue, unSetLevelsValue, editSandBoxData, showInfoData, setShowInfo, } from "../../corpsystems/corpsystemsSlice";
+import { sessionKeyData, userData, corpSyst, roleSendboxData, processLevel, setLevelsValue, unSetLevelsValue, editSandBoxData, setShowInfo, } from "../../corpsystems/corpsystemsSlice";
 import Input from "../../components/input/Input";
 import { ValueRow } from "./valueRow/valueRow";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -26,9 +26,8 @@ const LevelValues = (props, ref) => {
   const dark = useSelector(darkTheme);
   const sessionKey = useSelector(sessionKeyData);
   const editSandBox = useSelector(editSandBoxData);
-  const showInfo = useSelector(showInfoData);
+  // const showInfo = useSelector(showInfoData);
 
-  // console.log(showInfo);
   
   
   const [show, setShow] = useState(false);
@@ -43,6 +42,14 @@ const LevelValues = (props, ref) => {
   const [updating, setUpdating] = useState(false);
   const [showAlls, setShowAlls] = useState(false);
   const [incompleteList, setIncompleteList] = useState([]);
+  const [notOptimalList, setNotOptimalList] = useState([]);
+
+
+  const items = idArr => values.filter(item => idArr.includes(item.id));
+  const item = id => values.find(item => item.id === id);
+  const ids = itemArr => itemArr.map(item => item.id);
+  const alls = arr => arr.filter(iAll=>iAll.code === "ALL");
+  const codeParents = arr => arr.map(item=>item.code_parent);
 
 
   useEffect(() => {
@@ -87,7 +94,12 @@ const LevelValues = (props, ref) => {
           dispatch(processLevel({api_key, removed, event: 'rmSessionLevels', session_key: sessionKey, blk_id: roleSendbox.cnt, asz03_id: roleSendbox.role.id, asz05_id, }));
         }
       }
-      setVisual( roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.map(id => values.find(item => item.id === id)?.code ).join(', ') )
+
+      // setVisual( roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.map(id => values.find(item => item.id === id)?.code ).join(', ') )
+      setVisual( roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.map(id => 
+        values.find(item => item.id === id)?.code === "ALL" 
+        ? `${values.find(item => item.id === id)?.code}(${values.find(item => item.id === id)?.code_parent})` 
+        : values.find(item => item.id === id)?.code ).join(', ') )
 
     }
   }, [api_key, asz05_id, dispatch, 
@@ -105,44 +117,28 @@ const LevelValues = (props, ref) => {
   }
 
 
+
+
   const saveValueSet = () => {
     if ( !value.length ) return;
-
-    // console.log( [...new Set(values.map(item => item.code_parent))] );
-    // console.log( [...new Set(values.filter(item => value.includes(item.id)).map(item => item.code_parent))] );
-    console.log('0', showInfo);
     
     if (parent 
         && 
         [...new Set(values.map(item => item.code_parent))].length !== [...new Set(values.filter(item => value.includes(item.id)).map(item => item.code_parent))].length
       ) {
-      setIncompleteList([...new Set(values.map(item => item.code_parent))].filter(itm => ![...new Set(values.filter(item => value.includes(item.id)).map(i=>i.code_parent) )].includes(itm) ));
+      setIncompleteList([...new Set(values.map(item => item.code_parent))].filter(itm => ![...new Set(values.filter(item => value.includes(item.id)).map(i=>i.code_parent) )].includes(itm) ));    
       dispatch(setShowInfo({showInfo: 'on', data: 'incomplete', }));
       return
     }
 
-    //toDo: check of not ALL
-    const items = idArr => values.filter(item => idArr.includes(item.id));
-    const ids = itemArr => itemArr.map(item => item.id);
-    const alls = arr => arr.filter(iAll=>iAll.code === "ALL");
-    const codeParents = arr => arr.map(item=>item.code_parent);
-
-    // console.log(
-    //   values.filter(itemAll => itemAll.code === 'ALL' && 
-    //     codeParents(items(ids(alls(values)).filter(item=>!ids(alls(items(value))).includes(item))))
-    //     .filter(item => values.filter(i=>i.code_parent === item).length - 1 === items(value).filter(i=>i.code_parent === item).length )
-    //     .includes(itemAll.code_parent) 
-    //   )
-    // );
     const fullNotAll = values.filter(itemAll => itemAll.code === 'ALL' && 
       codeParents(items(ids(alls(values)).filter(item=>!ids(alls(items(value))).includes(item))))
       .filter(item => values.filter(i=>i.code_parent === item).length - 1 === items(value).filter(i=>i.code_parent === item).length )
       .includes(itemAll.code_parent) 
     );
-    
     if ( fullNotAll.length ){ 
       dispatch(setShowInfo({showInfo: 'on', data: 'notOptimal', }));
-      return
+      setNotOptimalList(ids(fullNotAll));
     }  
 
     
@@ -378,6 +374,7 @@ const LevelValues = (props, ref) => {
                       check={getCheckValue(item.id)}
                       setCheck = {setCheck}
                       incomplete = {incompleteList.includes(item.code_parent)}
+                      notOptimal = {notOptimalList.includes(item.id)}
                     />) 
                   }
                 </ul>
