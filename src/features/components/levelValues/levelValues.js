@@ -26,9 +26,6 @@ const LevelValues = (props, ref) => {
   const dark = useSelector(darkTheme);
   const sessionKey = useSelector(sessionKeyData);
   const editSandBox = useSelector(editSandBoxData);
-  // const showInfo = useSelector(showInfoData);
-
-  
   
   const [show, setShow] = useState(false);
   const [values, setValues] = useState([]);
@@ -46,7 +43,6 @@ const LevelValues = (props, ref) => {
 
 
   const items = idArr => values.filter(item => idArr.includes(item.id));
-  const item = id => values.find(item => item.id === id);
   const ids = itemArr => itemArr.map(item => item.id);
   const alls = arr => arr.filter(iAll=>iAll.code === "ALL");
   const codeParents = arr => arr.map(item=>item.code_parent);
@@ -74,28 +70,23 @@ const LevelValues = (props, ref) => {
           setfiltr(values);
           setRefers(getDataLength(values));
           setUpdating(false);
-
-          // if ( !value.length ) setShow(true); //? outoopen window with values
         });
     } 
   }, [api_key, asz05_id, corpSystem.asz22_id, corpSystem.sapSystem.asz00_id, id, orderUser.id, parent, roleSendbox.cnt, roleSendbox.levels, roleSendbox.processGroup.name, roleSendbox.role.code, roleSendbox.role.id, sessionKey]);
-
-
+ 
   useEffect(() => {
     if ( roleSendbox.levels.length 
          &&  roleSendbox.levels.find(level => level.asz05_id === asz05_id)
     ) {
       setValue(roleSendbox.levels.find(level => level.asz05_id === asz05_id).value);
-      //? the new list of values ​​no longer contains such values
-      const removed = roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.filter(idDelVal => !values.map(listItem => listItem.id).includes(idDelVal));
       if ( !editSandBox ) {
+        //? the new list of values ​​no longer contains such values
+        const removed = roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.filter(idDelVal => !values.map(listItem => listItem.id).includes(idDelVal));
         if ( removed.length ) { 
           dispatch(unSetLevelsValue({asz05_id, removed }));
           dispatch(processLevel({api_key, removed, event: 'rmSessionLevels', session_key: sessionKey, blk_id: roleSendbox.cnt, asz03_id: roleSendbox.role.id, asz05_id, }));
         }
       }
-
-      // setVisual( roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.map(id => values.find(item => item.id === id)?.code ).join(', ') )
       setVisual( roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.map(id => 
         values.find(item => item.id === id)?.code === "ALL" 
         ? `${values.find(item => item.id === id)?.code}(${values.find(item => item.id === id)?.code_parent})` 
@@ -107,7 +98,14 @@ const LevelValues = (props, ref) => {
     roleSendbox.cnt, roleSendbox.levels, roleSendbox.role.id, sessionKey, values])
 
 
-
+   useEffect(()=>{
+    if ( !value.length && values.length === 1 && !roleSendbox.levels.find(level => level.asz05_id === asz05_id)?.value.length ) { //? a case when there is only one value
+      const added = [values[0].id];
+      setValue(added);
+      dispatch(setLevelsValue({asz05_id, added }));
+      dispatch(processLevel({api_key, added, event: 'mkSessionLevels', session_key: sessionKey, blk_id: roleSendbox.cnt, asz03_id: roleSendbox.role.id, asz05_id, removed: [] }));          
+    }; 
+   },[api_key, asz05_id, dispatch, roleSendbox.cnt, roleSendbox.levels, roleSendbox.role.id, sessionKey, value.length, values]) 
 
   const showWin = () => {
     setBackUp(value);
@@ -116,12 +114,8 @@ const LevelValues = (props, ref) => {
     : console.log('noData');
   }
 
-
-
-
   const saveValueSet = () => {
-    if ( !value.length ) return;
-    
+    if ( !value.length ) return;    
     if (parent 
         && 
         [...new Set(values.map(item => item.code_parent))].length !== [...new Set(values.filter(item => value.includes(item.id)).map(item => item.code_parent))].length
@@ -130,7 +124,6 @@ const LevelValues = (props, ref) => {
       dispatch(setShowInfo({showInfo: 'on', data: 'incomplete', }));
       return
     }
-
     const fullNotAll = values.filter(itemAll => itemAll.code === 'ALL' && 
       codeParents(items(ids(alls(values)).filter(item=>!ids(alls(items(value))).includes(item))))
       .filter(item => values.filter(i=>i.code_parent === item).length - 1 === items(value).filter(i=>i.code_parent === item).length )
@@ -141,9 +134,6 @@ const LevelValues = (props, ref) => {
       setNotOptimalList(ids(fullNotAll));
     }  
 
-    
-    
-    
     const removed = backUp.filter(before => !value.map(after => after).includes(before));
     const added = value.filter(after => !backUp.map(before => before).includes(after));
     if ( removed.length ) { 

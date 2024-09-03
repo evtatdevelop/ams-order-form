@@ -43,6 +43,7 @@ export const RoleSandbox = () => {
         asz03_id: role.role.id,  
       }));      
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
   useEffect(() => {
@@ -137,7 +138,8 @@ export const RoleSandbox = () => {
 
   // ? test function. Requires development
   const checkRole = role => {
-    //todo: perhaps much strong tests are needed 
+    //todo: checking the consistency of the lists of level values ​​with each other
+
     if ( !role?.role?.id ) return false; 
     if ( role.levels && (!role.levels.length || levels.length !== role.levels.length) ) return false;
 
