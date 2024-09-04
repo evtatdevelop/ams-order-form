@@ -137,6 +137,7 @@
         clip: rect(0 0 0 0);
         overflow: hidden;
 
+        &:focus,
         &:hover {
           &+label {
             background-color: rgb(152, 226, 251);
@@ -196,6 +197,7 @@
   
         input[type=radio] {
 
+          &:focus,
           &:hover {
             &+label {
               background-color: #60606d;

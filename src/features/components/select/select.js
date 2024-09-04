@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useImperativeHandle } from "react";
+import React, { useState, forwardRef, useImperativeHandle, useRef, } from "react";
 import styles from './select.module.scss';
 import { useSelector } from "react-redux";
 import { darkTheme } from "../../main/mainpageSlice";
@@ -9,13 +9,16 @@ const Select = (props, ref) => {
   const [value, setValue] = useState(val ? val : "")
   const [show, setShow] = useState(false);
   const dark = useSelector(darkTheme);
-  
-  const onChange = item => {
+  const inputRefs = useRef([]);
+
+ const onChange = item => {
     setValue(item.name);
     selectHandler(item)
     setShow(false)
   }
-  const onBlur = () => setTimeout(()=>setShow(false), 100)
+  // const onBlur = () => setTimeout(()=>setShow(false), 100)
+  const onBlur = () => {}
+  
   const clearInput = () => {
     setValue('')
     selectClear('')
@@ -30,6 +33,36 @@ const Select = (props, ref) => {
   ? `${styles.select} ${styles.dark}`
   : `${styles.select}`
 
+  const keyDown = (e, i, item) => {
+    
+    if ( e.code !== 'Tab' ) e.preventDefault();
+ 
+    // console.log(e.code);
+    
+    
+    switch ( e.code ) {
+      case 'ArrowDown': 
+        i = selectList.length-1 === i ? 0 : ++i;
+        inputRefs.current[i]?.focus();
+        break;
+
+      case 'ArrowUp': 
+        i = !i || !inputRefs.current[i] ? selectList.length-1 : --i;
+        inputRefs.current[i]?.focus();
+        break;
+      
+      case 'Enter': onChange(item); break;
+      
+      case 'Escape': setShow(false); break;
+
+      case 'Space': setShow(true); break;
+    
+      default:
+        break;
+    } 
+  }
+
+
   return (
     <div className={selectInputStyle}>
       <div className={styles.input}>
@@ -40,6 +73,7 @@ const Select = (props, ref) => {
           onClick={()=>setShow(true)}
           onFocus={()=>setShow(true)}
           onBlur={()=>onBlur()}
+          onKeyDown={(e)=>keyDown(e, -1)}
         />
         {<button type="button" className={styleClnBtn}
             onClick={() => clearInput()}
@@ -48,17 +82,24 @@ const Select = (props, ref) => {
         }
       </div>
       <ul className={styleSelectList}>
-        {selectList.map(item => 
-          <li key={`${item.id}${name}`} className={styles.itemLi}>
+        {selectList.map((item, index) => {          
+          return <li key={`${item.id}${name}`} className={styles.itemLi}>
             <input type="radio" 
               value={item.id} 
               id={`${item.id}${name}`} 
               name={name}
               onClick={()=>onChange(item)}
+              ref={ input => inputRefs.current[index] = input }
+              onKeyDown={(e)=>keyDown(e, index, item)}
             /><label htmlFor={`${item.id}${name}`}>{item.name}</label>
-          </li>
+          </li>          
+        }
+
         )}
       </ul>
+
+
+
     </div>
   )
 }

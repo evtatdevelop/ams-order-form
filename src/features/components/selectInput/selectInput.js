@@ -7,7 +7,8 @@ import { darkTheme } from "../../main/mainpageSlice";
 import { user } from "../../user/userSlice";
 
 export const SelectInput = props => {
-  const ref = useRef(null)
+  const ref = useRef(null);
+  const inputRefs = useRef([]);
   const {selectHandler, placeholder, val, name, mode} = props
   const { api_key } = useSelector(user);
   const dark = useSelector(darkTheme);
@@ -58,7 +59,8 @@ export const SelectInput = props => {
     onSearchUsers(e.target.value)
   }
 
-  const onBlur = () => setTimeout(()=>setShow(false), 100)
+  // const onBlur = () => setTimeout(()=>setShow(false), 100)
+  const onBlur = () => {}
 
   const clearInput = () => {
     clearTimeout(timerId);
@@ -76,6 +78,30 @@ export const SelectInput = props => {
   ? `${styles.selectInput} ${styles.dark}`
   : `${styles.selectInput}`
 
+
+  const keyDown = (e, i, item) => {
+    if ( e.code === 'ArrowDown' || e.code === 'ArrowUp' || e.code === 'Enter' || e.code === 'Escape' ) e.preventDefault();
+    switch ( e.code ) {
+      case 'ArrowDown': 
+        i = selectList.length-1 === i ? 0 : ++i;
+        inputRefs.current[i]?.focus();
+        break;
+      case 'ArrowUp': 
+        i = !i || !inputRefs.current[i] ? selectList.length-1 : --i;
+        inputRefs.current[i]?.focus();
+        break;
+      case 'Enter': onChange(item); break;
+      case 'Escape': 
+        setShow(false);
+        clearInput();
+        break;
+
+      default:
+        break;
+    } 
+  }
+
+
   return (
     <div className={selectInputStyle}>
       <div className={styles.input}>
@@ -86,6 +112,7 @@ export const SelectInput = props => {
           onFocus={(e)=>onFocus(e)}
           onBlur={()=>onBlur()}
           ref={ref}
+          onKeyDown={(e)=>keyDown(e, -1)}
         />
         {
           <div className={styleLoading}><TestLoader/></div>
@@ -98,13 +125,15 @@ export const SelectInput = props => {
       </div>
       <ul className={styleSelectList}>
         {selectList 
-          ? selectList.map(item => 
+          ? selectList.map((item, index) => 
             <li key={`${item.id}${name}`} className={styles.itemLi}>
               <input type="radio" 
                 value={item.id} 
                 id={`${item.id}${name}`} 
                 name={name}
                 onClick={()=>onChange(item)}
+                ref={ input => inputRefs.current[index] = input }
+                onKeyDown={(e)=>keyDown(e, index, item)}
               /><label htmlFor={`${item.id}${name}`}>{
                 item.middle_name 
                 ? `${item.last_name ? item.last_name : ''} ${item.first_name ? item.first_name : ''} ${item.middle_name ? item.middle_name : ''} ${item.email ? `(${item.email})` : ''}`
