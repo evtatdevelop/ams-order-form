@@ -95,7 +95,7 @@ const LevelValues = (props, ref) => {
         // if ( parent ) {
           const newParendValues = values.filter(item => !codeParents(items(value)).includes(item.code_parent));
           // console.log( newParendValues );
-          if ( newParendValues.length ) {
+          if ( value.length && newParendValues.length ) {
             // setAddParentVals( true )
             showWin();
           }
