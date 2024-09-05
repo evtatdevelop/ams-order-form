@@ -43,6 +43,9 @@ const LevelValues = (props, ref) => {
   // const [addParentVals, setAddParentVals] = useState(false);
 
 
+  //toDo:
+  // const inputRefs = useRef([]);
+
   const items = idArr => values.filter(item => idArr.includes(item.id));
   const ids = itemArr => itemArr.map(item => item.id);
   const alls = arr => arr.filter(iAll=>iAll.code === "ALL");
@@ -81,8 +84,7 @@ const LevelValues = (props, ref) => {
          &&  roleSendbox.levels.find(level => level.asz05_id === asz05_id)
     ) {
       setValue(roleSendbox.levels.find(level => level.asz05_id === asz05_id).value);
-      
-      // if ( !editSandBox ) {
+
       if ( !editSandBox && parent ) {
         //? the new list of values ​​no longer contains such values
         const removed = roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.filter(idDelVal => !values.map(listItem => listItem.id).includes(idDelVal));
@@ -90,16 +92,10 @@ const LevelValues = (props, ref) => {
           dispatch(unSetLevelsValue({asz05_id, removed }));
           dispatch(processLevel({api_key, removed, event: 'rmSessionLevels', session_key: sessionKey, blk_id: roleSendbox.cnt, asz03_id: roleSendbox.role.id, asz05_id, }));
         }
-
-        //toDo: case where values ​​were added
-        // if ( parent ) {
-          const newParendValues = values.filter(item => !codeParents(items(value)).includes(item.code_parent));
-          // console.log( newParendValues );
-          if ( value.length && newParendValues.length ) {
-            // setAddParentVals( true )
-            showWin();
-          }
-        // }
+        const newParendValues = values.filter(item => !codeParents(items(value)).includes(item.code_parent));
+        if ( value.length && newParendValues.length ) {
+          showWin();
+        }
       }
       setVisual( roleSendbox.levels.find(level => level.asz05_id === asz05_id).value.map(id => 
         values.find(item => item.id === id)?.code === "ALL" 
@@ -190,13 +186,15 @@ const LevelValues = (props, ref) => {
   
   const checkAll = () => {
     if ( !isChanged ) setIsChanged(true);
-
+    //? There're ALLs
     if ( filtr.filter(item => item.code === 'ALL').length ) {
-      //? There're ALLs
-      if ( filtr.length === values.length ) { 
-        //? No Filter
-        if ( showAlls ) setValue([...new Set([...values.filter(item => item.code === 'ALL').map(i=>i.id), 
-          ...values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent) ).map(i=>i.id)
+      //? No Filter
+      if ( filtr.length === values.length && !values.find(item => item.code === 'ALL').length) { 
+        
+        if ( showAlls ) 
+          setValue(
+            [...new Set([...values.filter(item => item.code === 'ALL').map(i=>i.id), 
+            ...values.filter(otherItem => !values.filter(item => item.code === "ALL").map(i => i.code_parent).includes(otherItem.code_parent) ).map(i=>i.id)
          ])]);
         else setShowAlls(true);
       } else {
@@ -285,6 +283,27 @@ const LevelValues = (props, ref) => {
     ? `${styles.checklAll} ${styles.all}`
     : `${styles.checklAll} ${styles.notAll}`
   : `${styles.checklAll}`
+
+  //toDo:
+  // const keyDown = (e, i, id) => {
+  //   if ( e.code !== 'Tab' ) e.preventDefault();
+  //   switch ( e.code ) {
+  //     case 'ArrowDown': 
+  //       i = filtr.length-1 === i ? 0 : ++i;
+  //       inputRefs.current[i]?.focus();
+  //       break;
+  //     case 'ArrowUp': 
+  //       i = !i || !inputRefs.current[i] ? filtr.length-1 : --i;
+  //       inputRefs.current[i]?.focus();
+  //       break;
+  //     // case 'Enter': onChange(item); break;
+  //     // case 'Escape': setShow(false); break;
+  //     case 'Space': setCheck(id); break;
+    
+  //     default:
+  //       break;
+  //   } 
+  // }
 
 
   return (
@@ -379,6 +398,9 @@ const LevelValues = (props, ref) => {
                       setCheck = {setCheck}
                       incomplete = {incompleteList.includes(item.code_parent)}
                       notOptimal = {notOptimalList.includes(item.id)}
+                      //toDo: 
+                      // ref={ input => inputRefs.current[index] = input }
+                      // onKeyDown={(e)=>keyDown(e, index, item)}
                     />) 
                   }
                 </ul>
