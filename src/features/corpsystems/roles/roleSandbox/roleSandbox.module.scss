@@ -5,9 +5,11 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: transparent;
+  // background-color: transparent;
   animation: appearance 300ms ease-in-out forwards;
   z-index: 999;
+
+  backdrop-filter: blur(1px);
 
   .oneRoleSandbox {
     width: 75%;
@@ -107,7 +109,8 @@
   // Dark styles
   //
   &.dark {
-    background-color: transparent;
+    // background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.267);
     .oneRoleSandbox {
       background-color: #161619f8;
       .control {
