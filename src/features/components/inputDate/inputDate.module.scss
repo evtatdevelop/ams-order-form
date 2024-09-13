@@ -3,6 +3,8 @@
   flex-direction: column;
   width: 100%;
   position: relative;
+  // margin-left: .5vmax;
+  // margin-right: .5vmax;
 
   
   .date {
@@ -12,37 +14,46 @@
     width: 100%;
   
     .htmInput {
-      border: 1px solid lightblue;
       width: 100%;
-      padding: 8px 40px 8px 12px;
+      padding: .7vmax 3vmax .7vmax 1vmax;
       font: inherit;
-      letter-spacing: .6px;
+      letter-spacing: .01vmax;
       font-size: inherit;
-      outline: 1px solid gray;
-      border-radius: 3px;
+      font-weight: 400;
+      font-size: 1vmax;
+      // color: #424242;
+      color: rgb(170, 169, 169);
+      border-bottom: .1vmax solid #424242;
+      border-radius: .1vmax;
+      background-color: transparent;
+      transition: background-color 1s;
       
       &:focus {
-        outline: 1px solid lightblue;
+        color: rgb(207, 207, 229);
+        background-color: rgba(0, 0, 128, 0.036);
       }
     }
   
     .clearBtn {
       position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       right: 0;
       border: none;
       padding: 0;
       margin: 0;
       background-color: transparent;
-      width: 38px;
-      height: 38px;
+      width: 2vmax;
+      height: 2vmax;
       color: gray;
       transition: color .3s;
-      font-size: 24px;
+      font-size: 1.7vmax;
       font-weight: 100;
       opacity: 0;
       transition: opacity .3s;
-      border-radius: 3px;
-  
+      border-radius: .1vmax;
+
       &.showClnBtn {
         opacity: 1;
       }
@@ -50,12 +61,14 @@
       &:focus,
       &:hover {
         color: red;
+        color: coral;
       } 
     }
   }
 
   .datePickerWrapper {
-    top: 44px;
+    // top: 44px;
+    top: 3vmax;
     position: absolute;
     z-index: 99;
     transition: opacity .3s, max-height .5s;
@@ -68,67 +81,85 @@
     }
 
     &.showPicker {
-      max-height: 350px;
+      max-height: 3.5vmax;
       opacity: 1;
     }
     
-    .pickerControl {
-      position: absolute;
-      right: -20px;
-      top: 00px;
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    // .pickerControl {
+    //   position: absolute;
+    //   right: -20px;
+    //   top: 00px;
+    //   z-index: 100;
+    //   display: flex;
+    //   flex-direction: column;
+    //   align-items: center;
 
-      .pickerCloser {
-        // position: absolute;
-        // right: -20px;
-        // top: 00px;
-        // z-index: 100;
-        border: none;
-        padding: 0;
-        margin: 0;
-        background-color: white;
-        color: gray;
-        font-size: 24px;
-        font-weight: 100;
-        transition: opacity 1s;
-        &:focus,
-        &:hover {
-          color: red;
-        }
-        &.hidePickerCloser {
-          opacity: 0;
-        }
+    //   .pickerCloser {
+    //     // position: absolute;
+    //     // right: -20px;
+    //     // top: 00px;
+    //     // z-index: 100;
+    //     border: none;
+    //     padding: 0;
+    //     margin: 0;
+    //     background-color: transparent;
+    //     color: rgb(241, 235, 235);
+    //     font-size: 24px;
+    //     font-weight: 100;
+    //     transition: opacity 1s;
+    //     &:focus,
+    //     &:hover {
+    //       color: red;
+    //     }
+    //     &.hidePickerCloser {
+    //       opacity: 0;
+    //     }
     
-        &.showPickerCloser {
-          opacity: 1;
-        }
-      }
+    //     &.showPickerCloser {
+    //       opacity: 1;
+    //     }
+    //   }
       
-      .iconClock {
-        // position: absolute;
-        // right: -20px;
-        // top: 30px;
-        // z-index: 100;
-        border: none;
-        padding: 0;
-        margin: 0;
-        background-color: white;
-        color: gray;
-        font-size: 14px;
-        font-weight: 100;
-        transition: opacity 1s;
-        &:focus,
-        &:hover {
-          color: #424242;
-        }
-      }
-    }
+    // }
 
 
   }
 
-  // outline: 1px solid grey;
+    //
+  // Dark styles
+  //
+  &.dark {
+    background-color: transparent;
+    .oneRoleSandbox {
+      background-color: #161619f8;
+      .control {
+        button {
+          background-color: transparent;
+          border: .1vmax solid grey;
+          color: wheat;
+
+          &:hover,
+          &:focus {
+            background-color: #ffffff18
+          }
+        }
+      }
+
+      .roleData {
+        .searhResult {
+          .serchItem {
+
+            .label {
+              // color: wheat;
+            }
+            .name {
+              color: white
+            }
+          }
+        }  
+      }        
+
+      outline: .1vmax solid grey;
+    }
+  }
 }

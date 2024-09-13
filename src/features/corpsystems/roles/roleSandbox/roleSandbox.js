@@ -11,6 +11,8 @@ import { darkTheme } from "../../../main/mainpageSlice";
 import { InfoField } from "../../../components/infoField/infoField";
 import { Levels } from "./levels/levels";
 
+import { DateInterval } from "./dateInterval/dateInterval";
+
 export const RoleSandbox = () => {
   const searchRef = useRef(null);
   const dispatch = useDispatch();
@@ -181,7 +183,7 @@ export const RoleSandbox = () => {
               />
             : <div className={styles.searchBlank}></div>
           }
-          
+          <div className={styles.gapRow}></div>
 
           { hereGroups.length > 1
             ? <Select
@@ -194,6 +196,7 @@ export const RoleSandbox = () => {
               />
             : <InfoField val = { hereGroups.length ? hereGroups[0].name : null } />                          
           }
+          <div className={styles.gapRow}></div>
           
           { hereRoles.length > 1
             ? <Select
@@ -206,6 +209,7 @@ export const RoleSandbox = () => {
               />
             : <InfoField val = { hereRoles.length ? hereRoles[0].name : null } />
           }
+          <div className={styles.gapRow}></div>
 
           { hereSearch.length
             ? <ul className={styles.searhResult}>
@@ -229,6 +233,22 @@ export const RoleSandbox = () => {
             ? <Levels clearLevel={clearLevel} />
             : null
           }
+
+          { role.levels?.length === levels?.length
+            // ? <div className={styles.timeInterval}>
+            //     <InputDate
+            //         dateHandler = { val => console.log(val) }
+            //         lang = {lang}
+            //     />
+            //     <InputDate
+            //         dateHandler = { val => console.log(val) }
+            //         lang = {lang}
+            //     />
+            //   </div>
+            ? <DateInterval/>  
+            : null
+          }
+
         </div>
 
         <div className={styles.control}>

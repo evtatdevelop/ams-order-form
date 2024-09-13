@@ -1,9 +1,7 @@
 /* eslint-disable no-useless-escape */
-import React, {useState, useRef } from "react";
+import React, {useState, useRef, } from "react";
 import styles from './inputDate.module.scss';
 import DatePicker from "./datePicker";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClock } from '@fortawesome/free-solid-svg-icons'
 
 export const InputDate = props => {
   const ref = useRef(null)
@@ -13,8 +11,17 @@ export const InputDate = props => {
   const [jsDate, setJsDate] = useState(null)
   const [showPicker, setShowPicker] = useState(false)
 
-  const onShowPicker = () => {
-    setShowPicker(true)
+  const outClick = (e) => {
+    console.log(e.target.closest('#picker'));
+    if ( !e.target.closest('#picker') ) {
+      setShowPicker(false)
+      document.removeEventListener("mouseup", outClick);
+    }
+  }
+
+  const onShowPicker = () => {    
+    document.addEventListener("mouseup", outClick);
+    setShowPicker(!showPicker);
   }
 
   const onSetDate = date => {
@@ -22,12 +29,12 @@ export const InputDate = props => {
     setJsDate(date)
     const dd = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`
     const mm = date.getMonth()+1 > 9 ? date.getMonth()+1 : `0${date.getMonth()+1}`
-    setValue(lang === 'ru' ? `${dd}.${mm}.${date.getFullYear()}` : `${dd}-${mm}-${date.getFullYear()}`)
+    setValue( lang.toUpperCase() === 'RU' ? `${dd}.${mm}.${date.getFullYear()}` : `${dd}-${mm}-${date.getFullYear()}`)
     dateHandler(date)
-    // setShowPicker(false)
   }
 
   const onInput = val => {
+    setShowPicker(false)
     let dateVal = val.replace(/[^0-9\.\/-: ]/ig, "")
     dateVal = dateVal.replace(/\.{2,}/ig, ".")
     dateVal = dateVal.replace(/\/{2,}/ig, "/")
@@ -36,6 +43,10 @@ export const InputDate = props => {
   }
 
   const onBlur = () => {
+    onSetDate(getInputDate());
+  }
+
+  const getInputDate = () => {
     let val;
     if ( /\./.test(value) ) val = value.split('.');
     if ( /-/.test(value) ) val = value.split('-');
@@ -43,21 +54,46 @@ export const InputDate = props => {
     if ( !val || val.length !== 3) { onSetDate(null); return }
     const inputDate = new Date(`${val[1]}-${val[0]}-${val[2]}`);
     if ( !inputDate.getTime() ) { onSetDate(null); return }
-    onSetDate(inputDate)
+    return inputDate;
   }
 
   const clearInput = () => {
     onSetDate(null)
     setShowPicker(false)
-    // ref.current.focus();
+    ref.current.focus();
   }
 
-  const localMask = lang === 'ru' ? 'дд.мм.гггг' : 'dd-mm-yyyy'
+  const keyDown = e => {
+    // console.log(e.code);
+    if ( ['ArrowDown', 'ArrowUp', 'Enter', 'Escape', ].includes(e.code) ) e.preventDefault();
+    switch ( e.code ) {
+      case 'ArrowDown': 
+        if ( !showPicker ) setShowPicker(true);
+        break;
+      case 'ArrowUp': 
+        if ( showPicker ) setShowPicker(false);
+        break;
+      case 'NumpadEnter':
+      case 'Enter':
+        if ( value ) onSetDate(getInputDate());
+        else setShowPicker(true);
+        break;
+      case 'Escape':
+        if ( showPicker) setShowPicker(false);
+        else clearInput();
+        break;
+      case 'Tab':
+        if ( showPicker) setShowPicker(false);
+        break;
+
+      default:
+        break;
+    } 
+  }
+
+  const localMask = lang.toUpperCase() === 'RU' ? 'дд.мм.гггг' : 'dd-mm-yyyy'
   const styleClnBtn = value || showPicker ? `${styles.clearBtn} ${styles.showClnBtn}` : `${styles.clearBtn}`
   const stylePickerWrapper = showPicker ? `${styles.datePickerWrapper} ${styles.showPicker}` : `${styles.datePickerWrapper}  ${styles.hidePicker}`
-  // const stylePickerCloser = jsDate ? `${styles.pickerCloser} ${styles.showPickerCloser}` : `${styles.pickerCloser}  ${styles.hidePickerCloser}`
-  const stylePickerCloser = `${styles.pickerCloser}`
-  const styleIconClock = `${styles.iconClock}`
 
   return (
     <div className={styles.calendar}>
@@ -68,7 +104,9 @@ export const InputDate = props => {
           placeholder = {localMask}
           ref={ref}
           onBlur={() => onBlur()}
-          onFocus={()=>onShowPicker()}
+          // onFocus={()=>onShowPicker()}
+          onClick={()=>onShowPicker()}
+          onKeyDown={(e)=>keyDown(e)}
         />
         {<button type="button" className={styleClnBtn}
             onClick={() => clearInput()}
@@ -77,28 +115,13 @@ export const InputDate = props => {
         }
       </div>
 
-      <div className={stylePickerWrapper}>
+      <div className={stylePickerWrapper} id='datePickerWrapper' >
         <DatePicker
           lang={lang}
           value={jsDate}
           setValue={onSetDate}
           closePicker={()=>setShowPicker(false)}
         />
-
-        <div className={styles.pickerControl}>
-          <button type="button" 
-            className={stylePickerCloser}
-            onClick={()=>{
-              setShowPicker(false)
-              onBlur()
-            }}
-          >&times;</button>
-
-          <button type="button" 
-            className={styleIconClock}
-            onClick={()=>{}}
-          ><FontAwesomeIcon icon={ faClock } className={styles.faCaret} /></button>          
-        </div>
 
       </div>  
 

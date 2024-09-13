@@ -344,7 +344,9 @@
   //
   &.dark {
     .htmInput {
-      color: gray;  
+      // color: gray;
+      color: rgb(170, 169, 169);
+        
 
       &:focus {
         color: rgb(207, 207, 229);

@@ -71,6 +71,10 @@
         }
       }
 
+      .gapRow {
+        margin-top: .2vmax;
+      }
+
     }
     .control {
       display: flex;
@@ -104,50 +108,49 @@
   //
   &.dark {
     background-color: transparent;
-      .oneRoleSandbox {
-        background-color: #161619f8;
-        .control {
-          button {
-            background-color: transparent;
-            border: .1vmax solid grey;
-            color: wheat;
+    .oneRoleSandbox {
+      background-color: #161619f8;
+      .control {
+        button {
+          background-color: transparent;
+          border: .1vmax solid grey;
+          color: wheat;
 
-            &:hover,
-            &:focus {
-              background-color: #ffffff18
-            }
+          &:hover,
+          &:focus {
+            background-color: #ffffff18
           }
         }
+      }
 
-        .roleData {
-          .searhResult {
-            .serchItem {
+      .roleData {
+        .searhResult {
+          .serchItem {
 
-              .label {
-                // color: wheat;
-              }
-              .name {
-                color: white
-              }
+            .label {
+              // color: wheat;
             }
-          }  
-        }        
+            .name {
+              color: white
+            }
+          }
+        }  
+      }        
 
-        outline: .1vmax solid grey;
-      }
-
-    @keyframes appearance {
-      0% {
-        opacity: .3;
-      }
-      100% {
-        opacity: 1;
-      }
+      outline: .1vmax solid grey;
     }
-    
-    @media screen and (max-width: 1000px) {
-    
-    }
+  }
 
+  @keyframes appearance {
+    0% {
+      opacity: .3;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  @media screen and (max-width: 1000px) {
+  
   }
 }

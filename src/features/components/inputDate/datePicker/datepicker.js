@@ -9,8 +9,6 @@ export const DatePicker = props => {
   const [monthDay, setmonthDay] = useState(new Date(Date.now()))
   useEffect(()=> setmonthDay(value ? value : new Date(Date.now())), [value])
 
-  
-
   const year = monthDay.getFullYear(),
         month = monthDay.getMonth(),
         date = new Date(year, month, 1),
@@ -49,17 +47,17 @@ export const DatePicker = props => {
   // }
 
   return (
-    <div className={styles.picker}>
+    <div className={styles.picker} id='picker'>
       <nav className={styles.navigation}>
         <div>
-          <button type="button" onClick={() => setPickerMonth('prev')}><FontAwesomeIcon icon={ faCaretLeft } className={styles.faCaret} /></button>
+          <button type="button" className={styles.navBtn} onClick={() => setPickerMonth('prev')}><FontAwesomeIcon icon={ faCaretLeft } className={styles.faCaret} /></button>
           <button type="button" className={styles.rest} onClick={() => setPickerMonth('curr')}>{monthDay.toLocaleString(lang, { month: 'long' })}</button>         
-          <button type="button" onClick={() => setPickerMonth('next')}><FontAwesomeIcon icon={ faCaretRight } className={styles.faCaret} /></button>          
+          <button type="button" className={styles.navBtn} onClick={() => setPickerMonth('next')}><FontAwesomeIcon icon={ faCaretRight } className={styles.faCaret} /></button>          
         </div>
         <div>
-          <button type="button" onClick={() => setPickerYear('prev')}><FontAwesomeIcon icon={ faCaretLeft } className={styles.faCaret} /></button>
+          <button type="button" className={styles.navBtn} onClick={() => setPickerYear('prev')}><FontAwesomeIcon icon={ faCaretLeft } className={styles.faCaret} /></button>
           <button type="button" onClick={() => setPickerYear('curr')}>{monthDay.getFullYear()}</button>
-          <button type="button" onClick={() => setPickerYear('next')}><FontAwesomeIcon icon={ faCaretRight } className={styles.faCaret} /></button>         
+          <button type="button" className={styles.navBtn} onClick={() => setPickerYear('next')}><FontAwesomeIcon icon={ faCaretRight } className={styles.faCaret} /></button>         
         </div>
       </nav>
 
@@ -72,7 +70,7 @@ export const DatePicker = props => {
           {'en': 'Sat', 'ru': 'сб'},
           {'en': 'Sun', 'ru': 'вс'}].map((item, index) => {
             const styleNameDay = index === 5 || index === 6 ? `${styles.weekDayName} ${styles.weekend}` : `${styles.weekDayName}`  
-            return <div key={index} className={styleNameDay}>{item[lang]}</div>
+            return <div key={index} className={styleNameDay}>{item[lang.toLowerCase()]}</div>
         })}
       </div>
       
@@ -102,42 +100,6 @@ export const DatePicker = props => {
         })}
       </main>
 
-      {/* <div className={styles.timePicker}>
-        <button type="button">up</button>
-        <div className={styles.times}
-          onWheel={e=>hourScroll(e)}
-          onMouseOver={()=>document.body.style.overflow='hidden'}
-          onMouseLeave={()=>document.body.style.overflow='auto'}
-        >
-          <div className={styles.hours} style={{top: hoursTop}}>
-            <label>0</label>
-            <label>1</label>
-            <label>2</label>
-            <label>3</label>
-            <label>4</label>
-            <label>5</label>
-            <label>6</label>
-            <label>7</label>
-            <label>8</label>
-            <label>9</label>
-            <label>10</label>
-            <label>11</label>
-            <label>12</label>
-            <label>13</label>
-            <label>14</label>
-            <label>15</label>
-            <label>16</label>
-            <label>17</label>
-            <label>18</label>
-            <label>19</label>
-            <label>20</label>
-            <label>21</label>
-            <label>22</label>
-            <label>23</label>
-          </div>
-        </div>
-        <button type="button">down</button>
-      </div> */}
     </div>
   )
 }
