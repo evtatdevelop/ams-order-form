@@ -5,7 +5,7 @@ import DatePicker from "./datePicker";
 
 export const InputDate = props => {
   const ref = useRef(null)
-  const {dateHandler, lang, val} = props
+  const { dateHandler, lang, val, placeholder } = props
 
   const [value, setValue] = useState('')
   const [jsDate, setJsDate] = useState(null)
@@ -122,7 +122,7 @@ export const InputDate = props => {
         <input type="text" className={styles.htmInput}
           value={value}
           onInput={e => onInput(e.target.value)}
-          placeholder = {localMask}
+          placeholder = { placeholder ?? localMask }
           ref={ref}
           onBlur={() => onBlur()}
           // onFocus={()=>onShowPicker()}

@@ -19,11 +19,7 @@ export const DateInterval = () => {
   useEffect(() => {
     const thisFrom = getLocalDate(from) ?? "" 
     const thisTo = getLocalDate(to) ?? ""; 
-
-    // if ( from && to ) {
-      // console.log( (to-from)/1000/3600/24 + 1 );
-      dispatch(setDates({"from": thisFrom, "to": thisTo }));
-    // }
+    dispatch(setDates({"from": thisFrom, "to": thisTo }));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[from, to]);
 
@@ -72,6 +68,7 @@ export const DateInterval = () => {
           dateHandler = { val => intervalLogic('from', val) }
           lang = {lang}
           val = {from}
+          placeholder = {dictionary.no_limit[lang]}
         />        
       </div>
       <div className={styles.partInterval}>
@@ -80,6 +77,7 @@ export const DateInterval = () => {
             dateHandler = { val => intervalLogic('to', val) }
             lang = {lang}
             val = {to}
+            placeholder = {dictionary.no_limit[lang]}
           />      
       </div>
 
