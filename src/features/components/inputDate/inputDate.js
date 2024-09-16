@@ -11,18 +11,14 @@ export const InputDate = props => {
   const [jsDate, setJsDate] = useState(null)
   const [showPicker, setShowPicker] = useState(false)
 
-  useEffect(() => { 
-    
+  useEffect(() => {
     if ( !val ) {
-      // console.log('useEffect', getLocalDate(val));
       setValue(''); 
       setJsDate(null)      
     } else {
       setJsDate(val);
       setValue( getLocalDate(val) )
     }
-; 
-
    },[val])
 
   const getLocalDate = date => {

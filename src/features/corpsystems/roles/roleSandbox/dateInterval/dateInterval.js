@@ -17,19 +17,21 @@ export const DateInterval = () => {
   const [to, setTo] = useState(null);
 
   useEffect(() => {
-    if ( from & to ) {
-      console.log( (to-from)/1000/3600/24 + 1 );
-      dispatch(setDates({"from": getLocalDate(from), "to": getLocalDate(to) }));
-    }
+    const thisFrom = getLocalDate(from) ?? "" 
+    const thisTo = getLocalDate(to) ?? ""; 
+
+    // if ( from && to ) {
+      // console.log( (to-from)/1000/3600/24 + 1 );
+      dispatch(setDates({"from": thisFrom, "to": thisTo }));
+    // }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[from, to]);
 
   useEffect(() => {
     if ( editSandBox ) {
-      setFrom(getInputDate(roleSendbox.dates.from));
-      setTo(getInputDate(roleSendbox.dates.to));
+      if ( roleSendbox.dates.from ) setFrom(getInputDate(roleSendbox.dates.from));
+      if ( roleSendbox.dates.to ) setTo(getInputDate(roleSendbox.dates.to));
     }
-    
   }, [editSandBox, roleSendbox])
 
   const getLocalDate = date => {
@@ -40,6 +42,7 @@ export const DateInterval = () => {
   };
 
   const getInputDate = value => {
+    if ( !value ) return null;
     let val;
     if ( /\./.test(value) ) val = value.split('.');
     if ( /-/.test(value) ) val = value.split('-');
