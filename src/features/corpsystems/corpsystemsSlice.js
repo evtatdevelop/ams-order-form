@@ -181,6 +181,10 @@ export const corpsystemSlice = createSlice({
       else state.textInfo = '';
     },
 
+    setDates: (state, action) => {
+      state.roleSendbox = {...state.roleSendbox, dates: action.payload}
+    },
+
   },
 
   extraReducers: (builder) => { builder
@@ -319,7 +323,7 @@ export const { setCompany, setBranch, setDepartment, setLocation, setPosition, u
   unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, 
   setBoss, clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
   showRoleAdder, addRole, rmRole, editRole,
-  setRole, clearLevels, setLevelsValue, unSetLevelsValue, clearLevelValues, cancelEdit, setShowInfo,
+  setRole, clearLevels, setLevelsValue, unSetLevelsValue, clearLevelValues, cancelEdit, setShowInfo, setDates
 } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;

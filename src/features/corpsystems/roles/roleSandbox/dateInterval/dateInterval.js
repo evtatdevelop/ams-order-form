@@ -1,39 +1,70 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, } from "react";
 import styles from './dateInterval.module.scss';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../../../dictionary.json";
 import { user } from '../../../../user/userSlice';
+import { setDates, editSandBoxData, roleSendboxData } from "../../../corpsystemsSlice";
 
 import { InputDate } from "../../../../components/inputDate/inputDate";
 
 export const DateInterval = () => {
+  const dispatch = useDispatch();
   const { lang, } = useSelector(user);
-
-
+  const editSandBox = useSelector(editSandBoxData);
+  const roleSendbox = useSelector(roleSendboxData);
+  
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
 
-  //toDo: !!!
+  useEffect(() => {
+    if ( from & to ) {
+      console.log( (to-from)/1000/3600/24 + 1 );
+      dispatch(setDates({"from": getLocalDate(from), "to": getLocalDate(to) }));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[from, to]);
+
+  useEffect(() => {
+    if ( editSandBox ) {
+      setFrom(getInputDate(roleSendbox.dates.from));
+      setTo(getInputDate(roleSendbox.dates.to));
+    }
+    
+  }, [editSandBox, roleSendbox])
+
+  const getLocalDate = date => {
+    if ( !date ) return '';
+    const dd = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`
+    const mm = date.getMonth()+1 > 9 ? date.getMonth()+1 : `0${date.getMonth()+1}`
+    return lang.toUpperCase() === 'RU' ? `${dd}.${mm}.${date.getFullYear()}` : `${dd}-${mm}-${date.getFullYear()}`;
+  };
+
+  const getInputDate = value => {
+    let val;
+    if ( /\./.test(value) ) val = value.split('.');
+    if ( /-/.test(value) ) val = value.split('-');
+    if ( /\//.test(value) ) val = value.split('/');
+    // if ( !val || val.length !== 3) { onSetDate(null); return }
+    const inputDate = new Date(`${val[1]}-${val[0]}-${val[2]}`);
+    // if ( !inputDate.getTime() ) { onSetDate(null); return }
+    return inputDate;
+  }
+
   const intervalLogic = ( item, val ) => {
-    console.log(item, val);
     if ( item === 'from' ) {
       setFrom(val);
-      if ( (to-val)/1000/3600/24 < 0 ) {
-        setTo(null);
-      }      
+      if ( val && (to-val)/1000/3600/24 < 0 ) setTo(null);
     }
     if ( item === 'to' ) {
       setTo(val);
-      if ( (val-from)/1000/3600/24 < 0 ) {
-        setFrom(null);
-      }
+      if ( val && (val-from)/1000/3600/24 < 0 ) setFrom(null);
     }
   }
 
   return (
     <div className={styles.dateInterval}>
       <div className={styles.partInterval}>
-        <div className={styles.intervalName}>From</div>
+        <div className={styles.intervalName}>{dictionary.from[lang]}</div>
         <InputDate
           dateHandler = { val => intervalLogic('from', val) }
           lang = {lang}
@@ -41,7 +72,7 @@ export const DateInterval = () => {
         />        
       </div>
       <div className={styles.partInterval}>
-        <div className={styles.intervalName}>To</div>
+        <div className={styles.intervalName}>{dictionary.to[lang]}</div>
           <InputDate
             dateHandler = { val => intervalLogic('to', val) }
             lang = {lang}

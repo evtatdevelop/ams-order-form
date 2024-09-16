@@ -235,16 +235,6 @@ export const RoleSandbox = () => {
           }
 
           { role.levels?.length === levels?.length
-            // ? <div className={styles.timeInterval}>
-            //     <InputDate
-            //         dateHandler = { val => console.log(val) }
-            //         lang = {lang}
-            //     />
-            //     <InputDate
-            //         dateHandler = { val => console.log(val) }
-            //         lang = {lang}
-            //     />
-            //   </div>
             ? <DateInterval/>  
             : null
           }

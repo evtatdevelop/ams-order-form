@@ -14,9 +14,12 @@ export const InputDate = props => {
   useEffect(() => { 
     
     if ( !val ) {
-      console.log('useEffect', getLocalDate(val));
+      // console.log('useEffect', getLocalDate(val));
       setValue(''); 
       setJsDate(null)      
+    } else {
+      setJsDate(val);
+      setValue( getLocalDate(val) )
     }
 ; 
 
