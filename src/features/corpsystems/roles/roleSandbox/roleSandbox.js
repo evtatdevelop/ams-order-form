@@ -10,8 +10,8 @@ import Select from "../../../components/select/select";
 import { darkTheme } from "../../../main/mainpageSlice";
 import { InfoField } from "../../../components/infoField/infoField";
 import { Levels } from "./levels/levels";
-
 import { DateInterval } from "./dateInterval/dateInterval";
+import { Comments } from "./comments/comments";
 
 export const RoleSandbox = () => {
   const searchRef = useRef(null);
@@ -236,6 +236,12 @@ export const RoleSandbox = () => {
 
           { role.levels?.length === levels?.length
             ? <DateInterval/>  
+            : null
+          }
+          
+          <div className={styles.gapRow}></div>
+          { role.levels?.length === levels?.length
+            ? <Comments/>
             : null
           }
 
