@@ -8,6 +8,12 @@
   font-size: 1.2vmax;
   animation: appearance 500ms ease-in-out forwards;
 
+  background-blend-mode: screen;
+  background:
+      linear-gradient(rgba(50, 205, 50, 0.03), transparent),
+      linear-gradient(90deg, rgba(135, 207, 235, 0.03), transparent),
+      linear-gradient(-90deg, rgba(255, 127, 80, 0.03), transparent);
+
   &.test {
     position: relative;
     box-shadow: inset 0px 0px 10px green;
@@ -54,11 +60,12 @@
     font-size: 1.2vmax;
     font-weight: 700;
     outline: .1vmax solid rgba(128, 128, 128, 0.653);
-    background-blend-mode: screen;
-    background:
-        linear-gradient(rgba(50, 205, 50, 0.03), transparent),
-        linear-gradient(90deg, rgba(135, 207, 235, 0.03), transparent),
-        linear-gradient(-90deg, rgba(255, 127, 80, 0.03), transparent);
+    // background-blend-mode: screen;
+    // background:
+    //     linear-gradient(rgba(50, 205, 50, 0.03), transparent),
+    //     linear-gradient(90deg, rgba(135, 207, 235, 0.03), transparent),
+    //     linear-gradient(-90deg, rgba(255, 127, 80, 0.03), transparent);
+    background-color: white;
 
     .nameForm {
       display: flex;
@@ -67,23 +74,27 @@
       justify-content: center;
       align-items: center;
       font-size: 1.75vmax;
-      color: #05acfa;
+      color: rgb(42, 173, 255);
+      font-weight: 500;
       text-transform: uppercase;
-      margin-bottom: 1vmax;
+      // margin-bottom: .5vmax;
     }
 
     .aplicantRow {
       display: flex;
       align-items: center;
+      justify-content: center;
       width: 100%;
-      padding: .5vmax 0;
-      font-weight: 500;
-      margin-bottom: 1.3vmax;
+      margin-bottom: 1.6vmax;
     
-      label {
-        width: auto;
+      .aplicantLabel {
         margin-right: 1vmax;
-        font-weight: 400;
+        
+      font-weight: 500;
+      }
+      .applicantName {
+        font-weight: 700;
+
       }
     }
 
@@ -130,7 +141,7 @@
 
     overflow-y: auto;
     scrollbar-width: 3px;
-    scrollbar-color: #74d2fe rgb(223, 247, 255);
+    scrollbar-color: #c4c4c4 rgb(255, 255, 255);
     &::-webkit-scrollbar { width: 3px; }
     &::-webkit-scrollbar-track { background: #74d2fe; }
     &::-webkit-scrollbar-thumb { background-color: rgb(223, 247, 255); }
@@ -228,6 +239,15 @@
     background-color: #161619;
 
     .form {
+
+
+      background-blend-mode: screen;
+      background:
+          linear-gradient(rgba(116, 255, 116, 0.02), transparent),
+          linear-gradient(90deg, rgba(113, 215, 255, 0.02), transparent),
+          linear-gradient(-90deg, rgba(255, 152, 111, 0.02), transparent);
+    
+
       color: rgb(241, 241, 241);      
 
       scrollbar-color: #161619 #60606d;

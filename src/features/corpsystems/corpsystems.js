@@ -84,8 +84,8 @@ export const Corpsystems = () => {
               }
 
               <div className={styles.aplicantRow}>
-                <label>{`${dictionary.applicant[lang]}:`}</label>
-                <div className={styles.wrapField}>{`${last_name} ${first_name} ${middle_name} `}</div>
+                <div className={styles.aplicantLabel}>{`${dictionary.applicant[lang]}:`}</div>
+                <div className={styles.applicantName}>{`${last_name} ${first_name} ${middle_name} `}</div>
               </div>
 
               <UserData/>

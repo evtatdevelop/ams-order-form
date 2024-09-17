@@ -21,14 +21,15 @@
       font-weight: 400;
       font-size: 1vmax;
       color: #424242;
-      border-bottom: .1vmax solid #424242;
-      border-radius: .1vmax;
+      border-bottom: .1vmax solid #42424279;
+      // border-radius: .1vmax;
       background-color: transparent;
       transition: background-color 1s;
       
       &:focus {
+        outline: none;
         color: navy;
-        background-color: rgba(255, 217, 0, 0.111);
+        background-color: rgba(135, 206, 250, 0.5);
       }
     }
   
@@ -72,8 +73,8 @@
     width: 100%;
     padding: 0;
     margin: 0;
-    margin-top: 2.8vmax;
-    outline: .1vmax solid #424242;
+    margin-top: 2.7vmax;
+    border: .1vmax solid lightskyblue;
     transition: opacity .3s, max-height .5s;
     background-color: rgb(238, 238, 249);
 
@@ -90,10 +91,10 @@
     }
 
     scrollbar-width: 3px;
-    scrollbar-color: rgb(152, 226, 251) rgb(40, 197, 250);
+    scrollbar-color: lightblue lightskyblue;
     &::-webkit-scrollbar { width: 3px; }
-    &::-webkit-scrollbar-track { background: rgb(152, 226, 251); }
-    &::-webkit-scrollbar-thumb { background-color: rgb(40, 197, 250); }
+    // &::-webkit-scrollbar-track { background: rgb(152, 226, 251); }
+    // &::-webkit-scrollbar-thumb { background-color: rgb(40, 197, 250); }
 
     .selectList {
       list-style: none;
@@ -122,11 +123,11 @@
             align-items: center;
             padding: 0;
             color: navy;
-            background-color: rgba(255, 217, 0, 0.111);
-            outline: .1vmax solid navy;
+            background-color: rgba(135, 206, 250, 0.5);
+            outline: .1vmax solid lightskyblue;
 
             &:hover {
-              background-color: rgba(255, 217, 0, 0.223);
+              background-color: lightskyblue;
             }
 
             &::after {
@@ -168,7 +169,7 @@
           display: block;
           width: 100%;
           height: 100%;  
-          background-color: rgb(205, 232, 242);
+          background-color: rgba(135, 206, 250, 0.5);
           padding: .8vmax 1vmax .8vmax 1vmax;
           transition: background-color .3s;
           border-radius: .1vmax;
@@ -187,7 +188,7 @@
 
           &:hover {
             &+label {
-              background-color: rgb(152, 226, 251);
+              background-color: lightskyblue;
             }
           }
         }
@@ -254,7 +255,7 @@
     }
 
     .wrapperList {
-      outline: 1px solid wheat;
+      border: .1vmax solid rgba(245, 222, 179, 0.493);
       background-color: #161619;
   
       .itemLi {
@@ -264,7 +265,7 @@
           .subSwitcherLabel {
             color: wheat;
             background-color: rgba(255, 217, 0, 0.111);
-            outline: .1vmax solid wheat;
+            outline: .1vmax solid rgba(245, 222, 179, 0.493);
 
             &:hover {
               background-color: #60606d;

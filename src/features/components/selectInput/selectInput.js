@@ -80,6 +80,8 @@ export const SelectInput = props => {
 
 
   const keyDown = (e, i, item) => {
+    // console.log(e.code);
+    
     if ( e.code === 'ArrowDown' || e.code === 'ArrowUp' || e.code === 'Enter' || e.code === 'Escape' ) e.preventDefault();
     switch ( e.code ) {
       case 'ArrowDown': 
@@ -90,7 +92,10 @@ export const SelectInput = props => {
         i = !i || !inputRefs.current[i] ? selectList.length-1 : --i;
         inputRefs.current[i]?.focus();
         break;
-      case 'Enter': onChange(item); break;
+      case 'NumpadEnter': 
+      case 'Enter': 
+        if ( e.target.type !== 'text' ) onChange(item);
+        break;
       case 'Escape': 
         setShow(false);
         clearInput();

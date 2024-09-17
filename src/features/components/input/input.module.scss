@@ -13,14 +13,15 @@
     font-weight: 400;
     font-size: 1vmax;
     color: #424242;
-    border-bottom: .1vmax solid #424242;
+    border-bottom: .1vmax solid #42424279;
     border-radius: .1vmax;
     background-color: transparent;
     transition: background-color 1s;
     
     &:focus {
+      outline: none;
       color: navy;
-      background-color: rgba(255, 217, 0, 0.111);
+      background-color: rgba(135, 206, 250, 0.5);
     }
   }
 
@@ -60,7 +61,7 @@
   //
   &.dark {
     .htmInput {
-      color: gray;  
+      color: rgb(170, 169, 169); 
 
       &:focus {
         color: rgb(207, 207, 229);
