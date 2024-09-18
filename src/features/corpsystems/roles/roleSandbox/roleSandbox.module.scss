@@ -9,13 +9,13 @@
   animation: appearance 300ms ease-in-out forwards;
   z-index: 999;
 
-  backdrop-filter: blur(1px);
+  backdrop-filter: blur(.2vmax);
 
   .oneRoleSandbox {
     width: 75%;
     height: 85%;
     margin: auto;
-    background-color: #f6f6fb;
+    background-color: rgb(251, 254, 255);
     display: flex;
     flex-direction: column;
     .roleData {
@@ -48,10 +48,10 @@
             padding: 1vmax .5vmax;
             background-color: transparent;
             outline: .1vmax solid transparent;
-            transition: outline .3s;
+            transition: background-color .3s;
 
             .label {
-              color: gray;
+              color: #2aadff;;
               text-align: left;
               overflow: hidden;
               margin-right: 1vmax;
@@ -62,12 +62,15 @@
               flex-grow: 1;
             }
             .code {
-              color: rgb(192, 191, 191);
+              color: rgb(146, 146, 146);
             }
 
             &:hover,
             &:focus {
-              outline: .1vmax solid grey;
+              .label {
+                color: #0183d4;
+              }
+              background-color: lightskyblue;
             }                            
           }
         }
@@ -92,11 +95,12 @@
         border: .1vmax solid grey;
         border-radius: .3vmax;
         color: #161619;
-        transition: background-color .3s;
+        transition: background-color .3s, border .3s;
 
         &:hover,
         &:focus {
-          background-color: #16161919
+          border: .1vmax solid lightblue;
+          background-color: lightskyblue;
         }
       }
     }
@@ -121,7 +125,7 @@
 
           &:hover,
           &:focus {
-            background-color: #ffffff18
+            background-color: #60606d;
           }
         }
       }
@@ -135,6 +139,19 @@
             }
             .name {
               color: white
+            }
+            button {
+              .label {
+                color: gray;
+              }
+              .code {
+                color: rgb(192, 191, 191);
+              }              
+              &:hover,
+              &:focus {
+                // outline: .1vmax solid grey;
+                background-color: #60606d;
+              }
             }
           }
         }  

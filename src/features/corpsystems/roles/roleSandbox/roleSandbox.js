@@ -13,6 +13,8 @@ import { Levels } from "./levels/levels";
 import { DateInterval } from "./dateInterval/dateInterval";
 import { Comments } from "./comments/comments";
 
+import { layoutSwitch } from "../../../../utils";
+
 export const RoleSandbox = () => {
   const searchRef = useRef(null);
   const dispatch = useDispatch();
@@ -102,10 +104,21 @@ export const RoleSandbox = () => {
       setHereSearch([]);
       return
     }
-    setHereSearch([
+
+    const getSearchResult = str => [
       ...roleList.filter(role => role.name.toUpperCase().includes(str.toUpperCase()) || role.code.includes(str.toUpperCase())),
       ...processGroupList.filter(roup => roup.name.toUpperCase().includes(str.toUpperCase())),
-    ]);
+    ];
+    let searchResult = getSearchResult(str);
+    if ( !searchResult.length ) {
+      str = layoutSwitch(str); 
+      searchResult = getSearchResult(str);
+    }
+    // setHereSearch([
+    //   ...roleList.filter(role => role.name.toUpperCase().includes(str.toUpperCase()) || role.code.includes(str.toUpperCase())),
+    //   ...processGroupList.filter(roup => roup.name.toUpperCase().includes(str.toUpperCase())),
+    // ]);
+    setHereSearch(searchResult);
   }
 
   const searchChoice = item => {
@@ -169,6 +182,60 @@ export const RoleSandbox = () => {
   : `${styles.roleSandbox}`
 
 
+  const searchKeys = e => {
+    // if ( e.code !== 'Tab' ) e.preventDefault();
+    console.log(e.code);
+    switch ( e.code ) {
+      case 'ArrowDown':
+        document.getElementById('searchSBItem0').focus() 
+        break;
+      case 'ArrowUp': 
+        break;
+      case 'NumpadEnter': 
+      case 'Enter': 
+        e.preventDefault();
+        document.getElementById('searchSBItem0').focus()
+        break;
+      case 'Space': 
+        break;
+      case 'Escape':
+        break;
+      default:
+        break;
+    }
+  }
+  const serchItemKey = (e, index, searchList, item) => {
+    console.log(e.code);
+    switch ( e.code ) {
+      case 'Tab':
+      case 'ArrowDown':
+        e.preventDefault();
+        const nextItem = document.getElementById(`searchSBItem${++index}`)
+        if ( nextItem ) nextItem.focus();
+        else document.getElementById(`searchSBItem0`).focus();
+        break;
+      
+      case 'ArrowUp': 
+        const prevItem = document.getElementById(`searchSBItem${--index}`)
+        if ( prevItem ) prevItem.focus();
+        else document.getElementById(`searchSBItem${searchList-1}`).focus();
+        break;
+
+      case 'NumpadEnter': 
+      case 'Enter':
+        // e.preventDefault();
+        // searchChoice(item);
+        break;
+      case 'Space': 
+        break;
+      case 'Escape':
+        break;
+      default:
+        break;
+    }
+  }
+  
+
   return (
     <section className={roleSandboxStyle}>
       <div className={styles.oneRoleSandbox}>
@@ -180,6 +247,7 @@ export const RoleSandbox = () => {
                 placeholder = {dictionary.search[lang]}
                 val = ''
                 ref={searchRef} 
+                onKeyDownFunk = { searchKeys }
               />
             : <div className={styles.searchBlank}></div>
           }
@@ -213,9 +281,11 @@ export const RoleSandbox = () => {
 
           { hereSearch.length
             ? <ul className={styles.searhResult}>
-                { hereSearch.map((item, index) => <li key={index} className={styles.serchItem}>
+                { hereSearch.map((item, index, searchList) => <li key={index} className={styles.serchItem}>
                     <button type="button"
+                      id={ `searchSBItem${index}` }
                       onClick={()=>searchChoice(item)}
+                      onKeyDown={(e)=>serchItemKey(e, index, searchList.length, item) }
                     >
                       <div className={styles.label}>{`${item.code ? dictionary.nameRole[lang]: dictionary.nameProcessGroup[lang]}:`}</div>
                       <div className={styles.name}>{`${item.name}`}

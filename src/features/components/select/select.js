@@ -34,32 +34,37 @@ const Select = (props, ref) => {
   : `${styles.select}`
 
   const keyDown = (e, i, item) => {
-    
     if ( e.code !== 'Tab' ) e.preventDefault();
- 
     // console.log(e.code);
-    
-    
     switch ( e.code ) {
       case 'ArrowDown': 
         i = selectList.length-1 === i ? 0 : ++i;
         inputRefs.current[i]?.focus();
         break;
-
       case 'ArrowUp': 
         i = !i || !inputRefs.current[i] ? selectList.length-1 : --i;
         inputRefs.current[i]?.focus();
         break;
-      
       case 'Enter': onChange(item); break;
-      
+      case 'Space': onShowPicker(); break;
       case 'Escape': setShow(false); break;
-
-      case 'Space': setShow(true); break;
-    
+      // case 'Space': setShow(true); break;
       default:
         break;
     } 
+  }
+
+
+  const outClick = (e) => {
+    if ( !e.target.closest('#optionList') ) {
+      setShow(false)
+      document.removeEventListener("mouseup", outClick);
+    }
+  }
+
+  const onShowPicker = () => {    
+    document.addEventListener("mouseup", outClick);
+    setShow(true);
   }
 
 
@@ -70,8 +75,10 @@ const Select = (props, ref) => {
           value={value}
           placeholder = {placeholder}
           readOnly={true}
-          onClick={()=>setShow(true)}
-          onFocus={()=>setShow(true)}
+          onClick={()=>onShowPicker()}
+          onFocus={()=>onShowPicker()}
+          // onClick={()=>setShow(true)}
+          // onFocus={()=>setShow(true)}
           onBlur={()=>onBlur()}
           onKeyDown={(e)=>keyDown(e, -1)}
         />
@@ -81,7 +88,7 @@ const Select = (props, ref) => {
             >&times;</button>
         }
       </div>
-      <ul className={styleSelectList}>
+      <ul className={styleSelectList} id="optionList">
         {selectList.map((item, index) => {          
           return <li key={`${item.id}${name}`} className={styles.itemLi}>
             <input type="radio" 

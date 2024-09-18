@@ -16,8 +16,9 @@
     padding: 0;
 
     &.incomplete {
-      background-color:rgba(144, 238, 144, 0.062);
-      color: rgba(144, 238, 144, 0.445);
+      background-color:#2aadff1f;
+      // color: rgba(144, 238, 144, 0.445);
+      color: #2aadff;
     }
 
     div {
@@ -62,8 +63,33 @@
     transition: background-color .1s;
     &:hover,
     &:focus {
-      background-color: #ffffff18
+      background-color: rgba(135, 206, 250, 0.548);
     }    
+  }
+
+  //
+  // Dark styles
+  //
+  &.dark {
+    .wrapperBtn {
+      color: gray;
+  
+      &.incomplete {
+        background-color:rgba(144, 238, 144, 0.062);
+        color: rgba(144, 238, 144, 0.445);
+      }
+      
+      .visualCode{
+        border-left: .1vmax dotted grey;
+      }
+      .visualName{
+         border-left: .1vmax dotted grey;
+      }
+      &:hover,
+      &:focus {
+        background-color: #ffffff18
+      }    
+    }
   }
   
 

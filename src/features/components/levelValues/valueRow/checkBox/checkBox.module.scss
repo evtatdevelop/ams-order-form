@@ -6,7 +6,7 @@
   align-items: center;
 
   .faCheck {
-    color: lightgreen;
+    color: #2aadff;
     animation: appearance 300ms ease-in-out forwards;
   }
 
@@ -22,4 +22,16 @@
       opacity: .9;
     }
   }
+
+  //
+  // Dark styles
+  //
+  &.dark {
+    .faCheck {
+      color: lightgreen;
+      animation: appearance 300ms ease-in-out forwards;
+    }
+  
+    outline: .1vmax solid grey;
+  }  
 }
