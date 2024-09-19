@@ -1,17 +1,11 @@
 .picker {
   display: flex;
   flex-direction: column;
-  // max-width: 310px;
-  // border: 1px solid gray;
   border-radius: .3vmax;
-  // background-color: white;
   font-size: 1vmax;
   font-weight: 400;
-
-  background-color: #36363d;
-  color: rgb(241, 235, 235);
-  // top: 44px;
-  // position: absolute;
+  background-color: rgb(197, 235, 248);
+  color: #424242;
 
   .navigation {
     display: flex;
@@ -32,8 +26,7 @@
         background-color: transparent;
         font: inherit;
         letter-spacing: .1vmax;
-        // color:#424242;
-        color: wheat;
+        color: #0183d4;
         outline: .1vmax solid transparent;
         transition: outline .3s;
 
@@ -43,7 +36,7 @@
 
         .faCaret {
           // color:rgb(128, 128, 128);
-          color: wheat;
+          color: #0183d4;
         }  
 
         &.rest {
@@ -62,35 +55,28 @@
     width: 100%;
     display: grid;
     place-items: center;
-    // gap: 2px;
     gap: .2vmax;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: auto;
-    // padding: 2px;
     padding: .2vmax;
-    // color: #424242;
-    color: grey;
+    color: #424242;
 
     .weekDayName {
       font-weight: 700;
       font-size: smaller;
       &.weekend {
-        // color: red;
-        color: coral;
+        color: red;
       }
     }
-
   }
 
   .dates {
     width: 100%;
     display: grid;
     place-items: center;
-    // gap: 2px;
     gap: .2vmax;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: auto;
-    // padding: 2px;
     padding: .2vmax;
 
     .dateCell {
@@ -99,22 +85,22 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      // background-color: white;
-      background-color: #36363d;
-      color: rgb(241, 235, 235);      
+      // background-color: rgba(173, 216, 230, 0.486);
+      color: #424242;      
       border-radius: .1vmax;
-      border: .1vmax solid rgba(128, 128, 128, 0.19);
+      border: .1vmax solid rgba(113, 161, 177, 0.521);
       transition: border .3s, background-color .3s;
+      cursor: pointer;
 
       &.today {
-        outline: .1vmax solid rgba(144, 238, 144, 0.466);
+        color: #0183d4;
+        outline: .1vmax solid #0183d4;
       }
       &.weekend {
-        // color: red;
-        color: coral;
+        color: red;
       }
       &.selected {
-        background-color: rgba(144, 238, 144, 0.253);
+        background-color: lightskyblue;
         font-weight: 700;
         font-size: 1.1vmax;
         color: rgb(5, 48, 5);
@@ -126,32 +112,58 @@
     }
   }
 
-  // .timePicker {
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: center;
-  //   width: 100px;
-  //   height: 300px;
-  //   outline: 1px solid grey;
+  //
+  // Dark styles
+  //
+  &.dark {
+    background-color: #36363d;
+    color: rgb(241, 235, 235);
 
-  //   button {
-  //     width: 100%;
-  //   }
-    
-  //   .times {
-  //     flex-grow: 1;
-  //     width: 100%;
-  //     overflow: hidden;
-  //     position: relative;
+    .navigation {
+      &>div {
+        button {
+          background-color: transparent;
+          color: wheat;
+          outline: .1vmax solid transparent;
+          .faCaret {
+            color: wheat;
+          }  
+          &:hover:has(.faCaret) {
+            outline: .1vmax solid rgba(245, 222, 179, 0.507);
+          }
+        }      
+      }
+    }    
 
-  //     .hours {
-  //       display: flex;
-  //       flex-direction: column;
-  //       position: absolute;
-  //       top: -50px;
-  //     }
-
-  //     outline: 1px solid grey;
-  //   }
-  // }
+    .dayNames {
+      color: grey;
+      .weekDayName {
+        &.weekend {
+          color: coral;
+        }
+      }
+    }
+  
+    .dates {  
+      .dateCell {
+        background-color: #36363d;
+        color: rgb(241, 235, 235);      
+        border: .1vmax solid rgba(128, 128, 128, 0.19);
+  
+        &.today {
+          outline: .1vmax solid rgba(144, 238, 144, 0.466);
+        }
+        &.weekend {
+          color: coral;
+        }
+        &.selected {
+          background-color: rgba(144, 238, 144, 0.253);
+          color: rgb(5, 48, 5);
+        }
+        &:hover {
+          border: .1vmax solid rgb(128, 128, 128);
+        }
+      }
+    }
+  }
 }

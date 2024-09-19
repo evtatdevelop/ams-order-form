@@ -1,11 +1,16 @@
 /* eslint-disable no-useless-escape */
 import React, {useState, useRef, useEffect, } from "react";
+import { useSelector } from "react-redux";
 import styles from './inputDate.module.scss';
 import DatePicker from "./datePicker";
+import { darkTheme } from "../../main/mainpageSlice";
 
 export const InputDate = props => {
   const ref = useRef(null)
-  const { dateHandler, lang, val, placeholder } = props
+  const { dateHandler, lang, val, placeholder } = props;
+  
+  const dark = useSelector(darkTheme);
+
 
   const [value, setValue] = useState('')
   const [jsDate, setJsDate] = useState(null)
@@ -116,8 +121,12 @@ export const InputDate = props => {
   const styleClnBtn = value || showPicker ? `${styles.clearBtn} ${styles.showClnBtn}` : `${styles.clearBtn}`
   const stylePickerWrapper = showPicker ? `${styles.datePickerWrapper} ${styles.showPicker}` : `${styles.datePickerWrapper}  ${styles.hidePicker}`
 
+  const selectInputStyle = dark 
+  ? `${styles.calendar} ${styles.dark}`
+  : `${styles.calendar}`
+
   return (
-    <div className={styles.calendar}>
+    <div className={selectInputStyle}>
       <div className={styles.date}>
         <input type="text" className={styles.htmInput}
           value={value}

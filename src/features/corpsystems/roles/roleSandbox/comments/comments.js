@@ -4,13 +4,16 @@ import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../../../dictionary.json";
 import { user } from '../../../../user/userSlice';
 import { editSandBoxData, roleSendboxData, setComment } from "../../../corpsystemsSlice";
+import { darkTheme } from "../../../../main/mainpageSlice";
 
 export const Comments = () => {
+  
   const dispatch = useDispatch();
   const { lang, } = useSelector(user);
   const editSandBox = useSelector(editSandBoxData);
   const roleSendbox = useSelector(roleSendboxData);
-  
+  const dark = useSelector(darkTheme);
+
   const [text, setValue] = useState('');
   
   const [timerId, setTimerId] = useState(null);
@@ -28,8 +31,12 @@ export const Comments = () => {
     setTimerId(timer);
   }
 
+  const selectComments = dark 
+  ? `${styles.comments} ${styles.dark}`
+  : `${styles.comments}`
+
   return (
-    <div className={styles.comments}>
+    <div className={selectComments}>
       <div className={styles.commentsName}>{dictionary.comment[lang]}</div>
       <textarea
         className={styles.commentArea}

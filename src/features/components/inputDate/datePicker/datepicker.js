@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from './datepicker.module.scss';
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons'
+import { darkTheme } from "../../../main/mainpageSlice";
 
 export const DatePicker = props => {
-  const { lang, value, setValue, closePicker } = props
+  const { lang, value, setValue, closePicker } = props;
+  
+  const dark = useSelector(darkTheme);
 
   const [monthDay, setmonthDay] = useState(new Date(Date.now()))
   useEffect(()=> setmonthDay(value ? value : new Date(Date.now())), [value])
@@ -45,9 +49,12 @@ export const DatePicker = props => {
   //   console.log(e.deltaY);
   //   setHoursTop(hoursTop - 20)
   // }
+  const selectInputStyle = dark 
+  ? `${styles.picker} ${styles.dark}`
+  : `${styles.picker}`
 
   return (
-    <div className={styles.picker} id='picker'>
+    <div className={selectInputStyle} id='picker'>
       <nav className={styles.navigation}>
         <div>
           <button type="button" className={styles.navBtn} onClick={() => setPickerMonth('prev')}><FontAwesomeIcon icon={ faCaretLeft } className={styles.faCaret} /></button>

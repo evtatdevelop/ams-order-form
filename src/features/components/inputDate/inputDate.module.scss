@@ -22,15 +22,17 @@
       font-weight: 400;
       font-size: 1vmax;
       // color: #424242;
-      color: rgb(170, 169, 169);
+      
+    color: #424242;
       border-bottom: .1vmax solid #42424279;
       // border-radius: .1vmax;
       background-color: transparent;
       transition: background-color 1s;
       
       &:focus {
-        color: rgb(207, 207, 229);
-        background-color: rgba(0, 0, 128, 0.036);
+        outline: none;
+        color: navy;
+        background-color: rgba(135, 206, 250, 0.5);
       }
     }
   
@@ -68,7 +70,7 @@
 
   .datePickerWrapper {
     // top: 44px;
-    top: 3vmax;
+    top: 2.8vmax;
     position: absolute;
     z-index: 99;
     transition: opacity .3s, max-height .5s;
@@ -125,41 +127,29 @@
 
   }
 
-    //
+  //
   // Dark styles
   //
   &.dark {
-    background-color: transparent;
-    .oneRoleSandbox {
-      background-color: #161619f8;
-      .control {
-        button {
-          background-color: transparent;
-          border: .1vmax solid grey;
-          color: wheat;
+    .date {
+      .htmInput {
+        color: rgb(170, 169, 169);
 
-          &:hover,
-          &:focus {
-            background-color: #ffffff18
-          }
+        &:focus {
+          color: rgb(207, 207, 229);
+          background-color: rgba(0, 0, 128, 0.036);
         }
       }
-
-      .roleData {
-        .searhResult {
-          .serchItem {
-
-            .label {
-              // color: wheat;
-            }
-            .name {
-              color: white
-            }
-          }
-        }  
-      }        
-
-      outline: .1vmax solid grey;
+      .clearBtn {
+        background-color: transparent;
+        color: gray;
+    
+        &:focus,
+        &:hover {
+          color: red;
+          color: coral;
+        } 
+      }
     }
   }
 }
