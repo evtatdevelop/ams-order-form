@@ -69,13 +69,13 @@ export const DatePicker = props => {
       </nav>
 
       <div className={styles.dayNames}>
-        {[{'en': 'Mon', 'ru': 'пн'},
-          {'en': 'Tue', 'ru': 'вт'},
-          {'en': 'Wed', 'ru': 'ср'},
-          {'en': 'Thu', 'ru': 'чт'},
-          {'en': 'Fri', 'ru': 'пт'},
-          {'en': 'Sat', 'ru': 'сб'},
-          {'en': 'Sun', 'ru': 'вс'}].map((item, index) => {
+        {[{'en': 'Mon', 'ru': 'пн', "zh": '一'},
+          {'en': 'Tue', 'ru': 'вт', "zh": '二'},
+          {'en': 'Wed', 'ru': 'ср', "zh": '三'},
+          {'en': 'Thu', 'ru': 'чт', "zh": '四'},
+          {'en': 'Fri', 'ru': 'пт', "zh": '五'},
+          {'en': 'Sat', 'ru': 'сб', "zh": '六'},
+          {'en': 'Sun', 'ru': 'вс', "zh": '日'}].map((item, index) => {
             const styleNameDay = index === 5 || index === 6 ? `${styles.weekDayName} ${styles.weekend}` : `${styles.weekDayName}`  
             return <div key={index} className={styleNameDay}>{item[lang.toLowerCase()]}</div>
         })}

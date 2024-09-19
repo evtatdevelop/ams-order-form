@@ -6,7 +6,7 @@
 
   border: 1px solid gray;
   &:hover {
-    background-color: #ffffff18;
+    background-color: lightskyblue;
   }  
 
   button {
@@ -28,9 +28,10 @@
     overflow-x: hidden;
     cursor: pointer;
 
-    &:focus {
-      background-color: #ffffff18;
-    }    
+    // &:focus,
+    // &:hover {
+    //   // background-color: lightskyblue;
+    // }    
   }
 
   .remove {
@@ -64,8 +65,17 @@
   // Dark styles
   //
   &.dark {
+    &:focus,
+    &:hover {
+      background-color: #ffffff18
+    }
     .header {
       color: #aaa9a9;
+
+      &:focus,
+      &:hover {
+        // background-color: #ffffff18
+      }
     }
   
     .remove {
