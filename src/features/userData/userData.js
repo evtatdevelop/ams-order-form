@@ -27,6 +27,25 @@ export const UserData = () => {
   const positionInput = useSelector(positionInputData);
 
   useEffect(() => {
+    document.getElementById('oredrUser')?.focus();
+  },[])
+  useEffect(() => {
+    // && mainUser.company.hrs01_id 
+    // && mainUser.branch.hrs05_id 
+    // && mainUser.department.app22_id 
+    // && mainUser.position_name 
+    // && mainUser.email
+    // 
+    if ( !userDataList.boss && 
+      Object.keys(userDataList).length && userDataList.company && Object.keys(userDataList.company)?.length
+      && userDataList.branch && Object.keys(userDataList.branch)?.length
+      && userDataList.department && Object.keys(userDataList.department)?.length
+      && userDataList.position_name 
+      && userDataList.email
+    ) document.getElementById('oredrBoss')?.focus();
+  },[userDataList])
+
+  useEffect(() => {
     if ( userDataList.company && !Object.keys(userDataList.company).length ) 
       dispatch(getCompanies( {'api_key': api_key, 'company_group': userDataList.company_group} ))
   }, [api_key, dispatch, userDataList.company, userDataList.company_group])
@@ -134,6 +153,7 @@ export const UserData = () => {
             val = ''
             name='userName'
             mode = 'user'
+            id = 'oredrUser'
           />                  
         </div>
       </Row>

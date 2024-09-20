@@ -5,7 +5,7 @@ import { darkTheme } from "../../main/mainpageSlice";
 
 // export const Select = props => {
 const Select = (props, ref) => {
-  const {selectHandler, selectClear, placeholder, selectList, val, name} = props
+  const {selectHandler, selectClear, placeholder, selectList, val, name, id} = props
   const [value, setValue] = useState(val ? val : "")
   const [show, setShow] = useState(false);
   const dark = useSelector(darkTheme);
@@ -83,6 +83,7 @@ const Select = (props, ref) => {
           // onFocus={()=>setShow(true)}
           onBlur={()=>onBlur()}
           onKeyDown={(e)=>keyDown(e, -1)}
+          id={ id ?? '' }
         />
         {<button type="button" className={styleClnBtn}
             onClick={() => clearInput()}

@@ -9,7 +9,7 @@ import { user } from "../../user/userSlice";
 export const SelectInput = props => {
   const ref = useRef(null);
   const inputRefs = useRef([]);
-  const {selectHandler, placeholder, val, name, mode} = props
+  const {selectHandler, placeholder, val, name, mode, id} = props
   const { api_key } = useSelector(user);
   const dark = useSelector(darkTheme);
 
@@ -51,7 +51,7 @@ export const SelectInput = props => {
       : `${item.first_name ? item.first_name : ''} ${item.last_name ? item.last_name : ''}`
     );
     selectHandler(item.id)
-    setShow(false)
+    setShow(false);
   }
 
   const onFocus = e => {
@@ -118,6 +118,7 @@ export const SelectInput = props => {
           onBlur={()=>onBlur()}
           ref={ref}
           onKeyDown={(e)=>keyDown(e, -1)}
+          id = { id ?? '' }
         />
         {
           <div className={styleLoading}><TestLoader/></div>

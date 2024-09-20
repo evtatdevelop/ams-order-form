@@ -107,6 +107,7 @@ export const Corpsystems = () => {
                           val = ''
                           name='bossName'
                           mode = 'boss'
+                          id = 'oredrBoss'
                         />                  
                       </div>
                     </Row>

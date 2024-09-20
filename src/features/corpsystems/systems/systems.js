@@ -61,6 +61,14 @@ export const Systems = () => {
 
   
   useEffect(() => {
+    document.getElementById('systemForm')?.focus()
+  },[])
+  useEffect(() => {
+    if ( params.enable_subsystems === '1' && subSystemList.length )
+    document.getElementById('subSystemForm')?.focus()
+  },[params.enable_subsystems, subSystemList.length])
+
+  useEffect(() => {
 
     //! RoleList
     if ( cs && cs.sapSystem 
@@ -116,6 +124,7 @@ export const Systems = () => {
             selectList = {systemList}
             val = ''
             name='systemSelect'
+            id='systemForm'
           />
         </div>
       </Row>
@@ -133,6 +142,7 @@ export const Systems = () => {
                       selectList = {subSystemList}
                       val = ''
                       name='systemSelect'
+                      id='subSystemForm'
                     />
                   </div>                 
                 </>
