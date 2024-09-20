@@ -184,17 +184,17 @@ export const RoleSandbox = () => {
 
   const searchKeys = e => {
     // if ( e.code !== 'Tab' ) e.preventDefault();
-    console.log(e.code);
+    // console.log(e.code);
     switch ( e.code ) {
       case 'ArrowDown':
-        document.getElementById('searchSBItem0').focus() 
+        document.getElementById('searchSBItem0')?.focus() 
         break;
       case 'ArrowUp': 
         break;
       case 'NumpadEnter': 
       case 'Enter': 
         e.preventDefault();
-        document.getElementById('searchSBItem0').focus()
+        document.getElementById('searchSBItem0')?.focus()
         break;
       case 'Space': 
         break;
@@ -205,7 +205,7 @@ export const RoleSandbox = () => {
     }
   }
   const serchItemKey = (e, index, searchList, item) => {
-    console.log(e.code);
+    // console.log(e.code);
     switch ( e.code ) {
       case 'Tab':
       case 'ArrowDown':
@@ -289,7 +289,7 @@ export const RoleSandbox = () => {
                     >
                       <div className={styles.label}>{`${item.code ? dictionary.nameRole[lang]: dictionary.nameProcessGroup[lang]}:`}</div>
                       <div className={styles.name}>{`${item.name}`}
-                        { item.code ? <span className={styles.code}>{` (${item.code} ) ${item.proccss_group_name ? ` [ ${item.proccss_group_name} ]` : null}`}</span> : null } 
+                        <div>{ item.code ? <span className={styles.code}>{` (${item.code} ) ${item.proccss_group_name ? ` [ ${item.proccss_group_name} ]` : null}`}</span> : null } </div>
                       </div>
                       
                     </button>

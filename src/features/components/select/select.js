@@ -45,7 +45,9 @@ const Select = (props, ref) => {
         i = !i || !inputRefs.current[i] ? selectList.length-1 : --i;
         inputRefs.current[i]?.focus();
         break;
-      case 'Enter': onChange(item); break;
+      case 'Enter': 
+        if ( item ) onChange(item);
+        break;
       case 'Space': onShowPicker(); break;
       case 'Escape': setShow(false); break;
       // case 'Space': setShow(true); break;
