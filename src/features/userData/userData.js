@@ -15,7 +15,10 @@ import Select from "../components/select/select";
 import Input from "../components/input/Input";
 import SelectTree from "../components/selectTree/selectTree";
 
-export const UserData = () => {
+export const UserData = props => {
+
+  const { removeSession } = props;
+
   const dispatch = useDispatch();
   const {lang, api_key } = useSelector(user);
   const userDataLoad = useSelector(userDataLoading);
@@ -78,6 +81,7 @@ export const UserData = () => {
   const setUser = val => {
     if ( !val ) {
       dispatch(clearForm());
+      removeSession();
     }
       dispatch(unsetBrancList());
       dispatch(unsetDepartmentList());

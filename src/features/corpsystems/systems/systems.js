@@ -10,7 +10,10 @@ import { Row } from "../../components/row/row";
 import Select from "../../components/select/select";
 import { DataLoader } from "./dataLoader";
 
-export const Systems = () => {
+export const Systems = props => {
+
+  const { removeSession } = props;
+
   const dispatch = useDispatch();
   const { id, lang, api_key } = useSelector(user);
   const cs                    = useSelector(corpSyst);
@@ -111,6 +114,15 @@ export const Systems = () => {
             
   }, [api_key, cs, dispatch, id, mainUser]);
 
+  const cleanSystem = () => {
+    dispatch(unSetSapSystem());
+    removeSession();
+  }
+
+  const cleanSubSystem = () => {
+    dispatch(unSetSabSapSystem());
+    removeSession();
+  }
 
   return (
     <div className={styles.systems}>
@@ -119,7 +131,8 @@ export const Systems = () => {
         <div className={styles.wrapField}>
           <Select
             selectHandler = { val => dispatch(setSapSystem(val)) }
-            selectClear  = { () =>  dispatch(unSetSapSystem()) }
+            // selectClear  = { () =>  dispatch(unSetSapSystem()) }
+            selectClear  = { () =>  cleanSystem() }
             placeholder = '>'
             selectList = {systemList}
             val = ''
@@ -137,7 +150,8 @@ export const Systems = () => {
                   <div className={styles.wrapField}>
                     <Select
                       selectHandler = { val => dispatch(setSabSapSystem(val)) }
-                      selectClear  = { () => dispatch(unSetSabSapSystem()) }
+                      // selectClear  = { () => dispatch(unSetSabSapSystem()) }
+                      selectClear  = { () => cleanSubSystem() }
                       placeholder = '>'
                       selectList = {subSystemList}
                       val = ''

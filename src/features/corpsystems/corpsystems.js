@@ -16,7 +16,7 @@ import { SelectInput } from "../components/selectInput/selectInput";
 import { Systems } from "./systems/systems";
 import { Roles } from "./roles/roles";
 import { Approvals } from "./approvals/approvals";
-import { setShowInfo, showInfoData, textInfoData } from "./corpsystemsSlice";
+import { setShowInfo, showInfoData, textInfoData, processLevel, sessionKeyData, } from "./corpsystemsSlice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faTriangleExclamation, faCircleXmark, } from '@fortawesome/free-solid-svg-icons'
 
@@ -34,6 +34,7 @@ export const Corpsystems = () => {
   const roles             = useSelector(rolesData);
   const showInfo          = useSelector(showInfoData);
   const textInfo          = useSelector(textInfoData);
+  const sessionKey = useSelector(sessionKeyData);
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
@@ -49,6 +50,11 @@ export const Corpsystems = () => {
   }, [api_key, cs, dispatch, lang]);
 
 
+  const removeSession = () => {
+    dispatch(processLevel({api_key, event: 'rmSession', session_key: sessionKey, }));
+  }
+
+
   let corpsystemsStyle = dark 
     ? `${styles.corpsystems} ${styles.dark}`
     : `${styles.corpsystems}`
@@ -60,6 +66,7 @@ export const Corpsystems = () => {
   const onSetBoss = val => {
     if ( !val ) {
       dispatch(clearForm());
+      removeSession();
     }
     dispatch(setBoss(val))
   };
@@ -88,7 +95,9 @@ export const Corpsystems = () => {
                 <div className={styles.applicantName}>{`${last_name} ${first_name} ${middle_name} `}</div>
               </div>
 
-              <UserData/>
+              <UserData 
+                removeSession = { removeSession }
+              />
 
               { mainUser.id 
                 && mainUser.company.hrs01_id 
@@ -115,7 +124,9 @@ export const Corpsystems = () => {
                     { mainUser.boss
                       ? <>
                           {/* <div className={styles.gapRow}></div> */}
-                          <Systems/>
+                          <Systems 
+                            removeSession = { removeSession }
+                          />
 
                           { processGroupList.length && roleList.length
                             ? <>
