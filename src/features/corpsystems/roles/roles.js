@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from './roles.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../dictionary.json";
@@ -19,6 +19,10 @@ export const Roles = () => {
   ? `${styles.roles} ${styles.dark}`
   : `${styles.roles}`
 
+  useEffect(() => {
+    document.getElementById('addRoleForm')?.focus();
+  },[])
+
   return (
     <div className={rolesStyle}>
       <div className={styles.roleRow}>
@@ -29,7 +33,7 @@ export const Roles = () => {
             : null
           }
           
-          <li><button type="button" className={styles.btnRoleForm}
+          <li><button type="button" className={styles.btnRoleForm} id="addRoleForm"
             onClick={ () => dispatch(showRoleAdder(true)) }
           >{dictionary.add_role[lang]}</button></li> 
 

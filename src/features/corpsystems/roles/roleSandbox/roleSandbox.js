@@ -37,6 +37,11 @@ export const RoleSandbox = () => {
   const roles = useSelector(rolesData);
   const [cnt, ] = useState(roles.length ? roles[roles.length-1].cnt+1 : 1);
 
+
+  useEffect(() => {
+    document.getElementById('roleSearchForm')?.focus()
+  }, []);
+
   useEffect(() => {
     if ( Object.keys(role).length ) {
       setHereGroup(role.processGroup.name);
@@ -85,6 +90,8 @@ export const RoleSandbox = () => {
       lang,
       asz03_id: val.id,  
     }));
+
+    // document.body.blur();
   }
 
   const cancelGroup = () => {
@@ -248,6 +255,7 @@ export const RoleSandbox = () => {
                 val = ''
                 ref={searchRef} 
                 onKeyDownFunk = { searchKeys }
+                id = 'roleSearchForm'
               />
             : <div className={styles.searchBlank}></div>
           }
@@ -304,13 +312,13 @@ export const RoleSandbox = () => {
             : null
           }
 
-          { role.levels?.length === levels?.length
+          { role.levels?.length === levels?.length || ( !levels?.length && role.role )
             ? <DateInterval/>  
             : null
           }
           
           <div className={styles.gapRow}></div>
-          { role.levels?.length === levels?.length
+          { role.levels?.length === levels?.length || ( !levels?.length && role.role )
             ? <Comments/>
             : null
           }

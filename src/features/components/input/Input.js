@@ -6,7 +6,7 @@ import { darkTheme } from "../../main/mainpageSlice";
 // export const Input = props => {
 const Input = (props, ref) => {
   const insideref = useRef(null)
-  const {inputHandler, inputClear, placeholder, val, onKeyDownFunk} = props
+  const {inputHandler, inputClear, placeholder, val, onKeyDownFunk, id, } = props
   const [value, setValue] = useState(val ? val : "")
   const [timerId, setTimerId] = useState(null);
   const dark = useSelector(darkTheme);
@@ -41,6 +41,7 @@ const Input = (props, ref) => {
         placeholder = {placeholder}
         ref={insideref}
         onKeyDown={ onKeyDownFunk ? e => onKeyDownFunk(e) : ()=>{} }
+        id={ id ?? "" }
       />
       {<button type="button" className={styleClnBtn}
           onClick={() => clearInput()}

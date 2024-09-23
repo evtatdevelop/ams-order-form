@@ -13,7 +13,7 @@ export const Levels = props => {
   
   return (
     <ul className={styles.levels}>
-      { levels.map(item => 
+      { levels.map((item, index) => 
         !item.parent || ( roleSendbox.levels?.find(level => level.asz05_id === item.parent)?.value.length )
         ? <li key={item.asz05_id} className={styles.levelRow}>
             <div className={styles.levelName}>{item.name}</div>
@@ -26,12 +26,14 @@ export const Levels = props => {
                   placeholder = 'TYPE1 / TYPE2'
                   val = { [] }
                   clearLevel = {clearLevel}
+                  id = {`valueForm${index}`}
                 />
               : item.display_type === 'MANUAL' 
                 ? <Input 
                     inputClear = { () => console.log(null) }
                     placeholder = 'MANUAL'
                     val = ''
+                    id = {`valueForm${index}`}
                   />
                 : item.display_type === 'EMPLOYEE'
                   ? <SelectInput
@@ -39,6 +41,7 @@ export const Levels = props => {
                       val = ''
                       name='userNameLevel'
                       mode = 'user'
+                      id = {`valueForm${index}`}
                     />                       
                   : null
             }
