@@ -30,3 +30,22 @@
     }
   }
 }
+
+@media screen and (min-width: 1300px) {
+  .langButton {
+  
+    button {
+      width: 1.4vmax;
+      height: auto;
+    }
+  
+    .flag {
+      border-radius: .1vmax;
+    }
+  }
+}
+
+
+@media screen and (max-width: 1000px) {
+
+}

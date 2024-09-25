@@ -59,11 +59,32 @@
         background-color: #ffffff18
       }
     }
-  }
+  }  
+}
 
-  
-  @media screen and (max-width: 1000px) {
-
+@media screen and (min-width: 1300px) {
+  .roles {
+    font-size: .8vmax;
+    .roleRow {
+      label {
+        margin-top: .5vmax;
+        font-weight: 500;
+      }
+    }
+    .roleList {
+      width: 75%;
+      list-style-type: decimal;
+      
+      .btnRoleForm {
+        width: 100%;
+        min-height: 20px;
+        height: 2.48vmax;
+      }
+    }
   }
-  
+}
+
+
+@media screen and (max-width: 1000px) {
+
 }

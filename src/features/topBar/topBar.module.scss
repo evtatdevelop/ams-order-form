@@ -162,3 +162,83 @@
   
   }
 }
+
+@media screen and (min-width: 1300px) {
+  .header {
+    min-height: 4vmax;
+    font-size: 1.4vmax;
+    padding: .5vmax;
+  
+    & > div {
+      h1 {
+        font-weight: 400;
+      }
+    }
+  
+    .preferences {
+      right: 2.4vmax;
+      top: 1.13vmax;
+      width: 8vmax;
+      border: .1vmax solid gray;
+      border-radius: .2vmax;
+  
+      & > div {
+        margin-bottom: .8vmax;
+      }
+  
+      // .btnClosePreferences {
+      //   font-size: 1vmax;
+      //   margin-bottom: .5vmax;
+      // }
+    }
+  
+    .btnPreferences {
+      padding: .5vmax;
+      border-radius: .15vmax;
+      transition: border .3s;
+      width: 1.6vmax;
+      height: 1.6vmax;
+      
+      div {           
+        left: calc(50%+0.5vmax);
+        width: .8vmax;
+        height: .1vmax;
+        border-bottom: .15vmax solid gray;
+      }
+  
+      &::after {
+        top: 40%;
+        left: calc(50%+0.5vmax);
+        width: .8vmax;
+        height: .1vmax;
+        border-bottom: .15vmax solid gray;
+      }
+      &::before {
+        top: 56%;
+        left: calc(50%+0.5vmax);
+        width: .8vmax;
+        height: .1vmax;
+        border-bottom: .15vmax solid gray;
+      }
+      &.changed {
+        &::after {
+          width: .7vmax;
+          top: 42%;
+          transform: rotate(-135deg);
+        }
+        &::before {
+          width: .7vmax;
+          top: 54%;
+          transform: rotate(135deg);
+        }
+      }
+
+    }
+
+  }
+}
+
+
+@media screen and (max-width: 1000px) {
+
+}

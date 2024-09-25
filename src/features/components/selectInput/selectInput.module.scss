@@ -114,7 +114,7 @@
 
     .itemLi {
       width: 100%;
-      margin-top: .1vmax;
+      margin-bottom: .1vmax;
 
       label {
         font-weight: 400;
@@ -215,4 +215,57 @@
 
 
   }
+}
+
+@media screen and (min-width: 1300px) {
+  .selectInput {
+    .input {
+      .htmInput {
+        padding: .7vmax 3vmax .7vmax 1vmax;
+        letter-spacing: .01vmax;
+        font-weight: 400;
+        font-size: .8vmax;
+      }
+    
+      .clearBtn {
+        width: 2vmax;
+        height: 2vmax;
+        font-size: 1.2vmax;
+        font-weight: 100;
+        border-radius: .1vmax;
+      }
+  
+      .loading {
+        width: 2vmax;
+        height: 2vmax;
+        border-radius: .1vmax;
+      }
+    }
+  
+    .selectList {
+      margin-top: 2.4vmax;
+
+      &.showSelectList {
+        max-height: 25vh;
+      }
+  
+      .itemLi {
+        width: 100%;
+        margin-bottom: .1vmax;
+  
+        label {
+          font-weight: 400;
+          padding: .5vmax .5vmax .5vmax .5vmax;
+          border-radius: .1vmax;
+        }
+      }
+  
+    }
+  }
+
+}
+
+
+@media screen and (max-width: 1000px) {
+
 }

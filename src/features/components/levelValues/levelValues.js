@@ -319,11 +319,13 @@ const LevelValues = (props, ref) => {
             />
             { updating
               ? <div className={styleLoading}><TestLoader/></div>
-              : <button type="button" 
-                  className={styleClnBtn}
-                  onClick={() => clearInput()}
-                  aria-label="Clear"
-                >&times;</button>
+              : !editSandBox  //? there is a problem when clean parent level during edit mode and push Cancel (don't load child level at next editing)
+                ? <button type="button" 
+                    className={styleClnBtn}
+                    onClick={() => clearInput()}
+                    aria-label="Clear"
+                  >&times;</button>
+                : null  
             }
           </div>
 

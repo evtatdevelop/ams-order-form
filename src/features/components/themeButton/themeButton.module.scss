@@ -113,3 +113,64 @@ $padding: calc(#{$height} / 6);
   }
 
 }
+
+
+@media screen and (min-width: 1300px) {
+  $heightW: .8vmax;
+  $widthW: calc(#{$heightW} * 2);
+  $paddingW: calc(#{$heightW} / 6);
+  
+  .themeButton {
+    // margin-bottom: 0;
+    .iconBtn {
+  
+      .icon {
+        height: $heightW;
+      }
+  
+ 
+    }
+
+    .lightIconBtn {
+  
+      .icon {
+        height: $heightW;
+      } 
+    }
+
+    .darkIconBtn {
+      .icon {
+        height: $heightW;
+      }  
+    }
+    .switchWrap {
+  
+      .switcher {
+        width: calc(#{$widthW} + #{$paddingW} + #{$paddingW} );
+        height: calc(#{$heightW} + #{$paddingW} + #{$paddingW} );
+        border-radius: calc(#{$heightW} + #{$paddingW});
+  
+        .slider {
+          width: $heightW;
+          height: $heightW;
+          transition: margin-left .3s;
+          margin-left: $paddingW;
+        }
+        &.on {
+          .slider {
+            margin-left: $heightW;
+          }  
+        }        
+      }     
+      
+    
+    }
+  
+  }
+
+}
+
+
+@media screen and (max-width: 1000px) {
+
+}

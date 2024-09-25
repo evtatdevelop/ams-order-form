@@ -5,7 +5,7 @@ import { darkTheme } from "../../main/mainpageSlice";
 
 // export const Select = props => {
 const Select = (props, ref) => {
-  const {selectHandler, selectClear, placeholder, selectList, val, name, id} = props
+  const {selectHandler, selectClear, placeholder, selectList, val, name, id, editable} = props
   const [value, setValue] = useState(val ? val : "")
   const [show, setShow] = useState(false);
   const dark = useSelector(darkTheme);
@@ -26,8 +26,9 @@ const Select = (props, ref) => {
 
   useImperativeHandle(ref, () => ({ clearInput }));
 
-  const styleClnBtn = value ? `${styles.clearBtn} ${styles.showClnBtn}` : `${styles.clearBtn}`
-  const styleSelectList = show ? `${styles.selectList} ${styles.showSelectList}` : `${styles.selectList} ${styles.hideSelectList}`
+
+  const styleClnBtn = value && (editable ?? true) ? `${styles.clearBtn} ${styles.showClnBtn}` : `${styles.clearBtn}`
+  const styleSelectList = show && (editable ?? true) ? `${styles.selectList} ${styles.showSelectList}` : `${styles.selectList} ${styles.hideSelectList}`
 
   const selectInputStyle = dark 
   ? `${styles.select} ${styles.dark}`

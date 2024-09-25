@@ -9,7 +9,7 @@
     background-color: transparent;
     color: #161619;
     border: .1vmax solid gray;
-    border-radius: .3vmax;
+    // border-radius: .3vmax;
     padding: 1vmax;
     text-align: left;
     cursor: pointer;
@@ -48,3 +48,21 @@
     }
   }
 }  
+
+@media screen and (min-width: 1300px) {
+  .approvals {
+    font-size: .8vmax;
+    .btnRouteApproval {
+      min-height: 20px;
+      height: 6vh;
+      margin-bottom: .3vmax;
+      border: .1vmax solid gray;
+      padding: 1vmax;
+    }
+
+  } 
+}
+
+@media screen and (max-width: 1000px) {
+
+}

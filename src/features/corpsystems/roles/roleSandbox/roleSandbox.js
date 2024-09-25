@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../../dictionary.json";
 import { user } from '../../../user/userSlice';
 import { showRoleAdder, processGroupListData, roleListData, getLevels, roleSendboxData, 
-  levelsData, setRole, clearLevels, addRole, rolesData, clearLevelValues, processLevel, sessionKeyData, cancelEdit } from "../../corpsystemsSlice";
+  levelsData, setRole, clearLevels, addRole, rolesData, clearLevelValues, processLevel, sessionKeyData, cancelEdit, editSandBoxData, } from "../../corpsystemsSlice";
 import Input from "../../../components/input/Input";
 import Select from "../../../components/select/select";
 import { darkTheme } from "../../../main/mainpageSlice";
@@ -25,6 +25,7 @@ export const RoleSandbox = () => {
   const role = useSelector(roleSendboxData);
   const levels = useSelector(levelsData);
   const sessionKey = useSelector(sessionKeyData);
+  const editSandBox = useSelector(editSandBoxData);
 
   const [hereSearch, setHereSearch] = useState([]);
   const [hereGroups, setHereGroups] = useState([]);
@@ -269,6 +270,7 @@ export const RoleSandbox = () => {
                 selectList = {hereGroups}
                 val = {hereGroup}
                 name=''
+                editable = {!editSandBox}
               />
             : <InfoField val = { hereGroups.length ? hereGroups[0].name : null } />                          
           }
@@ -282,6 +284,7 @@ export const RoleSandbox = () => {
                 selectList = {hereRoles}
                 val = {hereRole}
                 name=''
+                editable = {!editSandBox}
               />
             : <InfoField val = { hereRoles.length ? hereRoles[0].name : null } />
           }

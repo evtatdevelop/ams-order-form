@@ -102,7 +102,7 @@
 
       .itemLi {
         width: 100%;
-        margin-top: .1vmax;
+        margin-bottom: .1vmax;
 
         .itemControl {
           display: flex;
@@ -223,12 +223,9 @@
 
   }
 
-
-
-
-  
+  //
   // Dark styles
-  
+  //
   &.dark {
     .input {
     
@@ -305,4 +302,88 @@
 
 
   }  
+}
+
+@media screen and (min-width: 1300px) {
+  .selectTree {
+    .input {
+      .htmInput {
+        padding: .7vmax 3vmax .7vmax 1vmax;
+        letter-spacing: .01vmax;
+        font-weight: 400;
+        font-size: .8vmax;
+        border-bottom: .1vmax solid #42424279;
+      }
+    
+      .clearBtn {
+        width: 2vmax;
+        height: 2vmax;
+        font-size: 1.2vmax;
+        font-weight: 100;
+        border-radius: .1vmax;
+      }
+    }
+  
+    .wrapperList {
+      margin-top: 2.4vmax;
+  
+      &.showSelectList {
+        max-height: 20vmax;
+      }
+  
+      .selectList {
+        .itemLi {
+          margin-bottom: .1vmax;
+  
+          .itemControl {
+            .subSwitcherLabel,
+            .gap {
+              width: 1.2vmax;
+              height: 1.2vmax;
+              margin-left: .3vmax;
+              margin-right: .3vmax;            
+            }
+  
+            .subSwitcherLabel {
+              &::after {
+                top: 50%;              
+                left: calc(50% - 0.2vmax);
+                width: .4vmax;
+                border-bottom: .1vmax solid;
+              }
+              &::before {
+                top: 50%;              
+                left: calc(50% - 0.15vmax);
+                width: .4vmax;
+                border-bottom: .1vmax solid;
+              }
+              &.changed {
+                &::after {
+                  transform: rotate(-180deg);
+                }
+                &::before {
+                  transform: rotate(180deg);
+                }
+              }
+            }
+          }
+  
+          label {
+            font-weight: 400;
+            padding: .5vmax 1vmax .5vmax 1vmax;
+            border-radius: .1vmax;
+          }
+  
+          .sub {
+            margin-left: 2vmax;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 1000px) {
+
 }
