@@ -94,3 +94,26 @@
   
 
 }
+
+@media screen and (min-width: 1300px) {
+  .valueRow{
+    padding: .1vmax;
+    margin-bottom: .3vmax;
+    margin-right: .5vmax;
+  
+    .wrapperBtn {
+      min-height: 2vmax;
+
+      div {
+        padding: .5vmax;
+        font-weight: 400;
+      }
+     
+    }
+  }
+}
+
+
+@media screen and (max-width: 1000px) {
+
+}

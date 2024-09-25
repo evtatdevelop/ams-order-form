@@ -167,3 +167,55 @@
     }
   }
 }
+
+@media screen and (min-width: 1300px) {
+  .picker {
+    border-radius: .1vmax;
+    font-size: .7vmax;
+    font-weight: 400;
+  
+    .navigation {
+      padding: .5vmax;
+  
+      &>div {
+        button {
+          width: 2vmax;
+  
+          &.navBtn {
+            width: 1vmax;
+          }
+          &.rest {
+            padding: 0;
+            width: 4.5vmax;
+          }
+        }      
+      }
+    }
+  
+    .dayNames {
+      gap: .2vmax;
+      padding: .2vmax;
+    }
+  
+    .dates {
+      gap: .2vmax;
+      padding: .2vmax;
+  
+      .dateCell {
+        width: 1.6vmax;
+        height: 1.6vmax;
+
+        &.selected {
+          font-weight: 700;
+          font-size: .7vmax;
+        }
+      }
+    }
+  
+  }
+}
+
+
+@media screen and (max-width: 1000px) {
+
+}

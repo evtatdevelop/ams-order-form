@@ -153,3 +153,32 @@
     }
   }
 }
+
+@media screen and (min-width: 1300px) {
+  .calendar {
+    .date {
+      .htmInput {
+        font-size: .8vmax;
+      }
+    
+      .clearBtn {
+        width: 2vmax;
+        height: 2vmax;
+        font-size: 1.2vmax;
+      }
+    }
+  
+    .datePickerWrapper {
+      top: 2.5vmax;
+  
+      &.showPicker {
+        max-height: 3.5vmax;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 1000px) {
+
+}

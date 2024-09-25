@@ -216,6 +216,7 @@
           background-color: transparent;
           color: #2aadff;
           font-weight:700;
+          min-height: 3vmax;
 
           .visualCheck {
             display: flex;
@@ -406,7 +407,7 @@
               // align-items: center;
               background-color: transparent;
               color: wheat;
-              min-height: 3vmax;
+              // min-height: 3vmax;
               &:hover {
                 background-color: rgb(66, 66, 66);
               }
@@ -490,7 +491,127 @@
     align-items: center;
     
     svg {
-      width: 3vmax;
-      height: 3vmax;
+      width: 2.5vmax;
+      height: 2.5vmax;
     }
-  }  
+  } 
+  
+  @media screen and (min-width: 1300px) {
+    .selectInput {
+    
+      .inputWrapper {
+        .htmInput {
+          width: 100%;
+          padding: .7vmax 3vmax .7vmax 1vmax;
+          font-size: .8vmax;
+        }
+    
+        .clearBtn {
+          width: 2vmax;
+          height: 2vmax;
+          font-size: 1.2vmax;
+        }
+        
+        .loading {
+          width: 1.9vmax;
+          height: 1.9vmax;
+        }     
+      }
+
+      .window {
+        padding: 1vmax;
+        width: 54vw;
+        left: 50%;
+        margin-left: -27vw;
+        height: 84vh;
+        top: 50%;
+        margin-top: -42vh;
+    
+        .header {
+          margin-bottom: 1vmax;
+        }
+    
+        .tableHead {
+          min-height: 4vmax;
+          margin-left: .1vmax;
+          margin-right: .1vmax;
+          margin-top: 1vmax;
+          padding: .1vmax;
+          
+    
+          div {
+            padding: .5vmax;
+            font-weight: 700;
+            height: 3vmax;
+          }
+    
+          .headCheck{
+            width: 4vmax;
+    
+            .checklAll {
+              width: 1.2vmax;
+              height: 1.2vmax;
+            }
+          }
+          .headCode{
+            min-width: 3vmax;
+            max-width: 85%;
+          }
+          .headName{
+            min-width: 3vmax;
+            max-width: 95%;
+          }      
+        }
+        .main {
+          padding: .1vmax;
+          // padding-top: .3vmax;
+          padding-bottom: .5vmax;
+          margin-top: .2vmax;
+          margin-bottom: 1vmax;
+          
+          .allAllsArea {
+            padding: .1vmax;
+            padding-right: 2vmax;
+            margin-bottom: .3vmax;
+            margin-right: .5vmax;
+            padding: .1vmax;
+    
+            button {
+              padding-right: 1vmax;
+              font-weight:700;
+              min-height: 2vmax;
+            }
+    
+            .infoArea {
+              right: 1vmax;
+              top: 1vmax;
+
+              .showInfoBtn {
+                width: 2vmax;
+                height: 2vmax;
+                border-radius: 1vmax; 
+                font-size: 1.5vmax;
+              }          
+            }       
+          }
+    
+    
+        }
+
+        .footer {button {
+            width: 25%;
+            min-height: 20px;
+            height: 2.5vmax;
+            margin-bottom: .3vmax;
+            border: .1vmax solid gray;
+            border-radius: .1vmax;
+          }      
+        }    
+      }
+    } 
+  }
+  
+  
+  @media screen and (max-width: 1000px) {
+  
+  }

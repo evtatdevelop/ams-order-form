@@ -169,8 +169,59 @@
       opacity: 1;
     }
   }
+
+}
+
+@media screen and (min-width: 1300px) {
+  .roleSandbox {
   
-  @media screen and (max-width: 1000px) {
+    .oneRoleSandbox {
+      width: 55%;
+      height: 85%;
+      .roleData {
+        padding: .5vmax;
   
+        .searchBlank {
+          height: 2.7vmax;
+        }
+        .searhResult {
+          margin-top: 1vmax;
+          padding: .5vmax;
+          
+          // 
+          .serchItem {
+            button {
+              padding: 1vmax .5vmax;
+  
+              .label {
+                margin-right: 1vmax;
+              }                           
+            }
+          }
+        }
+  
+        .gapRow {
+          margin-top: .1vmax;
+        }
+  
+      }
+      .control {
+        padding: 1vmax;
+  
+        button {
+          width: 35%;
+          min-height: 20px;
+          height: 2.5vmax;
+          border: .1vmax solid;
+          border-radius: .1vmax;
+
+        }
+      }
+    }
   }
+}
+
+
+@media screen and (max-width: 1000px) {
+
 }

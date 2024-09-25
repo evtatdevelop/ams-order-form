@@ -35,3 +35,18 @@
     outline: .1vmax solid grey;
   }  
 }
+
+@media screen and (min-width: 1300px) {
+  .checkBox {
+    display: flex;
+    width: 1.2vmax;
+    height: 1.2vmax;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+
+@media screen and (max-width: 1000px) {
+
+}
