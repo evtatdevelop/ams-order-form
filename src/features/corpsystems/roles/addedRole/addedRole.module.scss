@@ -47,7 +47,7 @@
     height: 2vmax;
     color: gray;
     transition: color .3s;
-    font-size: 1.2vmax;
+    font-size: 1.7vmax;
     font-weight: 100;
     border-radius: .1vmax;
 
@@ -87,3 +87,23 @@
   }   
 }
 
+@media screen and (min-width: 1300px) {
+  .addedRole {
+    margin-bottom: 1vmax;  
+
+    .header {
+      padding: .8vmax;
+    }
+  
+    .remove {
+      width: 2vmax;
+      height: 2vmax;
+      font-size: 1.2vmax; 
+    }  
+  }
+}
+
+
+@media screen and (max-width: 1000px) {
+
+}
