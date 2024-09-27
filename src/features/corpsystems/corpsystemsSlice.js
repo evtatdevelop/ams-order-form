@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { sessionKey, companies, branches, departments, sapBranch, locations, corpsystem, 
-  systemList, subSystemList, processGroups, getParam, roles, levels, sandboxLevel } from "./corpsystemsSliceAPI";
+  systemList, subSystemList, processGroups, getParam, roles, levels, sandboxLevel, approvalRoute,  } from "./corpsystemsSliceAPI";
 import { getUserData } from "../user/userSliceAPI";
 
 const initialState = {
@@ -52,6 +52,7 @@ export const getGetParam      = createAsyncThunk( 'corpsystem/getGetParam', asyn
 export const getRoles         = createAsyncThunk( 'corpsystem/getRoles', async ( data ) => await roles(data) );
 export const getLevels        = createAsyncThunk( 'corpsystem/getLevels', async ( data ) => await levels(data) );
 export const processLevel     = createAsyncThunk( 'corpsystem/processLevel', async ( data ) => await sandboxLevel(data) );
+export const getApprovalRoute = createAsyncThunk( 'corpsystem/approvalRoute', async ( data ) => await approvalRoute(data) );
 
 export const corpsystemSlice = createSlice({
   name: 'corpsystems',
@@ -320,12 +321,21 @@ export const corpsystemSlice = createSlice({
       // state.subSystemLoading = false;
       state.editSandBox = false;  //??? well... it works maybe!
     })
+
+
+    .addCase(getApprovalRoute.pending, ( state ) => { 
+      // state.subSystemLoading = true 
+    })
+    .addCase(getApprovalRoute.fulfilled, ( state, action ) => {
+      console.log(action.payload);
+    })
   }
 });
 
 export const { setCompany, setBranch, setDepartment, setLocation, setPosition, unSetPosition,
   unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, 
-  setBoss, clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
+  setBoss, 
+  clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
   showRoleAdder, addRole, rmRole, editRole,
   setRole, clearLevels, setLevelsValue, unSetLevelsValue, clearLevelValues, cancelEdit, setShowInfo, setDates, setComment
 } = corpsystemSlice.actions;
