@@ -35,6 +35,10 @@ const initialState = {
   
   roleSendbox: {},
   levels: [],
+
+  approvals: [],
+  approveLoading: false,
+
 }
 
 export const getSessionKey    = createAsyncThunk( 'corpsystem/getSessionKey', async ( data ) => await sessionKey(data) );
@@ -324,17 +328,17 @@ export const corpsystemSlice = createSlice({
 
 
     .addCase(getApprovalRoute.pending, ( state ) => { 
-      // state.subSystemLoading = true 
+      state.approveLoading = true 
     })
     .addCase(getApprovalRoute.fulfilled, ( state, action ) => {
-      console.log(action.payload);
+      state.approvals = action.payload
+      state.approveLoading = false 
     })
   }
 });
 
 export const { setCompany, setBranch, setDepartment, setLocation, setPosition, unSetPosition,
-  unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, 
-  setBoss, 
+  unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, setBoss, 
   clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
   showRoleAdder, addRole, rmRole, editRole,
   setRole, clearLevels, setLevelsValue, unSetLevelsValue, clearLevelValues, cancelEdit, setShowInfo, setDates, setComment
@@ -362,5 +366,6 @@ export const sessionKeyData       = ( state ) => state.corpsystems.sessionKey;
 export const editSandBoxData      = ( state ) => state.corpsystems.editSandBox;
 export const showInfoData         = ( state ) => state.corpsystems.showInfo;
 export const textInfoData         = ( state ) => state.corpsystems.textInfo;
+export const approveLoadingData   = ( state ) => state.corpsystems.approveLoading;
 
 export default corpsystemSlice.reducer;

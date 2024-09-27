@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { user, } from '../../user/userSlice';
 import { darkTheme } from "../../main/mainpageSlice";
 import dictionary from '../../../dictionary.json';
-import {sessionKeyData,  getApprovalRoute, rolesData, userData } from "../corpsystemsSlice";
+import {sessionKeyData,  getApprovalRoute, rolesData, userData, approveLoadingData } from "../corpsystemsSlice";
+import { ApprovalDataLoader } from "./dataLoader";
 
 export const Approvals = () => {
   const dispatch = useDispatch();
@@ -15,9 +16,20 @@ export const Approvals = () => {
   const sessionKey = useSelector(sessionKeyData);
   const roles = useSelector(rolesData);
   const {boss, sap_branch}   = useSelector(userData);
+  const approveLoading   = useSelector(approveLoadingData);
+
   
+  
+  
+  // ! Important check
+  // ToDo: inCase Window SandBox Cancel rmSessionRole 
+  // ToDo: clining Approvals everywhere 
+
+
+
 
   const getApprovals = () => {
+    if ( approveLoading ) return;
 
     const apoveRoleData = roles.reduce((res, item) => [...res, {blk_id: item.cnt, asz03_id: item.role.id }], []);
 
@@ -38,7 +50,10 @@ export const Approvals = () => {
 
       <button type="button" className={styles.btnRouteApproval} 
         onClick={ () => getApprovals() }
-      >{dictionary.request_route_approval[lang]}</button>
+      >{  approveLoading
+          ? <div className={styles.loader}><ApprovalDataLoader/></div>
+          : dictionary.request_route_approval[lang]
+      }</button>
     
     </div>
   )

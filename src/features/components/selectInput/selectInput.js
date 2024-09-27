@@ -119,6 +119,7 @@ export const SelectInput = props => {
           ref={ref}
           onKeyDown={(e)=>keyDown(e, -1)}
           id = { id ?? '' }
+          autoComplete="off"
         />
         {
           <div className={styleLoading}><TestLoader/></div>

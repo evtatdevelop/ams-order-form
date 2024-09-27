@@ -42,6 +42,7 @@ const Input = (props, ref) => {
         ref={insideref}
         onKeyDown={ onKeyDownFunk ? e => onKeyDownFunk(e) : ()=>{} }
         id={ id ?? "" }
+        autoComplete="off"
       />
       {<button type="button" className={styleClnBtn}
           onClick={() => clearInput()}
