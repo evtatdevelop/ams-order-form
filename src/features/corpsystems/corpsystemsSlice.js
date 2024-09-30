@@ -373,5 +373,6 @@ export const editSandBoxData      = ( state ) => state.corpsystems.editSandBox;
 export const showInfoData         = ( state ) => state.corpsystems.showInfo;
 export const textInfoData         = ( state ) => state.corpsystems.textInfo;
 export const approveLoadingData   = ( state ) => state.corpsystems.approveLoading;
+export const approvalsData        = ( state ) => state.corpsystems.approvals;
 
 export default corpsystemSlice.reducer;

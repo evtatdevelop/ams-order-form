@@ -2,6 +2,9 @@
   animation: appearance 700ms ease-in-out forwards;
 
   .btnRouteApproval {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     min-height: 20px;
     height: 7vh;
@@ -33,6 +36,26 @@
         height: 3vmax;
       }
     }    
+  }
+
+  .approvalLists {
+    .oneRoleApproval {
+      margin-bottom: 1vmax;
+
+      .nameRoleApproval {
+        margin-bottom: .5vmax;
+      }
+
+      .roleApprovals {
+        width: 100%;
+        display: grid;
+        gap: 1px;
+        /* grid-template-columns: repeat(3, 1fr); */
+        grid-template-rows: auto;  
+        grid-template-columns: 50px 30% 30% auto; 
+      }      
+    }     
+
   }
 
   //

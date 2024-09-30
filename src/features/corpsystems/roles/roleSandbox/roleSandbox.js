@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../../dictionary.json";
 import { user } from '../../../user/userSlice';
 import { showRoleAdder, processGroupListData, roleListData, getLevels, roleSendboxData, 
-  levelsData, setRole, clearLevels, addRole, rolesData, clearLevelValues, processLevel, sessionKeyData, cancelEdit, editSandBoxData, } from "../../corpsystemsSlice";
+  levelsData, setRole, clearLevels, addRole, rolesData, clearLevelValues, processLevel, sessionKeyData, cancelEdit, editSandBoxData, clearApprovals,} from "../../corpsystemsSlice";
 import Input from "../../../components/input/Input";
 import Select from "../../../components/select/select";
 import { darkTheme } from "../../../main/mainpageSlice";
@@ -176,6 +176,7 @@ export const RoleSandbox = () => {
     cancelRole();
     dispatch(clearLevels());
     dispatch(cancelEdit());
+    dispatch(clearApprovals());
   }
 
   const handleCancel = () => {
