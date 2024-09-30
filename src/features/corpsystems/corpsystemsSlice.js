@@ -125,6 +125,7 @@ export const corpsystemSlice = createSlice({
       state.processGroupList = [];
       state.roleList = [];
       state.roles = [];
+      state.approvals = [];
     },
     
     showRoleAdder: (state, action) => {
@@ -192,6 +193,10 @@ export const corpsystemSlice = createSlice({
 
     setComment: (state, action) => {
       state.roleSendbox = {...state.roleSendbox, comment: action.payload}
+    },
+
+    clearApprovals: (state) => {
+      state.approvals = [];
     },
 
   },
@@ -341,7 +346,8 @@ export const { setCompany, setBranch, setDepartment, setLocation, setPosition, u
   unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, setBoss, 
   clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
   showRoleAdder, addRole, rmRole, editRole,
-  setRole, clearLevels, setLevelsValue, unSetLevelsValue, clearLevelValues, cancelEdit, setShowInfo, setDates, setComment
+  setRole, clearLevels, setLevelsValue, unSetLevelsValue, clearLevelValues, cancelEdit, setShowInfo, setDates, setComment,
+  clearApprovals
 } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;

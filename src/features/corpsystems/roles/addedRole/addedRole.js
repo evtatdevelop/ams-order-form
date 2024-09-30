@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './addedRole.module.scss';
 import { useSelector, useDispatch } from "react-redux";
-import { editRole, processLevel, sessionKeyData, } from "../../corpsystemsSlice";
+import { editRole, processLevel, sessionKeyData, clearApprovals} from "../../corpsystemsSlice";
 import { darkTheme } from "../../../main/mainpageSlice";
 import { user } from "../../../user/userSlice";
 
@@ -16,6 +16,7 @@ export const AddedRoles = props => {
   const removeRole = () => {
     // dispatch(rmRole(item.role.id))
     dispatch(processLevel({api_key, event: 'rmSessionRole', session_key: sessionKey, blk_id: item.cnt, }));
+    dispatch(clearApprovals())
   }
 
   const viewRole = () => {

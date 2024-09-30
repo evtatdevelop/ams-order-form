@@ -22,7 +22,6 @@ export const Approvals = () => {
   
   
   // ! Important check
-  // ToDo: inCase Window SandBox Cancel rmSessionRole 
   // ToDo: clining Approvals everywhere 
 
 

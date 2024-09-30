@@ -5,7 +5,7 @@ import { user, } from '../../user/userSlice';
 import dictionary from '../../../dictionary.json';
 import { corpSyst, getSystemList, systemListData, setSapSystem, getSubSystemList, userData, paramsData,
   subSystemListData, unSetSapSystem, setSabSapSystem, unSetSabSapSystem, getGetParam, 
-  getProcessGroups, subSystemLoadingData, getRoles } from "../corpsystemsSlice";
+  getProcessGroups, subSystemLoadingData, getRoles, clearApprovals } from "../corpsystemsSlice";
 import { Row } from "../../components/row/row";
 import Select from "../../components/select/select";
 import { DataLoader } from "./dataLoader";
@@ -117,11 +117,13 @@ export const Systems = props => {
   const cleanSystem = () => {
     dispatch(unSetSapSystem());
     removeSession();
+    dispatch(clearApprovals())
   }
 
   const cleanSubSystem = () => {
     dispatch(unSetSabSapSystem());
     removeSession();
+    dispatch(clearApprovals())
   }
 
   return (

@@ -6,7 +6,7 @@ import dictionary from '../../dictionary.json';
 import { getUserId, userDataLoading, userData, 
   getCompanies, companyListData, setCompany, getBranches, branchListData, locationLiistData, positionInputData,
   getDepartments, departmentLiistData, setBranch, setDepartment, getSapBranch, getLocations, setLocation, setPosition,
-  unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, unSetPosition, clearForm } from "../corpsystems/corpsystemsSlice";
+  unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, unSetPosition, clearForm, clearApprovals } from "../corpsystems/corpsystemsSlice";
 import { Row } from "../components/row/row";
 import { SelectInput } from "../components/selectInput/selectInput";
 import { UserDataLoader } from "./userDataLoader";
@@ -82,6 +82,7 @@ export const UserData = props => {
     if ( !val ) {
       dispatch(clearForm());
       removeSession();
+      dispatch(clearApprovals())
     }
       dispatch(unsetBrancList());
       dispatch(unsetDepartmentList());

@@ -16,7 +16,7 @@ import { SelectInput } from "../components/selectInput/selectInput";
 import { Systems } from "./systems/systems";
 import { Roles } from "./roles/roles";
 import { Approvals } from "./approvals/approvals";
-import { setShowInfo, showInfoData, textInfoData, processLevel, sessionKeyData, } from "./corpsystemsSlice";
+import { setShowInfo, showInfoData, textInfoData, processLevel, sessionKeyData, clearApprovals } from "./corpsystemsSlice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faTriangleExclamation, faCircleXmark, } from '@fortawesome/free-solid-svg-icons'
 
@@ -67,6 +67,7 @@ export const Corpsystems = () => {
     if ( !val ) {
       dispatch(clearForm());
       removeSession();
+      dispatch(clearApprovals())
     }
     dispatch(setBoss(val))
   };
