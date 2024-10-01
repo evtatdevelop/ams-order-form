@@ -49,15 +49,16 @@
       .nameRoleApproval {
         margin-bottom: .5vmax;
         font-weight: 500;
-        color: gray;
+        color: rgb(207, 206, 206);
       }
 
       .roleApprovals {
+        color: #aaa9a9;
         width: 100%;
         display: grid;
         gap: 1px;
         grid-template-rows: auto;  
-        grid-template-columns: 3vmax 25% 35% auto; 
+        grid-template-columns: 3vmax 25% auto; 
 
         & > div {
           display: flex;
@@ -69,6 +70,25 @@
 
           &.stageNum {
             justify-content: center;
+          }
+
+          &.levelApprove {
+            padding: 0;
+            width: 100%;
+            display: grid;
+            gap: 1px;
+            grid-template-rows: auto;  
+            grid-template-columns: repeat(2, 1fr); 
+
+            & > div {
+              
+              display: flex;
+              align-items: center;
+              min-height: 2.0vmax;
+              padding: .4vmax;
+              outline: .1vmax dotted rgba(128, 128, 128, 0.24);
+              letter-spacing: .01vmax;
+            }  
           }
         }
       }      

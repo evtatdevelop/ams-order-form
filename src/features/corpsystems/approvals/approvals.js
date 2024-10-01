@@ -6,6 +6,7 @@ import { darkTheme } from "../../main/mainpageSlice";
 import dictionary from '../../../dictionary.json';
 import {sessionKeyData,  getApprovalRoute, rolesData, userData, approveLoadingData, approvalsData, corpSyst } from "../corpsystemsSlice";
 import { ApprovalDataLoader } from "./dataLoader";
+import Select from "./select/select";
 
 export const Approvals = () => {
   const dispatch = useDispatch();
@@ -36,68 +37,70 @@ export const Approvals = () => {
     : `${styles.approvals}`
 
 
-    // console.log(approvals.map(item => Object.values(item)));
-    
 
-    console.log(
-
-      approvals
-        .map(item => Object.values(item))
-        .map(item => item.reduce((res, item) => {
-          return {
-            ...res, 
-            [item.asz10_order_seq]: {
-              asz10_order_seq:  item.asz10_order_seq,
-              asz10_name:       item.asz10_name,
-              asz10_id:         item.asz10_id,
-              asz06:  res[item.asz10_order_seq] 
-              ? [ ...res[item.asz10_order_seq].asz06,
-                  {
-                    asz06_code_value: item.asz06_code_value,
-                    asz06_id: item.asz06_id,
-                    asz06_id_parent: item.asz06_id_parent,
-                    app12: item.app12
-                  }, 
-                ]
-              : [ {
-                    asz06_code_value: item.asz06_code_value,
-                    asz06_id: item.asz06_id,
-                    asz06_id_parent: item.asz06_id_parent,
-                    app12: item.app12
-                  }, 
-                ]
-            }
-          }
-        }, {})
-        )
-        .map(item => Object.fromEntries(Object.entries(item).sort()))
-        .map(item => Object.values(item))
-    );
+  const approvalTab = approvals
+    .map(item => Object.values(item))
+    .map(item => item.reduce((res, item) => {
+      return { ...res, 
+        [item.asz10_order_seq]: {
+          asz10_order_seq: item.asz10_order_seq,
+          asz10_name: item.asz10_name,
+          asz10_id: item.asz10_id,
+          asz06: [ ...res[item.asz10_order_seq] ? res[item.asz10_order_seq].asz06 : [],
+            { asz06_code_value: item.asz06_code_value,
+              asz06_id: item.asz06_id,
+              asz06_id_parent: item.asz06_id_parent,
+              app12: item.app12.filter((obj, idx, arr) => idx === arr.findIndex((t) => t.id === obj.id)) }, 
+          ]
+        }
+      }
+    }, {}))
+    .map(item => Object.fromEntries(Object.entries(item).sort()))
+    .map(item => Object.values(item));
     
+    // console.log(approvalTab);
+
+      
 
   return ( 
     <div className={approvalsStyle}>
       { !approvals.length
         ? <button type="button" className={styles.btnRouteApproval} 
             onClick={ () => getApprovals() }
-          >{  approveLoading
-              ? <div className={styles.loader}><ApprovalDataLoader/></div>
-              : dictionary.request_route_approval[lang]
+          >{ approveLoading
+             ? <div className={styles.loader}><ApprovalDataLoader/></div>
+             : dictionary.request_route_approval[lang]
           }</button>
 
         : <section className={styles.approvalLists}>{ 
-          approvals.map((item, index)=>
+            approvalTab.map((item, index)=>
               <div key={index} className={styles.oneRoleApproval}>
                 <h2 className={styles.nameRoleApproval}>{`Роль:  ${corpSystem.sapSystem.name} / ${roles[index].role.proccss_group_name} / ${roles[index].role.name}`}</h2>   
                 <div className={styles.roleApprovals}>
-                { Object.values(item).map((itm, i) => 
-                  <>
-                    <div className={styles.stageNum}>{itm.asz10_order_seq}</div>
-                    <div>{itm.asz10_name}</div>
-                    <div>{itm.asz06_code_value}</div>
-                    <div>{itm.app12[0].fio}</div>
-                  </>
-                )}
+                  {item.map((itm, indx) => <>
+                    <div key={`q${index}${indx}`} className={styles.stageNum}>{itm.asz10_order_seq}</div>
+                    <div key={`n${index}${indx}`}>{itm.asz10_name}</div>
+                    <div key={`l${index}${indx}`} className={styles.levelApprove}>
+                      { itm.asz06.map((i, c) => <>
+                          <div>{i.asz06_code_value}</div>
+                          <div>{  i.app12.length > 1
+                                  // ? i.app12.map( person => <div>{person.name}</div>)
+                                  ? <Select
+                                      selectHandler = { val => console.log('set', val) }
+                                      selectClear  = { () =>  console.log('clean') }
+                                      placeholder = '>'
+                                      selectList = {i.app12}
+                                      val = ''
+                                      name={`p${index}${indx}${c}`}
+                                      id={`p${index}${indx}${c}`}
+                                    />
+                                  : i.app12[0].name
+                          }</div>                      
+                        </>)
+                      }
+                    </div>
+                  </> )
+                  }
                 </div>
               </div>)
 
