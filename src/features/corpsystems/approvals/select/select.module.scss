@@ -1,0 +1,245 @@
+.select {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // position: relative;
+  width: 100%;
+
+  .input {
+    display: flex;
+    align-items: center;
+    // position: relative;
+    width: 100%;
+  
+    .htmInput {
+      width: 100%;
+      padding: .7vmax 3vmax .7vmax 1vmax;
+      font: inherit;
+      letter-spacing: .01vmax;
+      font-size: inherit;
+      font-weight: 400;
+      font-size: 1vmax;
+      color: #424242;
+      border-bottom: .1vmax solid #42424279;
+      // border-radius: .1vmax;
+      background-color: transparent;
+      transition: background-color 1s;
+      
+      &:focus {
+        outline: none;
+        color: navy;
+        background-color: rgba(135, 206, 250, 0.5);
+      }
+    }
+  
+    .clearBtn {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      right: 0;
+      border: none;
+      padding: 0;
+      margin: 0;
+      background-color: transparent;
+      width: 2vmax;
+      height: 2vmax;
+      color: gray;
+      transition: color .3s;
+      font-size: 1.7vmax;
+      font-weight: 100;
+      opacity: 0;
+      transition: opacity .3s;
+      border-radius: .1vmax;
+
+      &.showClnBtn {
+        opacity: 1;
+      }
+  
+      &:focus,
+      &:hover {
+        color: red;
+      } 
+    }
+  }
+
+  .selectList {
+    position: absolute;
+    // bottom: 0; // Open UP !!!!
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 2.7vmax;
+    border: .1vmax solid lightskyblue;
+    transition: opacity .3s, max-height .5s;
+    background-color: rgb(238, 238, 249);
+   
+    &.hideSelectList {
+      max-height: 0px;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    &.showSelectList {
+      // max-height: 15vmax;
+      max-height: 25vh;
+      overflow: auto;
+      opacity: 1;
+    }
+
+    .itemLi {
+      width: 100%;
+      margin-bottom: .1vmax;
+
+      label {
+        font-weight: 400;
+        display: block;
+        width: 100%;
+        height: 100%;  
+        background-color: rgba(135, 206, 250, 0.5);
+        padding: .8vmax 1vmax .8vmax 1vmax;
+        transition: background-color .3s;
+        border-radius: .1vmax;
+        color: #424242;
+      }
+
+      input[type=radio] {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        border: 0;
+        padding: 0;
+        clip: rect(0 0 0 0);
+        overflow: hidden;
+
+        &:focus,
+        &:hover {
+          &+label {
+            background-color: lightskyblue;
+          }
+        }
+      }
+    
+    }
+
+    overflow-y: scroll;
+    scrollbar-width: 3px;
+    scrollbar-color: lightblue lightskyblue;
+    &::-webkit-scrollbar { width: 3px; }
+    // &::-webkit-scrollbar-track { background: rgb(152, 226, 251); }
+    // &::-webkit-scrollbar-thumb { background-color: rgb(40, 197, 250); }
+  }
+
+
+  //
+  // Dark styles
+  //
+  &.dark {
+    .input {
+    
+      .htmInput {
+        color: rgb(170, 169, 169);
+        
+        &:focus {
+          color: rgb(207, 207, 229);
+          background-color: rgba(0, 0, 128, 0.036);
+        }
+      }
+    
+      .clearBtn {
+   
+        &:focus,
+        &:hover {
+          color: coral;
+        } 
+      }
+  
+      // .loading {
+      //   color: coral;
+      // }
+    }
+
+    .selectList {
+      border: .1vmax solid rgba(245, 222, 179, 0.493);
+      background-color: #161619;
+  
+      .itemLi {
+  
+        label { 
+          background-color: #36363d;
+          color: rgb(241, 235, 235);
+        }
+  
+        input[type=radio] {
+          
+          &:focus,
+          &:hover {
+            &+label {
+              background-color: #60606d;
+            }
+          }
+        }
+      
+      }
+
+      scrollbar-color: #161619 #60606d;
+      &::-webkit-scrollbar-track { background: #161619; }
+      &::-webkit-scrollbar-thumb { background-color: #60606d; }
+    }
+
+
+  }  
+}
+
+@media screen and (min-width: 1300px) {
+  .select {
+    .input {
+      .htmInput {
+        padding: .4vmax 3vmax .4vmax 1vmax;
+        letter-spacing: .01vmax;
+        font-weight: 400;
+        font-size: .8vmax;
+        border-bottom: .1vmax solid #42424279;
+      }
+    
+      .clearBtn {
+        width: 2vmax;
+        height: 2vmax;
+        font-size: 1.2vmax;
+        font-weight: 100;
+        border-radius: .1vmax;
+      }
+    }
+  
+    .selectList {
+      margin-top: 2.4vmax;
+
+      &.showSelectList {
+        max-height: 25vh;
+      }
+  
+      .itemLi {
+        margin-bottom: .1vmax;
+  
+        label {
+          font-weight: 400;
+          padding: .5vmax 1vmax .5vmax 1vmax;
+          border-radius: .1vmax;
+        }
+      }
+    }
+  
+  }
+}
+
+
+@media screen and (max-width: 1000px) {
+
+}
