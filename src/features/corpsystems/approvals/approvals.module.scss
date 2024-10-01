@@ -39,20 +39,38 @@
   }
 
   .approvalLists {
+    font: inherit;
+    font-weight: 300;
+    font-size: 1vmax;
+
     .oneRoleApproval {
       margin-bottom: 1vmax;
 
       .nameRoleApproval {
         margin-bottom: .5vmax;
+        font-weight: 500;
+        color: gray;
       }
 
       .roleApprovals {
         width: 100%;
         display: grid;
         gap: 1px;
-        /* grid-template-columns: repeat(3, 1fr); */
         grid-template-rows: auto;  
-        grid-template-columns: 50px 30% 30% auto; 
+        grid-template-columns: 3vmax 25% 35% auto; 
+
+        & > div {
+          display: flex;
+          align-items: center;
+          min-height: 2.0vmax;
+          padding: .4vmax;
+          outline: .1vmax dotted rgba(128, 128, 128, 0.24);
+          letter-spacing: .01vmax;
+
+          &.stageNum {
+            justify-content: center;
+          }
+        }
       }      
     }     
 

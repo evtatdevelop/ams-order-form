@@ -36,6 +36,45 @@ export const Approvals = () => {
     : `${styles.approvals}`
 
 
+    // console.log(approvals.map(item => Object.values(item)));
+    
+
+    console.log(
+
+      approvals
+        .map(item => Object.values(item))
+        .map(item => item.reduce((res, item) => {
+          return {
+            ...res, 
+            [item.asz10_order_seq]: {
+              asz10_order_seq:  item.asz10_order_seq,
+              asz10_name:       item.asz10_name,
+              asz10_id:         item.asz10_id,
+              asz06:  res[item.asz10_order_seq] 
+              ? [ ...res[item.asz10_order_seq].asz06,
+                  {
+                    asz06_code_value: item.asz06_code_value,
+                    asz06_id: item.asz06_id,
+                    asz06_id_parent: item.asz06_id_parent,
+                    app12: item.app12
+                  }, 
+                ]
+              : [ {
+                    asz06_code_value: item.asz06_code_value,
+                    asz06_id: item.asz06_id,
+                    asz06_id_parent: item.asz06_id_parent,
+                    app12: item.app12
+                  }, 
+                ]
+            }
+          }
+        }, {})
+        )
+        .map(item => Object.fromEntries(Object.entries(item).sort()))
+        .map(item => Object.values(item))
+    );
+    
+
   return ( 
     <div className={approvalsStyle}>
       { !approvals.length
@@ -50,12 +89,16 @@ export const Approvals = () => {
           approvals.map((item, index)=>
               <div key={index} className={styles.oneRoleApproval}>
                 <h2 className={styles.nameRoleApproval}>{`Роль:  ${corpSystem.sapSystem.name} / ${roles[index].role.proccss_group_name} / ${roles[index].role.name}`}</h2>   
-                { Object.values(item).map((itm, i) => <div key={i} className={styles.roleApprovals}>
-                  <div>{itm.asz10_order_seq}</div>
-                  <div>{itm.asz10_name}</div>
-                  <div>{itm.asz06_code_value}</div>
-                  <div>{itm.app12[0].fio}</div>
-                </div>)}
+                <div className={styles.roleApprovals}>
+                { Object.values(item).map((itm, i) => 
+                  <>
+                    <div className={styles.stageNum}>{itm.asz10_order_seq}</div>
+                    <div>{itm.asz10_name}</div>
+                    <div>{itm.asz06_code_value}</div>
+                    <div>{itm.app12[0].fio}</div>
+                  </>
+                )}
+                </div>
               </div>)
 
         }</section> 
