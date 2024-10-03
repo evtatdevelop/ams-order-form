@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  // position: relative;
   width: 100%;
 
   .input {
@@ -14,14 +13,14 @@
   
     .htmInput {
       width: 100%;
-      padding: .7vmax 3vmax .7vmax 1vmax;
+      padding: 0;
+      // padding: .7vmax 3vmax .7vmax 1vmax;
+      // font-weight: 300;
+      // font-size: 1vmax;
+      // letter-spacing: .01vmax;
       font: inherit;
-      letter-spacing: .01vmax;
-      font-size: inherit;
-      font-weight: 400;
-      font-size: 1vmax;
       color: #424242;
-      border-bottom: .1vmax solid #42424279;
+      // border-bottom: .1vmax solid #42424279;
       // border-radius: .1vmax;
       background-color: transparent;
       transition: background-color 1s;
@@ -47,7 +46,7 @@
       height: 2vmax;
       color: gray;
       transition: color .3s;
-      font-size: 1.7vmax;
+      font-size: 1.2vmax;
       font-weight: 100;
       opacity: 0;
       transition: opacity .3s;
@@ -57,10 +56,10 @@
         opacity: 1;
       }
   
-      &:focus,
-      &:hover {
-        color: red;
-      } 
+      // &:focus,
+      // &:hover {
+      //   color: white;
+      // } 
     }
   }
 
@@ -75,7 +74,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    margin-top: 2.7vmax;
+    margin-top: 2vmax;
     border: .1vmax solid lightskyblue;
     transition: opacity .3s, max-height .5s;
     background-color: rgb(238, 238, 249);
@@ -88,7 +87,7 @@
 
     &.showSelectList {
       // max-height: 15vmax;
-      max-height: 25vh;
+      max-height: 10vh;
       overflow: auto;
       opacity: 1;
     }
@@ -155,15 +154,12 @@
     
       .clearBtn {
    
-        &:focus,
-        &:hover {
-          color: coral;
-        } 
+        // &:focus,
+        // &:hover {
+        //   color: wheat;
+        // } 
       }
   
-      // .loading {
-      //   color: coral;
-      // }
     }
 
     .selectList {

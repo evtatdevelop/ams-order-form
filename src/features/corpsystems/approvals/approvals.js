@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styles from './approvals.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { user, } from '../../user/userSlice';
@@ -7,6 +7,7 @@ import dictionary from '../../../dictionary.json';
 import {sessionKeyData,  getApprovalRoute, rolesData, userData, approveLoadingData, approvalsData, corpSyst } from "../corpsystemsSlice";
 import { ApprovalDataLoader } from "./dataLoader";
 import Select from "./select/select";
+// import { OneRoleApproval } from "./oneRoleApproval/oneRoleApproval";
 
 export const Approvals = () => {
   const dispatch = useDispatch();
@@ -60,8 +61,6 @@ export const Approvals = () => {
     
     // console.log(approvalTab);
 
-      
-
   return ( 
     <div className={approvalsStyle}>
       { !approvals.length
@@ -74,40 +73,39 @@ export const Approvals = () => {
 
         : <section className={styles.approvalLists}>{ 
             approvalTab.map((item, index)=>
+
               <div key={index} className={styles.oneRoleApproval}>
                 <h2 className={styles.nameRoleApproval}>{`Роль:  ${corpSystem.sapSystem.name} / ${roles[index].role.proccss_group_name} / ${roles[index].role.name}`}</h2>   
                 <div className={styles.roleApprovals}>
-                  {item.map((itm, indx) => <>
-                    <div key={`q${index}${indx}`} className={styles.stageNum}>{itm.asz10_order_seq}</div>
-                    <div key={`n${index}${indx}`}>{itm.asz10_name}</div>
-                    <div key={`l${index}${indx}`} className={styles.levelApprove}>
-                      { itm.asz06.map((i, c) => <>
+                  {item.map((itm, indx) => <Fragment key={indx}>
+                    <div>{itm.asz10_name}</div>
+                    <div className={styles.levelApprove}>
+                      { itm.asz06.map((i, c) => <Fragment key={c}>
                           <div>{i.asz06_code_value}</div>
-                          <div>{  i.app12.length > 1
-                                  // ? i.app12.map( person => <div>{person.name}</div>)
-                                  ? <Select
-                                      selectHandler = { val => console.log('set', val) }
-                                      selectClear  = { () =>  console.log('clean') }
-                                      placeholder = '>'
-                                      selectList = {i.app12}
-                                      val = ''
-                                      name={`p${index}${indx}${c}`}
-                                      id={`p${index}${indx}${c}`}
-                                    />
-                                  : i.app12[0].name
+                          <div>{ 
+                            i.app12.length > 1
+                            ? <Select
+                                selectHandler = { val => console.log('set', val) }
+                                selectClear  = { () =>  console.log('clean') }
+                                placeholder = '>'
+                                selectList = {i.app12}
+                                val = ''
+                                name={`p${index}${indx}${c}`}
+                                id={`p${index}${indx}${c}`}
+                              />
+                            : i.app12[0].name
                           }</div>                      
-                        </>)
+                        </Fragment>)
                       }
                     </div>
-                  </> )
+                  </Fragment> )
                   }
                 </div>
-              </div>)
+              </div>
 
+            )
         }</section> 
       }
-      
-    
     </div>
   )
 }

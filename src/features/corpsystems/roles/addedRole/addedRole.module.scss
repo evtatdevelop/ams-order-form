@@ -27,6 +27,7 @@
     text-align: left;
     overflow-x: hidden;
     cursor: pointer;
+    font-size: 1vmax;
 
     // &:focus,
     // &:hover {
@@ -93,6 +94,7 @@
 
     .header {
       padding: .8vmax;
+      font-size: .8vmax;
     }
   
     .remove {

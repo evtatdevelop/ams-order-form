@@ -1,15 +1,16 @@
-import React, { useState, forwardRef, useImperativeHandle, useRef, } from "react";
+import React, { useState, forwardRef, useRef, useEffect, } from "react";
 import styles from './select.module.scss';
 import { useSelector } from "react-redux";
-// import { darkTheme } from "../../main/mainpageSlice";
 import { darkTheme } from "../../../main/mainpageSlice";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons'
 
-// export const Select = props => {
 const Select = (props, ref) => {
-  const {selectHandler, selectClear, placeholder, selectList, val, name, id, editable} = props
+  const {selectHandler, placeholder, selectList, val, name, id, editable} = props
   const [value, setValue] = useState(val ? val : "")
   const [show, setShow] = useState(false);
   const dark = useSelector(darkTheme);
+  
   const inputRefs = useRef([]);
 
  const onChange = item => {
@@ -17,16 +18,13 @@ const Select = (props, ref) => {
     selectHandler(item)
     setShow(false)
   }
-  // const onBlur = () => setTimeout(()=>setShow(false), 100)
-  const onBlur = () => {}
-  
-  const clearInput = () => {
-    setValue('')
-    selectClear('')
-  }
 
-  useImperativeHandle(ref, () => ({ clearInput }));
-
+  useEffect(() => {
+    const item = selectList[0];
+    setValue(item.name);
+    selectHandler(item)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const styleClnBtn = value && (editable ?? true) ? `${styles.clearBtn} ${styles.showClnBtn}` : `${styles.clearBtn}`
   const styleSelectList = show && (editable ?? true) ? `${styles.selectList} ${styles.showSelectList}` : `${styles.selectList} ${styles.hideSelectList}`
@@ -37,7 +35,6 @@ const Select = (props, ref) => {
 
   const keyDown = (e, i, item) => {
     if ( e.code !== 'Tab' ) e.preventDefault();
-    // console.log(e.code);
     switch ( e.code ) {
       case 'ArrowDown': 
         i = selectList.length-1 === i ? 0 : ++i;
@@ -52,7 +49,6 @@ const Select = (props, ref) => {
         break;
       case 'Space': onShowPicker(); break;
       case 'Escape': setShow(false); break;
-      // case 'Space': setShow(true); break;
       default:
         break;
     } 
@@ -60,17 +56,30 @@ const Select = (props, ref) => {
 
 
   const outClick = (e) => {
-    if ( !e.target.closest('#optionList') ) {
+    // if ( !e.target.closest(`#optionList-${id}`) || (show && e.target.closest('.closer')) ) {
+    if ( !e.target.closest(`#optionList-${id}`) && !e.target.closest('.closer') ) {
+    // if ( !e.target.closest(`#optionList-${id}`) && !e.target.closest(`#closer-${id}`) ) {
       setShow(false)
       document.removeEventListener("mouseup", outClick);
+
+      console.log(show);
+      
     }
   }
 
-  const onShowPicker = () => {    
+  const onShowPicker = () => {
     document.addEventListener("mouseup", outClick);
     setShow(true);
   }
 
+  const arrowHandler = ()=> {
+    setShow(!show);
+    if ( !show ) {
+      document.addEventListener("mouseup", outClick);
+    } else {
+      document.removeEventListener("mouseup", outClick);
+    }
+  }
 
   return (
     <div className={selectInputStyle}>
@@ -80,20 +89,23 @@ const Select = (props, ref) => {
           placeholder = {placeholder}
           readOnly={true}
           onClick={()=>onShowPicker()}
-          onFocus={()=>onShowPicker()}
+          // onFocus={()=>onShowPicker()}
           // onClick={()=>setShow(true)}
           // onFocus={()=>setShow(true)}
-          onBlur={()=>onBlur()}
+          // onBlur={()=>onBlur()}
           onKeyDown={(e)=>keyDown(e, -1)}
           id={ id ?? '' }
         />
-        {<button type="button" className={styleClnBtn}
-            onClick={() => clearInput()}
-            aria-label="Clear"
-            >&times;</button>
+        {<button type="button" className={`${styleClnBtn} closer`} id={`#closer-${id}`}
+            onClick={() => arrowHandler() }
+            aria-label="open"
+            > { show
+                ? <FontAwesomeIcon icon={ faCaretUp } className={styles.faCaret} />
+                : <FontAwesomeIcon icon={ faCaretDown } className={styles.faCaret} />
+            }</button>
         }
       </div>
-      <ul className={styleSelectList} id="optionList">
+      <ul className={styleSelectList} id={`#optionList-${id}`}>
         {selectList.map((item, index) => {          
           return <li key={`${item.id}${name}`} className={styles.itemLi}>
             <input type="radio" 

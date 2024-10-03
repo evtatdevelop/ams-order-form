@@ -58,7 +58,7 @@
         display: grid;
         gap: 1px;
         grid-template-rows: auto;  
-        grid-template-columns: 3vmax 25% auto; 
+        grid-template-columns: 25% auto; 
 
         & > div {
           display: flex;
