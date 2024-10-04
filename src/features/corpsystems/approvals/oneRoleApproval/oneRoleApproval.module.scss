@@ -1,0 +1,171 @@
+.oneRoleApproval {
+  margin-bottom: 1.5vmax;
+
+
+
+  .nameRoleApproval {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    margin-bottom: .5vmax;
+    font-weight: 500;
+    color: rgb(207, 206, 206);
+    font-size: 1.2vmax;
+    cursor: pointer;
+    padding: 0;
+  
+    .showBtn {
+      width: 1.7vmax;
+      height: 1.7vmax;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: wheat;
+      border-radius: .2vmax;
+      outline: .1vmax solid rgba(245, 222, 179, 0.315);
+      margin-right: 1vmax;
+      font-size: .9vmax;
+      flex-shrink: 0;
+
+      .openSignPlus {
+        transform: rotate(-90deg);
+        transition: transform .3s;        
+      }
+
+      .openSignMinus {
+        transform: rotate(0deg);
+        transition: transform .3s;        
+      }
+
+    } 
+    label {
+      width: 5vmax;
+      margin-right: 1vmax;
+    }
+    .roleName {
+      text-align: left;
+      flex-grow: 1;
+    }
+  
+  }
+
+  .roleApprovals {
+
+    // max-height: 0;
+    // overflow-y: hidden;
+    // max-height: 1000px;
+
+    color: #aaa9a9;
+    width: 100%;
+    display: grid;
+    gap: 1px;
+    grid-template-rows: auto;  
+    grid-template-columns: 25% auto; 
+
+    // transition: max-height .3s;
+
+    & > div {
+
+      display: flex;
+      align-items: center;
+      min-height: 2.0vmax;
+      padding: .4vmax;
+      outline: .1vmax dotted rgba(128, 128, 128, 0.24);
+      letter-spacing: .01vmax;
+
+      &.stageNum {
+        justify-content: center;
+      }
+
+      &.levelApprove {
+        padding: 0;
+        width: 100%;
+        display: grid;
+        gap: 1px;
+        grid-template-rows: auto;  
+        grid-template-columns: repeat(2, 1fr); 
+
+        & > div {
+          
+          display: flex;
+          align-items: center;
+          min-height: 2.0vmax;
+          padding: .4vmax;
+          outline: .1vmax dotted rgba(128, 128, 128, 0.24);
+          letter-spacing: .01vmax;
+
+          &.levelAproveItem {
+            // animation: appearance 700ms ease-in-out forwards;
+
+            &.hide {
+              overflow: hidden;
+              height: 0;
+              padding: 0;
+              min-height: 0;
+              font-size: 0;
+              border: 0;
+              outline: 0;
+              margin: 0;
+              display: none;
+            }
+          }
+
+          @keyframes appearance {
+            0% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
+
+          &.plug {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+
+            &.hide {
+              display: none;
+            }
+          }
+        }
+
+      }
+    }
+  }      
+}   
+
+@media screen and (min-width: 1300px) {
+  .oneRoleApproval {
+    margin-bottom: 1vmax;
+
+    .nameRoleApproval {
+      margin-bottom: .5vmax;
+      font-weight: 500;
+    }
+
+    .roleApprovals {
+
+      & > div {
+        min-height: 2.0vmax;
+        padding: .4vmax;
+        letter-spacing: .01vmax;
+
+        &.levelApprove {  
+          & > div {
+            min-height: 2.0vmax;
+            padding: .4vmax;
+            letter-spacing: .01vmax;
+          }  
+        }
+      }
+    }      
+  }   
+}
+
+@media screen and (max-width: 1000px) {
+
+}

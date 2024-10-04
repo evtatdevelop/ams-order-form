@@ -1,7 +1,7 @@
 import React, { useState, forwardRef, useRef, useEffect, } from "react";
 import styles from './select.module.scss';
 import { useSelector } from "react-redux";
-import { darkTheme } from "../../../main/mainpageSlice";
+import { darkTheme } from "../../../../main/mainpageSlice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons'
 
@@ -62,7 +62,7 @@ const Select = (props, ref) => {
       setShow(false)
       document.removeEventListener("mouseup", outClick);
 
-      console.log(show);
+      // console.log(show);
       
     }
   }

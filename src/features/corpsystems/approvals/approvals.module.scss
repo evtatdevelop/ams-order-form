@@ -43,64 +43,85 @@
     font-weight: 300;
     font-size: 1vmax;
 
-    .oneRoleApproval {
-      margin-bottom: 1vmax;
+    .approvalCaption {
+      font-size: 1.4vmax;
+      margin-bottom: 1.5vmax;
+    }
 
-      .nameRoleApproval {
-        margin-bottom: .5vmax;
-        font-weight: 500;
-        color: rgb(207, 206, 206);
+    .tabHeadApproval {
+      color: #aaa9a9;
+      width: 100%;
+      display: grid;
+      gap: 1px; 
+      grid-template-columns: 25% 37.5% auto;
+      margin-bottom: 1.5vmax; 
+
+      & > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1vmax;
+        outline: .1vmax dotted rgba(128, 128, 128, 0.24);
       }
+    }
+    // .oneRoleApproval {
+    //   margin-bottom: 1vmax;
 
-      .roleApprovals {
+    //   .nameRoleApproval {
+    //     margin-bottom: .5vmax;
+    //     font-weight: 500;
+    //     color: rgb(207, 206, 206);
+    //   }
 
-        // max-height: 0;
-        // overflow-y: hidden;
+    //   .roleApprovals {
 
-        color: #aaa9a9;
-        width: 100%;
-        display: grid;
-        gap: 1px;
-        grid-template-rows: auto;  
-        grid-template-columns: 25% auto; 
+    //     // max-height: 0;
+    //     // overflow-y: hidden;
 
-        & > div {
+    //     color: #aaa9a9;
+    //     width: 100%;
+    //     display: grid;
+    //     gap: 1px;
+    //     grid-template-rows: auto;  
+    //     grid-template-columns: 25% auto; 
 
-          // max-height: 1vmax;
-          // overflow-y: hidden;
+    //     & > div {
 
-          display: flex;
-          align-items: center;
-          min-height: 2.0vmax;
-          padding: .4vmax;
-          outline: .1vmax dotted rgba(128, 128, 128, 0.24);
-          letter-spacing: .01vmax;
+    //       // max-height: 1vmax;
+    //       // overflow-y: hidden;
 
-          &.stageNum {
-            justify-content: center;
-          }
+    //       display: flex;
+    //       align-items: center;
+    //       min-height: 2.0vmax;
+    //       padding: .4vmax;
+    //       outline: .1vmax dotted rgba(128, 128, 128, 0.24);
+    //       letter-spacing: .01vmax;
 
-          &.levelApprove {
-            padding: 0;
-            width: 100%;
-            display: grid;
-            gap: 1px;
-            grid-template-rows: auto;  
-            grid-template-columns: repeat(2, 1fr); 
+    //       &.stageNum {
+    //         justify-content: center;
+    //       }
 
-            & > div {
+    //       &.levelApprove {
+    //         padding: 0;
+    //         width: 100%;
+    //         display: grid;
+    //         gap: 1px;
+    //         grid-template-rows: auto;  
+    //         grid-template-columns: repeat(2, 1fr); 
+
+    //         & > div {
               
-              display: flex;
-              align-items: center;
-              min-height: 2.0vmax;
-              padding: .4vmax;
-              outline: .1vmax dotted rgba(128, 128, 128, 0.24);
-              letter-spacing: .01vmax;
-            }  
-          }
-        }
-      }      
-    }     
+    //           display: flex;
+    //           align-items: center;
+    //           min-height: 2.0vmax;
+    //           padding: .4vmax;
+    //           outline: .1vmax dotted rgba(128, 128, 128, 0.24);
+    //           letter-spacing: .01vmax;
+    //         }  
+    //       }
+    //     }
+    //   }      
+    // }     
 
   }
 
