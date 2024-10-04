@@ -53,6 +53,10 @@
       }
 
       .roleApprovals {
+
+        // max-height: 0;
+        // overflow-y: hidden;
+
         color: #aaa9a9;
         width: 100%;
         display: grid;
@@ -61,6 +65,10 @@
         grid-template-columns: 25% auto; 
 
         & > div {
+
+          // max-height: 1vmax;
+          // overflow-y: hidden;
+
           display: flex;
           align-items: center;
           min-height: 2.0vmax;
@@ -124,17 +132,60 @@
 
 @media screen and (min-width: 1300px) {
   .approvals {
-    font-size: .8vmax;
+    animation: appearance 700ms ease-in-out forwards;
+  
     .btnRouteApproval {
       min-height: 20px;
-      height: 6vh;
+      height: 7vh;
       margin-bottom: .3vmax;
-      border: .1vmax solid gray;
       padding: 1vmax;
-    }
+      font-size: .8vmax;
 
-  } 
+      .loader {
+        
+        svg {
+          width: 1.5vmax;
+          height: 1.5vmax;
+        }
+      }    
+    }
+  
+    .approvalLists {
+      font: inherit;
+      font-weight: 300;
+      font-size: .8vmax;
+  
+      .oneRoleApproval {
+        margin-bottom: 1vmax;
+  
+        .nameRoleApproval {
+          margin-bottom: .5vmax;
+          font-weight: 500;
+        }
+  
+        .roleApprovals {
+  
+          & > div {
+            min-height: 2.0vmax;
+            padding: .4vmax;
+            letter-spacing: .01vmax;
+
+            &.levelApprove {  
+              & > div {
+                min-height: 2.0vmax;
+                padding: .4vmax;
+                letter-spacing: .01vmax;
+              }  
+            }
+          }
+        }      
+      }
+    }
+  }   
 }
+
+
+
 
 @media screen and (max-width: 1000px) {
 

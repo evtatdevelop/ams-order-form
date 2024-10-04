@@ -198,17 +198,16 @@
   .select {
     .input {
       .htmInput {
-        padding: .4vmax 3vmax .4vmax 1vmax;
+        // padding: .4vmax 3vmax .4vmax 1vmax;
         letter-spacing: .01vmax;
         font-weight: 400;
         font-size: .8vmax;
-        border-bottom: .1vmax solid #42424279;
       }
     
       .clearBtn {
         width: 2vmax;
         height: 2vmax;
-        font-size: 1.2vmax;
+        font-size: .8vmax;
         font-weight: 100;
         border-radius: .1vmax;
       }
@@ -216,6 +215,7 @@
   
     .selectList {
       margin-top: 2.4vmax;
+      font-size: .7vmax;
 
       &.showSelectList {
         max-height: 25vh;
