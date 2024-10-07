@@ -10,7 +10,7 @@
     background-color: transparent;
     margin-bottom: .5vmax;
     font-weight: 500;
-    color: rgb(207, 206, 206);
+    color: #424242;
     font-size: 1.2vmax;
     cursor: pointer;
     padding: 0;
@@ -21,9 +21,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      color: wheat;
+      color: #2aadff;;
       border-radius: .2vmax;
-      outline: .1vmax solid rgba(245, 222, 179, 0.315);
+      outline: .1vmax solid #2aadff;;
       margin-right: 1vmax;
       font-size: .9vmax;
       flex-shrink: 0;
@@ -51,12 +51,7 @@
   }
 
   .roleApprovals {
-
-    // max-height: 0;
-    // overflow-y: hidden;
-    // max-height: 1000px;
-
-    color: #aaa9a9;
+    color: #424242;
     width: 100%;
     display: grid;
     gap: 1px;
@@ -132,7 +127,7 @@
             }
 
             .btnApprovalChoise {
-              color: wheat;
+              color: #2aadff;;
               background-color: transparent;
               cursor: pointer;
             }            
@@ -141,7 +136,44 @@
 
       }
     }
-  }      
+  }
+  
+  
+  //
+  // Dark styles
+  //
+  &.dark {
+    .nameRoleApproval {
+      color: rgb(207, 206, 206);
+    
+      .showBtn {
+        color: wheat;
+        outline: .1vmax solid rgba(245, 222, 179, 0.315);
+      }
+    }
+  
+    .roleApprovals {
+      color: #aaa9a9;
+
+      & > div {
+        outline: .1vmax dotted rgba(128, 128, 128, 0.24);
+
+        &.levelApprove {  
+          & > div {
+            outline: .1vmax dotted rgba(128, 128, 128, 0.24);
+
+            &.plug {
+              .btnApprovalChoise {
+                color: wheat;
+              }            
+            }
+          }
+  
+        }
+      }
+    } 
+  }
+
 }   
 
 @media screen and (min-width: 1300px) {
@@ -151,6 +183,19 @@
     .nameRoleApproval {
       margin-bottom: .5vmax;
       font-weight: 500;
+      font-size: .8vmax;
+    
+      .showBtn {
+        width: 1.2vmax;
+        height: 1.2vmax;
+        border-radius: .2vmax;
+        margin-right: .5vmax;
+        font-size: .7vmax;
+      } 
+      label {
+        width: 5vmax;
+        margin-right: 1vmax;
+      }
     }
 
     .roleApprovals {

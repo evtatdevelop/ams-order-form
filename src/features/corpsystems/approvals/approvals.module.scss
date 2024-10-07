@@ -40,16 +40,17 @@
 
   .approvalLists {
     font: inherit;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 1vmax;
 
     .approvalCaption {
-      font-size: 1.4vmax;
+      font-weight: 500;
+      font-size: 1.2vmax;
       margin-bottom: 1.5vmax;
     }
 
     .tabHeadApproval {
-      color: #aaa9a9;
+      // color: #aaa9a9;
       width: 100%;
       display: grid;
       gap: 1px; 
@@ -64,65 +65,6 @@
         outline: .1vmax dotted rgba(128, 128, 128, 0.24);
       }
     }
-    // .oneRoleApproval {
-    //   margin-bottom: 1vmax;
-
-    //   .nameRoleApproval {
-    //     margin-bottom: .5vmax;
-    //     font-weight: 500;
-    //     color: rgb(207, 206, 206);
-    //   }
-
-    //   .roleApprovals {
-
-    //     // max-height: 0;
-    //     // overflow-y: hidden;
-
-    //     color: #aaa9a9;
-    //     width: 100%;
-    //     display: grid;
-    //     gap: 1px;
-    //     grid-template-rows: auto;  
-    //     grid-template-columns: 25% auto; 
-
-    //     & > div {
-
-    //       // max-height: 1vmax;
-    //       // overflow-y: hidden;
-
-    //       display: flex;
-    //       align-items: center;
-    //       min-height: 2.0vmax;
-    //       padding: .4vmax;
-    //       outline: .1vmax dotted rgba(128, 128, 128, 0.24);
-    //       letter-spacing: .01vmax;
-
-    //       &.stageNum {
-    //         justify-content: center;
-    //       }
-
-    //       &.levelApprove {
-    //         padding: 0;
-    //         width: 100%;
-    //         display: grid;
-    //         gap: 1px;
-    //         grid-template-rows: auto;  
-    //         grid-template-columns: repeat(2, 1fr); 
-
-    //         & > div {
-              
-    //           display: flex;
-    //           align-items: center;
-    //           min-height: 2.0vmax;
-    //           padding: .4vmax;
-    //           outline: .1vmax dotted rgba(128, 128, 128, 0.24);
-    //           letter-spacing: .01vmax;
-    //         }  
-    //       }
-    //     }
-    //   }      
-    // }     
-
   }
 
   //
@@ -138,7 +80,17 @@
       &:focus {
         background-color: #ffffff18;
       }
-    }  
+    }
+    
+    .approvalLists {
+      .tabHeadApproval {
+        color: #aaa9a9; 
+  
+        & > div {
+          outline: .1vmax dotted rgba(128, 128, 128, 0.24);
+        }
+      }
+    }    
   }
 
   @keyframes appearance {
@@ -173,34 +125,14 @@
   
     .approvalLists {
       font: inherit;
-      font-weight: 300;
+      font-weight: 400;
       font-size: .8vmax;
-  
-      .oneRoleApproval {
-        margin-bottom: 1vmax;
-  
-        .nameRoleApproval {
-          margin-bottom: .5vmax;
-          font-weight: 500;
-        }
-  
-        .roleApprovals {
-  
-          & > div {
-            min-height: 2.0vmax;
-            padding: .4vmax;
-            letter-spacing: .01vmax;
-
-            &.levelApprove {  
-              & > div {
-                min-height: 2.0vmax;
-                padding: .4vmax;
-                letter-spacing: .01vmax;
-              }  
-            }
-          }
-        }      
+      
+      .approvalCaption {
+        font-weight: 500;
+        font-size: .8vmax;
       }
+
     }
   }   
 }
