@@ -181,10 +181,10 @@ export const RoleSandbox = () => {
 
   const handleCancel = () => {
     dispatch(showRoleAdder(false));
+    if ( !editSandBox ) dispatch(processLevel({api_key, event: 'rmSessionRole', session_key: sessionKey, blk_id: role.cnt, }));
     dispatch(setRole({}));
     dispatch(clearLevels());
     dispatch(cancelEdit());
-    dispatch(processLevel({api_key, event: 'rmSessionRole', session_key: sessionKey, blk_id: role.cnt, }));
   }
 
   let roleSandboxStyle = dark
