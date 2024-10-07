@@ -2,16 +2,19 @@ import React, { Fragment, useState } from "react";
 import styles from './oneRoleApproval.module.scss';
 import { useSelector } from "react-redux";
 import { darkTheme } from "../../../main/mainpageSlice";
-import { rolesData, corpSyst } from "../../corpsystemsSlice";
+import { rolesData } from "../../corpsystemsSlice";
 import Select from "./select/select";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsis, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
+import dictionary from '../../../../dictionary.json';
+import { user, } from '../../../user/userSlice';
 
 export const OneRoleApproval = props => {
   const {item, index} = props;
+
+  const { lang} = useSelector(user);
   const dark = useSelector(darkTheme);
   const roles = useSelector(rolesData);
-  const corpSystem = useSelector(corpSyst);
 
   const [show, setShow] = useState(true);
 
@@ -50,8 +53,13 @@ export const OneRoleApproval = props => {
           <div className={styles.levelApprove}>
             
             <Fragment>
-              <div className={plugStyle}><FontAwesomeIcon icon={ faEllipsis } className={styles.faCaret} /></div>
-              <div className={plugStyle}><FontAwesomeIcon icon={ faEllipsis } className={styles.faCaret} /></div>
+              <div className={plugStyle}><FontAwesomeIcon icon={ faEllipsis } /></div>
+              <div className={plugStyle}>
+                { itm.asz06.filter(item => item.app12.length > 1).length
+                  ? <button type="button" className={styles.btnApprovalChoise} onClick={() => setShow(false)}>{dictionary.choice_possible[lang]}</button>
+                  : <FontAwesomeIcon icon={ faEllipsis } />
+                }
+              </div>
             </Fragment>
 
             { itm.asz06.map((i, c) => <Fragment key={c}>

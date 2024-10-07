@@ -72,11 +72,11 @@ export const Approvals = () => {
 
         : <section className={styles.approvalLists}>
             <Fragment>
-              <h2 className={styles.approvalCaption}>Необходимые согласования</h2>
+              <h2 className={styles.approvalCaption}>{dictionary.necessary_approvals[lang]}</h2>
               <div className={styles.tabHeadApproval}>
-                <div>Этап</div>
-                <div>Орг. Уровень</div>
-                <div>Согласующий(ие)</div>
+                <div>{dictionary.stage[lang]}</div>
+                <div>{dictionary.org_level[lang]}</div>
+                <div>{dictionary.approver_s[lang]}</div>
               </div>
               { approvalTab.map((item, index) => <OneRoleApproval
                   key = {index}

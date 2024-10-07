@@ -173,6 +173,31 @@
     "EN": "Comment",
     "RU": "Комментарий",
     "ZH": "评论"
+  },
+  "necessary_approvals": {
+    "EN": "Necessary approvals",
+    "RU": "Необходимые согласования",
+    "ZH": "必要的批准"
+  },
+  "stage": {
+    "EN": "Stage",
+    "RU": "Этап",
+    "ZH": "阶段"
+  },
+  "org_level": {
+    "EN": "Org. level",
+    "RU": "Орг. уровень",
+    "ZH": "组织级别"
+  },
+  "approver_s": {
+    "EN": "Approver(s)",
+    "RU": "Согласующий(ие)",
+    "ZH": "审批人"
+  },
+  "choice_possible": {
+    "EN": "Choice is possible",
+    "RU": "Возможен выбор",
+    "ZH": "您可以选择"
   }
   
 
