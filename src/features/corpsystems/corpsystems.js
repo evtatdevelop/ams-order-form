@@ -16,13 +16,16 @@ import { SelectInput } from "../components/selectInput/selectInput";
 import { Systems } from "./systems/systems";
 import { Roles } from "./roles/roles";
 import { Approvals } from "./approvals/approvals";
-import { setShowInfo, showInfoData, textInfoData, processLevel, sessionKeyData, clearApprovals } from "./corpsystemsSlice";
+import { setShowInfo, showInfoData, textInfoData, processLevel, sessionKeyData, clearApprovals, approvalsData,  } from "./corpsystemsSlice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faTriangleExclamation, faCircleXmark, } from '@fortawesome/free-solid-svg-icons'
+import { Submit } from "./submit/submit";
 
 export const Corpsystems = () => {
+  
   const { system } = useParams();
   const dispatch  = useDispatch();
+
   const { lang, api_key, last_name, first_name, 
     middle_name, }        = useSelector(user);
   const dark              = useSelector(darkTheme);
@@ -34,7 +37,8 @@ export const Corpsystems = () => {
   const roles             = useSelector(rolesData);
   const showInfo          = useSelector(showInfoData);
   const textInfo          = useSelector(textInfoData);
-  const sessionKey = useSelector(sessionKeyData);
+  const sessionKey        = useSelector(sessionKeyData);
+  const approvals         = useSelector(approvalsData);
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
@@ -44,16 +48,13 @@ export const Corpsystems = () => {
 
   useEffect(() => {
     if ( cs && cs.asz22_id && cs.instance_type ) 
-      // dispatch(getSystemList( {'api_key': api_key, 'asz22_id': cs.asz22_id, 'instance_type': cs.instance_type} ))
       dispatch(getSystemList( {'api_key': api_key, 'asz22_id': cs.asz22_id, 'instance_type': cs.instance_type, 'lang': lang} ))
-  // }, [api_key, cs, dispatch]);
   }, [api_key, cs, dispatch, lang]);
 
 
   const removeSession = () => {
     dispatch(processLevel({api_key, event: 'rmSession', session_key: sessionKey, }));
   }
-
 
   let corpsystemsStyle = dark 
     ? `${styles.corpsystems} ${styles.dark}`
@@ -138,6 +139,12 @@ export const Corpsystems = () => {
                                   ? <>
                                       <div className={styles.gapRow}></div>  
                                       <Approvals/>
+
+                                      { approvals.length
+                                        ? <Submit/>
+                                        : null
+                                      }
+                                      
                                     </> 
                                   : null
                                 }  

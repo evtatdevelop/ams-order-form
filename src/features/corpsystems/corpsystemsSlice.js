@@ -39,6 +39,12 @@ const initialState = {
   approvals: [],
   approveLoading: false,
 
+  submitData: {
+    asz31_msin: {},
+    asz32_roles: {},
+    asz33_34_levels: {},
+    asz35_agreements: {},
+  },
 }
 
 export const getSessionKey    = createAsyncThunk( 'corpsystem/getSessionKey', async ( data ) => await sessionKey(data) );

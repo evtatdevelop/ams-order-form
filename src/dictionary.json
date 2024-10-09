@@ -198,6 +198,11 @@
     "EN": "Choice is possible",
     "RU": "Возможен выбор",
     "ZH": "您可以选择"
+  },
+  "submit_approval": {
+    "EN": "Submit for approval",
+    "RU": "Отправить на утверждение",
+    "ZH": "提交审批"
   }
   
 

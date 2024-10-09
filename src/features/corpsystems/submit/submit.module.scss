@@ -1,0 +1,83 @@
+.submit {
+  display: flex;
+  width: 100%;
+
+  .btnSubmit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 20px;
+    height: 7vh;
+    margin-bottom: .3vmax;
+    background-color: transparent;
+    color: #161619;
+    border: .1vmax solid gray;
+    // border-radius: .3vmax;
+    padding: 1vmax;
+    text-align: left;
+    cursor: pointer;
+    color: #161619;
+    text-align: center;
+    transition: background-color .3s;
+
+    &:hover,
+    &:focus {
+      background-color: lightskyblue
+    }
+
+    .loader {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      svg {
+        width: 3vmax;
+        height: 3vmax;
+      }
+    }    
+  }
+
+  //
+  // Dark styles
+  //
+  &.dark {
+    .btnSubmit {
+      background-color: transparent;
+      border: .1vmax solid gray;
+      color: wheat;
+
+      &:hover,
+      &:focus {
+        background-color: #ffffff18;
+      }
+    }    
+
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .submit {
+    .btnRouteApproval {
+      min-height: 20px;
+      height: 7vh;
+      margin-bottom: .3vmax;
+      padding: 1vmax;
+      font-size: .8vmax;
+
+      .loader {
+        
+        svg {
+          width: 1.5vmax;
+          height: 1.5vmax;
+        }
+      }    
+    }    
+
+  }
+}
+
+@media screen and (max-width: 1000px) {
+
+}
