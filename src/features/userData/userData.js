@@ -265,7 +265,6 @@ export const UserData = props => {
                   </Row>
                 : null
               }
-              
 
               { userDataList.location || locationLiist.length
                 ? <Row>
