@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from "react";
 import styles from './oneRoleApproval.module.scss';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { darkTheme } from "../../../main/mainpageSlice";
-import { rolesData } from "../../corpsystemsSlice";
+import { rolesData, setApprovalUser } from "../../corpsystemsSlice";
 import Select from "./select/select";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsis, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
@@ -11,7 +11,7 @@ import { user, } from '../../../user/userSlice';
 
 export const OneRoleApproval = props => {
   const {item, index} = props;
-
+  const dispatch = useDispatch();
   const { lang} = useSelector(user);
   const dark = useSelector(darkTheme);
   const roles = useSelector(rolesData);
@@ -67,8 +67,9 @@ export const OneRoleApproval = props => {
                 <div className={levelAproveItemStyle}>{ 
                   i.app12.length > 1
                   ? <Select
-                      // selectHandler = { val => console.log('set', val) }
-                      selectHandler = { val => {} }
+                      // selectHandler = { val => console.log('asz10_id', itm.asz10_id, 'asz06_id', i.asz06_id, 'app12_id:', val.id, ) }
+                      selectHandler = { val => dispatch(setApprovalUser({'asz10_id': itm.asz10_id, 'asz06_id': i.asz06_id, 'app12_id:': val.id,})) }
+                      // selectHandler = { val => {} }
                       selectClear  = { () =>  console.log('clean') }
                       placeholder = '>'
                       selectList = {i.app12}

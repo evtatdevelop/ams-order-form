@@ -200,6 +200,9 @@ export const corpsystemSlice = createSlice({
       state.approvals = [];
     },
 
+    setApprovalUser: (state, action) => {
+      console.log(action.payload);
+    }
   },
 
   extraReducers: (builder) => { builder
@@ -348,7 +351,7 @@ export const { setCompany, setBranch, setDepartment, setLocation, setPosition, u
   clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
   showRoleAdder, addRole, rmRole, editRole,
   setRole, clearLevels, setLevelsValue, unSetLevelsValue, clearLevelValues, cancelEdit, setShowInfo, setDates, setComment,
-  clearApprovals
+  clearApprovals, setApprovalUser,fghfgh
 } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;

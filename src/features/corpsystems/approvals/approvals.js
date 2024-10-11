@@ -49,7 +49,8 @@ export const Approvals = () => {
             { asz06_code_value: item.asz06_code_value,
               asz06_id: item.asz06_id,
               asz06_id_parent: item.asz06_id_parent,
-              app12: item.app12.filter((obj, idx, arr) => idx === arr.findIndex((t) => t.id === obj.id)) }, 
+              app12: item.app12.filter((obj, idx, arr) => idx === arr.findIndex((t) => t.id === obj.id)),
+            },
           ]
         }
       }
@@ -58,7 +59,10 @@ export const Approvals = () => {
     .map(item => Object.values(item));
     
     // console.log(approvalTab);
-
+    
+    //  !mportant
+    // ToDo: set approver
+    // ToDo: specific Num roleBlock 
 
   return ( 
     <div className={approvalsStyle}>

@@ -45,9 +45,8 @@ export const Submit = () => {
         agreements: [...Object.entries(item).map(itm => ({
           asz10_id: itm[1].asz10_id,
           asz06_id: itm[1].asz06_id,
-          app12_id: null,
-        }))]
-
+          app12_id: itm[1].app12_select,
+        }))],
       })) ],
     });
     
