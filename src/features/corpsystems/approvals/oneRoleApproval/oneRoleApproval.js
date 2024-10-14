@@ -18,6 +18,8 @@ export const OneRoleApproval = props => {
 
   const [show, setShow] = useState(true);
 
+  const setApproval = data => dispatch(setApprovalUser(data));
+
   let oneRoleApprovalStyle = dark 
     ? `${styles.oneRoleApproval} ${styles.dark}`
     : `${styles.oneRoleApproval}`
@@ -67,9 +69,7 @@ export const OneRoleApproval = props => {
                 <div className={levelAproveItemStyle}>{ 
                   i.app12.length > 1
                   ? <Select
-                      // selectHandler = { val => console.log('asz10_id', itm.asz10_id, 'asz06_id', i.asz06_id, 'app12_id:', val.id, ) }
-                      selectHandler = { val => dispatch(setApprovalUser({'asz10_id': itm.asz10_id, 'asz06_id': i.asz06_id, 'app12_id:': val.id,})) }
-                      // selectHandler = { val => {} }
+                      selectHandler = { val => setApproval({cnt: index, 'asz10_id': itm.asz10_id, 'asz06_id': i.asz06_id, 'app12_id:': val.id, }) }
                       selectClear  = { () =>  console.log('clean') }
                       placeholder = '>'
                       selectList = {i.app12}

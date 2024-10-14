@@ -7,7 +7,7 @@ import { user as author, } from '../../user/userSlice';
 import { SubmitlDataLoader } from "./dataLoader";
 import { userData } from "../corpsystemsSlice";
 import { rolesData } from "../corpsystemsSlice";
-import { approvalsData } from "../corpsystemsSlice";
+import { aprovalSubmitData } from "../corpsystemsSlice";
 
 
 export const Submit = () => {
@@ -16,39 +16,38 @@ export const Submit = () => {
   const authorData = useSelector(author);
   const user = useSelector(userData);
   const roles = useSelector(rolesData);
-  const approval = useSelector(approvalsData);
+  const approval = useSelector(aprovalSubmitData);
 
 
   const submit = () => {
-    console.log({
-      author: authorData.id,
-      user_id: user.id,
-      hrs01_id: user.company.hrs01_id,
-      hrs05_id: user.branch.hrs05_id,
-      app22_id: user.department.app22_id,
-      location: user.location,
-      position: user.position_name,
-      asz01_id: user.sap_branch.asz01_id,
-      boss_id: user.boss,
-      roles: [ ...roles.map(item => ({
-        cnt: item.cnt,
-        role_id: item.role.id,
-        dates: item.dates ?? {},
-        comment: item.comment ?? null,
-        levels: [...item.levels.map(lvl => ({
-          asz05_id: lvl.asz05_id,
-          values: lvl.value,
-        }))],
-      })) ],
-      agreements: [ ...approval.map((item, index) => ({
-        cnt: index,
-        agreements: [...Object.entries(item).map(itm => ({
-          asz10_id: itm[1].asz10_id,
-          asz06_id: itm[1].asz06_id,
-          app12_id: itm[1].app12_select,
-        }))],
-      })) ],
-    });
+    console.log(
+      {
+        author: authorData.id,
+        user_id: user.id,
+        hrs01_id: user.company.hrs01_id,
+        hrs05_id: user.branch.hrs05_id,
+        app22_id: user.department.app22_id,
+        location: user.location,
+        position: user.position_name,
+        asz01_id: user.sap_branch.asz01_id,
+        boss_id: user.boss,
+        roles: [ ...roles.map(item => ({
+          cnt: item.cnt,
+          role_id: item.role.id,
+          dates: item.dates ?? {},
+          comment: item.comment ?? null,
+          levels: [...item.levels.map(lvl => ({
+            asz05_id: lvl.asz05_id,
+            values: lvl.value,
+          }))],
+          approval: [
+            ...approval.filter(appove => appove.cnt === item.cnt - 1 )
+          ]
+        })) ],
+        // ToDo: to send only changes if they are, Others data to give on backend ( why NO: hard DB request )
+        // agreements: approval,
+      }
+    );
     
   }
 

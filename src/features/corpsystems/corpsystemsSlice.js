@@ -38,6 +38,7 @@ const initialState = {
 
   approvals: [],
   approveLoading: false,
+  aprovalSubmit: [],
 
 }
 
@@ -198,11 +199,16 @@ export const corpsystemSlice = createSlice({
 
     clearApprovals: (state) => {
       state.approvals = [];
+      state.aprovalSubmit = [];
     },
 
     setApprovalUser: (state, action) => {
       console.log(action.payload);
-    }
+      const { cnt, asz10_id, asz06_id } = action.payload;
+      state.aprovalSubmit = [...state.aprovalSubmit.filter(item => !(item.cnt === cnt && item.asz10_id === asz10_id && item.asz06_id === asz06_id)), {...action.payload}]
+      
+    },
+
   },
 
   extraReducers: (builder) => { builder
@@ -341,6 +347,9 @@ export const corpsystemSlice = createSlice({
     })
     .addCase(getApprovalRoute.fulfilled, ( state, action ) => {
       state.approvals = action.payload
+      
+      state.aprovalSubmit = action.payload.map((roleAproval, index) => Object.values(roleAproval).map(item => ({cnt: index, asz10_id: item.asz10_id, asz06_id: item.asz06_id, app12_id: item.app12_select}))).flat()
+
       state.approveLoading = false 
     })
   }
@@ -351,7 +360,7 @@ export const { setCompany, setBranch, setDepartment, setLocation, setPosition, u
   clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
   showRoleAdder, addRole, rmRole, editRole,
   setRole, clearLevels, setLevelsValue, unSetLevelsValue, clearLevelValues, cancelEdit, setShowInfo, setDates, setComment,
-  clearApprovals, setApprovalUser,fghfgh
+  clearApprovals, setApprovalUser,
 } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;
@@ -378,5 +387,6 @@ export const showInfoData         = ( state ) => state.corpsystems.showInfo;
 export const textInfoData         = ( state ) => state.corpsystems.textInfo;
 export const approveLoadingData   = ( state ) => state.corpsystems.approveLoading;
 export const approvalsData        = ( state ) => state.corpsystems.approvals;
+export const aprovalSubmitData    = ( state ) => state.corpsystems.aprovalSubmit;
 
 export default corpsystemSlice.reducer;

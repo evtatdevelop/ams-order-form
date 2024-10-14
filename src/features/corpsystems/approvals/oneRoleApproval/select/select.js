@@ -22,7 +22,7 @@ const Select = (props, ref) => {
   useEffect(() => {
     const item = selectList[0];
     setValue(item.name);
-    selectHandler(item)
+    // selectHandler(item)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
