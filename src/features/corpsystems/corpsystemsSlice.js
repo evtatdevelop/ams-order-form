@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { sessionKey, companies, branches, departments, sapBranch, locations, corpsystem, 
-  systemList, subSystemList, processGroups, getParam, roles, levels, sandboxLevel, approvalRoute,  } from "./corpsystemsSliceAPI";
+  systemList, subSystemList, processGroups, getParam, roles, levels, sandboxLevel, approvalRoute, submitForm } from "./corpsystemsSliceAPI";
 import { getUserData } from "../user/userSliceAPI";
 
 const initialState = {
@@ -39,6 +39,7 @@ const initialState = {
   approvals: [],
   approveLoading: false,
   aprovalSubmit: [],
+  submitLoading: false,
 
 }
 
@@ -58,6 +59,7 @@ export const getRoles         = createAsyncThunk( 'corpsystem/getRoles', async (
 export const getLevels        = createAsyncThunk( 'corpsystem/getLevels', async ( data ) => await levels(data) );
 export const processLevel     = createAsyncThunk( 'corpsystem/processLevel', async ( data ) => await sandboxLevel(data) );
 export const getApprovalRoute = createAsyncThunk( 'corpsystem/approvalRoute', async ( data ) => await approvalRoute(data) );
+export const postSubmitForm   = createAsyncThunk( 'corpsystem/submitForm', async ( data ) => await submitForm(data) );
 
 export const corpsystemSlice = createSlice({
   name: 'corpsystems',
@@ -346,11 +348,18 @@ export const corpsystemSlice = createSlice({
       state.approveLoading = true 
     })
     .addCase(getApprovalRoute.fulfilled, ( state, action ) => {
-      state.approvals = action.payload
-      
+      state.approvals = action.payload;
       state.aprovalSubmit = action.payload.map((roleAproval, index) => Object.values(roleAproval).map(item => ({cnt: index, asz10_id: item.asz10_id, asz06_id: item.asz06_id, app12_id: item.app12_select}))).flat()
-
       state.approveLoading = false 
+    })
+
+    .addCase(postSubmitForm.pending, ( state ) => { 
+      state.submitLoading = true 
+    })
+
+    .addCase(postSubmitForm.fulfilled, ( state, action ) => {
+      console.log(action.payload);
+      state.submitLoading = false 
     })
   }
 });
@@ -388,5 +397,6 @@ export const textInfoData         = ( state ) => state.corpsystems.textInfo;
 export const approveLoadingData   = ( state ) => state.corpsystems.approveLoading;
 export const approvalsData        = ( state ) => state.corpsystems.approvals;
 export const aprovalSubmitData    = ( state ) => state.corpsystems.aprovalSubmit;
+export const submitLoadingData    = ( state ) => state.corpsystems.submitLoading;
 
 export default corpsystemSlice.reducer;

@@ -20,3 +20,4 @@ export const levels         = ( data ) => service.getResource(`${apiBase}/?q=lev
 export const levelValues    = ( data ) => service.getResource(`${apiBase}/?q=level_values&lang=${data.lang}&asz05_id=${data.asz05_id}&skey=${data.skey}&cnt=${data.cnt}&app12_id_author=${data.app12_id_author}&app12_id=${data.app12_id}&asz03_id=${data.asz03_id}&order_type=${data.order_type}&asz00_id=${data.asz00_id}&asz22_id=${data.asz22_id}&process_group=${data.process_group}&asz03_code=${data.asz03_code}`, data.api_key);
 export const sandboxLevel   = ( data ) => service.updateResource(`${apiBase}/?q=sandbox_level`, data);
 export const approvalRoute  = ( data ) => service.updateResource(`${apiBase}/?q=approval_route`, data);
+export const submitForm     = ( data ) => service.postResource(`${apiBase}/?q=submit_form`, data);

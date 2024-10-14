@@ -5,9 +5,9 @@ import { darkTheme } from "../../main/mainpageSlice";
 import dictionary from '../../../dictionary.json';
 import { user as author, } from '../../user/userSlice';
 import { SubmitlDataLoader } from "./dataLoader";
-import { userData } from "../corpsystemsSlice";
-import { rolesData } from "../corpsystemsSlice";
-import { aprovalSubmitData } from "../corpsystemsSlice";
+// import { userData } from "../corpsystemsSlice";
+// import { rolesData } from "../corpsystemsSlice";
+import { userData, rolesData, aprovalSubmitData, submitLoadingData, postSubmitForm, sessionKeyData, } from "../corpsystemsSlice";
 
 
 export const Submit = () => {
@@ -17,9 +17,43 @@ export const Submit = () => {
   const user = useSelector(userData);
   const roles = useSelector(rolesData);
   const approval = useSelector(aprovalSubmitData);
+  const submitLoading = useSelector(submitLoadingData);
+  const sessionKey = useSelector(sessionKeyData);
 
 
   const submit = () => {
+
+    const submitData = {
+      author: authorData.id,
+      user_id: user.id,
+      hrs01_id: user.company.hrs01_id,
+      hrs05_id: user.branch.hrs05_id,
+      app22_id: user.department.app22_id,
+      location: user.location,
+      position: user.position_name,
+      asz01_id: user.sap_branch.asz01_id,
+      boss_id: user.boss,
+      roles: [ ...roles.map(item => ({
+        cnt: item.cnt,
+        role_id: item.role.id,
+        dates: item.dates ?? {},
+        comment: item.comment ?? null,
+        levels: [...item.levels.map(lvl => ({
+          asz05_id: lvl.asz05_id,
+          values: lvl.value,
+        }))],
+        approval: [
+          ...approval.filter(appove => appove.cnt === item.cnt - 1 )
+        ]
+      })) ],
+    }
+
+    dispatch(postSubmitForm({
+      api_key: authorData.api_key, 
+      session_key: sessionKey, 
+      submitData
+    }));
+
     console.log(
       {
         author: authorData.id,
@@ -59,7 +93,7 @@ export const Submit = () => {
     <div className={submitStyle}>
       <button type="button" className={styles.btnSubmit}
         onClick={()=>submit()}
-      > { false
+      > { submitLoading
           ? <div className={styles.loader}><SubmitlDataLoader/></div>
           : dictionary.submit_approval[authorData.lang]
         }    
