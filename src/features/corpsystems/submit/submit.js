@@ -7,7 +7,7 @@ import { user as author, } from '../../user/userSlice';
 import { SubmitlDataLoader } from "./dataLoader";
 // import { userData } from "../corpsystemsSlice";
 // import { rolesData } from "../corpsystemsSlice";
-import { userData, rolesData, aprovalSubmitData, submitLoadingData, postSubmitForm, sessionKeyData, } from "../corpsystemsSlice";
+import { corpSyst, userData, rolesData, aprovalSubmitData, submitLoadingData, postSubmitForm, sessionKeyData, } from "../corpsystemsSlice";
 
 
 export const Submit = () => {
@@ -19,7 +19,7 @@ export const Submit = () => {
   const approval = useSelector(aprovalSubmitData);
   const submitLoading = useSelector(submitLoadingData);
   const sessionKey = useSelector(sessionKeyData);
-
+  const cs = useSelector(corpSyst);
 
   const submit = () => {
 
@@ -33,6 +33,10 @@ export const Submit = () => {
       position: user.position_name,
       asz01_id: user.sap_branch.asz01_id,
       boss_id: user.boss,
+      asz22_id: cs.asz22_id,
+      asz24_id: cs.asz24_id,
+      asz00_id: cs.sapSystem.asz00_id,
+      asz80_id: cs.sapSystem.subSapSystem.asz80_id,
       roles: [ ...roles.map(item => ({
         cnt: item.cnt,
         role_id: item.role.id,
@@ -53,36 +57,6 @@ export const Submit = () => {
       session_key: sessionKey, 
       submitData
     }));
-
-    console.log(
-      {
-        author: authorData.id,
-        user_id: user.id,
-        hrs01_id: user.company.hrs01_id,
-        hrs05_id: user.branch.hrs05_id,
-        app22_id: user.department.app22_id,
-        location: user.location,
-        position: user.position_name,
-        asz01_id: user.sap_branch.asz01_id,
-        boss_id: user.boss,
-        roles: [ ...roles.map(item => ({
-          cnt: item.cnt,
-          role_id: item.role.id,
-          dates: item.dates ?? {},
-          comment: item.comment ?? null,
-          levels: [...item.levels.map(lvl => ({
-            asz05_id: lvl.asz05_id,
-            values: lvl.value,
-          }))],
-          approval: [
-            ...approval.filter(appove => appove.cnt === item.cnt - 1 )
-          ]
-        })) ],
-        // ToDo: to send only changes if they are, Others data to give on backend ( why NO: hard DB request )
-        // agreements: approval,
-      }
-    );
-    
   }
 
   let submitStyle = dark 
