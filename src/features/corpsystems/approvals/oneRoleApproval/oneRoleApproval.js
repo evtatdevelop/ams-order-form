@@ -69,7 +69,7 @@ export const OneRoleApproval = props => {
                 <div className={levelAproveItemStyle}>{ 
                   i.app12.length > 1
                   ? <Select
-                      selectHandler = { val => setApproval({cnt: index, 'asz10_id': itm.asz10_id, 'asz06_id': i.asz06_id, 'app12_id:': val.id, }) }
+                      selectHandler = { val => setApproval({cnt: index, 'asz10_id': itm.asz10_id, 'asz06_id': i.asz06_id, 'app12_id': val.id, }) }
                       selectClear  = { () =>  console.log('clean') }
                       placeholder = '>'
                       selectList = {i.app12}
