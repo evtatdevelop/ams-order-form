@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from './submit.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { darkTheme } from "../../main/mainpageSlice";
@@ -7,11 +7,13 @@ import { user as author, } from '../../user/userSlice';
 import { SubmitlDataLoader } from "./dataLoader";
 // import { userData } from "../corpsystemsSlice";
 // import { rolesData } from "../corpsystemsSlice";
-import { corpSyst, userData, rolesData, aprovalSubmitData, submitLoadingData, postSubmitForm, sessionKeyData, } from "../corpsystemsSlice";
-
+import { corpSyst, userData, rolesData, aprovalSubmitData, submitLoadingData, postSubmitForm, sessionKeyData, orderIdData, } from "../corpsystemsSlice";
+import { useNavigate } from "react-router-dom";
 
 export const Submit = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
   const dark = useSelector(darkTheme);
   const authorData = useSelector(author);
   const user = useSelector(userData);
@@ -20,6 +22,15 @@ export const Submit = () => {
   const submitLoading = useSelector(submitLoadingData);
   const sessionKey = useSelector(sessionKeyData);
   const cs = useSelector(corpSyst);
+  const orderId = useSelector(orderIdData);
+
+
+  useEffect(() => {
+    // if ( orderId ) navigate(`/status/corpsystems/${orderId}`);
+    if ( orderId ) navigate(`/status/corpsystems/${sessionKey}`);
+    
+  }, [navigate, orderId, sessionKey]);
+
 
   const submit = () => {
 

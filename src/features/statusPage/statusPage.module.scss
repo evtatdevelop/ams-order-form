@@ -1,0 +1,126 @@
+.statusPage {
+  width: 100%;
+  height: 100vh;
+  color: #424242;
+  display: flex;
+  justify-content: center;
+  font-size: 1.2vmax;
+  animation: appearance 500ms ease-in-out forwards;
+
+  background-blend-mode: screen;
+  background:
+      linear-gradient(rgba(50, 205, 50, 0.03), transparent),
+      linear-gradient(90deg, rgba(135, 207, 235, 0.03), transparent),
+      linear-gradient(-90deg, rgba(255, 127, 80, 0.03), transparent);
+
+  // &.test {
+  //   position: relative;
+  //   box-shadow: inset 0px 0px 10px green;
+  //   &::before {
+  //     position: absolute;
+  //     top: .2vmax;
+  //     left: .2vmax;
+  //     display: flex;
+  //     justify-content: center;
+  //     align-items: center;
+  //     padding: .2vmax;
+  //     color: green;
+  //     content: 'TEST';
+  //     box-shadow: 0px 0px 10px green;
+  //   }
+  //   &::after {
+  //     position: absolute;
+  //     bottom: .2vmax;
+  //     right: .2vmax;
+  //     display: flex;
+  //     justify-content: center;
+  //     align-items: center;
+  //     padding: .2vmax;
+  //     color: green;
+  //     content: 'TEST';
+  //     box-shadow: 0px 0px 10px green;
+  //   }
+  // }
+  
+
+
+  .wrapperCS {
+    width: 75%;
+    max-width: 1900px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form {
+    flex-grow: 1;
+    padding: 1vmax;
+    color: #424242;
+    font-size: 1.2vmax;
+    font-weight: 700;
+    outline: .1vmax solid rgba(128, 128, 128, 0.653);
+    background-color: white;
+
+  }
+
+
+  //
+  // Dark styles
+  //
+  &.dark {
+    background-color: #161619;
+
+    .form {
+      background-blend-mode: screen;
+      background:
+          linear-gradient(rgba(116, 255, 116, 0.02), transparent),
+          linear-gradient(90deg, rgba(113, 215, 255, 0.02), transparent),
+          linear-gradient(-90deg, rgba(255, 152, 111, 0.02), transparent);
+    
+
+      color: rgb(241, 241, 241);      
+
+      scrollbar-color: #161619 #60606d;
+      &::-webkit-scrollbar-track { background: #161619; }
+      &::-webkit-scrollbar-thumb { background-color: #60606d; }
+    }
+
+  }
+
+  @keyframes appearance {
+    0% {
+      opacity: .3;
+    }
+    80% {
+    }
+    100% {
+      opacity: .9;
+    }
+  }
+
+  
+
+  @media screen and (min-width: 1300px) {
+    .wrapperCS {
+      width: 55%;
+    }
+
+    .form {
+      padding: .5vmax;
+      font-size: 1.2vmax;
+      font-weight: 700;
+  
+      padding-bottom: 25vmax;
+      margin-bottom: 1vmax;
+    }
+
+  }
+
+
+  @media screen and (max-width: 1000px) {
+    .wrapperCS {
+      width: 95%;
+    }
+  }
+  
+}
+

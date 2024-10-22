@@ -5,6 +5,7 @@ import { user, loading } from '../user/userSlice';
 import { darkTheme } from "./mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { changeTheme, } from "./mainpageSlice";
+import { Outlet } from "react-router-dom";
 
 export const MainPage = () => {
   const dispatch = useDispatch();
@@ -23,10 +24,14 @@ export const MainPage = () => {
     : `${styles.mainpage}`
 
   return (
-    load
-    ? null
-    : <section className={mainpageStyle} >
-        <TopBar/>
-      </section>   
+    <>
+      {load
+      ? null
+      : <section className={mainpageStyle} >
+          <TopBar/>
+          </section>
+      }
+      <Outlet />
+    </>
   )
 }

@@ -3,12 +3,13 @@ import './App.scss';
 import { MainPage } from './features/main/mainpage';
 import { useSelector, useDispatch } from "react-redux";
 import { loading, langLoading, getRemote } from './features/user/userSlice';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Loader } from './features/loader/loader';
 import { pathBase } from './config';
 import { Corpsystems } from './features/corpsystems/corpsystems';
 import ExpirationScreen from './features/expirationScreen';
 import { LoadPage } from './features/loadPage/loadPage';
+import { StatusPage } from './features/statusPage/statusPage';
 
 function App() {
   const load = useSelector(loading);
@@ -30,9 +31,18 @@ function App() {
       ? <LoadPage/>
       : <div className="App">
         <Routes>
-          <Route path={`${pathBase}/`} exact element={<MainPage/>}/> 
+          {/* <Route path={`${pathBase}/`} exact element={<MainPage/>}/> 
           <Route path={`${pathBase}/corpsystems/`} element={<MainPage/>}/>
           <Route path={`${pathBase}/corpsystems/:system`} element={<Corpsystems/>}/>
+          <Route path={`${pathBase}/status`} element={<StatusPage/>}/> */}
+
+          <Route path={`${pathBase}/`} > 
+            <Route path={`corpsystems/`} element={<MainPage/>}/>
+            <Route path={`corpsystems/:system`} element={<Corpsystems/>}/>
+            <Route path={`status`} element={<StatusPage/>}/>
+            <Route path={`status/:system`} element={<StatusPage/>}/>
+            <Route path={`status/:system/:id`} element={<StatusPage/>}/>
+          </Route>
         </Routes>
         { langLoad ? <Loader/> : null }
       </div>

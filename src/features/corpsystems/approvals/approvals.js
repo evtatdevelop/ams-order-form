@@ -57,12 +57,6 @@ export const Approvals = () => {
     }, {}))
     .map(item => Object.fromEntries(Object.entries(item).sort()))
     .map(item => Object.values(item));
-    
-    // console.log(approvalTab);
-    
-    //  !mportant
-    // ToDo: set approver
-    // ToDo: specific Num roleBlock 
 
   return ( 
     <div className={approvalsStyle}>

@@ -40,6 +40,7 @@ const initialState = {
   approveLoading: false,
   aprovalSubmit: [],
   submitLoading: false,
+  orderIdData: null,
 
 }
 
@@ -205,7 +206,7 @@ export const corpsystemSlice = createSlice({
     },
 
     setApprovalUser: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       const { cnt, asz10_id, asz06_id } = action.payload;
       state.aprovalSubmit = [...state.aprovalSubmit.filter(item => !(item.cnt === cnt && item.asz10_id === asz10_id && item.asz06_id === asz06_id)), {...action.payload}]
       
@@ -359,7 +360,8 @@ export const corpsystemSlice = createSlice({
 
     .addCase(postSubmitForm.fulfilled, ( state, action ) => {
       console.log(action.payload);
-      state.submitLoading = false 
+      state.submitLoading = false;
+      state.orderIdData = action.payload;
     })
   }
 });
@@ -398,5 +400,6 @@ export const approveLoadingData   = ( state ) => state.corpsystems.approveLoadin
 export const approvalsData        = ( state ) => state.corpsystems.approvals;
 export const aprovalSubmitData    = ( state ) => state.corpsystems.aprovalSubmit;
 export const submitLoadingData    = ( state ) => state.corpsystems.submitLoading;
+export const orderIdData    = ( state ) => state.corpsystems.orderIdData;
 
 export default corpsystemSlice.reducer;
