@@ -27,7 +27,7 @@ export const statuspageSlice = createSlice({
     .addCase(getOrder.pending, ( state ) => { state.loading = true })
     .addCase(getOrder.fulfilled, ( state, action ) => {
       state.orderData = action.payload;
-      state.userDataLoading = false;
+      state.loading = false;
     })
 
 

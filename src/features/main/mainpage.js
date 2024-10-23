@@ -31,7 +31,7 @@ export const MainPage = () => {
           <TopBar/>
           </section>
       }
-      <Outlet />
+      {/* <Outlet /> */}
     </>
   )
 }

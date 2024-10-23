@@ -60,6 +60,15 @@
     outline: .1vmax solid rgba(128, 128, 128, 0.653);
     background-color: white;
 
+    overflow-y: auto;
+    scrollbar-width: 3px;
+    scrollbar-color: #c4c4c4 rgb(255, 255, 255);
+    // &::-webkit-scrollbar { width: 3px; }
+    // &::-webkit-scrollbar-track { background: #74d2fe; }
+    // &::-webkit-scrollbar-thumb { background-color: rgb(223, 247, 255); }
+    
+    padding-bottom: 25vmax;
+    margin-bottom: 1vmax;
   }
 
 
@@ -80,8 +89,8 @@
       color: rgb(241, 241, 241);      
 
       scrollbar-color: #161619 #60606d;
-      &::-webkit-scrollbar-track { background: #161619; }
-      &::-webkit-scrollbar-thumb { background-color: #60606d; }
+      // &::-webkit-scrollbar-track { background: #161619; }
+      // &::-webkit-scrollbar-thumb { background-color: #60606d; }
     }
 
   }
