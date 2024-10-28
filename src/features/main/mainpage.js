@@ -5,7 +5,7 @@ import { user, loading } from '../user/userSlice';
 import { darkTheme } from "./mainpageSlice";
 import { TopBar } from "../topBar/topBar";
 import { changeTheme, } from "./mainpageSlice";
-import { Outlet } from "react-router-dom";
+// import { Outlet } from "react-router-dom";
 
 export const MainPage = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,8 @@ export const MainPage = () => {
 
   useEffect(() => {
     dispatch(changeTheme( false || JSON.parse(localStorage.getItem('darkTheme')) ));
-  }, [dispatch]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   
   const mainpageStyle = dark 
     ? `${styles.mainpage} ${styles.dark}`

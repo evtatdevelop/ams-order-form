@@ -3,7 +3,7 @@ import './App.scss';
 import { MainPage } from './features/main/mainpage';
 import { useSelector, useDispatch } from "react-redux";
 import { loading, langLoading, getRemote } from './features/user/userSlice';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Loader } from './features/loader/loader';
 import { pathBase } from './config';
 import { Corpsystems } from './features/corpsystems/corpsystems';
@@ -37,7 +37,8 @@ function App() {
           <Route path={`${pathBase}/status`} element={<StatusPage/>}/> */}
 
           <Route path={`${pathBase}/`} > 
-            <Route path={`corpsystems/`} element={<MainPage/>}/>
+            <Route path={`/`} element={<MainPage/>}/>
+            <Route path={`corpsystems/`} element={<Corpsystems/>}/>
             <Route path={`corpsystems/:system`} element={<Corpsystems/>}/>
             <Route path={`status`} element={<StatusPage/>}/>
             <Route path={`status/:system`} element={<StatusPage/>}/>

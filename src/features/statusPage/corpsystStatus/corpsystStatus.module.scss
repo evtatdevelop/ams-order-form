@@ -1,0 +1,76 @@
+.corpsystStatus {
+  display: flex;
+  flex-direction: column;
+
+  .systName {
+    margin-bottom: 1vmax;
+  }
+
+  .oderNum {
+  }
+
+  label {
+    width: 25%;
+  }
+  .wrapField {
+    width: 75%;
+
+    color: red;
+  }
+
+  .asked_accesses {
+    margin-top: 1vmax;
+    margin-bottom: 1vmax;
+  }
+
+  .askedPermissions {
+    display: grid;
+    border: 0.1vmax solid #42424279;
+    font-weight: 300;
+
+    .role {
+      display: grid;
+      border-collapse: collapse;
+      grid-template-columns: 40% auto;
+
+      .roleName {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0.5vmax;
+        border: 0.1vmax solid #42424279;
+      }
+      .roleLevel {
+        display: grid;
+        grid-template-rows: auto;
+
+        .level {
+          display: grid;
+          grid-template-rows: auto;
+          grid-template-columns: 25% auto;
+
+          .levelName {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.5vmax;
+            border: 0.1vmax solid #42424279;
+          }
+          .values {
+            display: flex;
+            flex-direction: column;
+            border: 0.1vmax solid #42424279;
+            padding: 0.5vmax;
+
+            .value {
+              span {
+                color: rgb(173, 173, 173);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

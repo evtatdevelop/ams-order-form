@@ -203,6 +203,31 @@
     "EN": "Submit for approval",
     "RU": "Отправить на утверждение",
     "ZH": "提交审批"
+  },
+  "no_data": {
+    "EN": "No data",
+    "RU": "Нет данных",
+    "ZH": "没有数据"
+  },
+  "request_number": {
+    "EN": "Request number",
+    "RU": "Номер запроса",
+    "ZH": "请求编号"
+  },
+  "date_creation": {
+    "EN": "Date of creation",
+    "RU": "Дата создания",
+    "ZH": "创建日期"
+  },
+  "request_status": {
+    "EN": "Request status",
+    "RU": "Статус запроса",
+    "ZH": "请求状态"
+  },
+  "asked_access_permissions": {
+    "EN": "Requested access permissions",
+    "RU": "Запрошенные разрешения",
+    "ZH": "请求的访问权限"
   }
   
 

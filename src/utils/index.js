@@ -21,3 +21,15 @@ export const layoutSwitch = string => {
   // console.log(result);
   return result
 }
+
+export const upperFirst = str => str && typeof(str) === 'string' 
+  ? str[0].toUpperCase() + str.slice(1)
+  : str;
+
+export const strToStrDate = (str, lang) => {
+  const date = new Date(Date.parse(str))
+  if ( !date ) return '';
+  const dd = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`
+  const mm = date.getMonth()+1 > 9 ? date.getMonth()+1 : `0${date.getMonth()+1}`
+  return lang.toUpperCase() === 'RU' ? `${dd}.${mm}.${date.getFullYear()}` : `${dd}-${mm}-${date.getFullYear()}`;
+}
