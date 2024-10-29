@@ -48,7 +48,7 @@
     "EN": "Email",
     "RU": "Эл. почта",
     "ZH": "电子邮件"
-  }, 
+  },
   "ad_account": {
     "EN": "AD account",
     "RU": "Учетная запись в AD",
@@ -118,7 +118,7 @@
     "EN": "Process group",
     "RU": "Группа процессов",
     "ZH": "进程组"
-  },  
+  },
   "search": {
     "EN": "Search",
     "RU": "Поиск",
@@ -145,7 +145,7 @@
     "ZH": "所有其他值"
   },
   "code": {
-    "EN": "Code",
+    "EN": "Role ID",
     "RU": "Код",
     "ZH": "參數程式碼"
   },
@@ -228,7 +228,10 @@
     "EN": "Requested access permissions",
     "RU": "Запрошенные разрешения",
     "ZH": "请求的访问权限"
+  },
+  "role_valid": {
+    "EN": "Role valid",
+    "RU": "Срок действия",
+    "ZH": "角色有效期"
   }
-  
-
 }
