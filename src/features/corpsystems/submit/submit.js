@@ -7,7 +7,7 @@ import { user as author, } from '../../user/userSlice';
 import { SubmitlDataLoader } from "./dataLoader";
 // import { userData } from "../corpsystemsSlice";
 // import { rolesData } from "../corpsystemsSlice";
-import { corpSyst, userData, rolesData, aprovalSubmitData, submitLoadingData, postSubmitForm, sessionKeyData, orderIdData, } from "../corpsystemsSlice";
+import { corpSyst, userData, rolesData, aprovalSubmitData, submitLoadingData, postSubmitForm, sessionKeyData, orderIdData, clearForm, sentData, getUserId} from "../corpsystemsSlice";
 import { useNavigate } from "react-router-dom";
 
 export const Submit = () => {
@@ -23,6 +23,7 @@ export const Submit = () => {
   const sessionKey = useSelector(sessionKeyData);
   const cs = useSelector(corpSyst);
   const orderId = useSelector(orderIdData);
+  const sent = useSelector(sentData);
 
 
   useEffect(() => {
@@ -31,6 +32,12 @@ export const Submit = () => {
     
   }, [navigate, orderId, sessionKey]);
 
+  useEffect(() => {
+    if ( sent && !submitLoading ) {
+      dispatch(clearForm());
+      dispatch(getUserId({}));
+    }
+  },[dispatch, sent, submitLoading])
 
   const submit = () => {
 

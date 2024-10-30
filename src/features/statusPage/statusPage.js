@@ -8,7 +8,8 @@ import { orderData, loading, getOrder } from "./statusPageSlice";
 import { useParams } from "react-router-dom";
 import { StatusLoader } from "./statusLoader";
 import { CorpsystStatus } from "./corpsystStatus/corpsystStatus";
-import dictionary from "../../dictionary.json"
+import dictionary from "../../dictionary.json";
+import { cleanSentStatusPage } from "../corpsystems/corpsystemsSlice";
 
 export const StatusPage = () => {
   
@@ -24,7 +25,8 @@ export const StatusPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getOrder( {'api_key': api_key, 'order_type': system, 'order_id': id, } ))
+    dispatch(getOrder( {'api_key': api_key, 'order_type': system, 'order_id': id, } ));
+    dispatch(cleanSentStatusPage())
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   

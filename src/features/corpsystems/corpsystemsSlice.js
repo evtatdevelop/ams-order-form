@@ -41,6 +41,7 @@ const initialState = {
   aprovalSubmit: [],
   submitLoading: false,
   orderIdData: null,
+  sent: false,
 
 }
 
@@ -131,6 +132,14 @@ export const corpsystemSlice = createSlice({
       state.roleList = [];
       state.roles = [];
       state.approvals = [];
+      state.aprovalSubmit = [];
+      state.orderIdData = null;
+      state.companyList = [];
+      state.branchList = [];
+      state.departmentLiist = [];
+      state.params = {
+        enable_subsystems: null,
+      }
     },
     
     showRoleAdder: (state, action) => {
@@ -211,6 +220,10 @@ export const corpsystemSlice = createSlice({
       state.aprovalSubmit = [...state.aprovalSubmit.filter(item => !(item.cnt === cnt && item.asz10_id === asz10_id && item.asz06_id === asz06_id)), {...action.payload}]
       
     },
+
+    cleanSentStatusPage: (state) => {
+      state.sent = false;
+    }
 
   },
 
@@ -362,6 +375,8 @@ export const corpsystemSlice = createSlice({
       console.log(action.payload);
       state.submitLoading = false;
       state.orderIdData = action.payload;
+      
+      state.sent = true;
     })
   }
 });
@@ -371,7 +386,7 @@ export const { setCompany, setBranch, setDepartment, setLocation, setPosition, u
   clearForm, setSapSystem, unSetSapSystem, setSabSapSystem, unSetSabSapSystem,
   showRoleAdder, addRole, rmRole, editRole,
   setRole, clearLevels, setLevelsValue, unSetLevelsValue, clearLevelValues, cancelEdit, setShowInfo, setDates, setComment,
-  clearApprovals, setApprovalUser,
+  clearApprovals, setApprovalUser, cleanSentStatusPage,
 } = corpsystemSlice.actions;
 
 export const corpSyst             = ( state ) => state.corpsystems.system;
@@ -400,6 +415,7 @@ export const approveLoadingData   = ( state ) => state.corpsystems.approveLoadin
 export const approvalsData        = ( state ) => state.corpsystems.approvals;
 export const aprovalSubmitData    = ( state ) => state.corpsystems.aprovalSubmit;
 export const submitLoadingData    = ( state ) => state.corpsystems.submitLoading;
-export const orderIdData    = ( state ) => state.corpsystems.orderIdData;
+export const orderIdData          = ( state ) => state.corpsystems.orderIdData;
+export const sentData             = ( state ) => state.corpsystems.sent;
 
 export default corpsystemSlice.reducer;
