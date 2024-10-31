@@ -16,7 +16,7 @@ import { SelectInput } from "../components/selectInput/selectInput";
 import { Systems } from "./systems/systems";
 import { Roles } from "./roles/roles";
 import { Approvals } from "./approvals/approvals";
-import { setShowInfo, showInfoData, textInfoData, processLevel, sessionKeyData, clearApprovals, approvalsData,  } from "./corpsystemsSlice";
+import { setShowInfo, showInfoData, textInfoData, processLevel, sessionKeyData, clearApprovals, approvalsData, getGetParam} from "./corpsystemsSlice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faTriangleExclamation, faCircleXmark, } from '@fortawesome/free-solid-svg-icons'
 import { Submit } from "./submit/submit";
@@ -27,7 +27,7 @@ export const Corpsystems = () => {
   const dispatch  = useDispatch();
 
   const { lang, api_key, last_name, first_name, 
-    middle_name, }        = useSelector(user);
+  middle_name, }        = useSelector(user);
   const dark              = useSelector(darkTheme);
   const load              = useSelector(loading);
   const cs                = useSelector(corpSyst);
@@ -40,6 +40,7 @@ export const Corpsystems = () => {
   const sessionKey        = useSelector(sessionKeyData);
   const approvals         = useSelector(approvalsData);
 
+
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
     dispatch(getCorpsystem({'url': 'corpsystems', 'path': system, 'api_key': api_key}));
@@ -50,6 +51,13 @@ export const Corpsystems = () => {
     if ( cs && cs.asz22_id && cs.instance_type ) 
       dispatch(getSystemList( {'api_key': api_key, 'asz22_id': cs.asz22_id, 'instance_type': cs.instance_type, 'lang': lang} ))
   }, [api_key, cs, dispatch, lang]);
+
+
+  useEffect(() => {
+    if ( cs?.asz22_id ) dispatch(getGetParam( {'api_key': api_key, 'asz22_id': cs.asz22_id,} ))  ;
+  },[api_key, cs?.asz22_id, dispatch])
+
+
 
 
   const removeSession = () => {

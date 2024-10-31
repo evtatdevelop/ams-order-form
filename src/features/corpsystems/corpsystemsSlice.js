@@ -18,9 +18,10 @@ const initialState = {
   user: {},
   roles: [],
 
-  params: {
-    enable_subsystems: null,
-  },
+  params: {},
+  // params: {
+  //   enable_subsystems: null,
+  // },
 
   companyList: [],
   branchList: [],
@@ -137,9 +138,9 @@ export const corpsystemSlice = createSlice({
       state.companyList = [];
       state.branchList = [];
       state.departmentLiist = [];
-      state.params = {
-        enable_subsystems: null,
-      }
+      // state.params = {
+      //   enable_subsystems: null,
+      // }
     },
     
     showRoleAdder: (state, action) => {
@@ -305,7 +306,11 @@ export const corpsystemSlice = createSlice({
       // state.subSystemLoading = true 
     })
     .addCase(getGetParam.fulfilled, ( state, action ) => {
-      state.params.enable_subsystems = action.payload
+      state.params = {...state.params, ...action.payload};
+      // console.log(action.payload);
+      // console.log(typeof(action.payload));
+      // state.params.enable_subsystems = action.payload
+
       // state.subSystemLoading = false;
     })
 
