@@ -5,8 +5,6 @@ import { user, loading } from '../user/userSlice';
 import { LangButton } from "../components/langButton/langButton";
 import dictionary from '../../dictionary.json';
 import { ThemeButton } from "../components/themeButton/themeButton";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { darkTheme } from "../main/mainpageSlice";
 
 export const TopBar = () => {

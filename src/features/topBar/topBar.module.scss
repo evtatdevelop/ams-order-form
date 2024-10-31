@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
   font-size: 1.7vmax;
-  padding: .5vmax;
+  padding: 0.5vmax;
   // margin-bottom: 1vmax;
 
   & > div {
@@ -22,16 +22,16 @@
   .preferences {
     position: absolute;
     right: 3.5vmax;
-    top: .6vmax;
+    top: 0.6vmax;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 10vmax;
     padding: 1vmax;
     padding-bottom: 0;
-    background-color: #EBEBEB;
-    border: .15vmax solid gray;
-    border-radius: .3vmax;
+    background-color: #ebebeb;
+    border: 0.15vmax solid gray;
+    border-radius: 0.3vmax;
     z-index: 900;
 
     & > div {
@@ -46,11 +46,11 @@
       background-color: transparent;
       margin: 0;
       padding: 0;
-      border: .1vmax solid transparent;
+      border: 0.1vmax solid transparent;
       cursor: pointer;
       color: gray;
       font-size: 1vmax;
-      margin-bottom: .5vmax;
+      margin-bottom: 0.5vmax;
 
       &:active,
       &:focus,
@@ -62,71 +62,55 @@
   }
 
   .btnPreferences {
+    position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 0;
-    padding: .5vmax;
+    padding: 0.5vmax;
     background-color: transparent;
     color: gray;
     border: none;
-    border-radius: .3vmax;
+    border-radius: 0.3vmax;
     cursor: pointer;
-    border: .1vw solid transparent;
-    transition: border .3s;
+    border: 0.1vw solid transparent;
+    transition: border 0.3s;
     width: 2.5vmax;
     height: 2.5vmax;
 
-    // .btnPreferencesIcon {
-    //   width: 1.5vmax;
-    //   height: 1.5vmax;
-    // }
-    // border: .1vw solid grey;
-    
     div {
-      position: absolute;
-      top: 47.8%;              
-      left: calc(50%+0.5vmax);
-      content: '';
       width: 1vmax;
-      height: .1vmax;
-      border-bottom: .2vmax solid gray;
-      transition: opacity .3s;
+      height: 0.1vmax;
+      border-bottom: 1px solid gray;
+      transition: opacity 0.3s;
+      margin-top: 3px;
+      margin-bottom: 3px;
     }
 
     &::after {
-      position: absolute;
-      top: 35%;
-      left: calc(50%+0.5vmax);
       content: '';
       width: 1vmax;
-      height: .1vmax;
-      border-bottom: .2vmax solid gray;
-      transition: transform .3s, top .3s;
-
+      border-bottom: 1px solid gray;
+      transition: transform 0.3s;
     }
     &::before {
-      position: absolute;
-      top: 60%;
-      left: calc(50%+0.5vmax);
       content: '';
       width: 1vmax;
-      height: .1vmax;
-      border-bottom: .2vmax solid gray;
-      // transform: rotate(90deg);
-      transition: transform .3s, top .3s;
+      border-bottom: 1px solid gray;
+      transition: transform 0.3s;
     }
     &.changed {
       &::after {
-        top: 40%;
         transform: rotate(-135deg);
       }
       &::before {
-        top: 55%;
         transform: rotate(135deg);
       }
       div {
         opacity: 0;
+        margin-top: 2px;
+        margin-bottom: 2px;
       }
     }
 
@@ -134,7 +118,7 @@
     &:focus,
     &:active,
     &:hover {
-      border: .1vw solid grey;
+      border: 0.1vw solid grey;
     }
   }
 
@@ -159,7 +143,6 @@
         }
       }
     }
-  
   }
 }
 
@@ -167,78 +150,74 @@
   .header {
     min-height: 4vmax;
     font-size: 1.4vmax;
-    padding: .5vmax;
-  
+    padding: 0.5vmax;
+
     & > div {
       h1 {
         font-weight: 400;
       }
     }
-  
+
     .preferences {
       right: 2.4vmax;
       top: 1.13vmax;
       width: 8vmax;
-      border: .1vmax solid gray;
-      border-radius: .2vmax;
-  
+      border: 0.1vmax solid gray;
+      border-radius: 0.2vmax;
+
       & > div {
-        margin-bottom: .8vmax;
+        margin-bottom: 0.8vmax;
       }
-  
+
       // .btnClosePreferences {
       //   font-size: 1vmax;
       //   margin-bottom: .5vmax;
       // }
     }
-  
+
     .btnPreferences {
-      padding: .5vmax;
-      border-radius: .15vmax;
-      transition: border .3s;
+      padding: 0.5vmax;
+      border-radius: 0.15vmax;
+      transition: border 0.3s;
       width: 1.6vmax;
       height: 1.6vmax;
-      
-      div {           
+
+      div {
         left: calc(50%+0.5vmax);
-        width: .8vmax;
-        height: .1vmax;
-        border-bottom: .15vmax solid gray;
+        width: 0.8vmax;
+        height: 0.1vmax;
+        border-bottom: 0.15vmax solid gray;
       }
-  
+
       &::after {
         top: 40%;
         left: calc(50%+0.5vmax);
-        width: .8vmax;
-        height: .1vmax;
-        border-bottom: .15vmax solid gray;
+        width: 0.8vmax;
+        height: 0.1vmax;
+        border-bottom: 0.15vmax solid gray;
       }
       &::before {
         top: 56%;
         left: calc(50%+0.5vmax);
-        width: .8vmax;
-        height: .1vmax;
-        border-bottom: .15vmax solid gray;
+        width: 0.8vmax;
+        height: 0.1vmax;
+        border-bottom: 0.15vmax solid gray;
       }
       &.changed {
         &::after {
-          width: .7vmax;
+          width: 0.7vmax;
           top: 42%;
           transform: rotate(-135deg);
         }
         &::before {
-          width: .7vmax;
+          width: 0.7vmax;
           top: 54%;
           transform: rotate(135deg);
         }
       }
-
     }
-
   }
 }
 
-
 @media screen and (max-width: 1000px) {
-
 }
