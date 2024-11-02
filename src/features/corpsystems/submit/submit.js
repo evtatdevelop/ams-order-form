@@ -54,7 +54,7 @@ export const Submit = () => {
       asz22_id: cs.asz22_id,
       asz24_id: cs.asz24_id,
       asz00_id: cs.sapSystem.asz00_id,
-      asz80_id: cs.sapSystem.subSapSystem.asz80_id,
+      asz80_id: cs.sapSystem.subSapSystem?.asz80_id ?? null,
       roles: [ ...roles.map(item => ({
         cnt: item.cnt,
         role_id: item.role.id,

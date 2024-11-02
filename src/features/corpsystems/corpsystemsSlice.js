@@ -90,6 +90,8 @@ export const corpsystemSlice = createSlice({
     setBoss: (state, action) => { state.user.boss = action.payload; }, //! moveto user
 
     setSapSystem: (state, action) => { 
+      // console.log(action.payload);
+      
       state.system.sapSystem = {...action.payload, asz00_id: action.payload.id, subSapSystem: {} }
       // state.sapSystem = {...action.payload, asz00_id: action.payload.id }
       delete state.system.sapSystem.id;

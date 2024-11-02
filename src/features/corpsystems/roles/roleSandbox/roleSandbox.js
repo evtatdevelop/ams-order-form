@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../../dictionary.json";
 import { user } from '../../../user/userSlice';
 import { showRoleAdder, processGroupListData, roleListData, getLevels, roleSendboxData, 
-  levelsData, setRole, clearLevels, addRole, rolesData, clearLevelValues, processLevel, sessionKeyData, cancelEdit, editSandBoxData, clearApprovals,} from "../../corpsystemsSlice";
+  levelsData, setRole, clearLevels, addRole, rolesData, clearLevelValues, processLevel, sessionKeyData, cancelEdit, editSandBoxData, clearApprovals,
+  paramsData, corpSyst} from "../../corpsystemsSlice";
 import Input from "../../../components/input/Input";
 import Select from "../../../components/select/select";
 import { darkTheme } from "../../../main/mainpageSlice";
@@ -26,6 +27,13 @@ export const RoleSandbox = () => {
   const levels = useSelector(levelsData);
   const sessionKey = useSelector(sessionKeyData);
   const editSandBox = useSelector(editSandBoxData);
+  const cs = useSelector(corpSyst);
+  
+  const {process_group_name, role_name, enable_role_comments, enable_role_dates, } = useSelector(paramsData);
+  
+  // const params = useSelector(paramsData);
+  // console.log(params);
+  
 
   const [hereSearch, setHereSearch] = useState([]);
   const [hereGroups, setHereGroups] = useState([]);
@@ -268,7 +276,7 @@ export const RoleSandbox = () => {
             ? <Select
                 selectHandler = { val => handleGroup(val) }
                 selectClear  = { () => cancelGroup() }
-                placeholder = {dictionary.nameProcessGroup[lang]}
+                placeholder = {process_group_name ? process_group_name : dictionary.nameProcessGroup[lang]}
                 selectList = {hereGroups}
                 val = {hereGroup}
                 name=''
@@ -282,7 +290,7 @@ export const RoleSandbox = () => {
             ? <Select
                 selectHandler = { val => handleRole(val) }
                 selectClear  = { () => cancelRole() }
-                placeholder = {dictionary.nameRole[lang]}
+                placeholder = {role_name ? role_name : dictionary.nameRole[lang]}
                 selectList = {hereRoles}
                 val = {hereRole}
                 name=''
@@ -300,7 +308,11 @@ export const RoleSandbox = () => {
                       onClick={()=>searchChoice(item)}
                       onKeyDown={(e)=>serchItemKey(e, index, searchList.length, item) }
                     >
-                      <div className={styles.label}>{`${item.code ? dictionary.nameRole[lang]: dictionary.nameProcessGroup[lang]}:`}</div>
+                      <div className={styles.label}>{
+                        `${item.code 
+                          ? role_name ? role_name : dictionary.nameRole[lang]
+                          : process_group_name ? process_group_name : dictionary.nameProcessGroup[lang]
+                        }:`}</div>
                       <div className={styles.name}>{`${item.name}`}
                         <div>{ item.code ? <span className={styles.code}>{` (${item.code} ) ${item.proccss_group_name ? ` [ ${item.proccss_group_name} ]` : null}`}</span> : null } </div>
                       </div>
@@ -317,13 +329,17 @@ export const RoleSandbox = () => {
             : null
           }
 
-          { role.levels?.length === levels?.length || ( !levels?.length && role.role )
+          { (enable_role_dates === '1' || (enable_role_dates === '2' && cs.instance_type !== 'PROD' ))
+            && (role.levels?.length === levels?.length || ( !levels?.length && role.role ))
             ? <DateInterval/>  
             : null
           }
-          
+
+
+          {/* role_comments_name, enable_role_comments, role_dates_name, enable_role_dates */}
           <div className={styles.gapRow}></div>
-          { role.levels?.length === levels?.length || ( !levels?.length && role.role )
+          { (enable_role_comments === '1' || enable_role_comments === '3')
+            && (role.levels?.length === levels?.length || ( !levels?.length && role.role ))
             ? <Comments/>
             : null
           }

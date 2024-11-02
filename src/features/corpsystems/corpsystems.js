@@ -54,7 +54,7 @@ export const Corpsystems = () => {
 
 
   useEffect(() => {
-    if ( cs?.asz22_id ) dispatch(getGetParam( {'api_key': api_key, 'asz22_id': cs.asz22_id,} ))  ;
+    if ( cs?.asz22_id ) dispatch(getGetParam( {'api_key': api_key, 'asz22_id': cs.asz22_id,} ));
   },[api_key, cs?.asz22_id, dispatch])
 
 

@@ -3,7 +3,7 @@ import styles from './dateInterval.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../../../dictionary.json";
 import { user } from '../../../../user/userSlice';
-import { setDates, editSandBoxData, roleSendboxData } from "../../../corpsystemsSlice";
+import { setDates, editSandBoxData, roleSendboxData, paramsData } from "../../../corpsystemsSlice";
 
 import { InputDate } from "../../../../components/inputDate/inputDate";
 
@@ -12,6 +12,7 @@ export const DateInterval = () => {
   const { lang, } = useSelector(user);
   const editSandBox = useSelector(editSandBoxData);
   const roleSendbox = useSelector(roleSendboxData);
+  const {role_dates_name, } = useSelector(paramsData);
   
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
@@ -63,7 +64,7 @@ export const DateInterval = () => {
   return (
     <div className={styles.dateInterval}>
       <div className={styles.partInterval}>
-        <div className={styles.intervalName}>{dictionary.from[lang]}</div>
+        <div className={styles.intervalName}>{`${role_dates_name} ${dictionary.from[lang]}`}</div>
         <InputDate
           dateHandler = { val => intervalLogic('from', val) }
           lang = {lang}
@@ -72,7 +73,7 @@ export const DateInterval = () => {
         />        
       </div>
       <div className={styles.partInterval}>
-        <div className={styles.intervalName}>{dictionary.to[lang]}</div>
+        <div className={styles.intervalName}>{`${role_dates_name} ${dictionary.to[lang]}`}</div>
           <InputDate
             dateHandler = { val => intervalLogic('to', val) }
             lang = {lang}

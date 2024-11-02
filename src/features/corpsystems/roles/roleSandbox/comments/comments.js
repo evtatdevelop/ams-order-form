@@ -3,7 +3,7 @@ import styles from './comments.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import dictionary from "../../../../../dictionary.json";
 import { user } from '../../../../user/userSlice';
-import { editSandBoxData, roleSendboxData, setComment } from "../../../corpsystemsSlice";
+import { editSandBoxData, roleSendboxData, setComment, paramsData } from "../../../corpsystemsSlice";
 import { darkTheme } from "../../../../main/mainpageSlice";
 
 export const Comments = () => {
@@ -13,6 +13,7 @@ export const Comments = () => {
   const editSandBox = useSelector(editSandBoxData);
   const roleSendbox = useSelector(roleSendboxData);
   const dark = useSelector(darkTheme);
+  const {role_comments_name, } = useSelector(paramsData);
 
   const [text, setValue] = useState('');
   
@@ -37,7 +38,7 @@ export const Comments = () => {
 
   return (
     <div className={selectComments}>
-      <div className={styles.commentsName}>{dictionary.comment[lang]}</div>
+      <div className={styles.commentsName}>{role_comments_name ? role_comments_name : dictionary.comment[lang]}</div>
       <textarea
         className={styles.commentArea}
         autoComplete="off"
