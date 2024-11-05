@@ -22,7 +22,7 @@ export const Systems = props => {
   const mainUser              = useSelector(userData);
   // const params                = useSelector(paramsData);
   const subSystemLoading      = useSelector(subSystemLoadingData);
-  const {enable_subsystems, enable_system_select, } = useSelector(paramsData);
+  const {enable_subsystems, enable_system_select, system_name, } = useSelector(paramsData);
 
   useEffect(() => {
     if ( cs && cs.asz22_id && cs.instance_type ) 
@@ -139,7 +139,7 @@ export const Systems = props => {
     { enable_system_select !== '0'
       ? <div className={styles.systems}>
           <Row>
-            <label>{`${dictionary.system[lang]}`}</label>
+            <label>{system_name ? system_name : `${dictionary.system[lang]}`}</label>
             <div className={styles.wrapField}>
               <Select
                 selectHandler = { val => dispatch(setSapSystem(val)) }
