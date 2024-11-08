@@ -16,10 +16,11 @@ import { SelectInput } from "../components/selectInput/selectInput";
 import { Systems } from "./systems/systems";
 import { Roles } from "./roles/roles";
 import { Approvals } from "./approvals/approvals";
-import { setShowInfo, showInfoData, textInfoData, processLevel, sessionKeyData, clearApprovals, approvalsData, getGetParam} from "./corpsystemsSlice";
+import { setShowInfo, showInfoData, textInfoData, processLevel, sessionKeyData, clearApprovals, approvalsData, getGetParam, getGuides, } from "./corpsystemsSlice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faTriangleExclamation, faCircleXmark, } from '@fortawesome/free-solid-svg-icons'
 import { Submit } from "./submit/submit";
+import { InfoList } from "../components/infoList/infoList";
 
 export const Corpsystems = () => {
   
@@ -55,7 +56,11 @@ export const Corpsystems = () => {
 
   useEffect(() => {
     if ( cs?.asz22_id ) dispatch(getGetParam( {'api_key': api_key, 'asz22_id': cs.asz22_id,} ));
-  },[api_key, cs?.asz22_id, dispatch])
+  },[api_key, cs?.asz22_id, dispatch]);
+
+  useEffect(() => {
+    if ( cs?.system_prefix ) dispatch(getGuides( {'api_key': api_key, 'system_prefix': cs.system_prefix,} ));
+  },[api_key, cs?.system_prefix, dispatch]);
 
 
 
@@ -99,6 +104,10 @@ export const Corpsystems = () => {
                   }</h3>
                 : null
               }
+
+              <div className={styles.guides}>
+                <InfoList/>
+              </div>
 
               <div className={styles.aplicantRow}>
                 <div className={styles.aplicantLabel}>{`${dictionary.applicant[lang]}:`}</div>

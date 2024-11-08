@@ -1,0 +1,105 @@
+.infoList {
+  display: flex;
+  flex-direction: column;
+  // outline: 1px solid red;
+
+  .btnGuide {
+    display: flex;
+    align-self: flex-end;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    margin: 0;
+    padding: 0.4vmax;
+    cursor: pointer;
+    color: rgb(24, 169, 226);
+    font-size: 1.7vmax;
+    border: 0.1vmax solid transparent;
+    transition: border 0.3s;
+
+    &:hover {
+      border-radius: 0.2vmax;
+      border: 0.1vmax solid #424242;
+    }
+
+    .icoGuide {
+    }
+    .lblGuide {
+      display: none;
+    }
+    .clsGuide {
+      color: coral;
+    }
+  }
+
+  .guidesList {
+    padding: 0.4vmax;
+    background-color: rgb(159, 218, 255);
+    border-radius: 0.3vmax;
+    // li {
+    //   margin-bottom: 0.4vmax;
+
+    //   a {
+    //     color: navy;
+    //     font-weight: 400;
+
+    //     &:hover {
+    //       text-decoration: underline;
+    //     }
+    //   }
+    // }
+    animation: appearance 500ms ease-in-out forwards;
+  }
+
+  //
+  // Dark styles
+  //
+  &.dark {
+    .btnGuide {
+      color: rgba(24, 169, 226, 0.541);
+    }
+    .guidesList {
+      background-color: #161619;
+      // li {
+      //   a {
+      //     color: gray;
+      //   }
+      // }
+    }
+  }
+
+  @keyframes appearance {
+    0% {
+      opacity: 0.1;
+    }
+    80% {
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .infoList {
+    .btnGuide {
+      font-size: 1.1vmax;
+      color: #424242;
+      .icoGuide {
+        display: none;
+      }
+      .lblGuide {
+        display: block;
+      }
+      .clsGuide {
+        font-size: 1.7vmax;
+      }
+    }
+
+    &.dark {
+      .btnGuide {
+        color: wheat;
+      }
+    }
+  }
+}

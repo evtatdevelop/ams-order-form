@@ -6,8 +6,13 @@ import { LangButton } from "../components/langButton/langButton";
 import dictionary from '../../dictionary.json';
 import { ThemeButton } from "../components/themeButton/themeButton";
 import { darkTheme } from "../main/mainpageSlice";
+import { Link, useLocation  } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowUpRightFromSquare, } from '@fortawesome/free-solid-svg-icons'
 
 export const TopBar = () => {
+  const location = useLocation();
+
   const userData = useSelector(user);
   const load = useSelector(loading);
   const dark = useSelector(darkTheme);
@@ -26,8 +31,11 @@ export const TopBar = () => {
     <header className={headerStyle}>
     { !load
       ? <>
-          <div>
-            <h1>{ dictionary.ams_order_form[lang] }</h1>
+          <div className={styles.headerCaption}>
+            <Link to="/">
+              <h1 >{ dictionary.ams_order_form[lang] }</h1>
+              {location.pathname !== '/' ? <FontAwesomeIcon icon={ faArrowUpRightFromSquare } className={styles.linkSign}/> : null}
+            </Link>
           </div>
 
           <button

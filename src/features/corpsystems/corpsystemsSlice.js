@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { sessionKey, companies, branches, departments, sapBranch, locations, corpsystem, 
+import { sessionKey, companies, branches, departments, sapBranch, locations, corpsystem, guides,
   systemList, subSystemList, processGroups, getParam, roles, levels, sandboxLevel, approvalRoute, submitForm } from "./corpsystemsSliceAPI";
 import { getUserData } from "../user/userSliceAPI";
 
@@ -13,6 +13,7 @@ const initialState = {
   showInfo: '',
   textInfo: '',
 
+  guides: [],
   system: null,
   sessionKey: null,
   user: {},
@@ -44,6 +45,8 @@ const initialState = {
   orderIdData: null,
   sent: false,
 
+
+
 }
 
 export const getSessionKey    = createAsyncThunk( 'corpsystem/getSessionKey', async ( data ) => await sessionKey(data) );
@@ -63,6 +66,7 @@ export const getLevels        = createAsyncThunk( 'corpsystem/getLevels', async 
 export const processLevel     = createAsyncThunk( 'corpsystem/processLevel', async ( data ) => await sandboxLevel(data) );
 export const getApprovalRoute = createAsyncThunk( 'corpsystem/approvalRoute', async ( data ) => await approvalRoute(data) );
 export const postSubmitForm   = createAsyncThunk( 'corpsystem/submitForm', async ( data ) => await submitForm(data) );
+export const getGuides        = createAsyncThunk( 'corpsystem/getGuides', async ( data ) => await guides(data) );
 
 export const corpsystemSlice = createSlice({
   name: 'corpsystems',
@@ -377,13 +381,20 @@ export const corpsystemSlice = createSlice({
     .addCase(postSubmitForm.pending, ( state ) => { 
       state.submitLoading = true 
     })
-
     .addCase(postSubmitForm.fulfilled, ( state, action ) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.submitLoading = false;
       state.orderIdData = action.payload;
       
       state.sent = true;
+    })
+
+    .addCase(getGuides.pending, ( state ) => { 
+      // state.submitLoading = true 
+    })
+    .addCase(getGuides.fulfilled, ( state, action ) => {
+      // console.log(action.payload);
+      state.guides = action.payload;
     })
   }
 });
@@ -424,5 +435,6 @@ export const aprovalSubmitData    = ( state ) => state.corpsystems.aprovalSubmit
 export const submitLoadingData    = ( state ) => state.corpsystems.submitLoading;
 export const orderIdData          = ( state ) => state.corpsystems.orderIdData;
 export const sentData             = ( state ) => state.corpsystems.sent;
+export const guidesData           = ( state ) => state.corpsystems.guides;
 
 export default corpsystemSlice.reducer;

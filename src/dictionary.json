@@ -233,5 +233,10 @@
     "EN": "Role valid",
     "RU": "Срок действия",
     "ZH": "角色有效期"
+  },
+  "information": {
+    "EN": "Information",
+    "RU": "Информация",
+    "ZH": "信息"
   }
 }

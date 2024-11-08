@@ -166,7 +166,8 @@ export const UserData = props => {
       <div className={styles.userData}>
         { userDataLoad
           ? <div className={styles.userDataLoader}>
-              <UserDataLoader/>
+              {/* <UserDataLoader/> */}
+              <div className={styles.loader}><UserDataLoader/></div>
             </div>
           : null
         }  

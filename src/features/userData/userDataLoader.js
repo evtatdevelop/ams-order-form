@@ -8,7 +8,7 @@ export const UserDataLoader = () => {
   const color = dark ? '#FFFFFF' : '#000000';
 
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="50px" height="50px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
       <g transform="rotate(0 50 50)" >
         <rect x="49" y="22" rx="0" ry="0" width="2" height="16" fill={color} >
           <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1.2195121951219512s" begin="-1.1640798226164077s" repeatCount="indefinite" ></animate>

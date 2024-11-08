@@ -1,0 +1,30 @@
+.guideLine {
+  margin-bottom: 0.4vmax;
+
+  a {
+    color: navy;
+    font-weight: 400;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  p {
+    color: navy;
+    font-weight: 400;
+  }
+
+  &.dark {
+    a {
+      color: gray;
+    }
+    P {
+      color: gray;
+    }
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .guideLine {
+  }
+}

@@ -8,15 +8,28 @@
   padding: 0.5vmax;
   // margin-bottom: 1vmax;
 
-  & > div {
-    h1 {
-      font-weight: 500;
+  .headerCaption {
+    a {
+      display: flex;
+      align-items: center;
+
+      h1 {
+        margin-right: 1vmax;
+      }
+      .linkSign {
+        opacity: 0;
+        display: block;
+        font-size: 1.5vmax;
+        color: rgba(128, 128, 128, 0.623);
+        transition: opacity 0.3s;
+      }
+
+      &:hover {
+        .linkSign {
+          opacity: 1;
+        }
+      }
     }
-    // .nameForm {
-    //   font-size: 1.1vmax;
-    //   color: #424242;
-    //   text-transform: uppercase;
-    // }
   }
 
   .preferences {
@@ -124,10 +137,12 @@
 
   &.dark {
     color: wheat;
-
-    & > div {
-      .nameForm {
+    .headerCaption {
+      a {
         color: wheat;
+        .linkSign {
+          color: rgba(245, 222, 179, 0.253);
+        }
       }
     }
 
