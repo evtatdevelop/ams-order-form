@@ -33,21 +33,10 @@
   }
 
   .guidesList {
-    padding: 0.4vmax;
+    padding: 1vmax;
     background-color: rgb(159, 218, 255);
     border-radius: 0.3vmax;
-    // li {
-    //   margin-bottom: 0.4vmax;
-
-    //   a {
-    //     color: navy;
-    //     font-weight: 400;
-
-    //     &:hover {
-    //       text-decoration: underline;
-    //     }
-    //   }
-    // }
+    margin-left: 1vmax;
     animation: appearance 500ms ease-in-out forwards;
   }
 
@@ -60,11 +49,6 @@
     }
     .guidesList {
       background-color: #161619;
-      // li {
-      //   a {
-      //     color: gray;
-      //   }
-      // }
     }
   }
 
