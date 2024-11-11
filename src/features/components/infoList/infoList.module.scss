@@ -19,7 +19,7 @@
 
     &:hover {
       border-radius: 0.2vmax;
-      border: 0.1vmax solid #424242;
+      border: 0.1vmax solid #42424238;
     }
 
     .icoGuide {
@@ -28,7 +28,7 @@
       display: none;
     }
     .clsGuide {
-      color: coral;
+      color: rgba(255, 127, 80, 0.527);
     }
   }
 
@@ -45,7 +45,9 @@
   //
   &.dark {
     .btnGuide {
-      color: rgba(24, 169, 226, 0.541);
+      &:hover {
+        border: 0.1vmax solid rgba(245, 222, 179, 0.281);
+      }
     }
     .guidesList {
       background-color: #161619;
