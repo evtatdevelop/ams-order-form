@@ -6,7 +6,7 @@ import dictionary from '../../dictionary.json';
 import { getUserId, userDataLoading, userData, 
   getCompanies, companyListData, setCompany, getBranches, branchListData, locationLiistData, positionInputData,
   getDepartments, departmentLiistData, setBranch, setDepartment, getSapBranch, getLocations, setLocation, setPosition,
-  unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, unSetPosition, clearForm, clearApprovals } from "../corpsystems/corpsystemsSlice";
+  unSetSapBranch, unsetDepartmentList, unsetBrancList, unsetCompanyList, unsetLocationList, unSetPosition, clearForm, clearApprovals, hintsData } from "../corpsystems/corpsystemsSlice";
 import { Row } from "../components/row/row";
 import { SelectInput } from "../components/selectInput/selectInput";
 import { UserDataLoader } from "./userDataLoader";
@@ -14,12 +14,15 @@ import { InfoField } from "../components/infoField/infoField";
 import Select from "../components/select/select";
 import Input from "../components/input/Input";
 import SelectTree from "../components/selectTree/selectTree";
+import { darkTheme } from "../main/mainpageSlice";
 
 export const UserData = props => {
 
   const { removeSession } = props;
 
   const dispatch = useDispatch();
+  
+  const dark = useSelector(darkTheme);
   const {lang, api_key } = useSelector(user);
   const userDataLoad = useSelector(userDataLoading);
   const userDataList = useSelector(userData);
@@ -28,17 +31,12 @@ export const UserData = props => {
   const departmentLiist = useSelector(departmentLiistData);
   const locationLiist = useSelector(locationLiistData);
   const positionInput = useSelector(positionInputData);
+  const hints = useSelector(hintsData);
 
   useEffect(() => {
     document.getElementById('oredrUser')?.focus();
   },[])
-  useEffect(() => {
-    // && mainUser.company.hrs01_id 
-    // && mainUser.branch.hrs05_id 
-    // && mainUser.department.app22_id 
-    // && mainUser.position_name 
-    // && mainUser.email
-    // 
+  useEffect(() => { 
     if ( !userDataList.boss && 
       Object.keys(userDataList).length && userDataList.company && Object.keys(userDataList.company)?.length
       && userDataList.branch && Object.keys(userDataList.branch)?.length
@@ -114,9 +112,6 @@ export const UserData = props => {
     dispatch(setPosition(val))
   };
   
-  // const onUnsetPosition = () => {
-  //   dispatch(unSetPosition());
-  // };
   const onUnsetDepartment = () => {
     dispatch(setDepartment([]));
     dispatch(unSetSapBranch());
@@ -137,7 +132,6 @@ export const UserData = props => {
     dispatch(setCompany({}))
     dispatch(setBranch({}));
     dispatch(setDepartment({}));
-    // dispatch(unSetSapBranch());
     dispatch(unsetBrancList());
     dispatch(unsetDepartmentList());
     dispatch(unsetLocationList());
@@ -147,10 +141,22 @@ export const UserData = props => {
 
   const onUnsetlocation = () => dispatch(setLocation({name: null,}));
 
+  let userDataStyle = dark 
+    ? `${styles.userData} ${styles.dark}`
+    : `${styles.userData}`
+
+        
+  let oredrUserStyle = !userDataList.id 
+  ? `${styles.hint} ${styles.show}`
+  : `${styles.hint}`  
+
   return (
-    <div className={styles.userData}>
+    <div className={userDataStyle}>
       <Row>
-        <label>{`${dictionary.userName[lang]}`}</label>
+        <label htmlFor='oredrUser'>
+          {`${dictionary.userName[lang]}`}
+          {/* <a className={styles.hint}>i</a> */}
+        </label>
         <div className={styles.wrapField}>
           <SelectInput
             selectHandler = { val => setUser(val) }
@@ -159,7 +165,14 @@ export const UserData = props => {
             name='userName'
             mode = 'user'
             id = 'oredrUser'
-          />                  
+          />
+          { hints.oredrUser
+            ? <div className={oredrUserStyle}>
+                {hints.oredrUser.name[lang]}
+              </div>
+            : null
+          }
+
         </div>
       </Row>
 

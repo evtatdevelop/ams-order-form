@@ -23,3 +23,4 @@ export const sandboxLevel   = ( data ) => service.updateResource(`${apiBase}/?q=
 export const approvalRoute  = ( data ) => service.updateResource(`${apiBase}/?q=approval_route`, data);
 export const submitForm     = ( data ) => service.postResource(`${apiBase}/?q=submit_form`, data);
 export const guides         = ( data ) => service.getResource(`${apiBase}/?q=get_guides&form=corpsystems&system_prefix=${data.system_prefix}`, data.api_key);
+export const hints          = ( data ) => service.getResource(`${apiBase}/?q=get_hints&form=corpsystems&system_prefix=${data.system_prefix}`, data.api_key);

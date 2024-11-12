@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { sessionKey, companies, branches, departments, sapBranch, locations, corpsystem, guides,
+import { sessionKey, companies, branches, departments, sapBranch, locations, corpsystem, guides, hints,
   systemList, subSystemList, processGroups, getParam, roles, levels, sandboxLevel, approvalRoute, submitForm } from "./corpsystemsSliceAPI";
 import { getUserData } from "../user/userSliceAPI";
 
@@ -14,6 +14,7 @@ const initialState = {
   textInfo: '',
 
   guides: [],
+  hints: {},
   system: null,
   sessionKey: null,
   user: {},
@@ -67,6 +68,7 @@ export const processLevel     = createAsyncThunk( 'corpsystem/processLevel', asy
 export const getApprovalRoute = createAsyncThunk( 'corpsystem/approvalRoute', async ( data ) => await approvalRoute(data) );
 export const postSubmitForm   = createAsyncThunk( 'corpsystem/submitForm', async ( data ) => await submitForm(data) );
 export const getGuides        = createAsyncThunk( 'corpsystem/getGuides', async ( data ) => await guides(data) );
+export const getHints         = createAsyncThunk( 'corpsystem/getHints', async ( data ) => await hints(data) );
 
 export const corpsystemSlice = createSlice({
   name: 'corpsystems',
@@ -396,6 +398,14 @@ export const corpsystemSlice = createSlice({
       // console.log(action.payload);
       state.guides = action.payload;
     })
+
+    .addCase(getHints.pending, ( state ) => { 
+      // state.submitLoading = true 
+    })
+    .addCase(getHints.fulfilled, ( state, action ) => {
+      // console.log(action.payload);
+      state.hints = action.payload;
+    })
   }
 });
 
@@ -436,5 +446,6 @@ export const submitLoadingData    = ( state ) => state.corpsystems.submitLoading
 export const orderIdData          = ( state ) => state.corpsystems.orderIdData;
 export const sentData             = ( state ) => state.corpsystems.sent;
 export const guidesData           = ( state ) => state.corpsystems.guides;
+export const hintsData            = ( state ) => state.corpsystems.hints;
 
 export default corpsystemSlice.reducer;

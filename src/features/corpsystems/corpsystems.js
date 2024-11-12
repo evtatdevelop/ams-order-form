@@ -16,7 +16,7 @@ import { SelectInput } from "../components/selectInput/selectInput";
 import { Systems } from "./systems/systems";
 import { Roles } from "./roles/roles";
 import { Approvals } from "./approvals/approvals";
-import { setShowInfo, showInfoData, textInfoData, processLevel, sessionKeyData, clearApprovals, approvalsData, getGetParam, getGuides, } from "./corpsystemsSlice";
+import { setShowInfo, showInfoData, textInfoData, processLevel, sessionKeyData, clearApprovals, approvalsData, getGetParam, getGuides, getHints, hintsData} from "./corpsystemsSlice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faTriangleExclamation, faCircleXmark, } from '@fortawesome/free-solid-svg-icons'
 import { Submit } from "./submit/submit";
@@ -40,6 +40,7 @@ export const Corpsystems = () => {
   const textInfo          = useSelector(textInfoData);
   const sessionKey        = useSelector(sessionKeyData);
   const approvals         = useSelector(approvalsData);
+  const hints             = useSelector(hintsData);
 
 
   useEffect(() => {
@@ -60,6 +61,7 @@ export const Corpsystems = () => {
 
   useEffect(() => {
     if ( cs?.system_prefix ) dispatch(getGuides( {'api_key': api_key, 'system_prefix': cs.system_prefix,} ));
+    if ( cs?.system_prefix ) dispatch(getHints( {'api_key': api_key, 'system_prefix': cs.system_prefix,} ));
   },[api_key, cs?.system_prefix, dispatch]);
 
 
@@ -87,7 +89,12 @@ export const Corpsystems = () => {
   };
 
   const infoIconStyle = textInfo && info[textInfo]['mode'] ? `${styles.infoIcon} ${styles[info[textInfo]['mode']]}` : `${styles.infoIcon}`;
-  
+ 
+  let oredrUserStyle = !mainUser.boss
+  ? `${styles.hint} ${styles.show}`
+  : `${styles.hint}`
+
+
 
   return (
     <section className={corpsystemsStyle} >
@@ -112,6 +119,9 @@ export const Corpsystems = () => {
               <div className={styles.aplicantRow}>
                 <div className={styles.aplicantLabel}>{`${dictionary.applicant[lang]}:`}</div>
                 <div className={styles.applicantName}>{`${last_name} ${first_name} ${middle_name} `}</div>
+                <div className={styles.hint}>
+                  {hints.aplicant?.name[lang]}
+                </div>
               </div>
 
               <UserData 
@@ -136,8 +146,11 @@ export const Corpsystems = () => {
                           name='bossName'
                           mode = 'boss'
                           id = 'oredrBoss'
-                        />                  
-                      </div>
+                        />  
+                        <div className={oredrUserStyle}>
+                          {hints.user_boss?.name[lang]}
+                      </div>                 
+                      </div>                     
                     </Row>
 
                     { mainUser.boss

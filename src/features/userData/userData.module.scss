@@ -3,11 +3,55 @@
   position: relative;
 
   label {
+    display: flex;
     width: 25%;
+    align-items: center;
   }
 
   .wrapField {
+    position: relative;
     width: 75%;
+
+    .hint {
+      position: absolute;
+      color: rgb(66, 66, 66);
+      background-color: lightblue;
+
+      position: absolute;
+      top: 2.8vmax;
+      z-index: 9;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      border: 0;
+      padding: 0;
+      clip: rect(0 0 0 0);
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.3s;
+
+      &.show {
+        width: auto;
+        height: auto;
+        margin: auto;
+        padding: 1vmax;
+        clip: auto;
+        overflow: auto;
+        opacity: 1;
+      }
+    }
+    &:hover {
+      .hint:not(.show) {
+        width: auto;
+        height: auto;
+        margin: auto;
+        padding: 1vmax;
+        clip: auto;
+        overflow: auto;
+        border: 0.1vmax solid rgba(71, 169, 202, 0.253);
+        animation: hintAppearance 1s ease-in-out forwards;
+      }
+    }
   }
 
   .userDataLoader {
@@ -37,5 +81,49 @@
         opacity: 1;
       }
     }
+  }
+
+  //
+  // Dark styles
+  //
+  &.dark {
+    .wrapField {
+      .hint {
+        color: gray;
+        background-color: #161619;
+      }
+      &:hover {
+        .hint:not(.show) {
+          border: 0.1vmax solid #85858544;
+        }
+      }
+    }
+  }
+}
+
+@keyframes hintAppearance {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  30% {
+    width: auto;
+    height: auto;
+    margin: auto;
+    padding: 1vmax;
+    clip: auto;
+    overflow: auto;
+    opacity: 0;
+  }
+  100% {
+    width: auto;
+    height: auto;
+    margin: auto;
+    padding: 1vmax;
+    clip: auto;
+    overflow: auto;
+    opacity: 1;
   }
 }
