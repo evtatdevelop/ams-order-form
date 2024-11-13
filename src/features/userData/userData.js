@@ -284,7 +284,10 @@ export const UserData = props => {
               { userDataList.location || locationLiist.length
                 ? <Row>
                     <label>{`${dictionary.location[lang]}`}</label>
-                    <div className={styles.wrapField}>
+                    <div className={styles.wrapField}
+                      onMouseOver = {() => setShowHint('location')}
+                      onMouseOut = {() => setShowHint(null)}                    
+                    >
                       { !locationLiist.length
                         ? <InfoField val = { userDataList.location } />
                         : <Select
@@ -296,6 +299,15 @@ export const UserData = props => {
                             name='locationSelect'
                           />  
                       }
+                      { !userDataList.location && locationLiist.length
+                        ? <Hint
+                            isData = {userDataList.location}
+                            field = 'location'
+                            over = {showHint}
+                          />
+                        : null  
+                      }
+                      
                     </div>
                   </Row>
                 : null
