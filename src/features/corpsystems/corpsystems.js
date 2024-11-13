@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './corpsystems.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { user, loading } from '../user/userSlice';
@@ -16,11 +16,12 @@ import { SelectInput } from "../components/selectInput/selectInput";
 import { Systems } from "./systems/systems";
 import { Roles } from "./roles/roles";
 import { Approvals } from "./approvals/approvals";
-import { setShowInfo, showInfoData, textInfoData, processLevel, sessionKeyData, clearApprovals, approvalsData, getGetParam, getGuides, getHints, hintsData} from "./corpsystemsSlice";
+import { setShowInfo, showInfoData, textInfoData, processLevel, sessionKeyData, clearApprovals, approvalsData, getGetParam, getGuides, getHints, } from "./corpsystemsSlice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faTriangleExclamation, faCircleXmark, } from '@fortawesome/free-solid-svg-icons'
 import { Submit } from "./submit/submit";
 import { InfoList } from "../components/infoList/infoList";
+import { Hint } from "../components/hint/hint";
 
 export const Corpsystems = () => {
   
@@ -40,8 +41,6 @@ export const Corpsystems = () => {
   const textInfo          = useSelector(textInfoData);
   const sessionKey        = useSelector(sessionKeyData);
   const approvals         = useSelector(approvalsData);
-  const hints             = useSelector(hintsData);
-
 
   useEffect(() => {
     dispatch(getSessionKey( {'api_key': api_key} ))
@@ -63,8 +62,6 @@ export const Corpsystems = () => {
     if ( cs?.system_prefix ) dispatch(getGuides( {'api_key': api_key, 'system_prefix': cs.system_prefix,} ));
     if ( cs?.system_prefix ) dispatch(getHints( {'api_key': api_key, 'system_prefix': cs.system_prefix,} ));
   },[api_key, cs?.system_prefix, dispatch]);
-
-
 
 
   const removeSession = () => {
@@ -89,12 +86,8 @@ export const Corpsystems = () => {
   };
 
   const infoIconStyle = textInfo && info[textInfo]['mode'] ? `${styles.infoIcon} ${styles[info[textInfo]['mode']]}` : `${styles.infoIcon}`;
- 
-  let oredrUserStyle = !mainUser.boss
-  ? `${styles.hint} ${styles.show}`
-  : `${styles.hint}`
 
-
+  const [showHint, setShowHint] = useState(null); 
 
   return (
     <section className={corpsystemsStyle} >
@@ -116,12 +109,21 @@ export const Corpsystems = () => {
                 <InfoList/>
               </div>
 
-              <div className={styles.aplicantRow}>
+              <div className={styles.aplicantRow}
+                onMouseOver = {() => setShowHint('aplicant')}
+                onMouseOut = {() => setShowHint(null)}              
+              >
                 <div className={styles.aplicantLabel}>{`${dictionary.applicant[lang]}:`}</div>
                 <div className={styles.applicantName}>{`${last_name} ${first_name} ${middle_name} `}</div>
-                <div className={styles.hint}>
-                  {hints.aplicant?.name[lang]}
+                <div className = {styles.hint}>
+                  <Hint
+                    isData = {true}
+                    field = 'aplicant'
+                    over = {showHint}
+                    className = {styles.hint}
+                  />                 
                 </div>
+
               </div>
 
               <UserData 
@@ -135,10 +137,12 @@ export const Corpsystems = () => {
                 && mainUser.position_name 
                 && mainUser.email
                 ? <>
-                    {/* <div className={styles.gapRow}></div> */}
                     <Row>
                       <label>{`${dictionary.user_boss[lang]}`}</label>
-                      <div className={styles.wrapField}>
+                      <div className={styles.wrapField}
+                        onMouseOver = {() => setShowHint('user_boss')}
+                        onMouseOut = {() => setShowHint(null)}
+                      >
                         <SelectInput
                           selectHandler = { val => onSetBoss(val) }
                           placeholder = {`${dictionary.userNameOlaceholder[lang]}`}
@@ -147,15 +151,16 @@ export const Corpsystems = () => {
                           mode = 'boss'
                           id = 'oredrBoss'
                         />  
-                        <div className={oredrUserStyle}>
-                          {hints.user_boss?.name[lang]}
-                      </div>                 
+                        <Hint
+                          isData = {mainUser.boss}
+                          field = 'user_boss'
+                          over = {showHint}
+                        />                 
                       </div>                     
                     </Row>
 
                     { mainUser.boss
                       ? <>
-                          {/* <div className={styles.gapRow}></div> */}
                           <Systems 
                             removeSession = { removeSession }
                           />

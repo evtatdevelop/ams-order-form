@@ -37,7 +37,7 @@ export const GuideLine = props => {
                 number = word.at(-2);
                 last = `${last} ` 
               }
-              return <Fragment key={index}><a href={link[number-1]}>{link[number-1]}</a>{last}</Fragment>
+              return <Fragment key={index}><a href={link[number-1]} target="_blank" rel="noreferrer">{link[number-1]}</a>{last}</Fragment>
             }
 
             if ( word.match(/\n$/)?.length ) return <Fragment key={index}>{word}<br/></Fragment> 

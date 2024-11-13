@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './userData.module.scss';
 import { useSelector, useDispatch } from "react-redux";
 import { user } from '../user/userSlice';
@@ -15,6 +15,9 @@ import Select from "../components/select/select";
 import Input from "../components/input/Input";
 import SelectTree from "../components/selectTree/selectTree";
 import { darkTheme } from "../main/mainpageSlice";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faXmark, } from '@fortawesome/free-solid-svg-icons'
+import { Hint } from "../components/hint/hint";
 
 export const UserData = props => {
 
@@ -145,19 +148,19 @@ export const UserData = props => {
     ? `${styles.userData} ${styles.dark}`
     : `${styles.userData}`
 
-        
-  let oredrUserStyle = !userDataList.id 
-  ? `${styles.hint} ${styles.show}`
-  : `${styles.hint}`  
+  
+  const [showHint, setShowHint] = useState(null); 
 
   return (
     <div className={userDataStyle}>
       <Row>
         <label htmlFor='oredrUser'>
           {`${dictionary.userName[lang]}`}
-          {/* <a className={styles.hint}>i</a> */}
         </label>
-        <div className={styles.wrapField}>
+        <div className={styles.wrapField}
+          onMouseOver = {() => setShowHint('oredrUser')}
+          onMouseOut = {() => setShowHint(null)}
+        >
           <SelectInput
             selectHandler = { val => setUser(val) }
             placeholder = {`${dictionary.userNameOlaceholder[lang]}`}
@@ -166,13 +169,11 @@ export const UserData = props => {
             mode = 'user'
             id = 'oredrUser'
           />
-          { hints.oredrUser
-            ? <div className={oredrUserStyle}>
-                {hints.oredrUser.name[lang]}
-              </div>
-            : null
-          }
-
+          <Hint
+            isData = {userDataList.id}
+            field = 'oredrUser'
+            over = {showHint}
+          />
         </div>
       </Row>
 
