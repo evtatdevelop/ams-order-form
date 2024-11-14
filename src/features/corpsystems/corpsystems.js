@@ -22,6 +22,7 @@ import { faCircleInfo, faTriangleExclamation, faCircleXmark, } from '@fortawesom
 import { Submit } from "./submit/submit";
 import { InfoList } from "../components/infoList/infoList";
 import { Hint } from "../components/hint/hint";
+import { RowHint } from "../components/rowHint/rowHint";
 
 export const Corpsystems = () => {
   
@@ -137,7 +138,7 @@ export const Corpsystems = () => {
                 && mainUser.position_name 
                 && mainUser.email
                 ? <>
-                    <Row>
+                    {/* <Row>
                       <label>{`${dictionary.user_boss[lang]}`}</label>
                       <div className={styles.wrapField}
                         onMouseOver = {() => setShowHint('user_boss')}
@@ -157,7 +158,23 @@ export const Corpsystems = () => {
                           over = {showHint}
                         />                 
                       </div>                     
-                    </Row>
+                    </Row> */}
+
+                    <RowHint
+                      label = {dictionary.user_boss[lang]}
+                      field = {'oredrBoss'}
+                      thereIs = {true}
+                      isData = {mainUser.boss}
+                    >
+                      <SelectInput
+                        selectHandler = { val => onSetBoss(val) }
+                        placeholder = {`${dictionary.userNameOlaceholder[lang]}`}
+                        val = ''
+                        name='bossName'
+                        mode = 'boss'
+                        id = 'oredrBoss'
+                      />
+                    </RowHint>
 
                     { mainUser.boss
                       ? <>

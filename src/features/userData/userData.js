@@ -15,9 +15,10 @@ import Select from "../components/select/select";
 import Input from "../components/input/Input";
 import SelectTree from "../components/selectTree/selectTree";
 import { darkTheme } from "../main/mainpageSlice";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark, } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faXmark, } from '@fortawesome/free-solid-svg-icons'
 import { Hint } from "../components/hint/hint";
+import { RowHint } from "../components/rowHint/rowHint";
 
 export const UserData = props => {
 
@@ -34,7 +35,8 @@ export const UserData = props => {
   const departmentLiist = useSelector(departmentLiistData);
   const locationLiist = useSelector(locationLiistData);
   const positionInput = useSelector(positionInputData);
-  const hints = useSelector(hintsData);
+  // const hints = useSelector(hintsData);
+
 
   useEffect(() => {
     document.getElementById('oredrUser')?.focus();
@@ -153,7 +155,7 @@ export const UserData = props => {
 
   return (
     <div className={userDataStyle}>
-      <Row>
+      {/* <Row>
         <label htmlFor='oredrUser'>
           {`${dictionary.userName[lang]}`}
         </label>
@@ -175,7 +177,23 @@ export const UserData = props => {
             over = {showHint}
           />
         </div>
-      </Row>
+      </Row> */}
+
+      <RowHint
+        label = {dictionary.userName[lang]}
+        field = {'oredrUser'}
+        thereIs = {true}
+        isData = {userDataList.id}
+      >
+        <SelectInput
+          selectHandler = { val => setUser(val) }
+          placeholder = {`${dictionary.userNameOlaceholder[lang]}`}
+          val = ''
+          name='userName'
+          mode = 'user'
+          id = 'oredrUser'
+        />
+      </RowHint>
 
       <div className={styles.userData}>
         { userDataLoad
