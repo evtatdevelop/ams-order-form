@@ -300,34 +300,55 @@ export const UserData = props => {
               }
 
               { userDataList.location || locationLiist.length
-                ? <Row>
-                    <label>{`${dictionary.location[lang]}`}</label>
-                    <div className={styles.wrapField}
-                      onMouseOver = {() => setShowHint('location')}
-                      onMouseOut = {() => setShowHint(null)}                    
-                    >
-                      { !locationLiist.length
-                        ? <InfoField val = { userDataList.location } />
-                        : <Select
-                            selectHandler = { val => onSetLocation(val) }
-                            selectClear  = { () => onUnsetlocation() }
-                            placeholder = '>'
-                            selectList = {locationLiist}
-                            val = ''
-                            name='locationSelect'
-                          />  
-                      }
-                      { !userDataList.location && locationLiist.length
-                        ? <Hint
-                            isData = {userDataList.location}
-                            field = 'location'
-                            over = {showHint}
-                          />
-                        : null  
-                      }
+                ? 
+                  // <Row>
+                  //   <label>{`${dictionary.location[lang]}`}</label>
+                  //   <div className={styles.wrapField}
+                  //     onMouseOver = {() => setShowHint('location')}
+                  //     onMouseOut = {() => setShowHint(null)}                    
+                  //   >
+                  //     { !locationLiist.length
+                  //       ? <InfoField val = { userDataList.location } />
+                  //       : <Select
+                  //           selectHandler = { val => onSetLocation(val) }
+                  //           selectClear  = { () => onUnsetlocation() }
+                  //           placeholder = '>'
+                  //           selectList = {locationLiist}
+                  //           val = ''
+                  //           name='locationSelect'
+                  //         />  
+                  //     }
+                  //     { !userDataList.location && locationLiist.length
+                  //       ? <Hint
+                  //           isData = {userDataList.location}
+                  //           field = 'location'
+                  //           over = {showHint}
+                  //         />
+                  //       : null  
+                  //     }
                       
-                    </div>
-                  </Row>
+                  //   </div>
+                  // </Row>
+
+                  <RowHint
+                    label = {dictionary.location[lang]}
+                    field = {'location'}
+                    thereIs = {!userDataList.location && locationLiist.length}
+                    isData = {userDataList.location}
+                  >
+                    { !locationLiist.length
+                      ? <InfoField val = { userDataList.location } />
+                      : <Select
+                          selectHandler = { val => onSetLocation(val) }
+                          selectClear  = { () => onUnsetlocation() }
+                          placeholder = '>'
+                          selectList = {locationLiist}
+                          val = ''
+                          name='locationSelect'
+                        />  
+                    }
+                  </RowHint>
+
                 : null
               }
 
